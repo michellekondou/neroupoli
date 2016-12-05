@@ -18,10 +18,18 @@ gulp.task('browserSync', function() {
   })
 })
 
+//script paths
+var cssFiles = [
+      'node_modules/bootstrap/dist/css/bootstrap.min.css',
+      'scss/**/*.scss'
+    ],  
+    cssDest = '../dist/css';
+
 gulp.task('sass', function() {
-  return gulp.src('scss/**/*.scss') // Gets all files ending with .scss in app/scss and children dirs
+  return gulp.src(cssFiles) // Gets all files ending with .scss in app/scss and children dirs
     .pipe(sass())
-    .pipe(gulp.dest('../dist/css'))
+    .pipe(concat('app.css'))
+    .pipe(gulp.dest(cssDest))
     .pipe(browserSync.reload({
       stream: true
     }))
