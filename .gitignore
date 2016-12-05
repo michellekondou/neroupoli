@@ -1,5 +1,6 @@
 src/bower_components
 src/node_modules
 src/npm-debug.log
+src/files
 neroupoli.sublime-project
 neroupoli.sublime-workspace
