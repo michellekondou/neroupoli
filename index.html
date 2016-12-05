@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="src/js/jquery.min.js"></script> 
+    <script src="src/node_modules/jquery-mousewheel/jquery.mousewheel.js"></script>
+    <script src="src/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="src/node_modules/nunjucks/browser/nunjucks.js"></script>
+    <script src="src/js/svg-pan-zoom.js"></script>
+ 
+    <script src="src/bower_components/d3/d3.js"></script>
+<!--     <script src="bower_components/d3-tip/index.js"></script> -->
+    <script src="src/js/svg-pan-zoom.js"></script>
+    
+
+    <link rel="stylesheet" type="text/css" href="src/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="src/sass/styles.css"> 
+
+    <script src="src/js/helper-functions.js"></script>
+  </head>
+
+<body>
+  <div id="app">
+  <script src="src/js/app.js"></script>
+    <div class="controls">
+      <button id="zoom-in">Zoom in</button>
+      <button id="zoom-out">Zoom out</button>
+      <button id="reset">Reset</button>
+<!--       <button id="zoom-tower">Πύργος</button>
+      <button id="zoom-tank">Δεξαμενή</button>
+      <button id="zoom-ship">Πλοίο</button>
+      <button id="zoom-city-tank">City Tank</button>
+      <button id="zoom-drainage">Αποχέτευση</button>
+      <button id="zoom-house">Σπίτι</button> -->
+    </div>
+    <!-- panzoom -->
+    <div id="container" class="panzoom">
+      <script type="text/javascript">
+      $(function(){
+        var map = new MapObject();
+      });
+      </script> 
+    </div>
+  </div>
+<!-- popups -->
+ 
+</body>
+</html>
