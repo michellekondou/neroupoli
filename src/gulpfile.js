@@ -4,36 +4,11 @@ var browserSync = require('browser-sync').create();
 var useref = require('gulp-useref');
 var runSequence = require('run-sequence');
 var del = require('del');
+var concat = require('gulp-concat');  
+var rename = require('gulp-rename');  
+var uglify = require('gulp-uglify');  
 
 
-gulp.task('sass', function() {
-  return gulp.src('scss/**/*.scss') // Gets all files ending with .scss in app/scss and children dirs
-    .pipe(sass())
-    .pipe(gulp.dest('../dist/css'))
-    .pipe(browserSync.reload({
-      stream: true
-    }))
-});
-
-gulp.task('js', function() {
-  return gulp.src('js/**/*.js') // Gets all files ending with .scss in app/scss and children dirs
-    .pipe(gulp.dest('../dist/js'))
-    .pipe(browserSync.reload({
-      stream: true
-    }))
-});
-
-gulp.task('watch', ['browserSync', 'sass', 'js'], function(){
-  gulp.watch('scss/**/*.scss', ['sass']);
-  gulp.watch('js/**/*.js', ['js']);   
-});
-
-gulp.task('build', function(callback) {
-  runSequence(
-    'sass',
-    callback
-  )
-})
 
 gulp.task('browserSync', function() {
   browserSync.init({
@@ -43,6 +18,51 @@ gulp.task('browserSync', function() {
   })
 })
 
-gulp.task('clean:dist', function() {
-  return del.sync('dist');
+gulp.task('sass', function() {
+  return gulp.src('scss/**/*.scss') // Gets all files ending with .scss in app/scss and children dirs
+    .pipe(sass())
+    .pipe(gulp.dest('../dist/css'))
+    .pipe(browserSync.reload({
+      stream: true
+    }))
 })
+
+//script paths
+var jsFiles = [
+      'js/jquery.min.js',
+      'node_modules/jquery-mousewheel/jquery.mousewheel.js',
+      'node_modules/bootstrap/dist/js/bootstrap.min.js',
+      'node_modules/nunjucks/browser/nunjucks.js',
+      'bower_components/d3/d3.js',
+      'js/svg-pan-zoom.js',
+      'js/helper-functions.js',
+      'js/app.js'
+    ],  
+    jsDest = '../dist/js';
+
+gulp.task('scripts', function() {  
+    return gulp.src(jsFiles)
+        .pipe(concat('app.js'))
+        .pipe(gulp.dest(jsDest))
+        .pipe(rename('app.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest(jsDest))
+        .pipe(browserSync.reload({
+          stream: true
+        }));
+})
+
+gulp.task('watch', ['browserSync', 'sass', 'scripts'], function(){
+  gulp.watch('scss/**/*.scss', ['sass']);
+  gulp.watch('js/**/*.js', ['scripts']);     
+})
+
+gulp.task('build', function(callback) {
+  runSequence(
+    'sass',
+    'scripts',
+    callback
+  )
+})
+
+ 

@@ -255,7 +255,6 @@ svg.select('#'+item.point.id)
  
   //only show the tooltip if popup not open 
   if(item.pop.open === false) {
-      console.log($(this).offset(), item.map_bcr.left, '#'+item.point.id);
     item.tip.open = true;
     item.tip.style({
       "opacity": 1,
