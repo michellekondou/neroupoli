@@ -5,7 +5,7 @@
 	 width="1980px" height="1980px" viewBox="0 0 1980 1980" enable-background="new 0 0 1980 1980" xml:space="preserve">
   <defs>
 
-    <link href="../sass/map.css" type="text/css" rel="stylesheet" 
+    <link href="../scss/map.css" type="text/css" rel="stylesheet" 
           xmlns="http://www.w3.org/1999/xhtml"/>
   </defs>
 <rect x="-125.928" y="-2" fill-rule="evenodd" clip-rule="evenodd" fill="#E9F7FE" width="2169.971" height="1634.813"/>
