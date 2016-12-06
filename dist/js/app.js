@@ -25360,7 +25360,7 @@ MapView.prototype.panZoom = function() {
     viewportSelector: '.panzoom'
     , panEnabled: true
     , zoomAbsolute: true
-    //, controlIconsEnabled: true
+    , controlIconsEnabled: false
     , zoomEnabled: true
     , dblClickZoomEnabled: true
     , mouseWheelZoomEnabled: true

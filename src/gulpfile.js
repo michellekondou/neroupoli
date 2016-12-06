@@ -1,7 +1,6 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var browserSync = require('browser-sync').create();
-var useref = require('gulp-useref');
 var runSequence = require('run-sequence');
 var del = require('del');
 var concat = require('gulp-concat');  
