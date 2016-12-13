@@ -6,3 +6,12 @@
   stroke-opacity: 1;
   stroke-width:0.5;*/
 }
+
+#svgmap {
+  width: 1680px;
+  height: 1080px;
+}
+
+.svg-pan-zoom_viewport {
+    transition: transform 0.5s ease;
+}

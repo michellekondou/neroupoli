@@ -1,3 +1,21 @@
+var cw = document.documentElement.clientWidth;
+var ch = document.documentElement.clientHeight;
+
+if (cw < ch) {
+  var mapSrc = 'src/graphics/map5.svg';
+  var vw = 1980;
+  var vh = 1980;
+  var lpw = cw;
+  var lph = ch;
+} else {
+  var mapSrc = 'src/graphics/map7.svg';
+  var vw = 1920;
+  var vh = 1080;
+  var lpw = vw;
+  var lph = vh;
+}
+
+
 var MapObject = function() {
   this._init_map_object();
 }
@@ -5,10 +23,10 @@ var MapObject = function() {
 MapObject.prototype._init_map_object = function() {
   this.svgObject = $("<object />", {
     type: "image/svg+xml",
-    'Data': "src/graphics/map5.svg",
+    'Data': mapSrc,
     id: 'map',
     // style: "width:"+(document.documentElement.clientWidth)+"px;height:"+(document.documentElement.clientHeight)+"px"
-    style: "position:absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);"
+    style: "position:absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);width:"+vw+"px;height:"+vh+"px"
   }).appendTo('#container');
 }
 
@@ -28,6 +46,7 @@ MapView.prototype._init_map_elements = function() {
   this.mapSvg = this.svgDoc.getElementById("svgmap");
   //get svg properties
   this.map_bcr = this.map.getBoundingClientRect();
+ 
   //svg points
   var points = this.svgDoc.querySelectorAll('.point');
   //get the json data
@@ -76,7 +95,7 @@ MapView.prototype._init_map_elements = function() {
   });
 
   this._render_map_item();
-
+ 
 }
 
 MapView.prototype._render_map_item = function() {
@@ -86,8 +105,8 @@ MapView.prototype._render_map_item = function() {
     //get the SVG document inside the Object tag
   var svgDoc = $map.contentDocument;
     //access the svg
-  var mapSvg = svgDoc.getElementById("svgmap"); 
-   
+  var mapSvg = svgDoc.getElementById("svgmap");
+
   var svg = d3.select(mapSvg);
 
   svg.selectAll('g, path, rect').on('mousewheel.zoom', function(d) {
@@ -95,21 +114,12 @@ MapView.prototype._render_map_item = function() {
       var map_item = _this.map_items[p]; 
       //close both the tooltip and the popup if open
       map_item.tip.open = false;
-      map_item.tip.style("opacity: 0");
+      $(map_item.tip).removeClass('open');
       map_item.pop.open = false; 
-      map_item.pop.style("opacity: 0"); 
+      $(map_item.pop).removeClass('open');
     }
   });
   
-}
-
-MapView.prototype.hammer = function() {
-  var _this = this;
-  this.map = document.getElementById("map");
-
-  
-
-  return eventsHandler;
 }
 
 MapView.prototype.panZoom = function() {
@@ -183,8 +193,8 @@ MapView.prototype.panZoom = function() {
     var stopHorizontal = false
       , stopVertical = false
       , sizes = this.getSizes()
-      , gutterWidth = document.documentElement.clientWidth 
-      , gutterHeight = document.documentElement.clientHeight 
+      , gutterWidth = lpw 
+      , gutterHeight = lph 
         // Computed variables
       , leftLimit = -((sizes.viewBox.x + sizes.viewBox.width) * sizes.realZoom) + gutterWidth
       , rightLimit = sizes.width - gutterWidth - (sizes.viewBox.x * sizes.realZoom)
@@ -202,7 +212,7 @@ MapView.prototype.panZoom = function() {
         map_item.pop.open = false; 
         map_item.pop.style("opacity: 0"); 
     }
-    
+
     return this.customPan;
   }
   var panZoomMap = svgPanZoom(this.map, {
@@ -253,6 +263,7 @@ function MapViewItem(point, rect, map, map_bcr, pop, tip, page, panZoom, content
   this._init_points();
   this.page_open();  
   this.page_close();
+  this.pop_close();
   this._render();
 
   this._addListeners();
@@ -282,6 +293,18 @@ MapViewItem.prototype.page_close = function () {
   $(this.page.modal).removeClass('open');
 };
 
+MapViewItem.prototype.pop_open = function () {
+  if(this.pop.open) { return; }
+  this.pop.open = true;
+  $(this.pop.modal).addClass('open');
+};
+
+MapViewItem.prototype.pop_close = function () {
+  if(!this.pop.open) { return; }
+  this.pop.open = false;
+  $(this.pop.modal).removeClass('open');
+};
+
 /* ========================================================================
 ======= INITIALIZATION FUNCTIONS ==========================================
 ======================================================================== */
@@ -291,19 +314,41 @@ MapViewItem.prototype._init_points = function(points){
 var item = this;
 
 this.point_x = this.rect.left;
-this.point_y = this.rect.top;  
+this.point_y = this.rect.top; 
+
+function customPanBy(amount){ // {x: 1, y: 2}
+  var animationTime = 300 // ms
+    , animationStepTime = 15 // one frame per 30 ms
+    , animationSteps = animationTime / animationStepTime
+    , animationStep = 0
+    , intervalID = null
+    , stepX = amount.x / animationSteps
+    , stepY = amount.y / animationSteps
+
+  intervalID = setInterval(function(){
+    if (animationStep++ < animationSteps) {
+      item.panZoom.panBy({x: stepX, y: stepY})
+    } else {
+      // Cancel interval
+      clearInterval(intervalID)
+    }
+  }, animationStepTime)
+}
 
 $(item.point).css('cursor', 'pointer')
 $(item.point).click(function(event){ 
   event.stopPropagation();
+  
     item.panZoom.resetZoom();
     item.panZoom.resetPan();        
     item.panZoom.zoom(6); 
     var realZoom = item.panZoom.getSizes().realZoom;
-    item.panZoom.pan({  
-      x: -( ( item.point_x )*realZoom )+( (item.panZoom.getSizes().width/2.4) ),
-      y: -( ( item.point_y)*realZoom )+( (item.panZoom.getSizes().height/2.2) )
+        // console.log(this.getSizes().viewBox.width);
+    item.panZoom.pan({     
+      x: -(item.point_x*realZoom)+item.panZoom.getSizes().width/2.4,
+      y: -(item.point_y*realZoom)+item.panZoom.getSizes().height/2.2    
     });
+ 
     item.panZoom.resize();
 
 });
@@ -324,38 +369,39 @@ svg.select('#'+item.point.id)
   if(item.pop.open === false) {
     item.tip.open = true;
     item.tip.style({
-      "opacity": 1,
       "left": ( $(this).offset().left + item.map_bcr.left )  + "px",
       "top": ( $(this).offset().top + item.map_bcr.top ) -50 + "px"
     }); 
+    $(item.tip.modal).addClass('open');
   }
 })
 .on('mouseout', function(d) {
   //close the tooltip if open
   item.tip.open = false;
-  item.tip.style("opacity: 0"); 
+  $(item.tip.modal).removeClass('open');
 });
 
 svg.select('#'+item.point.id).on('click touchstart', function(d) {
   //close the tooltip if it's open
 
   item.tip.open = false;
-  item.tip.style("opacity: 0");
+  $(item.tip.modal).removeClass('open');
   //show the popup
   item.pop.open = true;
   item.pop.style({
-    "opacity": 1,
     "left": "8%",
     "top": "50%",
     "transform": "translate(0, -50%)"
   }); 
+  $(item.pop.modal).addClass('open');
 });
 
 svg.select('#'+item.point.id).on('dblclick', $.proxy(this.page_open, item));
 $('#'+item.point.id +'-popup'+' .open_page').on('click touchstart', $.proxy(this.page_open, item));
+
 }
 
-console.log('testiclesss');
+
 
 /* ========================================================================
 ======= EVENT LISTENERS ===================================================
@@ -364,6 +410,10 @@ MapViewItem.prototype._addListeners = function(){
     var _this = this;
 
     $(this.page.modal).find('.close').on("click", $.proxy(this.page_close, _this));
+
+    $(this.pop.modal).find('.close').on("click", $.proxy(this.pop_close, _this));
+
+
 }
 
 /* ========================================================================
@@ -398,13 +448,13 @@ Modal.prototype.init = function(){
 
   if(this.type == "popup") {
     this.modal = $("<div />", {
-      "class": "map-popover left",
+      "class": "map-popover popup left",
       "id": this.point + "-popup" 
     }).appendTo('body');
   } else if(this.type == "tooltip"){
      this.open = true;
     this.modal = $("<div />", {
-      "class": "map-popover top",
+      "class": "map-popover tooltip top",
       "id": this.point + "-tooltip"
     }).appendTo('body');
   } else if(this.type == "page") {
@@ -437,7 +487,7 @@ Modal.prototype.render_modal = function(){
   if(this.type == "tooltip") {
     this.modal.html("<div class='arrow'></div><h3 class='map-popover-title'>"+this.point+"</h3>");
   } else if(this.type == "popup"){
-    this.modal.html("<div class='arrow'></div><h3 class='map-popover-title'><strong>"+this.point+"</strong></h3><h3 class='map-popover-title'>" + nunjucks.renderString('Μικρό κείμενο και εικόνα για {{ username }}', { username: this.point }) + ". <br><br><button class='open_page'>Ανοίξτε το φύλο εργασίας</button></h3>");
+    this.modal.html("<div class='arrow'></div>  <button class='close'>X</button><h3 class='map-popover-title'><strong>"+this.point+"</strong></h3><h3 class='map-popover-title'>" + nunjucks.renderString('Μικρό κείμενο και εικόνα για {{ username }}', { username: this.point }) + ". <br><br><button class='open_page'>Ανοίξτε το φύλο εργασίας</button></h3>");
   }  
 }
 

@@ -11,8 +11,8 @@ var revReplace = require('gulp-rev-replace');
 var revDel = require('gulp-rev-del-redundant');
 var save = require('gulp-save');
 var package = require('./package.json');
- 
 
+ 
 
 gulp.task('browserSync', function() {
   browserSync.init({
@@ -72,31 +72,34 @@ gulp.task('rev', ['sass', 'scripts'], function() {
     .pipe(gulp.dest('../dist/assets'))
     .pipe(rev.manifest()) 
     .pipe(gulp.dest('../dist'))    
-    .pipe(revDel({ dest: '../dist/assets', force: true }))    
-    .pipe(browserSync.reload({
-          stream: true
-        }));
-});
+    .pipe(revDel({ dest: '../dist/assets', force: true }));
+})
+
 
 gulp.task("revreplace", ["rev"], function(){
   var manifest = gulp.src("../dist/rev-manifest.json");
 
-  return gulp.src("index.html")
+  return gulp.src("../dist/index.html")
     .pipe(revReplace({manifest: manifest}))
-    .pipe(gulp.dest("../"))        
-    .pipe(browserSync.reload({
-          stream: true
-        }));
+    .pipe(gulp.dest("../"));
 })
 
  
-gulp.task('watch', ['browserSync', 'sass', 'scripts', 'revreplace'], function(){
-  gulp.watch('scss/**/*.scss', ['sass', 'revreplace']);
-  gulp.watch('js/**/*.js', ['scripts', 'revreplace']);     
+gulp.task('watch', ['browserSync', 'sass', 'scripts'], function(){
+  gulp.watch('scss/**/*.scss', ['sass']);
+  //ulp.watch('js/**/*.js', ['scripts']);     
 })
  
 
 gulp.task('build', function(callback) {
+  runSequence(
+    'sass',
+    'scripts',
+    callback
+  )
+})
+
+gulp.task('build-production', function(callback) {
   runSequence(
     'sass',
     'scripts',
