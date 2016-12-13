@@ -2,20 +2,8 @@
 <html>
   <head>
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
-    <!--build:css ../dist/css/main.css -->
-    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../dist/css/styles.css"> 
-    <!-- endbuild -->
-    <!--build:js ../dist/js/main.min.js -->
-    <script src="node_modules/jquery/dist/jquery.min.js"></script> 
-    <script src="node_modules/jquery-mousewheel/jquery.mousewheel.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="node_modules/nunjucks/browser/nunjucks.js"></script>
-    <script src="bower_components/d3/d3.js"></script>
-    <script src="js/svg-pan-zoom.js"></script>
-    <script src="js/helper-functions.js"></script>
-    <script src="js/app.js"></script>
-    <!-- endbuild -->
+    <link rel="stylesheet" type="text/css" href="dist/assets/app.css"> 
+    <script src="dist/assets/app.js"></script> 
   </head>
 
 <body>
@@ -24,12 +12,6 @@
       <button id="zoom-in">Zoom in</button>
       <button id="zoom-out">Zoom out</button>
       <button id="reset">Reset</button>
-<!--  <button id="zoom-tower">Πύργος</button>
-      <button id="zoom-tank">Δεξαμενή</button>
-      <button id="zoom-ship">Πλοίο</button>
-      <button id="zoom-city-tank">City Tank</button>
-      <button id="zoom-drainage">Αποχέτευση</button>
-      <button id="zoom-house">Σπίτι</button> -->
     </div>
     <!-- panzoom -->
     <div id="container" class="panzoom">
@@ -41,6 +23,6 @@
     </div>
   </div>
 <!-- popups -->
- 
+
 </body>
 </html>

@@ -336,7 +336,6 @@ svg.select('#'+item.point.id)
   item.tip.style("opacity: 0"); 
 });
 
- 
 svg.select('#'+item.point.id).on('click touchstart', function(d) {
   //close the tooltip if it's open
 
@@ -354,8 +353,9 @@ svg.select('#'+item.point.id).on('click touchstart', function(d) {
 
 svg.select('#'+item.point.id).on('dblclick', $.proxy(this.page_open, item));
 $('#'+item.point.id +'-popup'+' .open_page').on('click touchstart', $.proxy(this.page_open, item));
- 
 }
+
+console.log('testiclesss');
 
 /* ========================================================================
 ======= EVENT LISTENERS ===================================================

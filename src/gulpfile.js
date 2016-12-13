@@ -5,8 +5,13 @@ var runSequence = require('run-sequence');
 var del = require('del');
 var concat = require('gulp-concat');  
 var rename = require('gulp-rename');  
-var uglify = require('gulp-uglify');  
-
+var uglify = require('gulp-uglify'); 
+var rev = require('gulp-rev'); 
+var revReplace = require('gulp-rev-replace');
+var revDel = require('gulp-rev-del-redundant');
+var save = require('gulp-save');
+var package = require('./package.json');
+ 
 
 
 gulp.task('browserSync', function() {
@@ -22,7 +27,7 @@ var cssFiles = [
       'node_modules/bootstrap/dist/css/bootstrap.min.css',
       'scss/**/*.scss'
     ],  
-    cssDest = '../dist/css';
+    cssDest = 'compiled/css';
 
 gulp.task('sass', function() {
   return gulp.src(cssFiles) // Gets all files ending with .scss in app/scss and children dirs
@@ -33,6 +38,7 @@ gulp.task('sass', function() {
       stream: true
     }))
 })
+
 
 //script paths
 var jsFiles = [
@@ -46,13 +52,13 @@ var jsFiles = [
       'js/helper-functions.js',
       'js/app.js'
     ],  
-    jsDest = '../dist/js';
+    jsDest = 'compiled/js';
 
 gulp.task('scripts', function() {  
     return gulp.src(jsFiles)
         .pipe(concat('app.js'))
         .pipe(gulp.dest(jsDest))
-        .pipe(rename('app.min.js'))
+        //.pipe(rename('app.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest(jsDest))
         .pipe(browserSync.reload({
@@ -60,17 +66,45 @@ gulp.task('scripts', function() {
         }));
 })
 
-gulp.task('watch', ['browserSync', 'sass', 'scripts'], function(){
-  gulp.watch('scss/**/*.scss', ['sass']);
-  gulp.watch('js/**/*.js', ['scripts']);     
+gulp.task('rev', ['sass', 'scripts'], function() {
+  return gulp.src(['compiled/css/**/*.css', 'compiled/js/**/*.js'])
+    .pipe(rev())
+    .pipe(gulp.dest('../dist/assets'))
+    .pipe(rev.manifest()) 
+    .pipe(gulp.dest('../dist'))    
+    .pipe(revDel({ dest: '../dist/assets', force: true }))    
+    .pipe(browserSync.reload({
+          stream: true
+        }));
+});
+
+gulp.task("revreplace", ["rev"], function(){
+  var manifest = gulp.src("../dist/rev-manifest.json");
+
+  return gulp.src("index.html")
+    .pipe(revReplace({manifest: manifest}))
+    .pipe(gulp.dest("../"))        
+    .pipe(browserSync.reload({
+          stream: true
+        }));
 })
+
+ 
+gulp.task('watch', ['browserSync', 'sass', 'scripts', 'revreplace'], function(){
+  gulp.watch('scss/**/*.scss', ['sass', 'revreplace']);
+  gulp.watch('js/**/*.js', ['scripts', 'revreplace']);     
+})
+ 
 
 gulp.task('build', function(callback) {
   runSequence(
     'sass',
     'scripts',
+    'revreplace',
     callback
   )
 })
+ 
+
 
  
