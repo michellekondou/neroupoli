@@ -38,6 +38,7 @@ gulp.task('sass', function() {
 var jsFiles = [
       'js/jquery.min.js',
       'node_modules/jquery-mousewheel/jquery.mousewheel.js',
+      'node_modules/hammerjs/hammer.js',
       'node_modules/bootstrap/dist/js/bootstrap.min.js',
       'node_modules/nunjucks/browser/nunjucks.js',
       'bower_components/d3/d3.js',
