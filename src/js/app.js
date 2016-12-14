@@ -8,13 +8,7 @@ if (cw < ch) {
   var lpw = cw;
   var lph = ch;
 } else {
-  if (cw < 1441) {
-    var mapSrc = 'src/graphics/map-1440.svg';
-    var vw = 1440;
-    var vh = 760;
-    var lpw = vw;
-    var lph = vh;
-  }else if (cw < 1281) {
+  if (cw < 1281) {
     var mapSrc = 'src/graphics/map-1280.svg';
     var vw = 1280;
     var vh = 768;
