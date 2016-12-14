@@ -8,11 +8,19 @@ if (cw < ch) {
   var lpw = cw;
   var lph = ch;
 } else {
-  var mapSrc = 'src/graphics/map7.svg';
-  var vw = 1920;
-  var vh = 1080;
-  var lpw = vw;
-  var lph = vh;
+  if (cw < 1281) {
+    var mapSrc = 'src/graphics/map-1280.svg';
+    var vw = 1280;
+    var vh = 768;
+    var lpw = vw;
+    var lph = vh;
+  } else if (cw > 1280) {
+    var mapSrc = 'src/graphics/map7.svg';
+    var vw = 1920;
+    var vh = 1080;
+    var lpw = vw;
+    var lph = vh;
+  }
 }
 
 
