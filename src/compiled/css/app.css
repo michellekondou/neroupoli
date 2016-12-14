@@ -5478,10 +5478,14 @@ svg, .panzoom {
 
 .controls {
   position: absolute;
-  left: 0;
-  top: 10%;
-  left: 10%;
+  bottom: 5%;
+  right: 20px;
   z-index: 1; }
+
+.controls button {
+  display: block;
+  float: left;
+  margin-right: 5px; }
 
 .map-popover {
   position: fixed;
