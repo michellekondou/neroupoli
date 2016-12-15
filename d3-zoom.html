@@ -62,7 +62,7 @@ var MapObject = function() {
 MapObject.prototype._init_map_object = function() {
   this.svgObject = $("<object />", {
     type: "image/svg+xml",
-    'Data': mapSrc,
+    'Data': 'src/graphics/map-1280.svg',
     id: 'map',
     // style: "width:"+(document.documentElement.clientWidth)+"px;height:"+(document.documentElement.clientHeight)+"px"
     style: "position:absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);width:"+vw+"px;height:"+vh+"px"
