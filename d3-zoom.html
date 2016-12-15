@@ -33,7 +33,7 @@ button {
 var ch = document.documentElement.clientHeight;
 
 if (cw < ch) {
-  var mapSrc = 'src/graphics/map5.svg';
+  var mapSrc = 'src/graphics/map5-v01.svg';
   var vw = 1980;
   var vh = 1980;
   var lpw = cw;
@@ -62,7 +62,7 @@ var MapObject = function() {
 MapObject.prototype._init_map_object = function() {
   this.svgObject = $("<object />", {
     type: "image/svg+xml",
-    'Data': 'src/graphics/map7.svg',
+    'Data': mapSrc,
     id: 'map',
     // style: "width:"+(document.documentElement.clientWidth)+"px;height:"+(document.documentElement.clientHeight)+"px"
     style: "position:absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);width:"+vw+"px;height:"+vh+"px"
