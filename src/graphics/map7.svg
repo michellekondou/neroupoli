@@ -2,12 +2,13 @@
 <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="svgmap" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="1920px" height="1080px" viewBox="0 0 1920 1080" enable-background="new 0 0 1920 1080" xml:space="preserve">
+	 width="1920" height="1080" viewBox="0 0 1920 1080" enable-background="new 0 0 1920 1080" xml:space="preserve">
 	   <defs>
 
     <link href="../scss/map.css" type="text/css" rel="stylesheet" 
           xmlns="http://www.w3.org/1999/xhtml"/>
   </defs>
+<g id="view">
 <rect fill-rule="evenodd" clip-rule="evenodd" fill="#E9F7FE" width="1920" height="1080"/>
 <path fill-rule="evenodd" clip-rule="evenodd" fill="#0095DA" d="M591.521,854.882V387.805
 	c324.693-6.25,647.463-3.603,969.282,7.824l377.018-4.622l-9.5,463.875H591.521z"/>
@@ -12336,4 +12337,5 @@
 	c0.632,1.208,2.703,1.859,5.426,2.819c0.454,0.161,0.111,2.174,1.226,2.273c5.704,0.502,14.687-1.99,16.805-2.05
 	c3.128-0.092,3.76,2.207,4.744,3.712c0.708,1.086,9.383-0.802,9.384-1.923c0.222,0.222,0.255,0.638,0.535,0.656
 	C705.645,446.657,706.646,445.77,703.318,444.77z"/>
+</g>
 </svg>

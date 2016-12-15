@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="svgmap" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="1280px" height="768px" viewBox="0 0 1280 768" enable-background="new 0 0 1280 768" xml:space="preserve">
+<svg version="1.1" id="svgmap" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+	x="0px" 
+	y="0px"
+	width="1280" 
+	height="768" 
+	viewBox="0 0 1280 768" 
+	enable-background="new 0 0 1280 768" 
+	xml:space="preserve">
 <defs>
 	
 	<link  type="text/css" xmlns="http://www.w3.org/1999/xhtml" rel="stylesheet" href="../scss/map.css"></link>
 </defs>
+<g id="view">
 <rect x="-68.323" y="-18.845" fill="#E9F7FE" width="1356.232" height="804.603"/>
 <path fill="#0095DA" d="M253.701,698.38V231.303c324.692-6.25,647.463-3.603,969.282,7.824l59.972,1.664l0.898,457.589H253.701z"/>
 <path fill="#007FC0" d="M324.669,230.055l3.34-0.051c-0.555,0.104-1.175,0.156-1.871,0.152
@@ -11573,4 +11580,5 @@
 	c9.842-1.542,25.082-1.154,32.921,5.006c1.436,1.127,1.001,2.618,2.151,4.809c0.632,1.208,2.703,1.859,5.426,2.819
 	c0.454,0.161,0.111,2.174,1.227,2.273c5.703,0.502,14.687-1.99,16.805-2.05c3.128-0.092,3.76,2.207,4.744,3.712
 	c0.708,1.086,9.383-0.802,9.384-1.923c0.222,0.222,0.255,0.638,0.535,0.656C385.645,290.657,386.646,289.77,383.318,288.77z"/>
+</g>
 </svg>

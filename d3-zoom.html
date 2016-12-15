@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.axis path {
+  display: none;
+}
+
+.axis line {
+    display: none;
+  stroke-opacity: 0.3;
+  shape-rendering: crispEdges;
+}
+
+.view {
+  fill: url(#gradient);
+ 
+}
+
+button {
+  position: absolute;
+  top: 100px;
+  left: 20px;
+  z-index: 1000;
+}
+
+</style>
+    <script src="src/js/jquery.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="src/compiled/css/app.css">
+<script>
+  var cw = document.documentElement.clientWidth;
+var ch = document.documentElement.clientHeight;
+
+if (cw < ch) {
+  var mapSrc = 'src/graphics/map5.svg';
+  var vw = 1980;
+  var vh = 1980;
+  var lpw = cw;
+  var lph = ch;
+} else {
+  if (cw < 1281) {
+    var mapSrc = 'src/graphics/map-1280.svg';
+    var vw = 1279;
+    var vh = 767;
+    var lpw = vw;
+    var lph = vh;
+  } else if (cw > 1280) {
+    var mapSrc = 'src/graphics/map7.svg';
+    var vw = 1920;
+    var vh = 1080;
+    var lpw = vw;
+    var lph = vh;
+  }
+}
+
+
+var MapObject = function() {
+  this._init_map_object();
+}
+
+MapObject.prototype._init_map_object = function() {
+  this.svgObject = $("<object />", {
+    type: "image/svg+xml",
+    'Data': mapSrc,
+    id: 'map',
+    // style: "width:"+(document.documentElement.clientWidth)+"px;height:"+(document.documentElement.clientHeight)+"px"
+    style: "position:absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);width:"+vw+"px;height:"+vh+"px"
+  }).appendTo('#container');
+}
+</script>
+<button id="reset">Reset</button>
+    <div id="container" class="panzoom">
+      <script type="text/javascript">
+      $(function(){
+        var map = new MapObject();
+      });
+      </script> 
+    </div>
+<script src="//d3js.org/d3.v4.min.js"></script>
+<script>
+ window.onload = function() {
+  var map = document.getElementById("map");
+    //get the SVG document inside the Object tag
+  var svgDoc =  map.contentDocument;
+    //access the svg
+  var mapSvg =  svgDoc.getElementById("svgmap");
+
+  var viewEl =  svgDoc.getElementById("view");
+
+  var svg = d3.select(mapSvg),
+      width = +svg.attr("width"),
+      height = +svg.attr("height"),
+      centered;
+
+  var transform = d3.zoomTransform(svg.node());
+
+  var view = d3.select(viewEl)
+      .attr("class", "view")
+      .attr("x", 0.5)
+      .attr("y", 0.5)
+      .attr("width", width - 1)
+      .attr("height", height - 1);
+
+  var zoom = d3.zoom()
+      .scaleExtent([1, 10])
+      .translateExtent([[0, 0], [width, height]])
+      .on("zoom", zoomed);
+ 
+
+  d3.select("button")
+      .on("click", resetted);
+
+
+function zoomTo(point) {
+  var x = point.getBoundingClientRect().left;
+  var y = point.getBoundingClientRect().top;
+
+  view.transition()
+      .duration(150)
+      .attr("transform", "translate(" + width / 2.4 + "," + height / 2.2 + ")scale(8)translate(" + -point.getBoundingClientRect().left + "," + -point.getBoundingClientRect().top + ")");
+  console.log('test');
+} 
+
+var tower = mapSvg.getElementById('tower');
+var towerX = tower.getBoundingClientRect().left;
+var towerY = tower.getBoundingClientRect().top;
+
+svg.select('#tower').on("click", function(d){
+  var t = d3.zoomIdentity.translate(width / 2.4, height / 2.2).scale(10).translate(-towerX, -towerY);
+  svg.transition().duration(150).call(zoom.transform, t);
+});
+ 
+
+ 
+
+  svg.call(zoom);
+
+  function zoomed() {
+    view.transition()
+        .duration(50)
+        .attr("transform", d3.event.transform); 
+  }
+
+
+
+  function resetted() {
+    svg.transition()
+        .duration(500)
+        .call(zoom.transform, d3.zoomIdentity);
+  }
+
+ 
+
+  // var t = d3.zoomIdentity.translate(width/2, height/2).scale(10);
+
+  // function transform() {
+  // return d3.zoomIdentity
+  //     .translate(width / 2, height / 2)
+  //     .scale(8);
+  // }
+
+  // function transition(svg) {
+   
+
+  //   svg.transition()
+  //       .delay(500)
+  //       .duration(3000)
+  //       .call(zoom.transform, transform)
+  //       .on("end", function() { svg.call(transition); });
+  // }
+
+
+
+}
+</script>
