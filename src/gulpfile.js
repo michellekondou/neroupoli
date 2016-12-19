@@ -48,7 +48,6 @@ var jsFiles = [
       'node_modules/bootstrap/dist/js/bootstrap.min.js',
       'node_modules/nunjucks/browser/nunjucks.js',
       'bower_components/d3/d3.js',
-      'js/svg-pan-zoom.js',
       'js/helper-functions.js',
       'js/app.js'
     ],  
@@ -87,18 +86,9 @@ gulp.task("revreplace", ["rev"], function(){
  
 gulp.task('watch', ['browserSync', 'sass', 'scripts'], function(){
   gulp.watch('scss/**/*.scss', ['sass']);
-  //ulp.watch('js/**/*.js', ['scripts']);     
+  //gulp.watch('js/**/*.js', ['scripts']);     
 })
  
-
-gulp.task('build', function(callback) {
-  runSequence(
-    'sass',
-    'scripts',
-    callback
-  )
-})
-
 gulp.task('build-production', function(callback) {
   runSequence(
     'sass',

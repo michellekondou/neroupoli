@@ -33,15 +33,13 @@ MapObject.prototype._init_map_object = function() {
     type: "image/svg+xml",
     'Data': mapSrc,
     id: 'map',
-    // style: "width:"+(document.documentElement.clientWidth)+"px;height:"+(document.documentElement.clientHeight)+"px"
     style: "position:absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);width:"+vw+"px;height:"+vh+"px"
   }).appendTo('#container');
 }
 
-var MapView = function(map, panZoom) {
+var MapView = function(map) {
   this.map = map;
   this.map_items = [];
-  this.panZoom = this.panZoom(); 
   this._init_map_elements();
 }
 
@@ -81,27 +79,9 @@ MapView.prototype._init_map_elements = function() {
     var tip = new Modal('tooltip', point.id);
     var pop = new Modal('popup', point.id);
     var page = new Modal('page', point.id);
-    var point_item = new MapViewItem(point, rect, map, this.map_bcr, pop, tip, page, this.panZoom, content);
+    var point_item = new MapViewItem(point, rect, map, this.map_bcr, pop, tip, page, content);
     this.map_items.push(point_item); 
   }
-
-  //controls
-  $('#zoom-in').on('click touchstart', function(event) {
-      event.preventDefault();
-      _this.panZoom.zoomIn();
-  });
-  $('#zoom-out').on('click touchstart', function(event) {
-      event.preventDefault();
-      _this.panZoom.zoomOut();
-  });
-  $('#reset').on('click touchstart', function(event) {
-      event.preventDefault();
-      _this.panZoom.resetZoom();
-      _this.panZoom.fit();
-      _this.panZoom.resize();
-      _this.panZoom.center();
-  });
-
   this._render_map_item();
  
 }
@@ -115,152 +95,119 @@ MapView.prototype._render_map_item = function() {
     //access the svg
   var mapSvg = svgDoc.getElementById("svgmap");
 
-  var svg = d3.select(mapSvg);
+  var viewEl =  svgDoc.getElementById("view");
+ 
+  var svg = d3.select(mapSvg),
+    width = +svg.attr("width"),
+    height = +svg.attr("height"),
+    centered;
 
-  svg.selectAll('g, path, rect').on('mousewheel.zoom', function(d) {
+  var view = d3.select(viewEl)
+    .attr("class", "view")
+    .attr("x", 0.5)
+    .attr("y", 0.5)
+    .attr("width", width - 1)
+    .attr("height", height - 1)
+    .style("pointer-events", "all");
+ 
+ function zoomed() {
+     //close both the tooltip and the popup if open
+    for(var p = 0; p < _this.map_items.length;p++) {
+      var map_item = _this.map_items[p]; 
+      map_item.tip.open = false;
+      $(map_item.tip.modal).removeClass('open');
+      map_item.pop.open = false; 
+      $(map_item.pop.modal).removeClass('open');
+    }
+
+    //change cursor according to mouse event
+    if (d3.event.sourceEvent !== null) {
+      if (d3.event.sourceEvent.deltaY < 0) {
+        svg.style("cursor", "zoom-in");
+        //if mobile
+        if (cw < 1024) {
+          var duration = 0;
+        } else {
+          var duration = 250;
+        }
+      } else if (d3.event.sourceEvent.deltaY > 0){
+        svg.style("cursor", "zoom-out");
+        //if mobile
+        if (cw < 1024) {
+          var duration = 0;
+        } else {
+          var duration = 250;
+        }
+      }
+      if (d3.event.sourceEvent.movementX != 0 ||  d3.event.sourceEvent.movementY != 0) {
+        svg.style("cursor", "move");
+        var duration = 0;
+      }
+    }
+
+    //handle zoom
+    view.transition()
+        .duration(duration)
+        .attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")" + " scale(" + d3.event.transform.k + ")");
+
+  }
+
+  //controls
+  function resetted() {
+    svg.transition()
+    .duration(500)
+    .call(zoom.transform, d3.zoomIdentity);
+  }
+
+  function zoomIn() {
+    svg.transition()
+    .duration(250)
+    .call(zoom.scaleBy, 2); 
+  }
+
+  function zoomOut() {
+    svg.transition()
+    .duration(250)
+    .call(zoom.scaleBy, 0.5); 
+  }
+
+  //return cursor to default between zoom events
+  function zoomEnd(){
+    svg.transition().delay(1500).style("cursor", "default");
+  }
+
+  var zoom = d3.zoom()
+      .scaleExtent([1, 10])
+      .translateExtent([[0, 0], [width, height]])
+      .on("zoom", zoomed)
+      .on("zoom.end", zoomEnd);
+ 
+
+  svg.call(zoom); 
+  
+  $("#reset").on("mousedown touchstart", resetted);
+
+  $("#zoom-in").on("mousedown touchstart", zoomIn);
+
+  $("#zoom-out").on("mousedown touchstart", zoomOut);
+
+  svg.on('mousewheel.zoom', function(d) {
+ 
     for(var p = 0; p < _this.map_items.length;p++) {
       var map_item = _this.map_items[p]; 
       //close both the tooltip and the popup if open
       map_item.tip.open = false;
-      $(map_item.tip).removeClass('open');
+      $(map_item.tip.modal).removeClass('open');
       map_item.pop.open = false; 
-      $(map_item.pop).removeClass('open');
-    }
-  });
-  var view = svgDoc.getElementById("view");
+      $(map_item.pop.modal).removeClass('open');
 
-  var svgEl = d3.select(view);
-   
+    }
+
+  });
   
 }
 
-MapView.prototype.panZoom = function() {
-
-  var _this = this;
-  this.map = document.getElementById("map");
-
-  //custom events handler
-  var eventsHandler;
-
-  eventsHandler = {
-    haltEventListeners: ['touchstart', 'touchend', 'touchmove', 'touchleave', 'touchcancel']
-    , init: function(options) {
-      var instance = options.instance
-        , initialScale = 1
-        , pannedX = 0
-        , pannedY = 0
-
-      // Init Hammer
-      // Listen only for pointer and touch events
-      this.hammer = Hammer(options.svgElement, {
-        inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput
-      })
-
-      // Enable pinch
-      this.hammer.get('pinch').set({enable: true})
-
-      // Handle double tap
-      this.hammer.on('doubletap', function(ev){
-        instance.zoomIn()
-      })
-
-      // Handle pan
-      this.hammer.on('panstart panmove', function(ev){
-        // On pan start reset panned variables
-        if (ev.type === 'panstart') {
-          pannedX = 0
-          pannedY = 0
-        }
-
-        // Pan only the difference
-        instance.panBy({x: ev.deltaX - pannedX, y: ev.deltaY - pannedY})
-        pannedX = ev.deltaX
-        pannedY = ev.deltaY
-      })
-
-      // Handle pinch
-      this.hammer.on('pinchstart pinchmove', function(ev){
-        // On pinch start remember initial zoom
-        if (ev.type === 'pinchstart') {
-          initialScale = instance.getZoom()
-          instance.zoom(initialScale * ev.scale)
-        }
-
-        instance.zoom(initialScale * ev.scale)
-
-      })
-
-      // Prevent moving the page on some devices when panning over SVG
-      options.svgElement.addEventListener('touchmove', function(e){ e.preventDefault(); });
-    }
-
-    , destroy: function(){
-      this.hammer.destroy()
-    }
-  }
-
-  //bafore pan
-  var beforePan;
-  beforePan = function(oldPan, newPan){
-    var stopHorizontal = false
-      , stopVertical = false
-      , sizes = this.getSizes()
-      , gutterWidth = lpw 
-      , gutterHeight = lph 
-        // Computed variables
-      , leftLimit = -((sizes.viewBox.x + sizes.viewBox.width) * sizes.realZoom) + gutterWidth
-      , rightLimit = sizes.width - gutterWidth - (sizes.viewBox.x * sizes.realZoom)
-      , topLimit = -((sizes.viewBox.y + sizes.viewBox.height) * sizes.realZoom) + gutterHeight
-      , bottomLimit = sizes.height - gutterHeight - (sizes.viewBox.y * sizes.realZoom)
-   
-      this.customPan = {}
-      this.customPan.x = Math.max(leftLimit, Math.min(rightLimit, newPan.x))
-      this.customPan.y = Math.max(topLimit, Math.min(bottomLimit, newPan.y))
-      for(var p = 0; p < _this.map_items.length;p++) {
-        var map_item = _this.map_items[p]; 
-        //close both the tooltip and the popup if open
-        map_item.tip.open = false;
-        map_item.tip.style("opacity: 0");
-        map_item.pop.open = false; 
-        map_item.pop.style("opacity: 0"); 
-    }
-
-    return this.customPan;
-  }
-  var panZoomMap = svgPanZoom(this.map, {
-    viewportSelector: '.panzoom'
-    , panEnabled: true
-    , zoomAbsolute: true
-    , controlIconsEnabled: false
-    , zoomEnabled: true
-    , dblClickZoomEnabled: true
-    , mouseWheelZoomEnabled: true
-    , preventMouseEventsDefault: true
-    , zoomScaleSensitivity: 0.2
-    , minZoom: 1
-    , maxZoom: 6
-    , fit: true
-    , contain: true
-    , center: true
-    , refreshRate: 'auto'
-    , beforeZoom: function(){}
-    , onZoom: function(){
-     
-    }
-    , beforePan: beforePan
-    // , beforePan: function(){}
-    , onPan: function(){
-        var panning = true; 
-    }
-    , customEventsHandler: eventsHandler
-
-   //, eventsListenerElement: mapSvg
-  });
-
-  return panZoomMap;
-}
-
-function MapViewItem(point, rect, map, map_bcr, pop, tip, page, panZoom, content){
+function MapViewItem(point, rect, map, map_bcr, pop, tip, page, content){
   MapView.call(this);
   this.point = point;
   this.rect = rect;
@@ -269,7 +216,6 @@ function MapViewItem(point, rect, map, map_bcr, pop, tip, page, panZoom, content
   this.pop = pop;
   this.tip = tip;
   this.page = page;
-  this.panZoom = panZoom;
   this.content = content;
   this._init_map_elements();
   this._init_points();
@@ -327,43 +273,7 @@ var item = this;
 
 this.point_x = this.rect.left;
 this.point_y = this.rect.top; 
-
-function customPanBy(amount){ // {x: 1, y: 2}
-  var animationTime = 300 // ms
-    , animationStepTime = 15 // one frame per 30 ms
-    , animationSteps = animationTime / animationStepTime
-    , animationStep = 0
-    , intervalID = null
-    , stepX = amount.x / animationSteps
-    , stepY = amount.y / animationSteps
-
-  intervalID = setInterval(function(){
-    if (animationStep++ < animationSteps) {
-      item.panZoom.panBy({x: stepX, y: stepY})
-    } else {
-      // Cancel interval
-      clearInterval(intervalID)
-    }
-  }, animationStepTime)
-}
-
-$(item.point).css('cursor', 'pointer')
-$(item.point).click(function(event){ 
-  event.stopPropagation();
-  
-    item.panZoom.resetZoom();
-    item.panZoom.resetPan();        
-    item.panZoom.zoom(6); 
-    var realZoom = item.panZoom.getSizes().realZoom;
-        // console.log(this.getSizes().viewBox.width);
-    item.panZoom.pan({     
-      x: -(item.point_x*realZoom)+item.panZoom.getSizes().width/2.4,
-      y: -(item.point_y*realZoom)+item.panZoom.getSizes().height/2.2    
-    });
  
-    item.panZoom.resize();
-
-});
 
 /* Select the svg using d3 */
 $map = document.getElementById("map");
@@ -371,8 +281,31 @@ $map = document.getElementById("map");
 var svgDoc = $map.contentDocument;
   //access the svg
 var mapSvg = svgDoc.getElementById("svgmap"); 
+  var viewEl =  svgDoc.getElementById("view"); 
+var svg = d3.select(mapSvg),
+    width = +svg.attr("width"),
+    height = +svg.attr("height"),
+    centered;
+
+  var view = d3.select(viewEl)
+    .attr("class", "view")
+    .attr("x", 0.5)
+    .attr("y", 0.5)
+    .attr("width", width - 1)
+    .attr("height", height - 1);
  
-var svg = d3.select(mapSvg);
+ function zoomed() {
+    view.transition()
+        .duration(50)
+        .attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")" + " scale(" + d3.event.transform.k + ")");
+  }
+
+  var zoom = d3.zoom()
+      .scaleExtent([1, 10])
+      .translateExtent([[0, 0], [width, height]])
+      .on("zoom", zoomed);
+
+$(item.point).css('cursor', 'pointer');
 
 svg.select('#'+item.point.id)
 .on('mouseover', function() {
@@ -394,8 +327,10 @@ svg.select('#'+item.point.id)
 });
 
 svg.select('#'+item.point.id).on('click touchstart', function(d) {
+  //center and zoom point
+  var t = d3.zoomIdentity.translate(width / 2.4, height / 2.2).scale(10).translate(-item.point_x, -item.point_y);
+  svg.transition().duration(150).call(zoom.transform, t);
   //close the tooltip if it's open
-
   item.tip.open = false;
   $(item.tip.modal).removeClass('open');
   //show the popup
@@ -406,6 +341,7 @@ svg.select('#'+item.point.id).on('click touchstart', function(d) {
     "transform": "translate(0, -50%)"
   }); 
   $(item.pop.modal).addClass('open');
+  console.log(item.pop);
 });
 
 svg.select('#'+item.point.id).on('dblclick', $.proxy(this.page_open, item));
