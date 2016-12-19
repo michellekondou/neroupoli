@@ -115,7 +115,7 @@ function zoomed() {
 
 var zoom = d3.zoom()
     .scaleExtent([1, 10])
-    .translateExtent([[-50, 0], [width, height]])
+    .translateExtent([[0, 0], [width, height]])
     .on("zoom", zoomed);
 
 svg.call(zoom);
@@ -128,13 +128,13 @@ function resetted() {
 
 function zoomIn() {
   svg.transition()
-  .duration(500)
+  .duration(0)
   .call(zoom.scaleBy, 2);
 }
 
 function zoomOut() {
   svg.transition()
-  .duration(500)
+  .duration(0)
   .call(zoom.scaleBy, 0.5);
 }
 
