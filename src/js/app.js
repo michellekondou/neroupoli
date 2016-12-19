@@ -5,8 +5,8 @@ if (cw < ch) {
   var mapSrc = 'src/graphics/map5.svg';
   var vw = 1980;
   var vh = 1980;
-  var lpw = cw;
-  var lph = ch;
+  var lpw = vw; //stands for limit pan
+  var lph = vh;
 } else {
   if (cw < 1281) {
     var mapSrc = 'src/graphics/map-1280.svg';
@@ -82,11 +82,12 @@ MapView.prototype._init_map_elements = function() {
     var point_item = new MapViewItem(point, rect, map, this.map_bcr, pop, tip, page, content);
     this.map_items.push(point_item); 
   }
-  this._render_map_item();
+  //setup all map events, zoom, pan etc
+  this._render_map();
  
 }
 
-MapView.prototype._render_map_item = function() {
+MapView.prototype._render_map = function() {
   var _this = this; 
   /* Select the svg using d3 */
   $map = document.getElementById("map");
@@ -152,6 +153,34 @@ MapView.prototype._render_map_item = function() {
 
   }
 
+  //return cursor to default between zoom events
+  function zoomEnd(){
+    svg.transition().delay(1500).style("cursor", "default");
+  }
+ 
+  var svgWidth = d3.select(mapSvg).attr("width");
+  var svgHeight = d3.select(mapSvg).attr("height");
+  if (cw < ch) {
+    var t = -width/3, //top
+        l = -height/3, //left
+        b = width+width/3, //bottom
+        r = height+height/3; //right
+  } else {
+    var t = 0,
+        l = 0,
+        b = width,
+        r = height;
+  }
+
+  var zoom = d3.zoom()
+      .scaleExtent([1, 10])
+      .translateExtent([ [t, l], [b, r] ])
+      .on("zoom", zoomed)
+      .on("zoom.end", zoomEnd);
+ 
+
+  svg.call(zoom); 
+
   //controls
   function resetted() {
     svg.transition()
@@ -170,21 +199,6 @@ MapView.prototype._render_map_item = function() {
     .duration(250)
     .call(zoom.scaleBy, 0.5); 
   }
-
-  //return cursor to default between zoom events
-  function zoomEnd(){
-    svg.transition().delay(1500).style("cursor", "default");
-  }
-
-  var zoom = d3.zoom()
-      .scaleExtent([1, 10])
-      .translateExtent([[0, 0], [width, height]])
-      .on("zoom", zoomed)
-      .on("zoom.end", zoomEnd);
- 
-
-  svg.call(zoom); 
-  
   $("#reset").on("mousedown touchstart", resetted);
 
   $("#zoom-in").on("mousedown touchstart", zoomIn);
