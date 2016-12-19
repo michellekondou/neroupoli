@@ -341,7 +341,7 @@ svg.select('#'+item.point.id).on('click touchstart', function(d) {
     "transform": "translate(0, -50%)"
   }); 
   $(item.pop.modal).addClass('open');
-  console.log(item.pop);
+ 
 });
 
 svg.select('#'+item.point.id).on('dblclick', $.proxy(this.page_open, item));
