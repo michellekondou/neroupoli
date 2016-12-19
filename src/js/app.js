@@ -130,12 +130,7 @@ MapView.prototype._render_map_item = function() {
   var view = svgDoc.getElementById("view");
 
   var svgEl = d3.select(view);
-  console.log(svgEl);
-function zoom() {
-  svgEl.attr("transform", d3.event.transform);
-  console.log('zooming');
-}
-    svgEl.call(d3.zoom().scaleExtent([1, 8]).on("zoom", zoom))
+   
   
 }
 

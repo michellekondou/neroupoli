@@ -19,3 +19,9 @@
 .view {
   background: transparent;
 }
+
+
+#zoom-in {
+  bottom: 20%;
+  left: 20%;
+}
