@@ -3,8 +3,8 @@ var ch = document.documentElement.clientHeight;
 
 if (cw < ch) {
   var mapSrc = 'src/graphics/map-1024.svg';
-  var vw = 1024;
-  var vh = 768;
+  var vw = 1229;
+  var vh = 1229;
   var lpw = vw; //stands for limit pan
   var lph = vh;
 } else {
@@ -341,8 +341,7 @@ svg.select('#'+item.point.id)
 });
 
 svg.select('#'+item.point.id).on('click', function(d) {
-   d3.event.stopPropagation();
-  console.log('#'+item.point.id, this, item.pop);
+   d3.event.stopPropagation(); 
   //center and zoom point
   var t = d3.zoomIdentity.translate(width / 2.4, height / 2.2).scale(10).translate(-item.point_x, -item.point_y);
   svg.transition().duration(150).call(zoom.transform, t);
