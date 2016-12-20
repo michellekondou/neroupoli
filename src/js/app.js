@@ -2,7 +2,7 @@ var cw = document.documentElement.clientWidth;
 var ch = document.documentElement.clientHeight;
 
 if (cw < ch) {
-  var mapSrc = 'src/graphics/map-1024.svg';
+  var mapSrc = 'src/graphics/map-ipad.svg';
   var vw = 1229;
   var vh = 1229;
   var lpw = vw; //stands for limit pan
