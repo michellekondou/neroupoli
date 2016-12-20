@@ -161,10 +161,17 @@ MapView.prototype._render_map = function() {
   var svgWidth = d3.select(mapSvg).attr("width");
   var svgHeight = d3.select(mapSvg).attr("height");
   if (cw < ch) {
-    var t = -width/3.5, //top
-        l = -height/10, //left
-        b = width+width/3.5, //bottom
-        r = height+height/10; //right
+    if (cw < 480) {
+      var t = -width/3.5, //top
+          l = -height/12, //left
+          b = width+width/3.5, //bottom
+          r = height+height/12; //right
+    } else {
+      var t = -width/5.5, //top
+          l = -height/12, //left
+          b = width+width/5.5, //bottom
+          r = height+height/12; //rights
+    }
   } else {
     var t = 0,
         l = 0,
