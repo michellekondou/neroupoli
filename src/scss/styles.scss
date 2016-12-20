@@ -201,6 +201,12 @@ svg {
   z-index: 1;
 }
 
+.popup.open {
+  left: 8%;
+  top: 50%;
+  transform: "translate(0, -50%)"
+}
+
 .close {
   position: absolute;
   top: 30px;

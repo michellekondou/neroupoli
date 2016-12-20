@@ -2,9 +2,9 @@ var cw = document.documentElement.clientWidth;
 var ch = document.documentElement.clientHeight;
 
 if (cw < ch) {
-  var mapSrc = 'src/graphics/map5.svg';
-  var vw = 1980;
-  var vh = 1980;
+  var mapSrc = 'src/graphics/map-1024.svg';
+  var vw = 1024;
+  var vh = 768;
   var lpw = vw; //stands for limit pan
   var lph = vh;
 } else {
@@ -161,10 +161,10 @@ MapView.prototype._render_map = function() {
   var svgWidth = d3.select(mapSvg).attr("width");
   var svgHeight = d3.select(mapSvg).attr("height");
   if (cw < ch) {
-    var t = -width/3, //top
-        l = -height/3, //left
-        b = width+width/3, //bottom
-        r = height+height/3; //right
+    var t = -width/3.5, //top
+        l = -height/10, //left
+        b = width+width/3.5, //bottom
+        r = height+height/10; //right
   } else {
     var t = 0,
         l = 0,
@@ -194,16 +194,16 @@ MapView.prototype._render_map = function() {
     .call(zoom.scaleBy, 2); 
   }
 
-  function zoomOut() {
+  function zoomOut() {  
     svg.transition()
     .duration(250)
     .call(zoom.scaleBy, 0.5); 
   }
-  $("#reset").on("mousedown touchstart", resetted);
+  $("#reset").on("mousedown", resetted);
 
-  $("#zoom-in").on("mousedown touchstart", zoomIn);
+  $("#zoom-in").on("mousedown", zoomIn);
 
-  $("#zoom-out").on("mousedown touchstart", zoomOut);
+  $("#zoom-out").on("mousedown", zoomOut);
 
   svg.on('mousewheel.zoom', function(d) {
  
@@ -340,7 +340,9 @@ svg.select('#'+item.point.id)
   $(item.tip.modal).removeClass('open');
 });
 
-svg.select('#'+item.point.id).on('click touchstart', function(d) {
+svg.select('#'+item.point.id).on('click', function(d) {
+   d3.event.stopPropagation();
+  console.log('#'+item.point.id, this, item.pop);
   //center and zoom point
   var t = d3.zoomIdentity.translate(width / 2.4, height / 2.2).scale(10).translate(-item.point_x, -item.point_y);
   svg.transition().duration(150).call(zoom.transform, t);
@@ -349,11 +351,6 @@ svg.select('#'+item.point.id).on('click touchstart', function(d) {
   $(item.tip.modal).removeClass('open');
   //show the popup
   item.pop.open = true;
-  item.pop.style({
-    "left": "8%",
-    "top": "50%",
-    "transform": "translate(0, -50%)"
-  }); 
   $(item.pop.modal).addClass('open');
  
 });
