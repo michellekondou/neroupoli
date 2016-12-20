@@ -52,6 +52,7 @@ MapView.prototype._init_map_elements = function() {
   this.mapSvg = this.svgDoc.getElementById("svgmap");
   //get svg properties
   this.map_bcr = this.map.getBoundingClientRect();
+
  
   //svg points
   var points = this.svgDoc.querySelectorAll('.point');
@@ -61,25 +62,28 @@ MapView.prototype._init_map_elements = function() {
     dataType: "json", 
     async: false
   }).responseText);
+
   //save the json data in an array
   var post_data = [];
   for(var i = 0;i<posts.length;i++) { 
     var post = posts[i];
     post_data.push(post); 
   }
+
   //create the map points
   for(var i = 0;i<points.length;i++) {
     var point = points[i];
     for(var post in post_data) {
       if(post_data[post].title.rendered === point.id) { 
         var content = post_data[post];
+        var post_id = post_data[post].id;
       }
     } 
     var rect = points[i].getBoundingClientRect();
     var tip = new Modal('tooltip', point.id);
     var pop = new Modal('popup', point.id);
     var page = new Modal('page', point.id);
-    var point_item = new MapViewItem(point, rect, map, this.map_bcr, pop, tip, page, content);
+    var point_item = new MapViewItem(point, rect, map, this.map_bcr, pop, tip, page, content, post_id);
     this.map_items.push(point_item); 
   }
   //setup all map events, zoom, pan etc
@@ -228,7 +232,7 @@ MapView.prototype._render_map = function() {
   
 }
 
-function MapViewItem(point, rect, map, map_bcr, pop, tip, page, content){
+function MapViewItem(point, rect, map, map_bcr, pop, tip, page, content, post_id){
   MapView.call(this);
   this.point = point;
   this.rect = rect;
@@ -238,13 +242,11 @@ function MapViewItem(point, rect, map, map_bcr, pop, tip, page, content){
   this.tip = tip;
   this.page = page;
   this.content = content;
+  this.post_id = post_id;
   this._init_map_elements();
   this._init_points();
-  this.page_open();  
-  this.page_close();
   this.pop_close();
   this._render();
-
   this._addListeners();
 }
 
@@ -264,18 +266,63 @@ MapViewItem.prototype.page_open = function () {
   if(this.page.open) { return; }
   this.page.open = true;
   $(this.page.modal).addClass('open');
+  
+  //load content on page open to be able to refresh forms
+  var post = $.parseJSON($.ajax({
+    url: 'http://www.michellekondou.me/wprestapi/index.php/wp-json/wp/v2/posts/'+this.post_id,
+    dataType: "json", 
+    async: false
+  }).responseText);
+
+  nunjucks.configure('src/js/templates', { autoescape: false });
+  
+  this.page.modal.find('.page-content').html(
+
+    nunjucks.render('page.html', { 
+      title: this.content,
+      text: this.content,
+      quiz:  post,
+      open: this.open
+    }) 
+  );
+
+  //handle card content
+  var cards = $('.card');
+  var quiz = $('.quiz');
+  $(cards[0]).addClass('visible');
+  //$(quiz[0]).addClass('visible');
+  for (var i = 0;i<cards.length;i++) {
+    var card = cards[i];
+
+    this.page.modal.find('.next').on('click', function(){
+        $(cards[0]).removeClass('visible');
+        $(card).toggleClass('visible');
+    });
+  }
+
+  $('#cards').cycle({ 
+    fx:     'fade', 
+    speed:  'fast', 
+    timeout: 0, 
+    next:   '.next', 
+    prev:   '.previous' 
+  });
+
+  
 };
 
 MapViewItem.prototype.page_close = function () {
   if(!this.page.open) { return; }
   this.page.open = false;
   $(this.page.modal).removeClass('open');
+  console.log(this);
 };
 
 MapViewItem.prototype.pop_open = function () {
   if(this.pop.open) { return; }
   this.pop.open = true;
   $(this.pop.modal).addClass('open');
+    console.log('close1');
 };
 
 MapViewItem.prototype.pop_close = function () {
@@ -294,7 +341,9 @@ var item = this;
 
 this.point_x = this.rect.left;
 this.point_y = this.rect.top; 
- 
+
+console.log(item);
+
 
 /* Select the svg using d3 */
 $map = document.getElementById("map");
@@ -362,7 +411,11 @@ svg.select('#'+item.point.id).on('click', function(d) {
 });
 
 svg.select('#'+item.point.id).on('dblclick', $.proxy(this.page_open, item));
-$('#'+item.point.id +'-popup'+' .open_page').on('click touchstart', $.proxy(this.page_open, item));
+
+$('#'+item.point.id +'-popup'+' .open_page').on('click', $.proxy(this.page_open, item));
+
+
+
 
 }
 
@@ -374,10 +427,11 @@ $('#'+item.point.id +'-popup'+' .open_page').on('click touchstart', $.proxy(this
 MapViewItem.prototype._addListeners = function(){
     var _this = this;
 
-    $(this.page.modal).find('.close').on("click", $.proxy(this.page_close, _this));
-
+    $(this.page.modal).find('.close').on("click", $.proxy(this.page_close, this)); 
+    $(this.page.modal).find('.next').on("click", function(){
+      console.log('clicked next');
+    }); 
     $(this.pop.modal).find('.close').on("click", $.proxy(this.pop_close, _this));
-
 
 }
 
@@ -386,17 +440,16 @@ MapViewItem.prototype._addListeners = function(){
 ======================================================================== */
 MapViewItem.prototype._render = function(){
     var _this = this;  
-    nunjucks.configure('src/js/templates', { autoescape: true });
- 
-    _this.page.modal.html( 
-      nunjucks.render('page.html', { 
-        title: _this.content.acf.title_page,
-        body:  _this.content.acf.color,
-        open: _this.open
+
+    //load static parts of the page, tools, next
+    nunjucks.configure('src/js/templates', { autoescape: false });
+    
+    _this.page.modal.html(
+      nunjucks.render('page-container.html', { 
       }) 
     );
- 
- }
+
+}
 /**
  * Create a Modal prototype
  */
@@ -423,11 +476,12 @@ Modal.prototype.init = function(){
       "id": this.point + "-tooltip"
     }).appendTo('body');
   } else if(this.type == "page") {
-    this.open = true;
+    this.open = false;
     this.modal = $("<div />", {
       "class": "overlay",
       "id": this.point + "-page"
     }).appendTo('body');
+
   } 
 }
 

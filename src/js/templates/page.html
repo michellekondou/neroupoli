@@ -1,5 +1,23 @@
-<div class='page'>
-  <h1>{{ title }}</h1>
-  <main>{{ body }}</main>
-  <button class='close'>CLOSE</button>
-</div>
+  <h1>{{ title.acf.card_title }}</h1>
+  <main id="cards">
+  {% for card in text.acf.cards %}
+    {% if card.text %}
+      <div class="card text">
+      {% if card.title %}
+        <h2>{{  card.title }}</h2>
+      {% endif %}
+        {{  card.text }}
+      </div>
+    {% elif card.quiz %}
+      <div class="card quiz">
+      {% if card.title %}
+        <h2>{{  card.title }}</h2>
+      {% endif %}
+        {{  card.quiz }}
+      </div>
+    {% endif %}
+  {% endfor %}
+  </main>
+
+
+ 
