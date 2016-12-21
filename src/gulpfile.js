@@ -24,7 +24,7 @@ gulp.task('browserSync', function() {
 
 //script paths
 var cssFiles = [
-      'node_modules/bootstrap/dist/css/bootstrap.min.css',
+      //'node_modules/bootstrap/dist/css/bootstrap.min.css',
       'scss/**/*.scss'
     ],  
     cssDest = 'compiled/css';

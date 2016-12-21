@@ -1,20 +1,43 @@
   <h1>{{ title.acf.card_title }}</h1>
   <main id="cards">
   {% for card in text.acf.cards %}
-    {% if card.text %}
+    {% if card.acf_fc_layout === 'text' %}
       <div class="card text">
       {% if card.title %}
         <h2>{{  card.title }}</h2>
       {% endif %}
         {{  card.text }}
       </div>
-    {% elif card.quiz %}
+    {% elif card.acf_fc_layout === 'multiple_choice' %}
       <div class="card quiz">
       {% if card.title %}
         <h2>{{  card.title }}</h2>
       {% endif %}
-        {{  card.quiz }}
-      </div>
+        <form id="gform" action="{{  card.quiz_form_url }}" method="POST">
+          <fieldset>
+            <legend for="{{  card.quiz_form_name }}">{{  card.quiz_title }}</legend>
+            {% for option in card.quiz_options %}
+            <p class="radio">
+              <input 
+                id="{{  option.quiz_input_id }}" 
+                name="{{  option.quiz_form_name }}" 
+                type="radio" 
+                value="{{  option.quiz_input_value }}"
+                data-type="{% if option.quiz_input_type === 'Σωστό' %}correct{% else %}wrong{% endif %}" 
+              />
+              <label for="{{  option.quiz_input_id }}">
+                <span></span>
+                {{  option.quiz_input_value }}
+              </label>
+            </p>
+            {% endfor %}
+          </fieldset>
+        </form>
+        <div id="thankyou_message" style="display: none;">
+          <h2>{{  card.quiz_thank_you_msg }}</h2>
+          <small>Ευχαριστούμε για την απάντηση σου!</small>
+        </div> 
+    </div>
     {% endif %}
   {% endfor %}
   </main>

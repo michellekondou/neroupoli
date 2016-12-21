@@ -1,0 +1,215 @@
+form {
+  display: block;
+  margin-top: 0em;
+  font-family: Arial, sans-serif;
+}
+
+fieldset {
+  border: none;
+}
+
+legend {
+  display: block;
+  -webkit-padding-start: 2px;
+  -webkit-padding-end: 2px;
+  border-width: initial;
+  border-style: none;
+  border-color: initial;
+  border-image: initial;
+}
+
+label {
+  display: block;
+}
+
+input[type="radio"] + label, 
+input[type="checkbox"] + label {
+  display: inline-block;
+}
+
+input, 
+textarea, 
+keygen, 
+select, 
+button {
+  text-rendering: auto;
+  color: initial;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  text-align: start;
+  margin: 0em 0em 0em 0em;
+  font: 13.3333px Arial;
+}
+
+input, 
+textarea, 
+keygen, 
+select, 
+button, 
+meter, 
+progress {
+  -webkit-writing-mode: horizontal-tb;
+}
+
+
+input:not([type]), 
+input[type="email" i], 
+input[type="number" i], 
+input[type="password" i], 
+input[type="tel" i], 
+input[type="url" i], 
+input[type="text" i] {
+    padding: 1px 0px;
+}
+
+input {
+  -webkit-appearance: textfield;
+  background-color: white;
+  -webkit-rtl-ordering: logical;
+  user-select: text;
+  cursor: auto;
+  padding: 1px;
+  border-width: 2px;
+  border-style: inset;
+  border-color: initial;
+  border-image: initial;
+}
+
+textarea {
+  font-family: monospace;
+  border-color: rgb(169, 169, 169);
+}
+ 
+textarea {
+  -webkit-appearance: textarea;
+  background-color: white;
+  -webkit-rtl-ordering: logical;
+  user-select: text;
+  flex-direction: column;
+  resize: auto;
+  cursor: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  border-width: 1px;
+  border-style: solid;
+  border-color: initial;
+  border-image: initial;
+  padding: 2px;
+}
+
+
+input[type="radio"], 
+input[type="checkbox"] {
+  margin: 3px 3px 3px 4px;
+}
+/*radio*/ 
+input[type="radio"] {
+  -webkit-appearance: radio;
+  box-sizing: border-box;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"] + label {
+    color: #333;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+input[type="radio"] + label span {
+    display:inline-block;
+    width: 19px;
+    height: 19px;
+    margin: -1px 4px 0 0;
+    vertical-align: middle;
+    cursor: pointer;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+
+input[type="radio"] + label span {
+     background-color: #ccc;
+}
+
+input[type="radio"] + label span,
+input[type="radio"]:checked + label span {
+  -webkit-transition: background-color 0.4s linear;
+  -o-transition: background-color 0.4s linear;
+  -moz-transition: background-color 0.4s linear;
+  transition: background-color 0.4s linear;
+}
+
+/*checkbox*/ 
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"] + label {
+  color: #333;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+input[type="checkbox"] + label span {
+  display:inline-block;
+  width: 19px;
+  height: 19px;
+  margin: -1px 4px 0 0;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+input[type="checkbox"] + label span {
+  background-color: #ccc;
+}
+
+input[type="checkbox"] + label span,
+input[type="checkbox"]:checked + label span {
+  -webkit-transition: background-color 0.4s linear;
+  -o-transition: background-color 0.4s linear;
+  -moz-transition: background-color 0.4s linear;
+  transition: background-color 0.4s linear;
+}
+
+
+input[data-type="correct"]:checked + label span{
+  background-color: green;
+}
+
+input[data-type="wrong"]:checked + label span{
+  background-color: red;
+}
+
+/*select*/ 
+select:not(:-internal-list-box) {
+  overflow: visible !important;
+}
+ 
+select {
+  -webkit-appearance: menulist;
+  box-sizing: border-box;
+  align-items: center;
+  white-space: pre;
+  -webkit-rtl-ordering: logical;
+  color: black;
+  background-color: white;
+  cursor: default;
+  border-width: 1px;
+  border-style: solid;
+  border-color: initial;
+  border-image: initial;
+}
+
+option {
+  font-weight: normal;
+  display: block;
+  white-space: pre;
+  min-height: 1.2em;
+  padding: 0px 2px 1px;
+}

@@ -28,3 +28,4 @@ function _map(map) {
 function isObject(obj) {
   return obj === Object(obj);
 }
+
