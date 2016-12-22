@@ -22,7 +22,7 @@
             {% set options_counter  = ( options_counter | default(0) ) + 1 %}
             <p class="{% if card.acf_fc_layout === 'multiple_choice' %}radio{% elif card.acf_fc_layout === 'checkbox' %}checkbox{% endif %}">
               <input 
-                id="{{  card.quiz_field_`name }}{{ options_counter }}" 
+                id="{{  card.quiz_field_name }}{{ options_counter }}" 
                 name="{% if card.acf_fc_layout === 'multiple_choice' %}{{  card.quiz_field_name }}{% elif card.acf_fc_layout === 'checkbox' %}{{  card.quiz_field_name }}{{ options_counter }}{% endif %}" 
                 type="{% if card.acf_fc_layout === 'multiple_choice' %}radio{% elif card.acf_fc_layout === 'checkbox' %}checkbox{% endif %}" 
                 value="{{  option.quiz_input_value }}"
