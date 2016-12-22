@@ -266,12 +266,15 @@ MapViewItem.prototype.page_open = function () {
   if(this.page.open) { return; }
   this.page.open = true;
   $(this.page.modal).addClass('open');
-  
+  $('.map-loader').css('display','block'); 
   //load content on page open to be able to refresh forms
   var post = $.parseJSON($.ajax({
     url: 'http://www.michellekondou.me/wprestapi/index.php/wp-json/wp/v2/posts/'+this.post_id,
     dataType: "json", 
-    async: false
+    async: false,
+    success: function(data){
+      $('.map-loader').css('display','none'); 
+    }
   }).responseText);
 
   nunjucks.configure('src/js/templates', { autoescape: false });
@@ -299,8 +302,9 @@ MapViewItem.prototype.page_open = function () {
 
 //form handler TODO put this stuff in its own function
 // get all data in form and return object
-function getFormData() {
-  var elements = document.getElementById("gform").elements; // all form elements
+function getFormData(form) {
+  var form_id = form.attr('id')
+  var elements = document.getElementById(form_id).elements; // all form elements
   var fields = Object.keys(elements).map(function(k) {
     if(elements[k].name !== undefined) {
       return elements[k].name;
@@ -331,20 +335,44 @@ function getFormData() {
  
 
 $(function() {
-  $('input').on('change', function(){        
-    var data = getFormData();
-    var url = $('#gform').attr('action');
+  $('.multiple-choice input').on('change', function(){
+    $('.loader.quiz').css('display','block');        
+    var form = $(this).closest("form");
+    var data = getFormData(form);
+    console.log(form.attr('id'));
+    var url = form.attr('action');
     $.ajax({
       type: "POST",
       url: url,
       data: data,
       success: function(data){
-        $('input').attr("disabled", true); // hide form
-        document.getElementById('thankyou_message').style.display = 'block';
+        $('.loader').css('display','none'); 
+        $(form).find('input').attr("disabled", true); // hide form 
+        $(form).siblings(".thankyou_message").css('display','block');
         return; 
       }
     });            
   });
+
+  $('.submit').on('click', function() {
+    $('.loader.quiz').css('display','block');        
+    var form = $('.checkbox-quiz');
+    var data = getFormData(form);
+    console.log(form.attr('id'));
+    var url = form.attr('action');
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: data,
+      success: function(data){
+        $('.loader').css('display','none'); 
+        $(form).find('input').attr("disabled", true); // hide form 
+        $(form).siblings(".thankyou_message").css('display','block');
+        //return; 
+      }
+    });            
+  });
+
 });
 
 

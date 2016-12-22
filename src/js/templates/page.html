@@ -1,6 +1,6 @@
   <h1>{{ title.acf.card_title }}</h1>
   <main id="cards">
-  {% for card in text.acf.cards %}
+  {% for card in text.acf.cards %} 
     {% if card.acf_fc_layout === 'text' %}
       <div class="card text">
       {% if card.title %}
@@ -8,35 +8,41 @@
       {% endif %}
         {{  card.text }}
       </div>
-    {% elif card.acf_fc_layout === 'multiple_choice' %}
-      <div class="card quiz">
+    {% else %}
+    {% set quiz_counter  = ( quiz_counter | default(0) ) + 1 %}
+      <div class="card quiz{{ quiz_counter}}">
       {% if card.title %}
         <h2>{{  card.title }}</h2>
       {% endif %}
-        <form id="gform" action="{{  card.quiz_form_url }}" method="POST">
+        <form id="gform{{ quiz_counter}}" class="{% if card.acf_fc_layout === 'multiple_choice' %}multiple-choice{% elif card.acf_fc_layout === 'checkbox' %}checkbox-quiz{% endif %}" action="{{  card.quiz_form_url }}" method="POST">
           <fieldset>
-            <legend for="{{  card.quiz_form_name }}">{{  card.quiz_title }}</legend>
+            <legend for="{{  card.quiz_field_name }}{{ options_counter }}" 
+                name="{% if card.acf_fc_layout === 'multiple_choice' %}{{  card.quiz_field_name }}{% elif card.acf_fc_layout === 'checkbox' %}{{  card.quiz_field_name }}{{ options_counter }}{% endif %}">{{  card.quiz_title }}</legend>
             {% for option in card.quiz_options %}
-            <p class="radio">
+            {% set options_counter  = ( options_counter | default(0) ) + 1 %}
+            <p class="{% if card.acf_fc_layout === 'multiple_choice' %}radio{% elif card.acf_fc_layout === 'checkbox' %}checkbox{% endif %}">
               <input 
-                id="{{  option.quiz_input_id }}" 
-                name="{{  option.quiz_form_name }}" 
-                type="radio" 
+                id="{{  card.quiz_field_`name }}{{ options_counter }}" 
+                name="{% if card.acf_fc_layout === 'multiple_choice' %}{{  card.quiz_field_name }}{% elif card.acf_fc_layout === 'checkbox' %}{{  card.quiz_field_name }}{{ options_counter }}{% endif %}" 
+                type="{% if card.acf_fc_layout === 'multiple_choice' %}radio{% elif card.acf_fc_layout === 'checkbox' %}checkbox{% endif %}" 
                 value="{{  option.quiz_input_value }}"
                 data-type="{% if option.quiz_input_type === 'Σωστό' %}correct{% else %}wrong{% endif %}" 
               />
-              <label for="{{  option.quiz_input_id }}">
+              <label for="{{  card.quiz_field_name }}{{ options_counter }}">
                 <span></span>
                 {{  option.quiz_input_value }}
               </label>
             </p>
             {% endfor %}
           </fieldset>
+
         </form>
-        <div id="thankyou_message" style="display: none;">
+        {% if card.acf_fc_layout === 'checkbox' %}<button class="button submit">Δες τις σωστές απαντήσεις!</button>{% endif %}
+        <svg class="loader quiz" width='120px' height='120px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-default"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(0 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(30 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.08333333333333333s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(60 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.16666666666666666s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(90 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.25s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(120 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.3333333333333333s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(150 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.4166666666666667s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(180 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(210 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5833333333333334s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(240 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.6666666666666666s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(270 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.75s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(300 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.8333333333333334s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(330 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.9166666666666666s' repeatCount='indefinite'/></rect></svg>
+        <article class="thankyou_message" style="display: none;">
           <h2>{{  card.quiz_thank_you_msg }}</h2>
           <small>Ευχαριστούμε για την απάντηση σου!</small>
-        </div> 
+        </article> 
     </div>
     {% endif %}
   {% endfor %}

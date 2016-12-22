@@ -177,7 +177,9 @@ input[type="checkbox"]:checked + label span {
   transition: background-color 0.4s linear;
 }
 
-
+/**
+ * Correct / wrong answer styling
+ */
 input[data-type="correct"]:checked + label span{
   background-color: green;
 }
@@ -185,6 +187,14 @@ input[data-type="correct"]:checked + label span{
 input[data-type="wrong"]:checked + label span{
   background-color: red;
 }
+
+/**
+ * Disabled input
+ */
+input:disabled + label span{
+  cursor: default;
+}
+ 
 
 /*select*/ 
 select:not(:-internal-list-box) {
