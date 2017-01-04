@@ -383,7 +383,7 @@ $(function() {
 var rowSize = 60; // item height
 var container = document.querySelector(".sortable-container");
 var listItems = Array.from(document.querySelectorAll(".list-item")); // Array of elements
-var sortables = listItems.map(Sort); // Array of sortables
+var sortables = listItems.map(Sortable); // Array of sortables
 var total = sortables.length;
 
 TweenLite.to(container, 0.5, {  
@@ -417,10 +417,13 @@ function changeIndex(item, to) {
 
   // Set index for each sortable
   //sortables.forEach((sortable, index) => sortable.setIndex(index));
+  sortables.forEach(function(sortable, index){
+    sortable.setIndex(index);
+  })
 }
 
 
-function Sort(element, index) {
+function Sortable(element, index) {
 
   var content = element.querySelector(".item-content");
   var order = element.querySelector(".order");

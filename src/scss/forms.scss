@@ -200,7 +200,7 @@ input[type="checkbox"]:checked + label span {
 input:checked + label span {
   // border: 2px solid #333;
   background-color: #ccc;
-  background-image: url('../../graphics/checkbox-r.svg');
+  background-image: url('/src/graphics/checkbox-r.svg');
   background-repeat: no-repeat;
   background-position: 2px 2px;
 }
@@ -209,13 +209,13 @@ input:checked + label span {
  * Correct / wrong answer styling
  */
 .submitted input[data-type="correct"] + label span {
-  background-image: url('../../graphics/checkbox-r.svg');
+  background-image: url('/src/graphics/checkbox-r.svg');
   background-repeat: no-repeat;
   background-position: 2px 2px;
 }
 
 .submitted input[data-type="wrong"] + label span {
-  background-image: url('../../graphics/checkbox-w.svg');
+  background-image: url('/src/graphics/checkbox-w.svg');
   background-repeat: no-repeat;
   background-position: 2px 2px;
 }
