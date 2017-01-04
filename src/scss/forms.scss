@@ -145,6 +145,23 @@ input[type="radio"]:checked + label span {
   transition: background-color 0.4s linear;
 }
 
+
+/*radio-buttons: likert scale*/
+form .likert {
+  float: left;  
+}
+
+form .likert mark {
+  display: block;
+  text-align: center;
+}
+
+form .likert.scale-label {
+  margin-top: 32px;
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
 /*checkbox*/ 
 input[type="checkbox"] {
   display: none;
@@ -178,14 +195,29 @@ input[type="checkbox"]:checked + label span {
 }
 
 /**
- * Correct / wrong answer styling
+ * Checked input
  */
-input[data-type="correct"]:checked + label span{
-  background-color: green;
+input:checked + label span {
+  // border: 2px solid #333;
+  background-color: #ccc;
+  background-image: url('../../graphics/checkbox-r.svg');
+  background-repeat: no-repeat;
+  background-position: 2px 2px;
 }
 
-input[data-type="wrong"]:checked + label span{
-  background-color: red;
+/**
+ * Correct / wrong answer styling
+ */
+.submitted input[data-type="correct"] + label span {
+  background-image: url('../../graphics/checkbox-r.svg');
+  background-repeat: no-repeat;
+  background-position: 2px 2px;
+}
+
+.submitted input[data-type="wrong"] + label span {
+  background-image: url('../../graphics/checkbox-w.svg');
+  background-repeat: no-repeat;
+  background-position: 2px 2px;
 }
 
 /**

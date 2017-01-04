@@ -39,6 +39,10 @@ svg {
   margin-right: 5px;
 }
 
+.none {
+  display: none;
+}
+
 .map-popover {
   position: fixed;
   max-width: 276px;
@@ -255,4 +259,50 @@ svg {
   top: 50%;
   transform: "translate(50%, -50%)";
   z-index: 10000;
+}
+
+.sortable-answers {
+  list-style: none;
+  padding: 0;
+}
+
+.sortable-answers li {
+  border: 1px solid #333;
+  padding: 5px 10px;
+  background: #fff;
+  z-index: 1;
+}
+
+.sortable-container {
+  position: relative;
+  // top: 50%;
+  // left: 50%;
+  width: 320px;
+  height: auto;
+  opacity: 0;
+  visibility: hidden;
+  // transform: translate(-50%, -50%);
+  // cursor: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/106114/cursor.png") 32 32, auto;
+  cursor: move;
+}
+
+.list-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 60px;
+  width: 100%;
+}
+
+.item-content {
+  height: 100%;
+  border: 1px solid rgba(123, 123, 123, 0.498039);
+  border-radius: 4px;
+  color: rgb(153, 153, 153);
+  line-height: 60px;
+  padding-left: 32px;
+  font-size: 24px;
+  font-weight: 400;
+  background-color: rgb(255, 255, 255);
+  //box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;
 }
