@@ -210,7 +210,7 @@ MapView.prototype._render_map = function() {
     .duration(250)
     .call(zoom.scaleBy, 0.5); 
   }
-  
+
   $("#reset").on("mousedown", resetted);
 
   $("#zoom-in").on("mousedown", zoomIn);
@@ -608,8 +608,8 @@ svg.select('#'+item.point.id)
   $(item.tip.modal).removeClass('open');
 });
 
-svg.select('#'+item.point.id).on('click', function(d) {
-   d3.event.stopPropagation(); 
+svg.select('#'+item.point.id).on('mousedown', function(d) {
+  d3.event.stopPropagation(); 
   //center and zoom point
   var t = d3.zoomIdentity.translate(width / 2.4, height / 2.2).scale(10).translate(-item.point_x, -item.point_y);
   svg.transition().duration(150).call(zoom.transform, t);
@@ -620,13 +620,11 @@ svg.select('#'+item.point.id).on('click', function(d) {
   item.pop.open = true;
   $(item.pop.modal).addClass('open');
  
-});
+}, {passive: true});
 
 svg.select('#'+item.point.id).on('dblclick', $.proxy(this.page_open, item));
 
-$('#'+item.point.id +'-popup'+' .open_page').on('click', $.proxy(this.page_open, item));
-
-
+$('#'+item.point.id +'-popup'+' .open_page').on('mousedown', $.proxy(this.page_open, item));
 
 
 }
@@ -639,11 +637,11 @@ $('#'+item.point.id +'-popup'+' .open_page').on('click', $.proxy(this.page_open,
 MapViewItem.prototype._addListeners = function(){
     var _this = this;
 
-    $(this.page.modal).find('.close').on("click", $.proxy(this.page_close, this)); 
-    $(this.page.modal).find('.next').on("click", function(){
+    $(this.page.modal).find('.close').on("mousedown", $.proxy(this.page_close, this)); 
+    $(this.page.modal).find('.next').on("mousedown", function(){
       console.log('clicked next');
     }); 
-    $(this.pop.modal).find('.close').on("click", $.proxy(this.pop_close, _this));
+    $(this.pop.modal).find('.close').on("mousedown", $.proxy(this.pop_close, _this));
 
 }
 
