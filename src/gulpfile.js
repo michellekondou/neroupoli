@@ -94,7 +94,7 @@ gulp.task("revreplace", ["rev"], function(){
  
 gulp.task('watch', ['browserSync', 'sass', 'scripts'], function(){
   gulp.watch('scss/**/*.scss', ['sass']);
-  //gulp.watch('js/**/*.js', ['scripts']);     
+  gulp.watch('js/**/*.js', ['scripts']);     
 })
  
 gulp.task('build-production', function(callback) {
