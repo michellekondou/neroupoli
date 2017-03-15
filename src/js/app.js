@@ -210,6 +210,7 @@ MapView.prototype._render_map = function() {
     .duration(250)
     .call(zoom.scaleBy, 0.5); 
   }
+  
   $("#reset").on("mousedown", resetted);
 
   $("#zoom-in").on("mousedown", zoomIn);
@@ -717,7 +718,7 @@ Modal.prototype.render_modal = function(){
   if(this.type == "tooltip") {
     this.modal.html("<div class='arrow'></div><h3 class='map-popover-title'>"+this.point+"</h3>");
   } else if(this.type == "popup"){
-    this.modal.html("<div class='arrow'></div>  <button class='close'>X</button><h3 class='map-popover-title'><strong>"+this.point+"</strong></h3><h3 class='map-popover-title'>" + nunjucks.renderString('Μικρό κείμενο και εικόνα για {{ username }}', { username: this.point }) + ". <br><br><button class='open_page'>Ανοίξτε το φύλο εργασίας</button></h3>");
+    this.modal.html("<div class='arrow'></div>  <button class='close'>X</button><h3 class='map-popover-title'>"+this.point+"</h3><h3 class='map-popover-title'>" + nunjucks.renderString('Μικρό κείμενο και εικόνα για {{ username }}', { username: this.point }) + ". <br><br><button class='open_page'>Ανοίξτε το φύλο εργασίας</button></h3>");
   }  
 }
 
