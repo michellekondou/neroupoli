@@ -25,3 +25,12 @@
   bottom: 20%;
   left: 20%;
 }
+
+.pin {
+  display: block;
+  position: absolute;
+  bottom: -42px;
+  background-image: url('../compiled/graphics/pin.svg');
+  width: 32px;
+  height: 32px;
+}

@@ -2,22 +2,22 @@ var cw = document.documentElement.clientWidth;
 var ch = document.documentElement.clientHeight;
 
 if (cw < ch) {
-  var mapSrc = 'src/graphics/map-1229.svg';
+  var mapSrc = 'src/graphics/map-1.2.svg';
   var vw = 1229;
   var vh = 1229;
   var lpw = vw; //stands for limit pan
   var lph = vh;
 } else {
   if (cw < 1281) {
-    var mapSrc = 'src/graphics/map-1280.svg';
+    var mapSrc = 'src/graphics/map-1.2.svg';
     var vw = 1280;
     var vh = 768;
     var lpw = vw;
     var lph = vh;
   } else if (cw > 1280) {
-    var mapSrc = 'src/graphics/map7.svg';
-    var vw = 1920;
-    var vh = 1080;
+    var mapSrc = 'src/graphics/map-1.2.svg';
+    var vw = 1980;
+    var vh = 1980;
     var lpw = vw;
     var lph = vh;
   }
@@ -78,10 +78,11 @@ MapView.prototype._init_map_elements = function() {
         var content = post_data[post];
         var post_id = post_data[post].id;
       }
-    } 
+    }  
+
     var rect = points[i].getBoundingClientRect();
-    var tip = new Modal('tooltip', point.id);
-    var pop = new Modal('popup', point.id);
+    var tip = new Modal('tooltip', point.id, content.acf.card_title);
+    var pop = new Modal('popup', point.id, content.acf.card_title);
     var page = new Modal('page', point.id);
     var point_item = new MapViewItem(point, rect, map, this.map_bcr, pop, tip, page, content, post_id);
     this.map_items.push(point_item); 
@@ -127,6 +128,7 @@ MapView.prototype._render_map = function() {
 
     //change cursor according to mouse event
     if (d3.event.sourceEvent !== null) {
+      //detects zoom-in
       if (d3.event.sourceEvent.deltaY < 0) {
         svg.style("cursor", "zoom-in");
         //if mobile
@@ -135,6 +137,7 @@ MapView.prototype._render_map = function() {
         } else {
           var duration = 250;
         }
+      //detects zoom-out
       } else if (d3.event.sourceEvent.deltaY > 0){
         svg.style("cursor", "zoom-out");
         //if mobile
@@ -143,10 +146,14 @@ MapView.prototype._render_map = function() {
         } else {
           var duration = 250;
         }
-      }
+      } 
+      //detects panning
       if (d3.event.sourceEvent.movementX != 0 ||  d3.event.sourceEvent.movementY != 0) {
         svg.style("cursor", "move");
         var duration = 0;
+        $('.popup').removeClass('open');
+        $('.tooltip').removeClass('open');
+        console.log('dragging');
       }
     }
 
@@ -226,10 +233,13 @@ MapView.prototype._render_map = function() {
       $(map_item.tip.modal).removeClass('open');
       map_item.pop.open = false; 
       $(map_item.pop.modal).removeClass('open');
-
     }
 
   });
+
+  var zoomLevel = svg.call(zoom); 
+  //console.log(zoomLevel._groups[0][0].__zoom.k); 
+  return zoomLevel._groups[0][0].__zoom.k;
   
 }
 
@@ -265,6 +275,7 @@ MapViewItem.prototype._init_map_elements = function(){
 ======================================================================== */
 MapViewItem.prototype.page_open = function () {
   if(this.page.open) { return; }
+  console.log(this);
   this.page.open = true;
   $(this.page.modal).addClass('open');
   $('.map-loader').css('display','block'); 
@@ -549,22 +560,31 @@ MapViewItem.prototype.pop_close = function () {
 
 MapViewItem.prototype._init_points = function(points){
  
-var item = this;
+var parent = this;
+
+console.log(parent);
 
 this.point_x = this.rect.left;
-this.point_y = this.rect.top; 
+this.point_y = this.rect.top;
+this.point_width = this.rect.width;
+this.point_height = this.rect.height; 
 
-console.log(item);
+// this.pin = $("<div />", {
+//   "class": "pin"
+// }).appendTo($(item.point)); 
 
+//the item pin will be in the map
+
+//( (item.point_width * zoom_level) / 2.4 ) + 
 
 /* Select the svg using d3 */
-$map = document.getElementById("map");
-  //get the SVG document inside the Object tag
-var svgDoc = $map.contentDocument;
-  //access the svg
-var mapSvg = svgDoc.getElementById("svgmap"); 
-  var viewEl =  svgDoc.getElementById("view"); 
-var svg = d3.select(mapSvg),
+var $map    = document.getElementById("map"),
+    //get the SVG document inside the Object tag
+    svgDoc  = $map.contentDocument,
+    //access the svg
+    mapSvg  = svgDoc.getElementById("svgmap"),
+    viewEl =  svgDoc.getElementById("view"), 
+    svg = d3.select(mapSvg),
     width = +svg.attr("width"),
     height = +svg.attr("height"),
     centered;
@@ -574,57 +594,164 @@ var svg = d3.select(mapSvg),
     .attr("x", 0.5)
     .attr("y", 0.5)
     .attr("width", width - 1)
-    .attr("height", height - 1);
+    .attr("height", height - 1)
+    .style("pointer-events", "all");
  
  function zoomed() {
+     //close both the tooltip and the popup if open
+    for(var p = 0; p < parent.map_items.length;p++) {
+      var map_item = parent.map_items[p]; 
+      map_item.tip.open = false;
+      $(map_item.tip.modal).removeClass('open');
+      map_item.pop.open = false; 
+      $(map_item.pop.modal).removeClass('open');
+    }
+
+    //change cursor according to mouse event
+    if (d3.event.sourceEvent !== null) {
+      if (d3.event.sourceEvent.deltaY < 0) {
+        svg.style("cursor", "zoom-in");
+        //if mobile
+        if (cw < 1024) {
+          var duration = 0;
+        } else {
+          var duration = 250;
+        }
+      } else if (d3.event.sourceEvent.deltaY > 0){
+        svg.style("cursor", "zoom-out");
+        //if mobile
+        if (cw < 1024) {
+          var duration = 0;
+        } else {
+          var duration = 250;
+        }
+      }
+      if (d3.event.sourceEvent.movementX != 0 ||  d3.event.sourceEvent.movementY != 0) {
+        svg.style("cursor", "move");
+        var duration = 0;
+        $('.popup').removeClass('open');
+        $('.tooltip').removeClass('open');
+        console.log('drag');
+      }
+    }
+
+    //handle zoom
     view.transition()
-        .duration(50)
+        .duration(duration)
         .attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")" + " scale(" + d3.event.transform.k + ")");
+
+  }
+
+  //return cursor to default between zoom events
+  function zoomEnd(){
+    svg.transition().delay(1500).style("cursor", "default");
+  }
+ 
+  var svgWidth = d3.select(mapSvg).attr("width");
+  var svgHeight = d3.select(mapSvg).attr("height");
+  if (cw < ch) {
+    if (cw < 480) {
+      var t = -width/3.5, //top
+          l = -height/12, //left
+          b = width+width/3.5, //bottom
+          r = height+height/12; //right
+    } else {
+      var t = -width/5.5, //top
+          l = -height/12, //left
+          b = width+width/5.5, //bottom
+          r = height+height/12; //rights
+    }
+  } else {
+    var t = 0,
+        l = 0,
+        b = width,
+        r = height;
   }
 
   var zoom = d3.zoom()
       .scaleExtent([1, 10])
-      .translateExtent([[0, 0], [width, height]])
-      .on("zoom", zoomed);
-
-$(item.point).css('cursor', 'pointer');
-
-svg.select('#'+item.point.id)
-.on('mouseover', function() {
+      .translateExtent([ [t, l], [b, r] ])
+      .on("zoom", zoomed)
+      .on("zoom.end", zoomEnd);
  
+
+  svg.call(zoom); 
+
+
+$(parent.point).css('cursor', 'pointer');
+
+svg.select('#view')
+.on('mousewheel.zoom', function(d) {
+  console.log('wheelin', parent.pop);
+  $('.popup').removeClass('open');
+  $('.tooltip').removeClass('open');
+})
+
+
+
+svg.select('#'+parent.point.id)
+.on('mousewheel.zoom', function(d) {
+  parent.tip.open = false;
+  $(parent.tip.modal).removeClass('open');
+  parent.pop.open = false;
+  $(parent.pop.modal).removeClass('open');
+})
+.on('mouseover', function() {
+  //console.log(item.tip.modal[0].children[1], item.tip.modal[0].clientHeight, 32);
+  var zoom_level = MapView.prototype._render_map.call(parent),
+      //tooltip height + pin height + margin between pin and tooltip
+      modalWidth = Math.floor( parent.tip.modal[0].clientWidth),
+      modalHeight = Math.floor( parent.tip.modal[0].clientHeight),
+      modalTitle = parent.tip.modal[0].children[1]; 
+
   //only show the tooltip if popup not open 
-  if(item.pop.open === false) {
-    item.tip.open = true;
-    item.tip.style({
-      "left": ( $(this).offset().left + item.map_bcr.left )  + "px",
-      "top": ( $(this).offset().top + item.map_bcr.top ) -50 + "px"
+  if(parent.pop.open === false) {
+    parent.tip.open = true;
+    parent.tip.style({
+      //position the tooltip on top and middle of point
+      "left": ( $(this).offset().left + parent.map_bcr.left ) - (parent.point_width) + "px",
+      "top": ( $(this).offset().top + parent.map_bcr.top ) - (modalHeight) + "px"
     }); 
-    $(item.tip.modal).addClass('open');
+    $(parent.tip.modal).addClass('open');
   }
 })
 .on('mouseout', function(d) {
   //close the tooltip if open
-  item.tip.open = false;
-  $(item.tip.modal).removeClass('open');
+  parent.tip.open = false;
+  $(parent.tip.modal).removeClass('open');
 });
 
-svg.select('#'+item.point.id).on('mousedown', function(d) {
+svg.select('#'+parent.point.id).on('click', function(d) {
+  var zoomLevel = svg.call(zoom)._groups[0][0].__zoom.k; 
+  console.log(zoomLevel);
+  if (zoomLevel < 10 ) {
   d3.event.stopPropagation(); 
   //center and zoom point
-  var t = d3.zoomIdentity.translate(width / 2.4, height / 2.2).scale(10).translate(-item.point_x, -item.point_y);
+  var t = d3.zoomIdentity.translate(width / 2.8, height / 2.6).scale(10).translate(-parent.point_x, -parent.point_y);
+  
   svg.transition().duration(150).call(zoom.transform, t);
+  } else if (zoomLevel === 10 ) {
+    //if panning
+     // if (d3.event.sourceEvent.movementX != 0 ||  d3.event.sourceEvent.movementY != 0) {
+     //  console.log('panning');
+     // }
+    //show the popup
+    parent.pop.open = true;
+    $(parent.pop.modal).addClass('open');
+    console.log('reached max level zoom');
+  }
   //close the tooltip if it's open
-  item.tip.open = false;
-  $(item.tip.modal).removeClass('open');
+  parent.tip.open = false;
+  $(parent.tip.modal).removeClass('open');
   //show the popup
-  item.pop.open = true;
-  $(item.pop.modal).addClass('open');
+  parent.pop.open = true;
+  $(parent.pop.modal).addClass('open');
  
 }, {passive: true});
 
-svg.select('#'+item.point.id).on('dblclick', $.proxy(this.page_open, item));
+svg.select('#'+parent.point.id).on('dblclick', $.proxy(this.page_open, parent));
 
-$('#'+item.point.id +'-popup'+' .open_page').on('mousedown', $.proxy(this.page_open, item));
+$('#'+parent.point.id +'-popup'+' .open_page').on('mousedown', $.proxy(this.page_open, parent));
 
 
 }
@@ -649,8 +776,7 @@ MapViewItem.prototype._addListeners = function(){
 ======= RENDERING FUNCTIONS ===============================================
 ======================================================================== */
 MapViewItem.prototype._render = function(){
-    var _this = this;  
-
+    var _this = this;   
     //load static parts of the page, tools, next
     nunjucks.configure('src/js/templates', { autoescape: false });
     
@@ -663,10 +789,11 @@ MapViewItem.prototype._render = function(){
 /**
  * Create a Modal prototype
  */
-var Modal = function(type, point){
+var Modal = function(type, point,title){
   this.open = false;
   this.type = type;
   this.point = point;
+  this.title = title;
   this.init();
   this.render_modal();
 }
@@ -680,7 +807,7 @@ Modal.prototype.init = function(){
       "id": this.point + "-popup" 
     }).appendTo('body');
   } else if(this.type == "tooltip"){
-     this.open = true;
+    this.open = true;
     this.modal = $("<div />", {
       "class": "map-popover tooltip top",
       "id": this.point + "-tooltip"
@@ -714,9 +841,9 @@ Modal.prototype.render_modal = function(){
   nunjucks.configure('src/js/templates', { autoescape: true });
  
   if(this.type == "tooltip") {
-    this.modal.html("<div class='arrow'></div><h3 class='map-popover-title'>"+this.point+"</h3>");
+    this.modal.html("<h3 class='map-popover-title'>"+this.title+"</h3>");
   } else if(this.type == "popup"){
-    this.modal.html("<div class='arrow'></div>  <button class='close'>X</button><h3 class='map-popover-title'>"+this.point+"</h3><h3 class='map-popover-title'>" + nunjucks.renderString('Μικρό κείμενο και εικόνα για {{ username }}', { username: this.point }) + ". <br><br><button class='open_page'>Ανοίξτε το φύλο εργασίας</button></h3>");
+    this.modal.html("<div class='arrow'></div>  <button class='close'>X</button><h3 class='map-popover-title'>"+this.title+"</h3><h3 class='map-popover-title'>" + nunjucks.renderString('Μικρό κείμενο και εικόνα για {{ username }}', { username: this.title }) + ". <br><br><button class='open_page'>Ανοίξτε το φύλο εργασίας</button></h3>");
   }  
 }
 
