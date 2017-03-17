@@ -82,7 +82,7 @@ MapView.prototype._init_map_elements = function() {
 
     var rect = points[i].getBoundingClientRect();
     var tip = new Modal('tooltip', point.id, content.acf.card_title);
-    var pop = new Modal('popup', point.id, content.acf.card_title);
+    var pop = new Modal('popup', point.id, content.acf.card_title, content.acf.card_summary);
     var page = new Modal('page', point.id);
     var point_item = new MapViewItem(point, rect, map, this.map_bcr, pop, tip, page, content, post_id);
     this.map_items.push(point_item); 
@@ -789,11 +789,12 @@ MapViewItem.prototype._render = function(){
 /**
  * Create a Modal prototype
  */
-var Modal = function(type, point,title){
+var Modal = function(type, point, title, summary){
   this.open = false;
   this.type = type;
   this.point = point;
   this.title = title;
+  this.summary = summary;
   this.init();
   this.render_modal();
 }
@@ -843,7 +844,7 @@ Modal.prototype.render_modal = function(){
   if(this.type == "tooltip") {
     this.modal.html("<h3 class='map-popover-title'>"+this.title+"</h3>");
   } else if(this.type == "popup"){
-    this.modal.html("<div class='arrow'></div>  <button class='close'>X</button><h3 class='map-popover-title'>"+this.title+"</h3><h3 class='map-popover-title'>" + nunjucks.renderString('Μικρό κείμενο και εικόνα για {{ username }}', { username: this.title }) + ". <br><br><button class='open_page'>Ανοίξτε το φύλο εργασίας</button></h3>");
+    this.modal.html("<div class='arrow'></div>  <button class='close'>X</button><h3 class='map-popover-title'>"+this.title+"</h3><h3 class='map-popover-title'>" + nunjucks.renderString('{{ username }}', { username: this.summary }) + " <br><br><button class='open_page'>Ανοίξτε το φύλο εργασίας</button></h3>");
   }  
 }
 
