@@ -727,7 +727,7 @@ svg.select('#'+parent.point.id).on('click', function(d) {
   if (zoomLevel < 10 ) {
   d3.event.stopPropagation(); 
   //center and zoom point
-  var t = d3.zoomIdentity.translate(width / 2.8, height / 2.6).scale(10).translate(-parent.point_x, -parent.point_y);
+  var t = d3.zoomIdentity.translate(width / 3, height / 3).scale(10).translate(-parent.point_x, -parent.point_y);
   
   svg.transition().duration(150).call(zoom.transform, t);
   } else if (zoomLevel === 10 ) {
