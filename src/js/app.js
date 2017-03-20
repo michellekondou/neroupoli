@@ -2,20 +2,20 @@ var cw = document.documentElement.clientWidth;
 var ch = document.documentElement.clientHeight;
 
 if (cw < ch) {
-  var mapSrc = 'src/graphics/map-1.3-optimized.svg';
+  var mapSrc = 'src/graphics/map-1.3-v1.svg';
   var vw = 1229;
   var vh = 1229;
   var lpw = vw; //stands for limit pan
   var lph = vh;
 } else {
   if (cw < 1281) {
-    var mapSrc = 'src/graphics/map-1.3-optimized.svg';
+    var mapSrc = 'src/graphics/map-1.3-v1.svg';
     var vw = 1280;
     var vh = 768;
     var lpw = vw;
     var lph = vh;
   } else if (cw > 1280) {
-    var mapSrc = 'src/graphics/map-1.3-optimized.svg';
+    var mapSrc = 'src/graphics/map-1.3-v1.svg';
     var vw = 1980;
     var vh = 1080;
     var lpw = cw;
@@ -164,7 +164,7 @@ MapView.prototype._render_map = function() {
     console.log('zoomin');
   }
 
-  
+
   svg.select('#view')
   .on('mousewheel.zoom', function(d) {
     for(var p = 0; p < _this.map_items.length;p++) {
