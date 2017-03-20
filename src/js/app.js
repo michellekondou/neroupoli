@@ -2,24 +2,24 @@ var cw = document.documentElement.clientWidth;
 var ch = document.documentElement.clientHeight;
 
 if (cw < ch) {
-  var mapSrc = 'src/graphics/map-1.2.svg';
+  var mapSrc = 'src/graphics/map-1.3-optimized.svg';
   var vw = 1229;
   var vh = 1229;
   var lpw = vw; //stands for limit pan
   var lph = vh;
 } else {
   if (cw < 1281) {
-    var mapSrc = 'src/graphics/map-1.2.svg';
+    var mapSrc = 'src/graphics/map-1.3-optimized.svg';
     var vw = 1280;
     var vh = 768;
     var lpw = vw;
     var lph = vh;
   } else if (cw > 1280) {
-    var mapSrc = 'src/graphics/map-1.2.svg';
+    var mapSrc = 'src/graphics/map-1.3-optimized.svg';
     var vw = 1980;
-    var vh = 1980;
-    var lpw = vw;
-    var lph = vh;
+    var vh = 1080;
+    var lpw = cw;
+    var lph = ch;
   }
 }
 
@@ -135,7 +135,7 @@ MapView.prototype._render_map = function() {
         if (cw < 1024) {
           var duration = 0;
         } else {
-          var duration = 250;
+          var duration = 0;
         }
       //detects zoom-out
       } else if (d3.event.sourceEvent.deltaY > 0){
@@ -144,7 +144,7 @@ MapView.prototype._render_map = function() {
         if (cw < 1024) {
           var duration = 0;
         } else {
-          var duration = 250;
+          var duration = 0;
         }
       } 
       //detects panning
@@ -615,7 +615,7 @@ var $map    = document.getElementById("map"),
         if (cw < 1024) {
           var duration = 0;
         } else {
-          var duration = 250;
+          var duration = 0;
         }
       } else if (d3.event.sourceEvent.deltaY > 0){
         svg.style("cursor", "zoom-out");
@@ -623,7 +623,7 @@ var $map    = document.getElementById("map"),
         if (cw < 1024) {
           var duration = 0;
         } else {
-          var duration = 250;
+          var duration = 0;
         }
       }
       if (d3.event.sourceEvent.movementX != 0 ||  d3.event.sourceEvent.movementY != 0) {
