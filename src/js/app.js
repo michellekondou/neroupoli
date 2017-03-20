@@ -161,12 +161,26 @@ MapView.prototype._render_map = function() {
     view.transition()
         .duration(duration)
         .attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")" + " scale(" + d3.event.transform.k + ")");
-
+    console.log('zoomin');
   }
+
+  
+  svg.select('#view')
+  .on('mousewheel.zoom', function(d) {
+    for(var p = 0; p < _this.map_items.length;p++) {
+      var map_item = _this.map_items[p]; 
+      map_item.tip.open = false;
+      $(map_item.tip.modal).removeClass('open');
+      map_item.pop.open = false; 
+      $(map_item.pop.modal).removeClass('open');
+    }
+  });
 
   //return cursor to default between zoom events
   function zoomEnd(){
     svg.transition().delay(1500).style("cursor", "default");
+    //svg.style("cursor", "default");
+    console.log('zoomend');
   }
  
   var svgWidth = d3.select(mapSvg).attr("width");
@@ -562,8 +576,6 @@ MapViewItem.prototype._init_points = function(points){
  
 var parent = this;
 
-console.log(parent);
-
 this.point_x = this.rect.left;
 this.point_y = this.rect.top;
 this.point_width = this.rect.width;
@@ -599,14 +611,6 @@ var $map    = document.getElementById("map"),
  
  function zoomed() {
      //close both the tooltip and the popup if open
-    for(var p = 0; p < parent.map_items.length;p++) {
-      var map_item = parent.map_items[p]; 
-      map_item.tip.open = false;
-      $(map_item.tip.modal).removeClass('open');
-      map_item.pop.open = false; 
-      $(map_item.pop.modal).removeClass('open');
-    }
-
     //change cursor according to mouse event
     if (d3.event.sourceEvent !== null) {
       if (d3.event.sourceEvent.deltaY < 0) {
@@ -639,6 +643,9 @@ var $map    = document.getElementById("map"),
     view.transition()
         .duration(duration)
         .attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")" + " scale(" + d3.event.transform.k + ")");
+    
+
+    console.log('calling zoom');
 
   }
 
@@ -668,6 +675,16 @@ var $map    = document.getElementById("map"),
         r = height;
   }
 
+for(var p = 0; p < parent.map_items.length;p++) {
+  var map_item = parent.map_items[p]; 
+  map_item.tip.open = false;
+  $(map_item.tip.modal).removeClass('open');
+  map_item.pop.open = false; 
+  $(map_item.pop.modal).removeClass('open');
+  console.log('is this working', parent.map_items);
+}
+
+
   var zoom = d3.zoom()
       .scaleExtent([1, 10])
       .translateExtent([ [t, l], [b, r] ])
@@ -680,12 +697,12 @@ var $map    = document.getElementById("map"),
 
 $(parent.point).css('cursor', 'pointer');
 
-svg.select('#view')
-.on('mousewheel.zoom', function(d) {
-  console.log('wheelin', parent.pop);
-  $('.popup').removeClass('open');
-  $('.tooltip').removeClass('open');
-})
+// svg.select('#view')
+// .on('mousewheel.zoom', function(d) {
+//   console.log('wheelin');
+//   $('.popup').removeClass('open');
+//   $('.tooltip').removeClass('open');
+// })
 
 
 
@@ -698,7 +715,7 @@ svg.select('#'+parent.point.id)
 })
 .on('mouseover', function() {
   //console.log(item.tip.modal[0].children[1], item.tip.modal[0].clientHeight, 32);
-  var zoom_level = MapView.prototype._render_map.call(parent),
+  var //zoom_level = MapView.prototype._render_map.call(parent),
       //tooltip height + pin height + margin between pin and tooltip
       modalWidth = Math.floor( parent.tip.modal[0].clientWidth),
       modalHeight = Math.floor( parent.tip.modal[0].clientHeight),

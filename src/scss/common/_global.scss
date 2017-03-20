@@ -96,6 +96,7 @@ svg {
   // -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
   box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
   opacity: 0;
+  z-index: -1;
 }
 .map-popover.top {
   margin-top: -10px;
@@ -116,6 +117,7 @@ svg {
   font-size: 20px;
   color: #fff;
   background-color: $accent;
+  z-index: -1;
 }
 .map-popover-content {
   padding: 9px 14px;
