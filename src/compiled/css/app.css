@@ -695,6 +695,7 @@ option {
   width: 50%;
   height: 100%;
   margin: auto;
+  margin-top: 0;
   margin-right: 40px; }
 
 .col h3 {
