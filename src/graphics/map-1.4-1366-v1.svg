@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <svg id="svgmap" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1366" height="768" viewBox="0 0 1366 768">
+<defs>
+<link href="../scss/map.css" type="text/css" rel="stylesheet" xmlns="http://www.w3.org/1999/xhtml"/>
+</defs>
   <g id="view">
     <g id="background">
       <path fill-rule="evenodd" clip-rule="evenodd" fill="#E9F7FE" d="M1.19-298.655H1366v1365.31H1.19v-1365.31z"/>

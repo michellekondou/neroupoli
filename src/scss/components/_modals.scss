@@ -9,7 +9,7 @@
 
 .map-popover {
   position: fixed;
-  max-width: 276px;
+  max-width: 280px;
   padding: 1px;
   font-family: $regular;
   font-size: 14px;
@@ -34,6 +34,7 @@
   box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
   opacity: 0;
   z-index: -1;
+  color: #fff;
 }
 .map-popover.top {
   margin-top: -10px;
@@ -47,18 +48,49 @@
 .map-popover.left {
   margin-left: -10px;
 }
+
 .map-popover-title {
-  padding: 8px 14px;
+  padding: 0;
   margin: 0;
   font-family: $regular;
-  font-size: 20px;
+  font-size: 21px;
   color: #fff;
+  letter-spacing: 1px;
   background-color: $accent;
   z-index: -1;
 }
-.map-popover-content {
-  padding: 9px 14px;
+
+.popup {
+  padding: 20px;
 }
+
+.tooltip {
+  padding: 10px 20px;
+}
+
+.tooltip.open .map-popover-title {
+  letter-spacing: 0;
+  font-size: 19px;
+}
+
+.popup.open .map-popover-title {
+  margin-top: 20px;
+  font-family: $bold;
+}
+
+.map-popover-content {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+}
+
+.popup.open .map-popover-content {
+  margin-top: 10px;
+  font-size: 19px;
+  line-height: 1.4;
+  color: #fff;
+}
+
 .map-popover > .arrow,
 .map-popover > .arrow:after {
   position: absolute;
@@ -94,15 +126,15 @@
   top: 50%;
   left: -11px;
   margin-top: -11px;
-  border-right-color: #999;
-  border-right-color: rgba(0, 0, 0, .25);
+  border-right-color: $accent;
+  //border-right-color: rgba(0, 0, 0, .25);
   border-left-width: 0;
 }
 .map-popover.right > .arrow:after {
   bottom: -10px;
   left: 1px;
   content: " ";
-  border-right-color: #fff;
+  border-right-color: $accent;
   border-left-width: 0;
 }
 .map-popover.bottom > .arrow {
@@ -126,14 +158,14 @@
   margin-top: -11px;
   border-right-width: 0;
   border-left-color: #999;
-  border-left-color: rgba(0, 0, 0, .25);
+  border-left-color: $accent;
 }
 .map-popover.left > .arrow:after {
   right: 1px;
   bottom: -10px;
   content: " ";
   border-right-width: 0;
-  border-left-color: #fff;
+  border-left-color: $accent;
 }
 
 .page {
@@ -168,7 +200,21 @@
   top: 50%;
   transform: "translate(0, -50%)"
 }
+/**
+ * open page button - needs renaming
+ */
+.open_page {
+  font-family: $bold;
+  font-size: 12px;
+  line-height: 1;
+  color: #fff;
+  text-transform: uppercase;
+  margin-top: 40px;
+}
 
+/**
+ * Modal close button
+ */
 .close {
   position: absolute;
   top: 10px;
@@ -179,7 +225,24 @@
   position: absolute;
   top: 10px;
   right: 10px;
+  background: url('../graphics/close-popup.svg');
+  width: 15px;
+  height: 15px;
 }
+
+
+/**
+ * Cards / Pages
+ *
+ * Multi Comment description
+ *
+ * @credits
+ * http://
+ *
+ * TODO: 
+ *  - First todo item
+ *  - Second todo item
+ */
 
 .card {
   display: none;

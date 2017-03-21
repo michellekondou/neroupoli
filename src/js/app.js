@@ -685,26 +685,16 @@ for(var p = 0; p < parent.map_items.length;p++) {
 }
 
 
-  var zoom = d3.zoom()
-      .scaleExtent([1, 10])
-      .translateExtent([ [t, l], [b, r] ])
-      .on("zoom", zoomed)
-      .on("zoom.end", zoomEnd);
+var zoom = d3.zoom()
+    .scaleExtent([1, 10])
+    .translateExtent([ [t, l], [b, r] ])
+    .on("zoom", zoomed)
+    .on("zoom.end", zoomEnd);
  
 
-  svg.call(zoom); 
-
+svg.call(zoom); 
 
 $(parent.point).css('cursor', 'pointer');
-
-// svg.select('#view')
-// .on('mousewheel.zoom', function(d) {
-//   console.log('wheelin');
-//   $('.popup').removeClass('open');
-//   $('.tooltip').removeClass('open');
-// })
-
-
 
 svg.select('#'+parent.point.id)
 .on('mousewheel.zoom', function(d) {
@@ -738,7 +728,7 @@ svg.select('#'+parent.point.id)
   $(parent.tip.modal).removeClass('open');
 });
 
-svg.select('#'+parent.point.id).on('click', function(d) {
+svg.select('#'+parent.point.id).on('mousedown', function(d) {
   var zoomLevel = svg.call(zoom)._groups[0][0].__zoom.k; 
   console.log(zoomLevel);
   if (zoomLevel < 10 ) {
@@ -861,7 +851,7 @@ Modal.prototype.render_modal = function(){
   if(this.type == "tooltip") {
     this.modal.html("<h3 class='map-popover-title'>"+this.title+"</h3>");
   } else if(this.type == "popup"){
-    this.modal.html("<div class='arrow'></div>  <button class='close'>X</button><h3 class='map-popover-title'>"+this.title+"</h3><h3 class='map-popover-title'>" + nunjucks.renderString('{{ username }}', { username: this.summary }) + " <br><br><button class='open_page'>Ανοίξτε το φύλο εργασίας</button></h3>");
+    this.modal.html("<div class='arrow'></div>  <button class='close'></button><h3 class='map-popover-title'>"+this.title+"</h3><p class='map-popover-content'>" + nunjucks.renderString('{{ username }}', { username: this.summary }) + "<button class='open_page'>Ανοίξτε τη δραστηριότητα</button></p>");
   }  
 }
 
