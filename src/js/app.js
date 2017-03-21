@@ -8,13 +8,13 @@ if (cw < ch) {
   var lpw = vw; //stands for limit pan
   var lph = vh;
 } else {
-  if (cw < 1281) {
-    var mapSrc = 'src/graphics/map-1.3-v1.svg';
-    var vw = 1280;
+  if (cw <= 1366) {
+    var mapSrc = 'src/graphics/map-1.4-1366-v1.svg';
+    var vw = 1366;
     var vh = 768;
     var lpw = vw;
     var lph = vh;
-  } else if (cw > 1280) {
+  } else if (cw > 1366) {
     var mapSrc = 'src/graphics/map-1.3-v1.svg';
     var vw = 1980;
     var vh = 1080;
