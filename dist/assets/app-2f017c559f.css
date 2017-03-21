@@ -18,7 +18,7 @@ html, body {
   background: #E9F7FE;
   background: #ccc;
   font-family: "cf_asty_stdregular";
-  color: #525252; }
+  color: #939598; }
 
 h1,
 h2,
@@ -48,17 +48,6 @@ svg {
 .none {
   display: none; }
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  max-width: 100%;
-  height: 100%;
-  opacity: 0;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.8) 40%, rgba(0, 0, 0, 0.7) 75%, rgba(0, 0, 0, 0.3) 100%);
-  z-index: -1; }
-
 button {
   background-color: transparent;
   border: none;
@@ -81,7 +70,7 @@ legend {
   -webkit-padding-end: 2px;
   border-width: initial;
   border-style: none;
-  border-color: initial;
+  border-color: #939598;
   border-image: initial; }
 
 label {
@@ -97,7 +86,7 @@ keygen,
 select,
 button {
   text-rendering: auto;
-  color: initial;
+  color: #939598;
   letter-spacing: normal;
   word-spacing: normal;
   text-transform: none;
@@ -136,7 +125,7 @@ input {
   padding: 1px;
   border-width: 2px;
   border-style: inset;
-  border-color: initial;
+  border-color: #939598;
   border-image: initial; }
 
 textarea {
@@ -155,7 +144,7 @@ textarea {
   word-wrap: break-word;
   border-width: 1px;
   border-style: solid;
-  border-color: initial;
+  border-color: #939598;
   border-image: initial;
   padding: 2px; }
 
@@ -172,7 +161,7 @@ input[type="radio"] {
   display: none; }
 
 input[type="radio"] + label {
-  color: #333;
+  color: #939598;
   font-size: 14px; }
 
 input[type="radio"] + label span {
@@ -186,7 +175,7 @@ input[type="radio"] + label span {
   border-radius: 50%; }
 
 input[type="radio"] + label span {
-  background-color: #ccc; }
+  background-color: #939598; }
 
 input[type="radio"] + label span,
 input[type="radio"]:checked + label span {
@@ -213,7 +202,7 @@ input[type="checkbox"] {
   display: none; }
 
 input[type="checkbox"] + label {
-  color: #333;
+  color: #939598;
   font-size: 14px; }
 
 input[type="checkbox"] + label span {
@@ -225,7 +214,7 @@ input[type="checkbox"] + label span {
   cursor: pointer; }
 
 input[type="checkbox"] + label span {
-  background-color: #ccc; }
+  background-color: #939598; }
 
 input[type="checkbox"] + label span,
 input[type="checkbox"]:checked + label span {
@@ -238,7 +227,7 @@ input[type="checkbox"]:checked + label span {
  * Checked input
  */
 input:checked + label span {
-  background-color: #ccc;
+  background-color: #939598;
   background-image: url("https://michellekondou.me/neroupoli/src/graphics/checkbox-r.svg");
   background-repeat: no-repeat;
   background-position: 2px 2px; }
@@ -272,12 +261,12 @@ select {
   align-items: center;
   white-space: pre;
   -webkit-rtl-ordering: logical;
-  color: black;
+  color: #939598;
   background-color: white;
   cursor: default;
   border-width: 1px;
   border-style: solid;
-  border-color: initial;
+  border-color: #939598;
   border-image: initial; }
 
 option {
@@ -533,37 +522,16 @@ option {
   border-right-width: 0;
   border-left-color: #00B9F2; }
 
-.page {
-  position: absolute;
-  padding: 30px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80%;
-  max-width: 80%;
-  height: 80%;
-  background: #fff;
-  border-radius: 10px;
-  opacity: 1;
-  z-index: 1; }
-
-.page-content {
-  width: 100%;
-  height: 100%;
-  padding-right: 15px;
-  overflow-y: scroll; }
-
-.open {
-  opacity: 1;
-  z-index: 1; }
-
+/**
+ * Popup open state
+ */
 .popup.open {
   left: 8%;
   top: 50%;
   transform: "translate(0, -50%)"; }
 
 /**
- * open page button - needs renaming
+ * Open page button - needs renaming
  */
 .open_page {
   font-family: "cf_asty_stdbold";
@@ -574,20 +542,43 @@ option {
   margin-top: 40px; }
 
 /**
- * Modal close button
+ * Page & Modal close button
+ * TODO rename to close_btn to differentiate from state
  */
 .close {
-  position: absolute;
-  top: 10px;
-  right: 10px; }
+  position: absolute; }
 
 .popup .close {
-  position: absolute;
   top: 10px;
   right: 10px;
-  background: url("../graphics/close-popup.svg");
+  background-image: url("../graphics/close-popup.svg");
   width: 15px;
   height: 15px; }
+
+.page .close {
+  top: 20px;
+  right: 20px;
+  background-image: url("../graphics/close-page.svg");
+  width: 34px;
+  height: 34px; }
+
+/**
+ * Generic
+ */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  opacity: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.8) 40%, rgba(0, 0, 0, 0.7) 75%, rgba(0, 0, 0, 0.3) 100%);
+  z-index: -1; }
+
+.open {
+  opacity: 1;
+  z-index: 1; }
 
 /**
  * Cards / Pages
@@ -600,6 +591,87 @@ option {
  * TODO: 
  *  - First todo item
  *  - Second todo item
+ */
+.page {
+  position: absolute;
+  padding: 40px;
+  padding-bottom: 75px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 80%;
+  height: 80%;
+  background: #fff;
+  border-radius: 0;
+  opacity: 1;
+  z-index: 1; }
+
+.page-content {
+  width: 100%;
+  height: 100%;
+  padding-right: 15px;
+  overflow-y: scroll; }
+
+/**
+ * Page Typography
+ */
+.page .point-title {
+  max-width: 80%;
+  margin-top: 0;
+  font-size: 36px;
+  font-family: "cf_asty_stdbold"; }
+
+.page a {
+  color: #00B9F2; }
+
+/**
+ * Page footer
+ */
+.page footer {
+  float: left;
+  width: 100%; }
+
+/**
+ * Download PDF button
+ */
+.download-pdf {
+  font-size: 12px;
+  font-family: "cf_asty_stdbold";
+  margin-top: 20px; }
+  .download-pdf span {
+    display: inline-block;
+    max-width: 105px;
+    margin-left: 6px; }
+
+.pdf-icon {
+  display: inline-block;
+  background-image: url("../graphics/pdf.svg");
+  width: 21px;
+  height: 29px; }
+
+/**
+ * Previous next buttons
+ */
+.card-nav {
+  float: right; }
+  .card-nav button {
+    width: 41px;
+    height: 52px; }
+
+.next {
+  background-image: url("../graphics/next.svg"); }
+
+.previous {
+  background-image: url("../graphics/next.svg");
+  transform: rotate(180deg);
+  margin-right: 15px; }
+
+.disabled {
+  opacity: 0.5; }
+
+/**
+ * dont know if these are being used
  */
 .card {
   display: none;

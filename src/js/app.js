@@ -58,7 +58,8 @@ MapView.prototype._init_map_elements = function() {
   var points = this.svgDoc.querySelectorAll('.point');
   //get the json data
   var posts = $.parseJSON($.ajax({
-    url: 'https://www.michellekondou.me/wprestapi/index.php/wp-json/wp/v2/posts/?per_page=20',
+    //url: 'https://www.michellekondou.me/wprestapi/index.php/wp-json/wp/v2/posts/?per_page=20',
+    url: 'dist/proxy/data.json',
     dataType: "json", 
     async: false
   }).responseText);
@@ -299,7 +300,8 @@ MapViewItem.prototype.page_open = function () {
     dataType: "json", 
     async: false,
     success: function(data){
-      $('.map-loader').css('display','none'); 
+      $('.map-loader').css('display','none');
+      console.log('https://www.michellekondou.me/wprestapi/index.php/wp-json/wp/v2/posts/'+this.post_id); 
     }
   }).responseText);
 

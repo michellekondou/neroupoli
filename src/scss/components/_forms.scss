@@ -14,7 +14,7 @@ legend {
   -webkit-padding-end: 2px;
   border-width: initial;
   border-style: none;
-  border-color: initial;
+  border-color: $text;
   border-image: initial;
 }
 
@@ -33,7 +33,7 @@ keygen,
 select, 
 button {
   text-rendering: auto;
-  color: initial;
+  color: $text;
   letter-spacing: normal;
   word-spacing: normal;
   text-transform: none;
@@ -76,7 +76,7 @@ input {
   padding: 1px;
   border-width: 2px;
   border-style: inset;
-  border-color: initial;
+  border-color: $text;
   border-image: initial;
 }
 
@@ -97,7 +97,7 @@ textarea {
   word-wrap: break-word;
   border-width: 1px;
   border-style: solid;
-  border-color: initial;
+  border-color: $text;
   border-image: initial;
   padding: 2px;
 }
@@ -118,7 +118,7 @@ input[type="radio"] {
 }
 
 input[type="radio"] + label {
-    color: #333;
+    color: $text;
     font-size: 14px;
 }
 
@@ -134,7 +134,7 @@ input[type="radio"] + label span {
 }
 
 input[type="radio"] + label span {
-     background-color: #ccc;
+     background-color: $text;
 }
 
 input[type="radio"] + label span,
@@ -168,7 +168,7 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"] + label {
-  color: #333;
+  color: $text;
   font-size: 14px;
 }
 
@@ -182,7 +182,7 @@ input[type="checkbox"] + label span {
 }
 
 input[type="checkbox"] + label span {
-  background-color: #ccc;
+  background-color: $text;
 }
 
 input[type="checkbox"] + label span,
@@ -198,7 +198,7 @@ input[type="checkbox"]:checked + label span {
  */
 input:checked + label span {
   // border: 2px solid #333;
-  background-color: #ccc;
+  background-color: $text;
   background-image: url('https://michellekondou.me/neroupoli/src/graphics/checkbox-r.svg');
   background-repeat: no-repeat;
   background-position: 2px 2px;
@@ -238,12 +238,12 @@ select {
   align-items: center;
   white-space: pre;
   -webkit-rtl-ordering: logical;
-  color: black;
+  color: $text;
   background-color: white;
   cursor: default;
   border-width: 1px;
   border-style: solid;
-  border-color: initial;
+  border-color: $text;
   border-image: initial;
 }
 
