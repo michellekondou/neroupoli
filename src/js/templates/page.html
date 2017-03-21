@@ -1,7 +1,39 @@
   <h2 class="point-title">{{ title.acf.card_title }}</h2>
   <main id="cards">
   {% for card in text.acf.cards %} 
-    {% if card.acf_fc_layout === 'text' %}
+    {% if card.acf_fc_layout === 'intro' %}
+    <div class="card">
+      <div class="intro">
+        {% if card.block_1 %}
+        <div class="col">
+          <article class="block_1">
+            <h3>ΜΕ ΔΥΟ ΛΟΓΙΑ</h3>
+            {{  card.block_1 }}
+          </article>
+          <article class="symbols">
+            <p class="symbol"><i class="duration-icon"></i><span>45 Λεπτά</span></p>
+            <p class="symbol"><i class="level-icon"></i><span>45 Λεπτά</span></p>
+            <p class="symbol"><i class="classroom-icon"></i><span>45 Λεπτά</span></p>
+          </article>
+        </div>
+        {% endif %}
+        <div class="col">
+          {% if card.block_2 %}
+          <article class="block_2">
+            <h3>ΣΤΟΧΟΙ</h3>
+            {{  card.block_2 }}
+          </article>
+          {% endif %}
+          {% if card.block_3 %}
+          <article class="block_3">
+            <h3>ΘΑ ΧΡΕΙΑΣΤΕΙΣ</h3>
+            {{  card.block_3 }}
+          </article>
+        </div>  
+        {% endif %}
+      </div>
+    </div>
+    {% elif card.acf_fc_layout === 'text' %}
       <div class="card text">
       {% if card.title %}
         <h2>{{  card.title }}</h2>
@@ -59,7 +91,7 @@
     
     {% endif %}
   {% endfor %}
-  <div class="card quiz-sortable">
+ <!--  <div class="card quiz-sortable">
     <h2>Βάλε τις απαντήσεις στη σωστή σειρά!</h2>
     <section class="sortable-container">
       <div class="list-item">
@@ -98,7 +130,7 @@
       </div>
     </section>
     <button id="resort">Υποβολή!</button>
-  </div>
+  </div> -->
   </main>
 
 
