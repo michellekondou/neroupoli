@@ -1,0 +1,118 @@
+.floating-element {
+  position: absolute; 
+  z-index: 1;
+  background-repeat: no-repeat;
+  background-position: center center;
+  &.top {
+    top: 2.5%;
+  }
+  &.bottom {
+    bottom: 2.5%;
+  }
+  &.left {
+    left: 2.5%;
+  }
+  &.right {
+    right: 2.5%;
+  }
+}
+
+.floating-element--button {
+  width: 34px;
+  height: 34px;
+  background-repeat: no-repeat;
+  background-position: center center;
+} 
+
+.logo {
+  background-image: url('../graphics/logo.svg');
+  width: 168px;
+  height: 64px;
+  svg {
+    width: 168px;
+    height: 64px;
+  }
+}
+
+.points-nav {
+  background-color: $accent;
+  border-radius: 50%;
+  #nav-icon {
+    transform: rotate(0deg);
+    transition: .5s ease-in-out;
+    width: 70%;
+    margin: 0 auto;
+  }
+  #nav-icon span {
+    display: block;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 0px;
+    opacity: 1;
+    left: 0;
+    transform: rotate(0deg);
+    transition: .25s ease-in-out;
+  }
+
+  #nav-icon span:nth-child(1) {
+    top: -7px;
+  }
+
+  #nav-icon span:nth-child(2) {
+    top: -1px;
+  }
+
+  #nav-icon span:nth-child(3) {
+    top: 5px;
+  }
+
+  #nav-icon.open span:nth-child(1) {
+    top: -7px;
+    width: 0%;
+    left: 50%;
+  }
+
+  #nav-icon.open span:nth-child(2) {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  #nav-icon.open span:nth-child(3) {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+
+  #nav-icon.open span:nth-child(4) {
+    top: 10px;
+    width: 0%;
+    left: 50%;
+  }
+}
+
+.info {
+  background-image: url('../graphics/info.svg');
+}
+
+.map-controls button {
+  display: block;
+  margin-bottom: 10px;
+}
+
+#zoom-in {
+  background-image: url('../graphics/zoom-in.svg');
+}
+
+#zoom-out {
+  background-image: url('../graphics/zoom-out.svg');
+}
+
+#reset {
+  background-image: url('../graphics/reset.svg');
+}
+

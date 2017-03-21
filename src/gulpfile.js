@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
-var browserSync = require('browser-sync').create();
+// var browserSync = require('browser-sync').create();
 var runSequence = require('run-sequence');
 var del = require('del');
 var concat = require('gulp-concat');  
@@ -14,13 +14,13 @@ var package = require('./package.json');
 
  
 
-gulp.task('browserSync', function() {
-  browserSync.init({
-    server: {
-      baseDir: '../'
-    },
-  })
-})
+// gulp.task('browserSync', function() {
+//   browserSync.init({
+//     server: {
+//       baseDir: '../'
+//     },
+//   })
+// })
 
 //script paths
 var cssFiles = [
@@ -34,9 +34,9 @@ gulp.task('sass', function() {
     .pipe(sass())
     .pipe(concat('app.css'))
     .pipe(gulp.dest(cssDest))
-    .pipe(browserSync.reload({
-      stream: true
-    }))
+    // //.pipe(browserSync.reload({
+    //   stream: true
+    // }))
 })
 
 
@@ -68,9 +68,9 @@ gulp.task('scripts', function() {
         //.pipe(rename('app.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest(jsDest))
-        .pipe(browserSync.reload({
-          stream: true
-        }));
+        // .pipe(browserSync.reload({
+        //   stream: true
+        // }));
 })
 
 gulp.task('rev', ['sass', 'scripts'], function() {
@@ -91,7 +91,7 @@ gulp.task("revreplace", ["rev"], function(){
     .pipe(gulp.dest("../"));
 })
 
-gulp.task('watch', ['browserSync', 'sass', 'scripts'], function(){
+gulp.task('watch', ['sass', 'scripts'], function(){
   gulp.watch('scss/**/*.scss', ['sass']);
   //gulp.watch('js/**/*.js', ['scripts']);     
 })
