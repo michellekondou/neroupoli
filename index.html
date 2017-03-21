@@ -9,22 +9,13 @@
 
 <body>
   <div id="app">
-    <h1 class="logo floating-element top left"></h1>
-    <button class="points-nav floating-element floating-element--button top right">
-        <div id="nav-icon">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-    </button>
-    <button class="info floating-element floating-element--button bottom left"></button>
-    <div class="map-controls floating-element bottom right">
-      <button id="zoom-in" class="floating-element--button"></button>
-      <button id="zoom-out" class="floating-element--button"></button>
-      <button id="reset" class="floating-element--button"></button>
+    <div class="controls">
+      <button id="zoom-in">+</button>
+      <button id="zoom-out">-</button>
+      <button id="reset">Reset</button>
     </div>
     <!-- panzoom -->
-    <div id="container">
+    <div id="container" class="panzoom">
       <script type="text/javascript">
       $(function(){
         var map = new MapObject();
