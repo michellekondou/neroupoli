@@ -1,4 +1,4 @@
-  <h2 class="point-title">{{ title.acf.card_title }}</h2>
+
   <main id="cards">
   {% for card in text.acf.cards %} 
     {% if card.acf_fc_layout === 'intro' %}
@@ -7,13 +7,14 @@
         {% if card.block_1 %}
         <div class="col">
           <article class="block_1">
+            <h2 class="point-title">{{ title.acf.card_title }}</h2>
             <h3>ΜΕ ΔΥΟ ΛΟΓΙΑ</h3>
             {{  card.block_1 }}
           </article>
           <article class="symbols">
             <p class="symbol"><i class="duration-icon"></i><span>45 Λεπτά</span></p>
-            <p class="symbol"><i class="level-icon"></i><span>45 Λεπτά</span></p>
-            <p class="symbol"><i class="classroom-icon"></i><span>45 Λεπτά</span></p>
+            <p class="symbol"><i class="level-icon"></i><span>Δ - ΣΤ ΔΗΜΟΤΙΚΟΥ</span></p>
+            <p class="symbol"><i class="classroom-icon"></i><span>ΕΝΤΟΣ ΤΑΞΗΣ</span></p>
           </article>
         </div>
         {% endif %}
@@ -29,20 +30,22 @@
             <h3>ΘΑ ΧΡΕΙΑΣΤΕΙΣ</h3>
             {{  card.block_3 }}
           </article>
-        </div>  
         {% endif %}
+        </div> 
       </div>
     </div>
     {% elif card.acf_fc_layout === 'text' %}
-      <div class="card text">
+    <div class="card text">
+      <h2 class="point-title">{{ title.acf.card_title }}</h2>
       {% if card.title %}
         <h2>{{  card.title }}</h2>
       {% endif %}
         {{  card.text }}
-      </div>
+    </div>
     {% else %}
     {% set quiz_counter  = ( quiz_counter | default(0) ) + 1 %}
-      <div class="card quiz{{ quiz_counter}}">
+    <div class="card quiz{{ quiz_counter}}">
+        <h2 class="point-title">{{ title.acf.card_title }}</h2>
       {% if card.title %}
         <h2>{{  card.title }}</h2>
       {% endif %}
@@ -84,53 +87,53 @@
         {% if card.acf_fc_layout === 'checkbox' %}<button class="button submit">Δες τις σωστές απαντήσεις!</button>{% endif %}
         <svg class="loader quiz" width='120px' height='120px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-default"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(0 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(30 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.08333333333333333s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(60 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.16666666666666666s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(90 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.25s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(120 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.3333333333333333s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(150 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.4166666666666667s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(180 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(210 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5833333333333334s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(240 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.6666666666666666s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(270 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.75s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(300 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.8333333333333334s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(330 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.9166666666666666s' repeatCount='indefinite'/></rect></svg>
         <article class="thankyou_message" style="display: none;">
-          <h2>{{  card.quiz_thank_you_msg }}</h2>
+          <p>{{  card.quiz_thank_you_msg }}</p>
           <small>Ευχαριστούμε για την απάντηση σου!</small>
         </article> 
     </div>
     
     {% endif %}
   {% endfor %}
- <!--  <div class="card quiz-sortable">
+  <div class="card quiz-sortable">
     <h2>Βάλε τις απαντήσεις στη σωστή σειρά!</h2>
     <section class="sortable-container">
       <div class="list-item">
         <div class="item-content">
-          <span class="right-order">1</span>
+          <!-- <span class="right-order">1</span> -->
           <span class="order">1</span> First item
         </div>
       </div>
 
       <div class="list-item">
         <div class="item-content">
-          <span class="right-order">2</span>
+        <!--   <span class="right-order">2</span> -->
           <span class="order">2</span> Second item
         </div>
       </div>
 
       <div class="list-item">
         <div class="item-content">
-          <span class="right-order">3</span>
+        <!--   <span class="right-order">3</span> -->
           <span class="order">3</span> Third item
         </div>
       </div>
 
       <div class="list-item">
         <div class="item-content">
-          <span class="right-order">4</span>
+          <!-- <span class="right-order">4</span> -->
           <span class="order">4</span> Fourth item
         </div>
       </div>
 
       <div class="list-item">
         <div class="item-content">
-          <span class="right-order">5</span>
+          <!-- <span class="right-order">5</span> -->
           <span class="order">5</span> Fifth item
         </div>
       </div>
     </section>
-    <button id="resort">Υποβολή!</button>
-  </div> -->
+    <button id="resort" class="submit">Δες τις σωστές απαντήσεις!</button>
+  </div>
   </main>
 
 

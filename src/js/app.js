@@ -293,6 +293,8 @@ MapViewItem.prototype.page_open = function () {
   console.log(this);
   this.page.open = true;
   $(this.page.modal).addClass('open');
+  this.pop.modal.open = false;
+  $(this.pop.modal).removeClass('open');
   $('.map-loader').css('display','block'); 
   //load content on page open to be able to refresh forms
   var post = $.parseJSON($.ajax({
@@ -414,10 +416,13 @@ var listItems = Array.from(document.querySelectorAll(".list-item")); // Array of
 var sortables = listItems.map(Sortable); // Array of sortables
 var total = sortables.length;
 
-TweenLite.to(container, 0.5, {  
-  autoAlpha: 1,
-  height: total*60+20
-});
+if (container) {
+  TweenLite.to(container, 0.5, {  
+    autoAlpha: 1,
+    height: total*60+20
+  });
+}
+
 
 //helper functions
 // Changes an elements's position in array
@@ -853,7 +858,7 @@ Modal.prototype.render_modal = function(){
   if(this.type == "tooltip") {
     this.modal.html("<h3 class='map-popover-title'>"+this.title+"</h3>");
   } else if(this.type == "popup"){
-    this.modal.html("<div class='arrow'></div>  <button class='close'></button><h3 class='map-popover-title'>"+this.title+"</h3><p class='map-popover-content'>" + nunjucks.renderString('{{ username }}', { username: this.summary }) + "<button class='open_page'>Ανοίξτε τη δραστηριότητα</button></p>");
+    this.modal.html("<div class='arrow'></div>  <button class='close'></button><h3 class='map-popover-title'>"+this.title+"</h3><p class='map-popover-content'>" + nunjucks.renderString('{{ username }}', { username: this.summary }) + "<button class='open_page'>ΣΥΝΕΧΕΙΑ</button></p>");
   }  
 }
 
