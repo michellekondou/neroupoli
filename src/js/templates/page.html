@@ -54,11 +54,30 @@
     {% set quiz_counter  = ( quiz_counter | default(0) ) + 1 %}
     <div class="card quiz{{ quiz_counter}}">
       {% if card.title %}
-        <h2>{{  card.title }}</h2>
+      <h2>{{  card.title }}</h2>
       {% endif %}
-        <form id="gform{{ quiz_counter}}" class="{% if card.acf_fc_layout === 'multiple_choice' %}multiple-choice{% elif card.acf_fc_layout === 'checkbox' %}checkbox-quiz{% elif card.acf_fc_layout === 'likert' %}likert{% endif %}" action="{{  card.quiz_form_url }}" method="POST">
-          <fieldset>
-            <legend for="{{  card.quiz_field_name }}{{ options_counter }}" 
+      {% if card.acf_fc_layout === 'sortable' %}
+      <section class="text quiz-sortable">
+      {% if card.sortable_text %} 
+      {{  card.sortable_text }}
+      {% endif %}
+      <div class="sortable-container">
+      {% for option in card.sortable_options %}
+      {% set options_counter  = ( options_counter | default(0) ) + 1 %}
+      <div class="list-item list-item-{{ options_counter }}">
+        <div class="item-content">
+          <span class="right-order">{{ option.right_order }}</span>
+          <span class="user-input-order order"></span> 
+          <span class="label">{{  option.quiz_input_value }}</span>
+        </div>
+      </div>
+      {% endfor %}
+      </div>
+      </section>
+      {% elif card.acf_fc_layout === 'multiple_choice' or card.acf_fc_layout === 'checkbox' or card.acf_fc_layout === 'likert' %}
+      <form id="gform{{ quiz_counter}}" class="{% if card.acf_fc_layout === 'multiple_choice' %}multiple-choice{% elif card.acf_fc_layout === 'checkbox' %}checkbox-quiz{% elif card.acf_fc_layout === 'likert' %}likert{% endif %}" action="{{  card.quiz_form_url }}" method="POST">
+        <fieldset>
+          <legend for="{{  card.quiz_field_name }}{{ options_counter }}" 
                 name="{% if card.acf_fc_layout === 'multiple_choice' %}{{  card.quiz_field_name }}{% elif card.acf_fc_layout === 'checkbox' %}{{  card.quiz_field_name }}{{ options_counter }}{% endif %}">{{  card.quiz_title }}</legend>
             {% if card.acf_fc_layout === 'likert' %}
             <p class="likert scale-label scale-label--start">Λίγο</p>
@@ -91,55 +110,25 @@
             {% endif %}
           </fieldset>
         </form>
-        {% if card.acf_fc_layout === 'checkbox' %}<button class="button submit">Δες τις σωστές απαντήσεις!</button>{% endif %}
+        {% endif %}
+        {% if card.acf_fc_layout === 'checkbox' or card.acf_fc_layout === 'multiple_choice' %}
+        <button class="button submit submit-button">Δες τις σωστές απαντήσεις!</button>
+        {% endif %}
+        {% if card.acf_fc_layout === 'sortable' %}
+        <button class="button submit-button" id="resort">Ελεγξέ το!</button>
+        {% endif %}
+        {% if card.acf_fc_layout === 'checkbox' or card.acf_fc_layout === 'multiple_choice' %}
         <svg class="loader quiz" width='120px' height='120px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-default"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(0 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(30 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.08333333333333333s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(60 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.16666666666666666s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(90 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.25s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(120 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.3333333333333333s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(150 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.4166666666666667s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(180 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(210 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5833333333333334s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(240 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.6666666666666666s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(270 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.75s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(300 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.8333333333333334s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(330 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.9166666666666666s' repeatCount='indefinite'/></rect></svg>
         <article class="thankyou_message" style="display: none;">
           <p>{{  card.quiz_thank_you_msg }}</p>
           <small>Ευχαριστούμε για την απάντηση σου!</small>
-        </article> 
+        </article>
+        {% endif %} 
     </div>
     
     {% endif %}
   {% endfor %}
-  <div class="card quiz-sortable">
-    <h2>Βάλε τις απαντήσεις στη σωστή σειρά!</h2>
-    <section class="sortable-container">
-      <div class="list-item">
-        <div class="item-content">
-          <!-- <span class="right-order">1</span> -->
-          <span class="order">1</span> First item
-        </div>
-      </div>
 
-      <div class="list-item">
-        <div class="item-content">
-        <!--   <span class="right-order">2</span> -->
-          <span class="order">2</span> Second item
-        </div>
-      </div>
-
-      <div class="list-item">
-        <div class="item-content">
-        <!--   <span class="right-order">3</span> -->
-          <span class="order">3</span> Third item
-        </div>
-      </div>
-
-      <div class="list-item">
-        <div class="item-content">
-          <!-- <span class="right-order">4</span> -->
-          <span class="order">4</span> Fourth item
-        </div>
-      </div>
-
-      <div class="list-item">
-        <div class="item-content">
-          <!-- <span class="right-order">5</span> -->
-          <span class="order">5</span> Fifth item
-        </div>
-      </div>
-    </section>
-    <button id="resort" class="submit">Δες τις σωστές απαντήσεις!</button>
   </div>
   </main>
 

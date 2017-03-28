@@ -550,16 +550,22 @@ function Sortable(element, index) {
 
 function reOrder() { 
   
-  var rightOrder = $(element).find(".right-order");
+  var item = $(".list-item");
+  console.log(item, item.length);
 
-  TweenLite.set(element, {
-    y: rightOrder.textContent * rowSize
-  });
+  for (var i = 0; i < item.length; i++) {
+    var rightOrder = $(item[i]).find('.right-order');
+    console.log(rightOrder[0].textContent);
+    TweenLite.to(item[i], 0.8, {
+      y: rightOrder[0].textContent * rowSize
+    });
+    console.log(item[i]);
+  }
 
 }
 
 $('#resort').on('click', function(){
-    reOrder('.list-item');
+    reOrder();
 });
 
 
@@ -786,7 +792,7 @@ $('#'+parent.point.id +'-popup'+' .open_page').on('mousedown', $.proxy(this.page
 ======================================================================== */
 MapViewItem.prototype._addListeners = function(){
     var _this = this; 
-    console.log($(this.page.modal));
+ 
     $(this.page.modal).find('.close').on("mousedown", $.proxy(this.page_close, _this)); 
     $(this.page.modal).find('.next').on("mousedown", function(){
       console.log('clicked next');
@@ -799,8 +805,7 @@ MapViewItem.prototype._addListeners = function(){
 ======= RENDERING FUNCTIONS ===============================================
 ======================================================================== */
 MapViewItem.prototype._render = function(){
-    var _this = this;  
-    console.log(_this.content.acf.card_title); 
+    var _this = this;   
     //load static parts of the page, tools, next
     nunjucks.configure('src/js/templates', { autoescape: false });
     

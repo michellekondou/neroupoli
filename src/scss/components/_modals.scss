@@ -617,7 +617,7 @@
 }
 
 /**
- * Forms
+ * Forms - Sortable
  */
 .sortable-answers {
   list-style: none;
@@ -635,13 +635,18 @@
   position: relative;
   // top: 50%;
   // left: 50%;
-  width: 320px;
+  width: 100%;
   height: auto;
   opacity: 0;
   visibility: hidden;
   // transform: translate(-50%, -50%);
   // cursor: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/106114/cursor.png") 32 32, auto;
   cursor: move;
+}
+
+.sortable-container .right-order,
+.sortable-container .order {
+  display: none;
 }
 
 .list-item {
@@ -664,3 +669,4 @@
   background-color: rgb(255, 255, 255);
   //box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;
 }
+
