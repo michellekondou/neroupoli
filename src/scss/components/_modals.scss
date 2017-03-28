@@ -192,7 +192,7 @@
   line-height: 1;
   color: #fff;
   text-align: center;
-  text-transform: uppercase;
+  //text-transform: uppercase;
   border: 2px solid #fff;
   border-radius: 30px;
 }
@@ -219,6 +219,17 @@
   background-image: url('../graphics/close-page-color.svg');
   width: 34px;
   height: 34px;
+}
+
+.card .close {
+  display: inline-block;
+  top: auto;
+  right: auto;
+  // background-image: none;
+  // background-color: $accent;
+  // color: #fff;
+  // padding: 5px;
+  // border-radius: 30px;
 }
 
 /**
@@ -277,7 +288,7 @@
 .page header {
   float: left;
   width: 100%;
-  height: 12%;
+  height: 22%;
 }
 
 /**
@@ -285,9 +296,9 @@
  */
 .page-content {    
   width: 97.5%;
-  height: 75%;
+  height: 65%;
   padding: 0 40px;
-  margin: 20px 0; 
+  margin: 20px 0 0; 
   overflow-y: scroll;
 }
 
@@ -316,7 +327,81 @@
   color: $accent;
 }
 
+/**
+ * Page header
+ */
+//heading
+.page .outer-point-title {
+  margin-top: 20px;
+  margin-left: 40px;
+  font-size: 23px;
+}
 
+//progress bar
+.progress-bar {
+  position: relative;
+  margin-top: 20px;
+  margin-left: 40px;
+  margin-right: 80px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.progress-bar .symbol {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: $text;
+}
+
+.progress-bar-line {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 100%;
+  height: 2px;
+  background-color: $text;
+}
+
+.study-icon {
+
+}
+
+.play-icon {
+
+}
+
+.activity-single-icon {
+
+}
+
+.activity-group-icon {
+
+}
+
+.worksheet-icon {
+
+}
+
+.feedback-icon {
+
+}
+
+.happy-state-icon {
+
+}
+
+.sad-state-icon {
+
+}
+
+.next-steps-icon {
+  
+}
+
+/**
+ * Page footer
+ */
 
 /**
  * Download PDF button
@@ -410,7 +495,7 @@
   font-size: 16px;
   font-family: $bold;
   letter-spacing: 0;
-  text-transform: uppercase;
+  //text-transform: uppercase;
   margin-top: 0;
   margin-bottom: 10px;
 }
@@ -457,35 +542,57 @@
   span {
       display: block; 
       margin-top: 8px;
-      text-transform: uppercase;
+      //text-transform: uppercase;
       vertical-align: top;
   }
   i {
     display: inline-block;
+    height: 33px;
+    background-repeat: no-repeat;
+    background-position: center center;
   }
 }
 
 .duration-icon {
   background-image: url('../graphics/clock.svg');
   width: 28px;
-  height: 28px;
 }
 
 .level-icon {
   background-image: url('../graphics/student.svg');
   width: 26px;
-  height: 33px;
 }
 
 .classroom-icon {
   background-image: url('../graphics/classroom.svg');
   width: 36px;
-  height: 24px;
+}
+
+.text h3:first-of-type {
+  margin-top: 20px;
 }
 
 .text h3 {
   font-size: 23px;
   font-family: $bold;
+  margin-top: 40px;
+}
+
+.text h4 {
+  font-size: 21px;
+  font-family: $bold;
+  margin-top: 20px;
+  text-transform: none;
+}
+
+/**
+ * Study
+ */
+
+.alignleft { /* mainly images */
+  float: left;
+  margin-right: 20px;
+  margin-top: 5px;
 }
 
 /**

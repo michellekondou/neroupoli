@@ -319,6 +319,16 @@ MapViewItem.prototype.page_open = function () {
     }) 
   );
 
+
+  this.page.modal.find('.page-header').html(
+    nunjucks.render('page-header.html', { 
+      title: this.content,
+      text: this.content,
+      quiz:  post,
+      open: this.open
+    }) 
+  );
+
   //handle card content
   var cards = this.page.modal.find('#cards');
  
@@ -559,14 +569,13 @@ MapViewItem.prototype.page_close = function () {
   if(!this.page.open) { return; }
   this.page.open = false;
   $(this.page.modal).removeClass('open');
-  console.log(this);
+  console.log(this, 'clicked close');
 };
 
 MapViewItem.prototype.pop_open = function () {
   if(this.pop.open) { return; }
   this.pop.open = true;
   $(this.pop.modal).addClass('open');
-    console.log('close1');
 };
 
 MapViewItem.prototype.pop_close = function () {
@@ -776,9 +785,9 @@ $('#'+parent.point.id +'-popup'+' .open_page').on('mousedown', $.proxy(this.page
 ======= EVENT LISTENERS ===================================================
 ======================================================================== */
 MapViewItem.prototype._addListeners = function(){
-    var _this = this;
-
-    $(this.page.modal).find('.close').on("mousedown", $.proxy(this.page_close, this)); 
+    var _this = this; 
+    console.log($(this.page.modal));
+    $(this.page.modal).find('.close').on("mousedown", $.proxy(this.page_close, _this)); 
     $(this.page.modal).find('.next').on("mousedown", function(){
       console.log('clicked next');
     }); 
@@ -790,7 +799,8 @@ MapViewItem.prototype._addListeners = function(){
 ======= RENDERING FUNCTIONS ===============================================
 ======================================================================== */
 MapViewItem.prototype._render = function(){
-    var _this = this;   
+    var _this = this;  
+    console.log(_this.content.acf.card_title); 
     //load static parts of the page, tools, next
     nunjucks.configure('src/js/templates', { autoescape: false });
     

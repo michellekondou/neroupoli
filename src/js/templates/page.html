@@ -7,15 +7,24 @@
         {% if card.block_1 %}
         <div class="col">
           <article class="block_1">
-            <h2 class="point-title">{{ title.acf.card_title }}</h2>
-            <h3>ΜΕ ΔΥΟ ΛΟΓΙΑ</h3>
+            <!-- <h3>ΜΕ ΔΥΟ ΛΟΓΙΑ</h3> -->
             {{  card.block_1 }}
           </article>
+          {% if card.level %}
           <article class="symbols">
-            <p class="symbol"><i class="duration-icon"></i><span>45 Λεπτά</span></p>
-            <p class="symbol"><i class="level-icon"></i><span>Δ - ΣΤ ΔΗΜΟΤΙΚΟΥ</span></p>
+            {% if card.duration %}
+            <p class="symbol"><i class="duration-icon"></i><span>{{  card.duration }}</span></p>
+            {% endif %}
+            {% if card.level %}
+            <p class="symbol"><i class="level-icon"></i><span>{{  card.level }}</span></p>
+            {% endif %}
+            {% if card.classroom === true %}
             <p class="symbol"><i class="classroom-icon"></i><span>ΕΝΤΟΣ ΤΑΞΗΣ</span></p>
+            {% elif card.classroom === false %}
+            <p class="symbol"><i class="outdoor-icon"></i><span>ΕΚΤΟΣ ΤΑΞΗΣ</span></p>
+            {% endif %}
           </article>
+          {% endif %}
         </div>
         {% endif %}
         <div class="col">
@@ -36,7 +45,6 @@
     </div>
     {% elif card.acf_fc_layout === 'text' %}
     <div class="card text">
-      <h2 class="point-title">{{ title.acf.card_title }}</h2>
       {% if card.title %}
         <h2>{{  card.title }}</h2>
       {% endif %}
@@ -45,7 +53,6 @@
     {% else %}
     {% set quiz_counter  = ( quiz_counter | default(0) ) + 1 %}
     <div class="card quiz{{ quiz_counter}}">
-        <h2 class="point-title">{{ title.acf.card_title }}</h2>
       {% if card.title %}
         <h2>{{  card.title }}</h2>
       {% endif %}
