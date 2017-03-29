@@ -7,7 +7,7 @@
         {% if card.block_1 %}
         <div class="col">
           <article class="block_1">
-            <!-- <h3>ΜΕ ΔΥΟ ΛΟΓΙΑ</h3> -->
+            <h3>ΜΕ ΔΥΟ ΛΟΓΙΑ</h3>
             {{  card.block_1 }}
           </article>
           {% if card.level %}
@@ -52,10 +52,8 @@
     </div>
     {% else %}
     {% set quiz_counter  = ( quiz_counter | default(0) ) + 1 %}
-    <div class="card quiz{{ quiz_counter}}">
-      {% if card.title %}
-      <h2>{{  card.title }}</h2>
-      {% endif %}
+    <div class="card quiz quiz-{{ quiz_counter}}">
+      <h2>ΠΑΙΖΩ ΚΑΙ ΜΑΘΑΙΝΩ</h2>
       {% if card.acf_fc_layout === 'sortable' %}
       <section class="text quiz-sortable">
       {% if card.sortable_text %} 
@@ -115,7 +113,7 @@
         <button class="button submit submit-button">Δες τις σωστές απαντήσεις!</button>
         {% endif %}
         {% if card.acf_fc_layout === 'sortable' %}
-        <button class="button submit-button" id="resort">Ελεγξέ το!</button>
+        <button class="button submit-button" id="resort">Δες τις σωστές απαντήσεις!</button>
         {% endif %}
         {% if card.acf_fc_layout === 'checkbox' or card.acf_fc_layout === 'multiple_choice' %}
         <svg class="loader quiz" width='120px' height='120px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-default"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(0 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(30 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.08333333333333333s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(60 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.16666666666666666s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(90 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.25s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(120 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.3333333333333333s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(150 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.4166666666666667s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(180 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(210 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5833333333333334s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(240 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.6666666666666666s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(270 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.75s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(300 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.8333333333333334s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#065b80' transform='rotate(330 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.9166666666666666s' repeatCount='indefinite'/></rect></svg>

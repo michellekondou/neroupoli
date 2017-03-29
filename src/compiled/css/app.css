@@ -288,10 +288,13 @@ option {
  */
 .submit,
 .submit-button {
+  font-size: 16px;
   margin-top: 20px;
   padding: 15px 30px;
-  border: 2px solid #939598;
-  border-radius: 30px; }
+  border-radius: 30px;
+  border-radius: 30px;
+  background: #00B9F2;
+  color: #fff; }
 
 form mark {
   background-color: transparent; }
@@ -555,10 +558,8 @@ form mark {
  */
 .open_page {
   display: block;
-  margin: 0 auto;
   margin-top: 40px;
   padding: 15px 30px;
-  font-family: "cf_asty_stdbold";
   font-size: 16px;
   line-height: 1;
   color: #fff;
@@ -624,17 +625,18 @@ form mark {
 .page {
   position: absolute;
   padding: 0;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  right: 0;
   width: 80%;
-  max-width: 1150px;
-  height: 80%;
-  max-height: 587px;
+  height: 100%;
   background: #fff;
   border-radius: 0;
   opacity: 1;
   z-index: 1; }
+
+@media (max-width: 1024px) {
+  .page {
+    width: 95%; } }
 
 /**
  * Page header
@@ -642,15 +644,15 @@ form mark {
 .page header {
   float: left;
   width: 100%;
-  height: 22%; }
+  height: 18%; }
 
 /**
  * Main section
  */
 .page-content {
   width: 97.5%;
-  height: 65%;
-  padding: 0 40px;
+  height: 70%;
+  padding: 0 80px;
   margin: 20px 0 0;
   overflow-y: scroll; }
 
@@ -661,8 +663,8 @@ form mark {
   float: left;
   width: 100%;
   background-color: #e0e4e2;
-  height: 13%;
-  padding: 1% 3.5%; }
+  height: 12%;
+  padding: 1% 5.8%; }
 
 /**
  * Page Typography
@@ -680,13 +682,13 @@ form mark {
  * Page header
  */
 .page .outer-point-title {
-  margin-top: 20px;
+  margin-top: 40px;
   margin-left: 40px;
   font-size: 23px; }
 
 .progress-bar {
   position: relative;
-  margin-top: 20px;
+  margin-top: 30px;
   margin-left: 40px;
   margin-right: 80px;
   display: flex;
@@ -716,7 +718,7 @@ form mark {
   font-size: 12px;
   font-family: "cf_asty_stdbold";
   margin: auto;
-  margin-top: 1%; }
+  margin-top: 2%; }
   .download-pdf span {
     display: inline-block;
     max-width: 105px;
@@ -756,6 +758,10 @@ form mark {
   width: 100%;
   height: 100%; }
 
+.card.text,
+.card.quiz {
+  width: 70%; }
+
 .card iframe {
   height: 600px; }
 
@@ -776,34 +782,35 @@ form mark {
   margin-top: 0; }
 
 .col:first-child {
-  margin-right: 40px; }
+  margin-right: 120px; }
 
 .page h2,
 .col h3 {
   font-size: 16px;
   font-family: "cf_asty_stdbold";
   letter-spacing: 0;
-  margin-top: 0;
+  margin-top: 20px;
   margin-bottom: 10px; }
 
 .page p,
 .page li {
-  font-size: 23px;
+  font-size: 21px;
   line-height: 1.4; }
 
 .page li {
   margin-bottom: 2%; }
 
 .block_1 p {
-  font-size: 23px;
+  font-size: 26px;
   line-height: 1.4;
   margin-top: 0; }
 
 .block_2 p,
 .block_2 li,
 .block_3 {
-  font-size: 16px;
-  line-height: 1.3; }
+  font-size: 21px;
+  line-height: 1.3;
+  margin-top: 0; }
 
 .col article + article {
   margin-top: 45px; }
@@ -816,7 +823,7 @@ form mark {
   padding: 3%; }
 
 .page .symbol {
-  font-size: 12px;
+  font-size: 14px;
   font-family: "cf_asty_stdbold";
   text-align: center; }
   .page .symbol span {
@@ -842,12 +849,13 @@ form mark {
   width: 36px; }
 
 .text h3:first-of-type {
-  margin-top: 20px; }
+  margin-top: 0; }
 
 .text h3 {
-  font-size: 23px;
+  font-size: 30px;
   font-family: "cf_asty_stdbold";
-  margin-top: 40px; }
+  margin-top: 80px;
+  margin-bottom: 18px; }
 
 .text h4 {
   font-size: 21px;
@@ -911,7 +919,7 @@ form mark {
   position: absolute;
   top: 0;
   left: 0;
-  height: 60px;
+  height: 58px;
   width: 100%; }
 
 .item-content {
@@ -921,6 +929,6 @@ form mark {
   color: #999999;
   line-height: 60px;
   padding-left: 32px;
-  font-size: 24px;
-  font-weight: 400;
+  font-family: "cf_asty_stdbold";
+  font-size: 21px;
   background-color: white; }

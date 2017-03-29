@@ -337,7 +337,8 @@ MapViewItem.prototype.page_open = function () {
     speed:  'fast', 
     timeout: 0, 
     next:   '.next', 
-    prev:   '.previous' 
+    prev:   '.previous',
+    fit: true 
   });
 
 //form handler TODO put this stuff in its own function
@@ -556,7 +557,7 @@ function reOrder() {
   for (var i = 0; i < item.length; i++) {
     var rightOrder = $(item[i]).find('.right-order');
     console.log(rightOrder[0].textContent);
-    TweenLite.to(item[i], 0.8, {
+    TweenLite.to(item[i], 0.5, {
       y: rightOrder[0].textContent * rowSize
     });
     console.log(item[i]);
@@ -873,7 +874,7 @@ Modal.prototype.render_modal = function(){
   if(this.type == "tooltip") {
     this.modal.html("<h3 class='map-popover-title'>"+this.title+"</h3>");
   } else if(this.type == "popup"){
-    this.modal.html("<div class='arrow'></div>  <button class='close'></button><h3 class='map-popover-title'>"+this.title+"</h3><p class='map-popover-content'>" + nunjucks.renderString('{{ username }}', { username: this.summary }) + "<button class='open_page'>ΣΥΝΕΧΕΙΑ</button></p>");
+    this.modal.html("<div class='arrow'></div>  <button class='close'></button><h3 class='map-popover-title'>"+this.title+"</h3><p class='map-popover-content'>" + nunjucks.renderString('{{ username }}', { username: this.summary }) + "<button class='open_page'>Συνέχισε!</button></p>");
   }  
 }
 

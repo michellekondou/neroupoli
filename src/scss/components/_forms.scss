@@ -265,10 +265,14 @@ option {
 
 .submit, 
 .submit-button {
+  font-size: 16px;
   margin-top: 20px;
   padding: 15px 30px;
-  border: 2px solid $text;
+  // border: 2px solid $text;
   border-radius: 30px;
+  border-radius: 30px;
+  background: #00B9F2;
+  color: #fff;
 }
 
 form mark {
