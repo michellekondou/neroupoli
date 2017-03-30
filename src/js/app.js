@@ -290,9 +290,16 @@ MapViewItem.prototype._init_map_elements = function(){
 ======================================================================== */
 MapViewItem.prototype.page_open = function () {
   if(this.page.open) { return; }
-  console.log(this);
+  console.log(this, this.page.modal, this.page.modal[0].children[0]);
   this.page.open = true;
   $(this.page.modal).addClass('open');
+
+  // TweenLite.to(this.page.modal[0].children[0], 0.8, {
+  //   css: {
+  //     right: 0
+  //   }
+  // })
+
   this.pop.modal.open = false;
   $(this.pop.modal).removeClass('open');
   $('.map-loader').css('display','block'); 
@@ -338,6 +345,13 @@ MapViewItem.prototype.page_open = function () {
     timeout: 0, 
     next:   '.next', 
     prev:   '.previous',
+    before: function(){
+
+      $(this).parent().find('.current').removeClass('current');
+    },
+    after: function(){
+      $(this).addClass('current');
+    },
     fit: true 
   });
 
@@ -376,7 +390,7 @@ function getFormData(form) {
  
 
 $(function() {
-  $('.multiple-choice input, .likert input').on('change', function(){
+  $('.likert input').on('change', function(){
     $('.loader.quiz').css('display','block');        
     var form = $(this).closest("form");
     var data = getFormData(form);
@@ -397,8 +411,8 @@ $(function() {
   });
 
   $('.submit').on('click', function() {
-    $('.loader.quiz').css('display','block');        
-    var form = $('.checkbox-quiz');
+    $('.loader.quiz').css('display','inline-block');        
+    var form = $('.checkbox-quiz, .multiple-choice');
     var data = getFormData(form);
     console.log(form.attr('id'));
     var url = form.attr('action');
@@ -412,6 +426,15 @@ $(function() {
         $('.submit').addClass('none');  
         $(form).addClass('submitted');
         $(form).siblings(".thankyou_message").css('display','block');
+        var selectedOption = $("input:radio:checked");
+        console.log(selectedOption);
+        selectedOption.siblings('label').addClass('selected');
+        if ( selectedOption.attr('data-type') == "correct" ) {
+          $('.check-answer').html('Σωστά!')
+        } else if ( selectedOption.attr('data-type') == 'wrong') {
+           $('.check-answer').html('Λάθος!')
+        }
+        
         //return; 
       }
     });            

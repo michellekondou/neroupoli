@@ -2,8 +2,8 @@ form {
   display: block;
   margin-top: 0em;
   font-family: $regular;
-  font-size: 23px;
-  margin-top: 4%;
+  @include rem-fallback(font-size, 21);
+  @include rem-fallback(margin-top, 20);
 }
 
 fieldset {
@@ -20,6 +20,7 @@ legend {
   border-style: none;
   border-color: $text;
   border-image: initial;
+  @include rem-fallback(margin-bottom, 20);
 }
 
 label {
@@ -47,7 +48,7 @@ button {
   text-align: start;
   margin: 0em 0em 0em 0em;
   font-family: $regular;
-  font-size: 1rem;
+  @include rem-fallback(font-size, 20);
 }
 
 input, 
@@ -109,7 +110,7 @@ textarea {
 
 input[type="radio"], 
 input[type="checkbox"] {
-  margin: 3px 3px 3px 4px;
+  // margin: 3px 3px 3px 4px;
 }
 /*radio*/ 
 input[type="radio"] {
@@ -122,23 +123,24 @@ input[type="radio"] {
 }
 
 input[type="radio"] + label {
-    color: $text;
-    font-size: 14px;
+  color: $text;
+  @include rem-fallback(font-size, 21);
+  line-height: 30px;
 }
 
 input[type="radio"] + label span {
     display:inline-block;
+    vertical-align: top;
     width: 30px;
     height: 30px;
-    margin: -1px 4px 0 0;
-    vertical-align: middle;
+    margin-right: 10px;
     cursor: pointer;
     -moz-border-radius: 50%;
     border-radius: 50%;
 }
 
 input[type="radio"] + label span {
-     background-color: $text;
+  background-color: $grey_light;
 }
 
 input[type="radio"] + label span,
@@ -151,8 +153,28 @@ input[type="radio"]:checked + label span {
 
 
 /*radio-buttons: likert scale*/
+.likert-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 70%;
+}
+
 form .likert {
-  float: left;  
+  position: relative;
+  text-align: center; 
+}
+
+form .likert input {
+  display: block;
+  opacity: 0;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-68%, -100%);
+  z-index: 10;
 }
 
 form .likert mark {
@@ -173,15 +195,16 @@ input[type="checkbox"] {
 
 input[type="checkbox"] + label {
   color: $text;
-  font-size: 14px;
+  @include rem-fallback(font-size, 21);
+  line-height: 30px;
 }
 
 input[type="checkbox"] + label span {
   display:inline-block;
+  vertical-align: top;
   width: 30px;
   height: 30px;
-  margin: -1px 4px 0 0;
-  vertical-align: middle;
+  margin-right: 10px;
   cursor: pointer;
 }
 
@@ -203,24 +226,40 @@ input[type="checkbox"]:checked + label span {
 input:checked + label span {
   // border: 2px solid #333;
   background-color: $text;
-  background-image: url('https://michellekondou.me/neroupoli/src/graphics/checkbox-r.svg');
+  // background-image: url('../graphics/checkbox-r.svg');
   background-repeat: no-repeat;
-  background-position: 2px 2px;
+  background-position: 3px 5px;
 }
 
 /**
  * Correct / wrong answer styling
  */
 .submitted input[data-type="correct"] + label span {
-  background-image: url('https://michellekondou.me/neroupoli/src/graphics/checkbox-r.svg');
+  vertical-align: top;
+  margin: 0 auto;
+  margin-right: 10px;
+  background-color: $text;
+  background-image: url('../graphics/checkbox-r.svg');
   background-repeat: no-repeat;
-  background-position: 2px 2px;
+  background-position: 4px 6px;
 }
 
 .submitted input[data-type="wrong"] + label span {
-  background-image: url('https://michellekondou.me/neroupoli/src/graphics/checkbox-w.svg');
+  vertical-align: top;
+  margin: 0 auto;
+  margin-right: 10px;
+  background-color: $text;
+  background-image: url('../graphics/checkbox-w.svg');
   background-repeat: no-repeat;
-  background-position: 2px 2px;
+  background-position: 7px 7px;
+}
+
+.submitted input[data-type="correct"] + label.selected span {
+    background-color: green;
+}
+
+.submitted input[data-type="wrong"] + label.selected span {
+    background-color: red;
 }
 
 /**
@@ -265,9 +304,10 @@ option {
 
 .submit, 
 .submit-button {
-  font-size: 16px;
+  position: relative;
+  @include rem-fallback(font-size, 16);
   margin-top: 20px;
-  padding: 15px 30px;
+  padding: 15px 45px;
   // border: 2px solid $text;
   border-radius: 30px;
   border-radius: 30px;
@@ -277,4 +317,11 @@ option {
 
 form mark {
   background-color: transparent;
+  font-family: $bold;
+  @include rem-fallback(font-size, 16);
+  color: $text;
+}
+
+.check-answer {
+  line-height: 1;
 }

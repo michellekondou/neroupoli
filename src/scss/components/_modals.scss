@@ -14,7 +14,7 @@
   max-width: 320px;
   padding: 1px;
   font-family: $regular;
-  font-size: 14px;
+  @include rem-fallback(font-size, 14);
   font-style: normal;
   font-weight: normal;
   line-height: 1.42857143;
@@ -55,7 +55,7 @@
   padding: 0;
   margin: 0;
   font-family: $regular;
-  font-size: 21px;
+  @include rem-fallback(font-size, 21);
   color: #fff;
   letter-spacing: 1px;
   background-color: $accent;
@@ -72,7 +72,7 @@
 
 .tooltip.open .map-popover-title {
   letter-spacing: 0;
-  font-size: 19px;
+  @include rem-fallback(font-size, 19);
 }
 
 .popup.open .map-popover-title {
@@ -88,7 +88,7 @@
 
 .popup.open .map-popover-content {
   margin-top: 10px;
-  font-size: 19px;
+  @include rem-fallback(font-size, 19);
   line-height: 1.4;
   color: #fff;
 }
@@ -186,7 +186,7 @@
   display: block;
   margin-top: 40px;
   padding: 15px 30px;
-  font-size: 16px;
+  @include rem-fallback(font-size, 16);
   line-height: 1;
   color: #fff;
   text-align: center;
@@ -194,6 +194,8 @@
   border: 2px solid #fff;
   border-radius: 30px;
 }
+
+
 
 /**
  * Page & Modal close button
@@ -237,7 +239,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width:100%;
+  width: 100%;
   max-width: 100%;
   height: 100%;
   opacity: 0;
@@ -248,6 +250,8 @@
 .open {
   opacity: 1; 
   z-index: 1;
+  transform: translate3d(-100%, 0, 0); 
+  transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 
@@ -268,7 +272,7 @@
   position: absolute;
   padding: 0;
   top: 0;
-  right: 0;
+  right: -100%;
   // transform: translate(-50%, -50%);
   width: 80%;
   // max-width: 1150px;
@@ -277,13 +281,37 @@
   background: #fff;
   border-radius: 0;
   opacity: 1; 
-  z-index: 1;  
+  z-index: 1; 
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 11140px) {
   
   .page {
     width: 95%;
+  }
+
+}
+
+@media (max-width: 1280px) {
+  
+  .page {
+    width: 90%;
+  }
+
+}
+
+@media (min-width: 1281px) and (max-width: 1365px) {
+  
+  .page {
+    width: 85%;
+  }
+
+}
+
+@media (min-width: 1366px) {
+  
+  .page {
+    width: 80%;
   }
 
 }
@@ -303,8 +331,10 @@
 .page-content {    
   width: 97.5%;
   height: 70%;
-  padding: 0 80px;
+  padding: 0 6%;
   margin: 20px 0 0; 
+  margin: 0 0 0; 
+  
   overflow-y: scroll;
 }
 
@@ -324,7 +354,7 @@
  */
 .page .point-title {
   margin-top: 0;
-  font-size: 36px;
+  @include rem-fallback(font-size, 36);
   font-family: $bold;
   text-transform: none;
 }
@@ -338,17 +368,18 @@
  */
 //heading
 .page .outer-point-title {
-  margin-top: 40px;
-  margin-left: 40px;
-  font-size: 23px;
+  margin-top: 3%; //40px
+  margin-left: 3%; //40px
+  @include rem-fallback(font-size, 23);
 }
 
 //progress bar
 .progress-bar {
   position: relative;
-  margin-top: 30px;
-  margin-left: 40px;
-  margin-right: 80px;
+  //margin-top: 30px;
+  margin-top: 2.21%;
+  margin-left: 3%; //40px
+  margin-right: 6%; //80px;
   display: flex;
   justify-content: space-between;
 }
@@ -413,7 +444,7 @@
  * Download PDF button
  */
 .download-pdf {
-  font-size: 12px;
+  @include rem-fallback(font-size, 12);
   font-family: $bold;
   margin: auto;
   margin-top: 2%;
@@ -476,15 +507,17 @@
 }
 
 
-@media (max-width: 1140px) {
-  .card {
-  //  width: 85%;
+@media (max-width: 959px) {
+  .card.text, 
+  .card.quiz {
+    width: 95%;
   }
 }
 
-@media (min-width: 1280px) {
-  .card {
-   // width: 50%;
+@media (min-width: 960px) {
+  .card.text, 
+  .card.quiz {
+    width: 70%;
   }
 }
 
@@ -501,7 +534,18 @@
  */
 .intro {
   display: flex;
-  flex-direction: row;
+}
+
+@media (max-width: 959px) {
+  .intro {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 960px) {
+  .intro {
+    flex-direction: row;
+  }
 }
 
 .col {
@@ -511,32 +555,44 @@
    margin-top: 0;
 }
 
+@media (max-width: 1140px) {
+  .col {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1141px) {
+  .col {
+    width: 50%;
+  }
+}
+
 .col:first-child {
-   margin-right: 120px;
+  @include rem-fallback(margin-right, 120);
 }
 
 .page h2, 
 .col h3 {
-  font-size: 16px;
+  @include rem-fallback(font-size, 16);
   font-family: $bold;
   letter-spacing: 0;
-  //text-transform: uppercase;
-  margin-top: 20px;
-  margin-bottom: 10px;
+  @include rem-fallback(margin-top, 20);
+  @include rem-fallback(margin-bottom, 10);
 }
 
 .page p, 
 .page li {
-  font-size: 21px;
+  @include rem-fallback(margin-top, 18);
+  @include rem-fallback(font-size, 21);
   line-height: 1.4;
 }
 
 .page li {
-  margin-bottom: 2%;
+  @include rem-fallback(margin-bottom, 10);
 }
 
 .block_1 p {
-  font-size: 26px;
+  @include rem-fallback(font-size, 26);
   line-height: 1.4;
   margin-top: 0;
 }
@@ -544,13 +600,13 @@
 .block_2 p,
 .block_2 li,
 .block_3 {
-  font-size: 21px;
+  @include rem-fallback(font-size, 21);
   line-height: 1.3;
   margin-top: 0;
 }
 
-.col article + article{
-  margin-top: 45px;
+.col article + article {
+  @include rem-fallback(margin-top, 45);
 }
 
 .page .symbols {
@@ -562,7 +618,7 @@
 }
 
 .page .symbol {
-  font-size: 14px;
+  @include rem-fallback(font-size, 14);
   font-family: $bold;
   text-align: center;
   span {
@@ -574,6 +630,7 @@
   i {
     display: inline-block;
     height: 33px;
+    @include rem-fallback(height, 33);
     background-repeat: no-repeat;
     background-position: center center;
   }
@@ -581,17 +638,17 @@
 
 .duration-icon {
   background-image: url('../graphics/clock.svg');
-  width: 28px;
+  @include rem-fallback(width, 28);
 }
 
 .level-icon {
   background-image: url('../graphics/student.svg');
-  width: 26px;
+  @include rem-fallback(width, 26);
 }
 
 .classroom-icon {
   background-image: url('../graphics/classroom.svg');
-  width: 36px;
+  @include rem-fallback(width, 36);
 }
 
 .text h3:first-of-type {
@@ -599,16 +656,16 @@
 }
 
 .text h3 {
-  font-size: 30px;
+  @include rem-fallback(font-size, 30);
   font-family: $bold;
-  margin-top: 80px;
-  margin-bottom: 18px;
+  @include rem-fallback(margin-top, 80);
+  @include rem-fallback(margin-bottom, 18);
 }
 
 .text h4 {
-  font-size: 21px;
+  @include rem-fallback(font-size, 21);
   font-family: $bold;
-  margin-top: 20px;
+  @include rem-fallback(margin-top, 20);
   text-transform: none;
 }
 
@@ -618,8 +675,14 @@
 
 .alignleft { /* mainly images */
   float: left;
-  margin-right: 20px;
-  margin-top: 5px;
+  @include rem-fallback(margin-right, 20);
+  @include rem-fallback(margin-top, 5);
+}
+
+.alignright { /* mainly images */
+  float: right;
+  @include rem-fallback(margin-left, 20);
+  @include rem-fallback(margin-top, 5);
 }
 
 /**
@@ -628,8 +691,20 @@
 
 .loader {
   display: none;
-  width: 50px;
-  height: 50px;
+  position: absolute; 
+  right: 10px;
+  top: 10px;
+  width: 28px;
+  height: 28px;
+}
+
+.loader-container {
+  position: relative;
+  .loader {
+    width: 50px;
+    height: 50px;
+    left: 0;
+  }
 }
 
 .map-loader {
@@ -692,7 +767,7 @@
   line-height: 60px;
   padding-left: 32px;
   font-family: $bold;
-  font-size: 21px;
+  @include rem-fallback(font-size, 21);
   background-color: rgb(255, 255, 255);
   //box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;
 }
