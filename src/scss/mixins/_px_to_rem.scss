@@ -1,0 +1,53 @@
+@function calculateRem($size) {
+  $remSize: $size / 16px;
+  @return #{$remSize}rem;
+}
+
+@function calcRem($size) {
+  $remSize: $size / 16;
+  @return #{$remSize};
+}
+
+@function strip-unit($num) {
+  @return $num / ($num * 0 + 1);
+}
+
+@mixin rem-fallback($property, $values...) {
+  $max: length($values);
+  $pxValues: '';
+  $remValues: '';
+
+  @for $i from 1 through $max {
+    $value: strip-unit(nth($values, $i));
+    $pxValues: #{$pxValues + ($value/16)*16}px;
+
+    @if $i < $max {
+      $pxValues: #{$pxValues + " "};
+    }
+  } 
+
+  @for $i from 1 through $max {
+    $value: strip-unit(nth($values, $i));
+    $remValues: #{$remValues + $value/16}rem;
+
+    @if $i < $max {
+      $remValues: #{$remValues + " "};
+    }
+  } 
+  
+  #{$property}: $pxValues; 
+  #{$property}: $remValues; 
+}
+
+/// @example scss - Usage
+/// body {
+///  @include rem-fallback(margin, 10, 20, 30, 40);
+/// }
+///  body {
+///  margin: 160px 320px 480px 640px;
+///  margin: 10rem 20rem 30rem 40rem; 
+/// }
+///
+
+
+ 
