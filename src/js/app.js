@@ -827,20 +827,18 @@ $('#'+parent.point.id +'-popup'+' .open_page').on('mousedown', $.proxy(this.page
 ======= EVENT LISTENERS ===================================================
 ======================================================================== */
 MapViewItem.prototype._addListeners = function(){
-    var _this = this; 
+  var _this = this; 
   
-    //prevents closing the page when clicking on it - page only closes via close button or clicking outside it
-    $('.page').on('mousedown', function(e) {
-      e.stopPropagation();
-    });
-    //close page by clicking on the overlay
-   $('.overlay').not( $(this).find('.page') ).on( "mousedown", $.proxy(this.page_close, _this) );
-        
-    $(this.page.modal).find('.close').on("mousedown", $.proxy(this.page_close, _this)); 
-    $(this.page.modal).find('.next').on("mousedown", function(){
-      console.log('clicked next');
-    }); 
-    $(this.pop.modal).find('.close').on("mousedown", $.proxy(this.pop_close, _this));
+  //prevents closing the page when clicking on it - page only closes via close button or clicking outside it
+  $('.page').on('mousedown', function(e) {
+    e.stopPropagation();
+  });
+  //close page by clicking on the overlay
+  $('.overlay').not( $(this).find('.page') ).on( "mousedown", $.proxy(this.page_close, _this) );
+  //close page by clicking on close button
+  $(this.page.modal).find('.close').on("mousedown", $.proxy(this.page_close, _this)); 
+  //close popup by clicking on close button
+  $(this.pop.modal).find('.close').on("mousedown", $.proxy(this.pop_close, _this));
 
 }
 
