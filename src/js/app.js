@@ -88,9 +88,55 @@ MapView.prototype._init_map_elements = function() {
     var point_item = new MapViewItem(point, rect, map, this.map_bcr, pop, tip, page, content, post_id);
     this.map_items.push(point_item); 
   }
-  //setup all map events, zoom, pan etc
+  //setup all map events, zoom, pan etc  
+
   this._render_map();
- 
+
+  this.sidebar_nav =  $("<div />", {
+      "class": "sidebar-nav" 
+    }).appendTo('body');
+
+  for (var i = 0; i<this.map_items.length; i++) {
+    var item = this.map_items[i];
+    var title = item.content.acf.card_title;
+
+    var list_item = $('<button />', {
+        "html": title,
+        "id": item.content.id
+    }).appendTo('.sidebar-nav');
+  }
+
+  console.log(this.sidebar_nav, this.map_items );
+
+  $("#nav-icon").on('mousedown', function(){
+    $(this).toggleClass('open');
+    $('.sidebar-nav').toggleClass('sidebar-nav--visible');
+  });
+
+}
+
+MapView.prototype._render_app_navigation = function() {
+  var parent = this;
+
+
+  // click(function(e){
+  //    e.preventDefault();
+  //   $(this).find("#nav-icon").toggleClass('open')
+  //   // $(".points-nav").removeClass("open");
+  //   // $(this).addClass('open');
+  //   console.log(this);
+  //   //$('#nav-overlay').toggleClass('open');
+  //   //$('.navbar-nav').toggleClass('open');
+  // }); 
+
+
+      // $('#nav-icon').click(function(){
+      //   $("#nav-icon").removeClass("open");
+      //   $(this).toggleClass('open');
+      //   $('#nav-overlay').toggleClass('open');
+      //   $('.navbar-nav').toggleClass('open');
+      // }); 
+
 }
 
 MapView.prototype._render_map = function() {
@@ -257,6 +303,7 @@ MapView.prototype._render_map = function() {
   return zoomLevel._groups[0][0].__zoom.k;
   
 }
+
 
 function MapViewItem(point, rect, map, map_bcr, pop, tip, page, content, post_id){
   MapView.call(this);
@@ -856,6 +903,8 @@ MapViewItem.prototype._render = function(){
     );
 
 }
+
+
 /**
  * Create a Modal prototype
  */
@@ -889,8 +938,7 @@ Modal.prototype.init = function(){
       "class": "overlay",
       "id": this.point + "-page"
     }).appendTo('body');
-
-  } 
+  }
 }
 
 Modal.prototype.style = function(styles){
@@ -915,11 +963,11 @@ Modal.prototype.render_modal = function(){
     this.modal.html("<h3 class='map-popover-title'>"+this.title+"</h3>");
   } else if(this.type == "popup"){
     this.modal.html("<div class='arrow'></div>  <button class='close'></button><h3 class='map-popover-title'>"+this.title+"</h3><p class='map-popover-content'>" + nunjucks.renderString('{{ username }}', { username: this.summary }) + "<button class='open_page'>Συνέχισε!</button></p>");
-  }  
+  } 
+
 }
 
 window.onload = function() {
-  var modal = new Modal();
   var mapView = new MapView();
 }
 
