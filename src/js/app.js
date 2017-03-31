@@ -117,10 +117,19 @@ MapView.prototype._init_map_elements = function() {
     e.stopPropagation();
   });
 
-  $('#container').not( $(this).find('.sidebar-nav') ).on( "mousedown", function() {
-    //$('.sidebar-nav').removeClass('sidebar-nav--visible')
-    console.log('test');
+  $('.sidebar-nav button').on('mousedown', function() {
+    for (var i = 0; i<_this.map_items.length; i++) {
+      var item = _this.map_items[i];
+      if ( $(this).attr('id') == item.content.id ) {
+        console.log(item, item.page.modal);
+        item.page_open();
+
+        console.log(item);
+      }
+    }
   });
+
+  console.log(this.map_items);
 
 }
 
