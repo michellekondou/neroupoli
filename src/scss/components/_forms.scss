@@ -249,9 +249,9 @@ input:checked + label span {
   margin: 0 auto;
   margin-right: 10px;
   background-color: $text;
-  background-image: url('../graphics/checkbox-w.svg');
+  background-image: url('../graphics/checkbox-w-thick.svg');
   background-repeat: no-repeat;
-  background-position: 7px 7px;
+  background-position: -2px -1px;
 }
 
 .submitted input[data-type="correct"] + label.selected span {

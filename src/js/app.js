@@ -58,8 +58,8 @@ MapView.prototype._init_map_elements = function() {
   var points = this.svgDoc.querySelectorAll('.point');
   //get the json data
   var posts = $.parseJSON($.ajax({
-    url: 'https://www.michellekondou.me/wprestapi/index.php/wp-json/wp/v2/posts/?per_page=20',
-    //url: 'dist/proxy/data.json',
+    //url: 'https://www.michellekondou.me/wprestapi/index.php/wp-json/wp/v2/posts/?per_page=20',
+    url: 'dist/proxy/data.json',
     dataType: "json", 
     async: false
   }).responseText);
@@ -124,7 +124,7 @@ MapView.prototype._render_map = function() {
       map_item.tip.open = false;
       $(map_item.tip.modal).removeClass('open');
       map_item.pop.open = false; 
-      $(map_item.pop.modal).removeClass('open');
+      $(map_item.pop.modal).removeClass('popup-open');
     }
 
     //change cursor according to mouse event
@@ -152,7 +152,7 @@ MapView.prototype._render_map = function() {
       if (d3.event.sourceEvent.movementX != 0 ||  d3.event.sourceEvent.movementY != 0) {
         svg.style("cursor", "move");
         var duration = 0;
-        $('.popup').removeClass('open');
+        $('.popup').removeClass('popup-open');
         $('.tooltip').removeClass('open');
         console.log('dragging');
       }
@@ -173,7 +173,7 @@ MapView.prototype._render_map = function() {
       map_item.tip.open = false;
       $(map_item.tip.modal).removeClass('open');
       map_item.pop.open = false; 
-      $(map_item.pop.modal).removeClass('open');
+      $(map_item.pop.modal).removeClass('popup-open');
     }
   });
 
@@ -247,7 +247,7 @@ MapView.prototype._render_map = function() {
       map_item.tip.open = false;
       $(map_item.tip.modal).removeClass('open');
       map_item.pop.open = false; 
-      $(map_item.pop.modal).removeClass('open');
+      $(map_item.pop.modal).removeClass('popup-open');
     }
 
   });
@@ -290,27 +290,25 @@ MapViewItem.prototype._init_map_elements = function(){
 ======================================================================== */
 MapViewItem.prototype.page_open = function () {
   if(this.page.open) { return; }
-  console.log(this, this.page.modal, this.page.modal[0].children[0]);
+  //console.log(this, this.page.modal, this.page.modal[0].children[0]);
   this.page.open = true;
-  $(this.page.modal).addClass('open');
+  $(this.page.modal).addClass('page-open');
 
-  // TweenLite.to(this.page.modal[0].children[0], 0.8, {
-  //   css: {
-  //     right: 0
-  //   }
-  // })
+  var parent = this;
+  //remove transform style generated after closing the page
+  $(parent.page.modal).css("transform","");
 
   this.pop.modal.open = false;
-  $(this.pop.modal).removeClass('open');
+  $(this.pop.modal).removeClass('popup-open');
   $('.map-loader').css('display','block'); 
   //load content on page open to be able to refresh forms
   var post = $.parseJSON($.ajax({
-    url: 'https://www.michellekondou.me/wprestapi/index.php/wp-json/wp/v2/posts/'+this.post_id,
+    //url: 'https://www.michellekondou.me/wprestapi/index.php/wp-json/wp/v2/posts/'+this.post_id,
+    url:' dist/proxy/data.json',
     dataType: "json", 
     async: false,
     success: function(data){
-      $('.map-loader').css('display','none');
-      console.log('https://www.michellekondou.me/wprestapi/index.php/wp-json/wp/v2/posts/'+this.post_id); 
+      $('.map-loader').css('display','none'); 
     }
   }).responseText);
 
@@ -547,7 +545,6 @@ function Sortable(element, index) {
     if (index !== sortable.index) {
       changeIndex(sortable, index);
     }
-    console.log(sortable.index);
   }
 
   function upAction() {
@@ -579,11 +576,10 @@ function reOrder() {
 
   for (var i = 0; i < item.length; i++) {
     var rightOrder = $(item[i]).find('.right-order');
-    console.log(rightOrder[0].textContent);
     TweenLite.to(item[i], 0.5, {
       y: rightOrder[0].textContent * rowSize
     });
-    console.log(item[i]);
+
   }
 
 }
@@ -597,21 +593,41 @@ $('#resort').on('click', function(){
 
 MapViewItem.prototype.page_close = function () {
   if(!this.page.open) { return; }
+  var parent = this;
   this.page.open = false;
-  $(this.page.modal).removeClass('open');
+  var closeFunc = function() {
+    $(parent.page.modal).removeClass('page-open');
+  } 
+
+  var tl = new TimelineLite({
+    onComplete: function() {
+      
+    }
+  });
+
+  tl.add( TweenLite.to(parent.page.modal, 0.5, {
+      x: -'80%'
+  }) );
+  tl.addLabel("hide-overlay", 1);
+  tl.add(closeFunc, "hide-overlay");
+  tl.set(parent.page.modal, {
+      x: 0
+  });
+ 
+
   console.log(this, 'clicked close');
 };
 
 MapViewItem.prototype.pop_open = function () {
   if(this.pop.open) { return; }
   this.pop.open = true;
-  $(this.pop.modal).addClass('open');
+  $(this.pop.modal).addClass('popup-open');
 };
 
 MapViewItem.prototype.pop_close = function () {
   if(!this.pop.open) { return; }
   this.pop.open = false;
-  $(this.pop.modal).removeClass('open');
+  $(this.pop.modal).removeClass('popup-open');
 };
 
 /* ========================================================================
@@ -679,7 +695,7 @@ var $map    = document.getElementById("map"),
       if (d3.event.sourceEvent.movementX != 0 ||  d3.event.sourceEvent.movementY != 0) {
         svg.style("cursor", "move");
         var duration = 0;
-        $('.popup').removeClass('open');
+        $('.popup').removeClass('popup-open');
         $('.tooltip').removeClass('open');
         console.log('drag');
       }
@@ -689,9 +705,6 @@ var $map    = document.getElementById("map"),
     view.transition()
         .duration(duration)
         .attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")" + " scale(" + d3.event.transform.k + ")");
-    
-
-    console.log('calling zoom');
 
   }
 
@@ -726,7 +739,7 @@ for(var p = 0; p < parent.map_items.length;p++) {
   map_item.tip.open = false;
   $(map_item.tip.modal).removeClass('open');
   map_item.pop.open = false; 
-  $(map_item.pop.modal).removeClass('open');
+  $(map_item.pop.modal).removeClass('popup-open');
   console.log('is this working', parent.map_items);
 }
 
@@ -747,7 +760,7 @@ svg.select('#'+parent.point.id)
   parent.tip.open = false;
   $(parent.tip.modal).removeClass('open');
   parent.pop.open = false;
-  $(parent.pop.modal).removeClass('open');
+  $(parent.pop.modal).removeClass('popup-open');
 })
 .on('mouseover', function() {
   //console.log(item.tip.modal[0].children[1], item.tip.modal[0].clientHeight, 32);
@@ -775,8 +788,9 @@ svg.select('#'+parent.point.id)
 });
 
 svg.select('#'+parent.point.id).on('mousedown', function(d) {
+
   var zoomLevel = svg.call(zoom)._groups[0][0].__zoom.k; 
-  console.log(zoomLevel);
+
   if (zoomLevel < 10 ) {
   d3.event.stopPropagation(); 
   //center and zoom point
@@ -790,22 +804,20 @@ svg.select('#'+parent.point.id).on('mousedown', function(d) {
      // }
     //show the popup
     parent.pop.open = true;
-    $(parent.pop.modal).addClass('open');
-    console.log('reached max level zoom');
+    $(parent.pop.modal).addClass('popup-open');
   }
   //close the tooltip if it's open
   parent.tip.open = false;
   $(parent.tip.modal).removeClass('open');
   //show the popup
   parent.pop.open = true;
-  $(parent.pop.modal).addClass('open');
+  $(parent.pop.modal).addClass('popup-open');
  
 }, {passive: true});
 
 svg.select('#'+parent.point.id).on('dblclick', $.proxy(this.page_open, parent));
 
 $('#'+parent.point.id +'-popup'+' .open_page').on('mousedown', $.proxy(this.page_open, parent));
-
 
 }
 
@@ -816,7 +828,14 @@ $('#'+parent.point.id +'-popup'+' .open_page').on('mousedown', $.proxy(this.page
 ======================================================================== */
 MapViewItem.prototype._addListeners = function(){
     var _this = this; 
- 
+  
+    //prevents closing the page when clicking on it - page only closes via close button or clicking outside it
+    $('.page').on('mousedown', function(e) {
+      e.stopPropagation();
+    });
+    //close page by clicking on the overlay
+   $('.overlay').not( $(this).find('.page') ).on( "mousedown", $.proxy(this.page_close, _this) );
+        
     $(this.page.modal).find('.close').on("mousedown", $.proxy(this.page_close, _this)); 
     $(this.page.modal).find('.next').on("mousedown", function(){
       console.log('clicked next');

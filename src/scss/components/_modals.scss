@@ -75,7 +75,7 @@
   @include rem-fallback(font-size, 19);
 }
 
-.popup.open .map-popover-title {
+.popup.popup-open .map-popover-title {
   margin-top: 20px;
   font-family: $bold;
 }
@@ -86,7 +86,7 @@
   color: #fff;
 }
 
-.popup.open .map-popover-content {
+.popup.popup-open .map-popover-content {
   margin-top: 10px;
   @include rem-fallback(font-size, 19);
   line-height: 1.4;
@@ -173,7 +173,7 @@
 /**
  * Popup open state
  */
-.popup.open {
+.popup.popup-open {
   left: 8%;
   top: 50%;
   transform: translate(-8%, -50%);
@@ -243,17 +243,22 @@
   max-width: 100%;
   height: 100%;
   opacity: 0;
-  // background: linear-gradient(90deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.5) 40%, rgba(255,255,255,0.4) 75%, rgba(255,255,255,0.3) 100%);
   z-index: -1;
 }
 
-.open {
+.open, 
+.popup-open {
   opacity: 1; 
   z-index: 1;
-  transform: translate3d(-100%, 0, 0); 
-  transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
+.page-open, 
+.popup-open {
+  opacity: 1; 
+  z-index: 1;
+  transform: translate3d(-80%, 0, 0); 
+  transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1); 
+}
 
 /**
  * Cards / Pages
@@ -272,16 +277,16 @@
   position: absolute;
   padding: 0;
   top: 0;
-  right: -100%;
-  // transform: translate(-50%, -50%);
+  right: 0;
   width: 80%;
-  // max-width: 1150px;
   height: 100%;
-  // max-height: 587px;
   background: #fff;
   border-radius: 0;
-  opacity: 1; 
-  z-index: 1; 
+  box-shadow: 0 0 12px 0 rgba(0,0,0,0.1), 0 10px 30px 0 rgba(0,0,0,0.2);
+  overflow: hidden;
+  transform: translate3d(100%, 0, 0);
+  transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+  z-index: 10;
 }
 
 @media (max-width: 11140px) {

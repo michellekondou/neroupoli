@@ -1,1 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 125" version="1.1" x="0px" y="0px"><title>X</title><desc>Created with Sketch.</desc><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g fill="#000000"><path d="M45.3064907,50 L15.9720576,20.6655669 C14.6759808,19.3694901 14.6759808,17.2681344 15.9720576,15.9720576 C17.2681344,14.6759808 19.3694901,14.6759808 20.6655669,15.9720576 L50,45.3064907 L79.3344331,15.9720576 C80.6305099,14.6759808 82.7318656,14.6759808 84.0279424,15.9720576 C85.3240192,17.2681344 85.3240192,19.3694901 84.0279424,20.6655669 L54.6935093,50 L84.0279424,79.3344331 C85.3240192,80.6305099 85.3240192,82.7318656 84.0279424,84.0279424 C82.7318656,85.3240192 80.6305099,85.3240192 79.3344331,84.0279424 L50,54.6935093 L20.6655669,84.0279424 C19.3694901,85.3240192 17.2681344,85.3240192 15.9720576,84.0279424 C14.6759808,82.7318656 14.6759808,80.6305099 15.9720576,79.3344331 L45.3064907,50 Z"/></g></g></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+   width="34px" height="34px" viewBox="0 0 34 34" enable-background="new 0 0 34 34" xml:space="preserve">
+<g id="Layer_1_1_">
+</g>
+<g id="activity_context">
+  <circle fill="#939598" cx="17" cy="17" r="17"/>
+  <polygon fill="#FFFFFF" points="24.5,11.949 21.645,9.092 17,13.734 12.357,9.092 9.5,11.949 14.142,16.592 9.5,21.234 
+    12.357,24.092 17,19.449 21.643,24.092 24.5,21.234 19.857,16.592   "/>
+</g>
+</svg>
