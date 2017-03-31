@@ -106,36 +106,21 @@ MapView.prototype._init_map_elements = function() {
     }).appendTo('.sidebar-nav');
   }
 
-  console.log(this.sidebar_nav, this.map_items );
+  console.log(this.map_items );
 
   $("#nav-icon").on('mousedown', function(){
     $(this).toggleClass('open');
     $('.sidebar-nav').toggleClass('sidebar-nav--visible');
   });
 
-}
+  $('.sidebar-nav').on('mousedown', function(e) {
+    e.stopPropagation();
+  });
 
-MapView.prototype._render_app_navigation = function() {
-  var parent = this;
-
-
-  // click(function(e){
-  //    e.preventDefault();
-  //   $(this).find("#nav-icon").toggleClass('open')
-  //   // $(".points-nav").removeClass("open");
-  //   // $(this).addClass('open');
-  //   console.log(this);
-  //   //$('#nav-overlay').toggleClass('open');
-  //   //$('.navbar-nav').toggleClass('open');
-  // }); 
-
-
-      // $('#nav-icon').click(function(){
-      //   $("#nav-icon").removeClass("open");
-      //   $(this).toggleClass('open');
-      //   $('#nav-overlay').toggleClass('open');
-      //   $('.navbar-nav').toggleClass('open');
-      // }); 
+  $('#container').not( $(this).find('.sidebar-nav') ).on( "mousedown", function() {
+    //$('.sidebar-nav').removeClass('sidebar-nav--visible')
+    console.log('test');
+  });
 
 }
 
