@@ -16,7 +16,7 @@ if (cw < ch) {
     var lph = vh;
   } else if (cw > 1366) {
     var mapSrc = 'src/graphics/map-1.4-1920x1080-v1.svg';
-    var vw = 1980;
+    var vw = 1920;
     var vh = 1080;
     var lpw = cw;
     var lph = ch;
