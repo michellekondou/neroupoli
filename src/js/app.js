@@ -2,7 +2,7 @@ var cw = document.documentElement.clientWidth;
 var ch = document.documentElement.clientHeight;
 
 if (cw < ch) {
-  var mapSrc = 'src/graphics/map-1.3-v1.svg';
+  var mapSrc = 'src/graphics/map-1.4-768x1024.svg';
   var vw = 1229;
   var vh = 1229;
   var lpw = vw; //stands for limit pan
@@ -15,7 +15,7 @@ if (cw < ch) {
     var lpw = vw;
     var lph = vh;
   } else if (cw > 1366) {
-    var mapSrc = 'src/graphics/map-1.3-v1.svg';
+    var mapSrc = 'src/graphics/map-1.4-1920x1080-v1.svg';
     var vw = 1980;
     var vh = 1080;
     var lpw = cw;
@@ -92,21 +92,38 @@ MapView.prototype._init_map_elements = function() {
 
   this._render_map();
 
+  /**
+   * Create the sidebar nav
+   */
+
   this.sidebar_nav =  $("<div />", {
       "class": "sidebar-nav" 
     }).appendTo('body');
 
+  this.sidebar_nav_heading =  $("<h2 />", {
+    "class": "sidebar-nav-heading",
+    "html": "ΔΡΑΣΤΗΡΙΟΤΗΤΕΣ" 
+  }).prependTo(this.sidebar_nav);
+
+  this.sidebar_nav_list = $("<ul />", {
+    "class": "sidebar-nav-list"
+  }).insertAfter(this.sidebar_nav_heading);
+
   for (var i = 0; i<this.map_items.length; i++) {
     var item = this.map_items[i];
     var title = item.content.acf.card_title;
+    //trim long title at ; char
+    if ( item.post_id == 23 ) {
+      title = title.substring(0, title.indexOf(';')+1);
+    }
 
-    var list_item = $('<button />', {
+    var list_item = $('<li />', {
         "html": title,
         "id": item.content.id
-    }).appendTo('.sidebar-nav');
+    }).appendTo(this.sidebar_nav_list);
   }
 
-  console.log(this.map_items );
+
 
   $("#nav-icon").on('mousedown', function(){
     $(this).toggleClass('open');
@@ -117,18 +134,16 @@ MapView.prototype._init_map_elements = function() {
     e.stopPropagation();
   });
 
-  $('.sidebar-nav button').on('mousedown', function() {
+  $('.sidebar-nav li').on('mousedown', function() {
     for (var i = 0; i<_this.map_items.length; i++) {
       var item = _this.map_items[i];
       if ( $(this).attr('id') == item.content.id ) {
-        console.log(item, item.page.modal);
         item.page_open();
-
-        console.log(item);
       }
+
     }
   });
-
+ 
   console.log(this.map_items);
 
 }
