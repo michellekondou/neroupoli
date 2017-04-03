@@ -481,8 +481,15 @@ form mark {
   width: 0%;
   opacity: 0; }
 
-.info {
+#info-icon {
   background-image: url("../graphics/info.svg"); }
+
+#info-icon.open {
+  background-image: url("../graphics/close-popup.svg");
+  z-index: 5;
+  top: 2.5%;
+  right: 2.5%;
+  left: auto; }
 
 .map-controls button {
   display: block;
@@ -549,6 +556,34 @@ form mark {
   font-size: 14px;
   font-size: 0.875rem;
   letter-spacing: 1px; }
+
+/**
+ * Info panel
+ */
+.info-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 30px;
+  padding: 1.875rem;
+  background-color: #00B9F2;
+  color: #fff;
+  z-index: 10;
+  overflow: hidden;
+  z-index: -2;
+  opacity: 0; }
+
+.info-panel--visible {
+  opacity: 1;
+  z-index: 4; }
+
+.info-content {
+  width: 97.5%;
+  min-height: 200px;
+  border: 1px solid #fff;
+  overflow-y: scroll; }
 
 .pin {
   display: block;

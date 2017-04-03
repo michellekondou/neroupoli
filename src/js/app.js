@@ -93,7 +93,7 @@ MapView.prototype._init_map_elements = function() {
   this._render_map();
 
   /**
-   * Create the sidebar nav
+   * Create the sidebar + info nav
    */
 
   this.sidebar_nav =  $("<div />", {
@@ -123,8 +123,6 @@ MapView.prototype._init_map_elements = function() {
     }).appendTo(this.sidebar_nav_list);
   }
 
-
-
   $("#nav-icon").on('mousedown', function(){
     $(this).toggleClass('open');
     $('.sidebar-nav').toggleClass('sidebar-nav--visible');
@@ -144,7 +142,20 @@ MapView.prototype._init_map_elements = function() {
     }
   });
  
-  console.log(this.map_items);
+  //info nav
+  this.info_panel =  $("<div />", {
+    "class": "info-panel" 
+  }).appendTo('body');
+
+  this.info_content =  $("<div />", {
+    "class": "info-content" 
+  }).prependTo(this.info_panel);
+
+  $("#info-icon").on('mousedown', function(){
+    $(this).toggleClass('open');
+    $('.info-panel').toggleClass('info-panel--visible');
+  });
+  
 
 }
 
@@ -209,7 +220,6 @@ MapView.prototype._render_map = function() {
         var duration = 0;
         $('.popup').removeClass('popup-open');
         $('.tooltip').removeClass('open');
-        console.log('dragging');
       }
     }
 
@@ -217,7 +227,6 @@ MapView.prototype._render_map = function() {
     view.transition()
         .duration(duration)
         .attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")" + " scale(" + d3.event.transform.k + ")");
-    console.log('zoomin');
   }
 
 
@@ -236,7 +245,7 @@ MapView.prototype._render_map = function() {
   function zoomEnd(){
     svg.transition().delay(1500).style("cursor", "default");
     //svg.style("cursor", "default");
-    console.log('zoomend');
+
   }
  
   var svgWidth = d3.select(mapSvg).attr("width");
@@ -438,7 +447,6 @@ function getFormData(form) {
       }
     }
   });
-  console.log(data);
   return data;
 }
  
@@ -468,7 +476,6 @@ $(function() {
     $('.loader.quiz').css('display','inline-block');        
     var form = $('.checkbox-quiz, .multiple-choice');
     var data = getFormData(form);
-    console.log(form.attr('id'));
     var url = form.attr('action');
     $.ajax({
       type: "POST",
@@ -617,7 +624,6 @@ function Sortable(element, index) {
  
   function correctOrder() {
     if(order.textContent === rightOrder.textContent) {
-      console.log('right position');
     }
   }
 
@@ -628,7 +634,6 @@ function Sortable(element, index) {
 function reOrder() { 
   
   var item = $(".list-item");
-  console.log(item, item.length);
 
   for (var i = 0; i < item.length; i++) {
     var rightOrder = $(item[i]).find('.right-order');
@@ -671,7 +676,6 @@ MapViewItem.prototype.page_close = function () {
   });
  
 
-  console.log(this, 'clicked close');
 };
 
 MapViewItem.prototype.pop_open = function () {
@@ -753,7 +757,6 @@ var $map    = document.getElementById("map"),
         var duration = 0;
         $('.popup').removeClass('popup-open');
         $('.tooltip').removeClass('open');
-        console.log('drag');
       }
     }
 
@@ -796,7 +799,6 @@ for(var p = 0; p < parent.map_items.length;p++) {
   $(map_item.tip.modal).removeClass('open');
   map_item.pop.open = false; 
   $(map_item.pop.modal).removeClass('popup-open');
-  console.log('is this working', parent.map_items);
 }
 
 
@@ -819,7 +821,6 @@ svg.select('#'+parent.point.id)
   $(parent.pop.modal).removeClass('popup-open');
 })
 .on('mouseover', function() {
-  //console.log(item.tip.modal[0].children[1], item.tip.modal[0].clientHeight, 32);
   var //zoom_level = MapView.prototype._render_map.call(parent),
       //tooltip height + pin height + margin between pin and tooltip
       modalWidth = Math.floor( parent.tip.modal[0].clientWidth),
