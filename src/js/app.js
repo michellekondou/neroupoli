@@ -3,8 +3,8 @@ var ch = document.documentElement.clientHeight;
 
 if (cw < ch) {
   var mapSrc = 'src/graphics/map-1.4-768x1024.svg';
-  var vw = 1229;
-  var vh = 1229;
+  var vw = 768;
+  var vh = 1024;
   var lpw = vw; //stands for limit pan
   var lph = vh;
 } else {
