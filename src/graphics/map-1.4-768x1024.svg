@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  width="768" height="1024" viewBox="0 0 768 1024" enable-background="new 0 0 768 1024" xml:space="preserve">
+<svg id="svgmap" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  width="768" height="1024" viewBox="0 0 768 1024" enable-background="new 0 0 768 1024" xml:space="preserve">
 	<defs>
 <link href="../scss/map.css" type="text/css" rel="stylesheet" xmlns="http://www.w3.org/1999/xhtml"/>
 </defs>
