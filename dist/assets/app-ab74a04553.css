@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* ============================================================================
    @CORE -> MIXINS -> TEXT INPUT PLACEHOLDER COLOUR
    ========================================================================= */
@@ -481,8 +482,36 @@ form mark {
   width: 0%;
   opacity: 0; }
 
-.info {
+#info-icon {
   background-image: url("../graphics/info.svg"); }
+
+#info-icon.open {
+  background-image: none;
+  z-index: 5;
+  top: 20px;
+  top: 1.25rem;
+  left: 10px; }
+
+#info-icon.open:after {
+  content: "←";
+  font-family: "cf_asty_stdbold";
+  font-size: 11px;
+  color: #fff;
+  letter-spacing: 1px;
+  vertical-align: bottom;
+  display: block;
+  width: 210px;
+  margin-top: 2px; }
+
+@media (min-width: 1280px) {
+  #info-icon.open:after {
+    content: "← ΕΠΙΣΤΡΟΦΗ";
+    margin-top: 0px; } }
+
+@media (min-width: 1680px) {
+  #info-icon.open:after {
+    content: "← ΕΠΙΣΤΡΟΦΗ ΣΤΟ ΧΑΡΤΗ";
+    margin-top: 6px; } }
 
 .map-controls button {
   display: block;
@@ -549,6 +578,200 @@ form mark {
   font-size: 14px;
   font-size: 0.875rem;
   letter-spacing: 1px; }
+
+/**
+ * Info panel
+ */
+.info-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #00B9F2;
+  color: #fff;
+  z-index: -2;
+  opacity: 0; }
+
+.info-panel--visible {
+  opacity: 1;
+  z-index: 4; }
+
+.info-header {
+  padding: 20px;
+  padding: 1.25rem; }
+
+.info-content {
+  width: 100%;
+  height: 100%;
+  border-bottom: 1px solid #fff;
+  overflow-y: hidden; }
+
+.c-tabs {
+  height: 100%; }
+
+.c-tabs-nav {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+
+.c-tabs-nav__link {
+  margin-right: 4px;
+  padding-right: 30px;
+  padding-right: 1.875rem;
+  color: #fff;
+  background-color: #00B9F2;
+  text-align: center;
+  transition: color 0.3s; }
+
+.c-tabs-nav__link:last-child {
+  margin-right: 0; }
+
+.c-tabs-nav__link.is-active {
+  color: #fff;
+  background-color: #00B9F2; }
+
+.c-tabs-nav__link i,
+.c-tabs-nav__link span {
+  margin: 0;
+  padding: 0;
+  line-height: 1; }
+
+.c-tabs-nav__link i {
+  font-size: 18px; }
+
+.c-tabs-nav__link span {
+  display: none;
+  font-size: 18px; }
+
+@media all and (min-width: 720px) {
+  .c-tabs-nav__link i {
+    margin-bottom: 12px;
+    font-size: 22px; }
+  .c-tabs-nav__link span {
+    display: block; } }
+
+/**
+ * Tab
+ */
+.c-tab {
+  display: none;
+  background-color: #00B9F2; }
+
+.c-tab.is-active {
+  display: block;
+  height: 100%; }
+
+.c-tab__content {
+  height: 95%;
+  padding: 30px;
+  padding: 1.875rem;
+  padding-top: 0px;
+  padding-top: 0rem;
+  overflow-y: scroll;
+  font-size: 16px;
+  font-size: 1rem; }
+
+.c-tab__content .col-wrapper {
+  display: flex; }
+
+@media (max-width: 767px) {
+  .c-tab__content .col-wrapper {
+    flex-direction: column; } }
+
+@media (min-width: 768px) {
+  .c-tab__content .col-wrapper {
+    flex-direction: row; }
+  .info-header,
+  .c-tabs-nav-wrapper,
+  .c-tab__content .col-wrapper,
+  .c-tab__content h3 {
+    width: 95%;
+    margin: 0 auto; } }
+
+@media (min-width: 1280px) {
+  .info-header,
+  .c-tabs-nav-wrapper,
+  .c-tab__content .col-wrapper,
+  .c-tab__content h3 {
+    width: 85%; } }
+
+@media (min-width: 1366px) {
+  .info-header,
+  .c-tabs-nav-wrapper,
+  .c-tab__content .col-wrapper,
+  .c-tab__content h3 {
+    width: 80%; } }
+
+@media (min-width: 1440px) {
+  .info-header,
+  .c-tabs-nav-wrapper,
+  .c-tab__content .col-wrapper,
+  .c-tab__content h3 {
+    width: 75%; } }
+
+@media (min-width: 1680px) {
+  .info-header,
+  .c-tabs-nav-wrapper,
+  .c-tab__content .col-wrapper,
+  .c-tab__content h3 {
+    width: 70%; } }
+
+/**
+ * Tabs no-js fallback
+ */
+.c-tabs.no-js .c-tab {
+  display: block;
+  margin-bottom: 1.5rem; }
+
+.c-tabs.no-js .c-tab:last-child {
+  margin-bottom: 0; }
+
+/**
+ * Custom theme styles for neroupoli
+ */
+.c-tabs-nav {
+  justify-content: flex-start;
+  border-bottom: 1px solid #fff;
+  padding: 30px;
+  padding: 1.875rem;
+  padding-bottom: 15px;
+  padding-bottom: 0.9375rem; }
+
+.c-tabs-nav__link {
+  text-decoration: none;
+  font-family: "cf_asty_stdbold";
+  font-size: 14px;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.5); }
+
+.c-tab__content a {
+  color: #fff; }
+
+.c-tab__content p {
+  line-height: 1.4; }
+
+.c-tab__content h3 {
+  font-family: "cf_asty_stdbold";
+  font-size: 16px;
+  font-size: 1rem;
+  margin-top: 30px;
+  margin-top: 1.875rem; }
+
+.c-tab__content .col {
+  width: 50%;
+  height: auto;
+  margin: 0; }
+
+@media (max-width: 767px) {
+  .c-tab__content .col {
+    width: 100%; } }
+
+@media (min-width: 768px) {
+  .c-tab__content .col {
+    width: 50%;
+    max-width: 525px; } }
 
 .pin {
   display: block;

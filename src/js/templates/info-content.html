@@ -1,0 +1,24 @@
+
+<div id="tabs" class="c-tabs no-js">
+  <div class="c-tabs-nav">
+    <div class="c-tabs-nav-wrapper"> 
+      {% for tab in text.acf.tabs %}
+      {% set tab_nav_counter  = ( tab_nav_counter | default(0) ) + 1 %}
+      <a href="#" class="c-tabs-nav__link{% if tab_nav_counter === 1  %} is-active{% endif %}">{{ tab.heading }}</a>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% for tab in text.acf.tabs %}
+  {% set tab_counter  = ( tab_counter | default(0) ) + 1 %}  
+  <div class="c-tab{% if tab_counter === 1  %} is-active{% endif %}">
+    <div class="c-tab__content">
+      <h3>{{ tab.heading }}</h3>
+      <div class="col-wrapper">
+        <div class="col">{{ tab.block_1 }}</div>
+        <div class="col">{{ tab.block_2 }}</div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
