@@ -58,8 +58,8 @@ MapView.prototype._init_map_elements = function() {
   var points = this.svgDoc.querySelectorAll('.point');
   //get the json data
   var posts = $.parseJSON($.ajax({
-    url: 'https://www.michellekondou.me/wprestapi/index.php/wp-json/wp/v2/posts/?per_page=20',
-    //url: 'dist/proxy/data.json',
+    //url: 'https://www.michellekondou.me/wprestapi/index.php/wp-json/wp/v2/posts/?per_page=20',
+    url: 'dist/proxy/data.json',
     dataType: "json", 
     async: false
   }).responseText);
@@ -153,7 +153,17 @@ MapView.prototype._init_map_elements = function() {
 
   $("#info-icon").on('mousedown', function(){
     $(this).toggleClass('open');
-    $('.info-panel').toggleClass('info-panel--visible');
+    //$('.info-panel').toggleClass('info-panel--visible');
+    if ( $('.info-panel').hasClass('info-panel--closed') ) {
+      $('.info-panel').addClass('info-panel--visible');
+      $('.info-panel').removeClass('info-panel--closed');
+    } else if ( $('.info-panel').hasClass('info-panel--visible') ) {
+      $('.info-panel').addClass('info-panel--closed');  
+      $('.info-panel').removeClass('info-panel--visible');  
+    } else {
+      $('.info-panel').addClass('info-panel--visible');
+    }
+
   });
 
   //get the info post content

@@ -486,13 +486,17 @@ form mark {
   background-image: url("../graphics/info.svg"); }
 
 #info-icon.open {
+  background-image: url("../graphics/info-close.svg");
+  z-index: 5; }
+
+#info-icon-top.open {
   background-image: none;
   z-index: 5;
   top: 20px;
   top: 1.25rem;
   left: 10px; }
 
-#info-icon.open:after {
+#info-icon-top.open:after {
   content: "←";
   font-family: "cf_asty_stdbold";
   font-size: 11px;
@@ -504,12 +508,12 @@ form mark {
   margin-top: 2px; }
 
 @media (min-width: 1280px) {
-  #info-icon.open:after {
+  #info-icon-top.open:after {
     content: "← ΕΠΙΣΤΡΟΦΗ";
     margin-top: 0px; } }
 
 @media (min-width: 1680px) {
-  #info-icon.open:after {
+  #info-icon-top.open:after {
     content: "← ΕΠΙΣΤΡΟΦΗ ΣΤΟ ΧΑΡΤΗ";
     margin-top: 6px; } }
 
@@ -585,17 +589,26 @@ form mark {
 .info-panel {
   position: fixed;
   top: 0;
-  right: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 0;
+  height: 0;
   background-color: #00B9F2;
-  color: #fff;
-  z-index: -2;
-  opacity: 0; }
+  color: #fff; }
+
+.info-panel--closed {
+  width: auto;
+  height: auto;
+  transform-origin: 0 100%;
+  animation: popin 1s ease;
+  animation-fill-mode: forwards; }
 
 .info-panel--visible {
-  opacity: 1;
-  z-index: 4; }
+  visibility: visible;
+  right: 0;
+  z-index: 4;
+  width: 100vw;
+  height: 100vh;
+  transform-origin: 0 100%;
+  animation: popout 0.5s ease-in-out; }
 
 .info-header {
   padding: 20px;
@@ -606,6 +619,18 @@ form mark {
   height: 100%;
   border-bottom: 1px solid #fff;
   overflow-y: hidden; }
+
+@keyframes popout {
+  0% {
+    transform: scale(0); }
+  100% {
+    transform: scale(1); } }
+
+@keyframes popin {
+  0% {
+    transform: scale(1); }
+  100% {
+    transform: scale(0); } }
 
 .c-tabs {
   height: 100%; }
