@@ -250,7 +250,7 @@
   width: auto;
   height: auto;
   transform-origin: 0 100%;
-  animation: popin 1s ease;
+  animation: info-popin 1s ease;
   animation-fill-mode: forwards;
 }
 
@@ -261,7 +261,7 @@
   width: 100vw;
   height: 100vh;
   transform-origin: 0 100%;
-  animation: popout 0.5s ease-in-out;
+  animation: info-popout 0.5s ease-in-out;
 }
 
 .info-header {
@@ -275,7 +275,7 @@
   overflow-y: hidden;
 }
 
-@keyframes popout {
+@keyframes info-popout {
   0% { 
     transform: scale(0);
   }
@@ -284,7 +284,7 @@
   }
 }
 
-@keyframes popin {
+@keyframes info-popin {
   0% { 
     transform: scale(1); 
   }

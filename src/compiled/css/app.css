@@ -598,7 +598,7 @@ form mark {
   width: auto;
   height: auto;
   transform-origin: 0 100%;
-  animation: popin 1s ease;
+  animation: info-popin 1s ease;
   animation-fill-mode: forwards; }
 
 .info-panel--visible {
@@ -608,7 +608,7 @@ form mark {
   width: 100vw;
   height: 100vh;
   transform-origin: 0 100%;
-  animation: popout 0.5s ease-in-out; }
+  animation: info-popout 0.5s ease-in-out; }
 
 .info-header {
   padding: 20px;
@@ -620,13 +620,13 @@ form mark {
   border-bottom: 1px solid #fff;
   overflow-y: hidden; }
 
-@keyframes popout {
+@keyframes info-popout {
   0% {
     transform: scale(0); }
   100% {
     transform: scale(1); } }
 
-@keyframes popin {
+@keyframes info-popin {
   0% {
     transform: scale(1); }
   100% {
@@ -1039,12 +1039,13 @@ form mark {
   opacity: 1;
   z-index: 1; }
 
-.page-open,
 .popup-open {
-  opacity: 1;
-  z-index: 4;
   transform: translate3d(-80%, 0, 0);
   transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1); }
+
+.page-open {
+  opacity: 1;
+  z-index: 4; }
 
 .page {
   position: absolute;
@@ -1057,33 +1058,25 @@ form mark {
   border-radius: 0;
   box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.1), 0 10px 30px 0 rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  transform: translate3d(100%, 0, 0);
-  transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
   z-index: 10; }
 
-@media (max-width: 11140px) {
-  .page {
-    width: 95%; }
-  .page-open {
-    transform: translate3d(-95%, 0, 0); } }
+@keyframes center-popout {
+  0% {
+    transform: scale(0); }
+  100% {
+    transform: scale(1); } }
 
-@media (max-width: 1280px) {
-  .page {
-    width: 90%; }
-  .page-open {
-    transform: translate3d(-90%, 0, 0); } }
-
-@media (min-width: 1281px) and (max-width: 1365px) {
-  .page {
-    width: 85%; }
-  .page-open {
-    transform: translate3d(-85%, 0, 0); } }
+@keyframes center-popin {
+  0% {
+    transform: scale(1); }
+  100% {
+    transform: scale(0); } }
 
 @media (min-width: 1366px) {
   .page {
     width: 80%; }
   .page-open {
-    transform: translate3d(-80%, 0, 0); } }
+    animation: center-popout 0.5s ease-in-out; } }
 
 /**
  * Page header

@@ -15,7 +15,7 @@ if (cw < ch) {
     var lpw = vw;
     var lph = vh;
   } else if (cw > 1366) {
-    var mapSrc = 'src/graphics/map-1.4-1920x1080-v1.svg';
+    var mapSrc = 'src/graphics/map-1920x1080-v4.svg';
     var vw = 1920;
     var vh = 1080;
     var lpw = cw;
@@ -58,8 +58,8 @@ MapView.prototype._init_map_elements = function() {
   var points = this.svgDoc.querySelectorAll('.point');
   //get the json data
   var posts = $.parseJSON($.ajax({
-    //url: 'https://www.michellekondou.me/wprestapi/index.php/wp-json/wp/v2/posts/?per_page=20',
-    url: 'dist/proxy/data.json',
+    url: 'https://www.michellekondou.me/wprestapi/index.php/wp-json/wp/v2/posts/?per_page=20',
+    //url: 'dist/proxy/data.json',
     dataType: "json", 
     async: false
   }).responseText);
@@ -505,8 +505,8 @@ MapViewItem.prototype.page_open = function () {
   $('.map-loader').css('display','block'); 
   //load content on page open to be able to refresh forms
   var post = $.parseJSON($.ajax({
-    //url: 'https://www.michellekondou.me/wprestapi/index.php/wp-json/wp/v2/posts/'+this.post_id,
-    url:' dist/proxy/data.json',
+    url: 'https://www.michellekondou.me/wprestapi/index.php/wp-json/wp/v2/posts/'+this.post_id,
+    //url:' dist/proxy/data.json',
     dataType: "json", 
     async: false,
     success: function(data){
@@ -797,22 +797,22 @@ MapViewItem.prototype.page_close = function () {
     $(parent.page.modal).removeClass('page-open');
   } 
 
-  var tl = new TimelineLite({
-    onComplete: function() {
-      
-    }
-  });
+  var tl = new TimelineLite({});
 
-  tl.add( TweenLite.to(parent.page.modal, 0.5, {
-      x: -'80%'
-  }) );
-  tl.addLabel("hide-overlay", 1);
+  tl.add( 
+    TweenLite.to(parent.page.modal, 0.8, {
+      scale: 0
+      //skew:"90deg",
+      //skewX:"90deg"
+    }) 
+  );
+  tl.addLabel("hide-overlay", 0.5);
   tl.add(closeFunc, "hide-overlay");
   tl.set(parent.page.modal, {
-      x: 0
+    scale: 1 
   });
- 
 
+  //return tl;
 };
 
 MapViewItem.prototype.pop_open = function () {
