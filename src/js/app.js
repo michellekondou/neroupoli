@@ -58,7 +58,7 @@ MapView.prototype._init_map_elements = function() {
   var points = this.svgDoc.querySelectorAll('.point');
   //get the json data
   var posts = $.parseJSON($.ajax({
-    url: 'https://www.michellekondou.me/wprestapi/index.php/wp-json/wp/v2/posts/?per_page=20',
+    url: 'http://water-polis.gr/admin/index.php/wp-json/wp/v2/posts/?per_page=20',
     //url: 'dist/proxy/data.json',
     dataType: "json", 
     async: false
@@ -508,7 +508,7 @@ MapViewItem.prototype.page_open = function () {
   $('.map-loader').css('display','block'); 
   //load content on page open to be able to refresh forms
   var post = $.parseJSON($.ajax({
-    url: 'https://www.michellekondou.me/wprestapi/index.php/wp-json/wp/v2/posts/'+this.post_id,
+    url: 'http://water-polis.gr/admin/index.php/wp-json/wp/v2/posts/'+this.post_id,
     //url:' dist/proxy/data.json',
     dataType: "json", 
     async: false,
