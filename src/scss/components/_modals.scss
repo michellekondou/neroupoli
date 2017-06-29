@@ -174,7 +174,7 @@
  * Popup open state
  */
 .popup.popup-open {
-  left: 8%;
+  right: 13%;
   top: 50%;
   transform: translate(-8%, -50%);
 }
@@ -274,23 +274,23 @@
 .page-open {
   opacity: 1; 
   z-index: 4;
+  transform: translate3d(-80%, 0, 0);
+  transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 .page {
   position: absolute;
   padding: 0;
   top: 0;
-  right: 0;
+  right: -80%;
   width: 80%;
   height: 100%;
   background: #fff;
   border-radius: 0;
   box-shadow: 0 0 12px 0 rgba(0,0,0,0.1), 0 10px 30px 0 rgba(0,0,0,0.2);
   overflow: hidden;
-  //transform: translate3d(100%, 0, 0);
-  //transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-  //transform: scale()
-  //animation: center-popin 0.3s ease;  
+  //transform: translate3d(100%, 0, 0);   
+  //transition: all 0s cubic-bezier(0, 0, 0, 0); 
   z-index: 10;
 }
 
@@ -332,11 +332,11 @@
 @media (max-width: 1280px) {
   
   .page {
-    //width: 90%;
+    width: 90%;
   }
 
   .page-open {
-    //transform: translate3d(-90%, 0, 0);
+    transform: translate3d(-90%, 0, 0);
     //animation: center-popout 1s ease-in-out;    
   }
 
@@ -345,11 +345,11 @@
 @media (min-width: 1281px) and (max-width: 1365px) {
   
   .page {
-    //width: 85%;
+    width: 85%;
   }
 
   .page-open {
-    //transform: translate3d(-85%, 0, 0); 
+    transform: translate3d(-85%, 0, 0); 
     //animation: center-popout 1s ease-in-out;   
   }
 
@@ -363,7 +363,7 @@
 
   .page-open {
     //transform: translate3d(-80%, 0, 0);
-    animation: center-popout 0.5s ease-in-out;    
+    //animation: center-popout 0.5s ease-in-out;    
   }
 
 }

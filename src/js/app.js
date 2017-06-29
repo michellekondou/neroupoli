@@ -499,6 +499,9 @@ MapViewItem.prototype.page_open = function () {
   var parent = this;
   //remove transform style generated after closing the page
   $(parent.page.modal).css("transform","");
+  // TweenLite.set(parent.page.modal, {
+  //   x: 0
+  // });
 
   this.pop.modal.open = false;
   $(this.pop.modal).removeClass('popup-open');
@@ -797,19 +800,24 @@ MapViewItem.prototype.page_close = function () {
     $(parent.page.modal).removeClass('page-open');
   } 
 
-  var tl = new TimelineLite({});
+  var tl = new TimelineLite({
+    onStart: function(){
+      console.log('firing start', $(parent.page.modal).offset().left ) ;
+    },
+    onComplete: function(){
+      console.log('firing end', $(parent.page.modal).offset().left ) ;
+    }
+  });
 
   tl.add( 
     TweenLite.to(parent.page.modal, 0.8, {
-      scale: 0
-      //skew:"90deg",
-      //skewX:"90deg"
+     x: -'80%'
     }) 
   );
-  tl.addLabel("hide-overlay", 0.5);
+  tl.addLabel("hide-overlay", 0.8);
   tl.add(closeFunc, "hide-overlay");
   tl.set(parent.page.modal, {
-    scale: 1 
+    x: 0
   });
 
   //return tl;
@@ -1070,7 +1078,7 @@ Modal.prototype.init = function(){
 
   if(this.type == "popup") {
     this.modal = $("<div />", {
-      "class": "map-popover popup left",
+      "class": "map-popover popup right",
       "id": this.point + "-popup" 
     }).appendTo('body');
   } else if(this.type == "tooltip"){
