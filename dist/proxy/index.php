@@ -1,7 +1,7 @@
 <?php
 
-$outfile= 'data.json';
-$url='http://water-polis.gr/admin/index.php/wp-json/wp/v2/posts/';
+$outfile = 'data.json';
+$url='http://water-polis.gr/admin/index.php/wp-json/wp/v2/posts?per_page=20';
 $json = file_get_contents($url);
 $data = json_decode($json); 
 $newdata = json_encode($data);
