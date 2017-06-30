@@ -108,7 +108,7 @@ MapView.prototype._init_map_elements = function() {
   this.sidebar_nav_list = $("<ul />", {
     "class": "sidebar-nav-list"
   }).insertAfter(this.sidebar_nav_heading);
-
+  console.log(this.map_items);
   for (var i = 0; i<this.map_items.length; i++) {
     var item = this.map_items[i];
     var title = item.content.acf.card_title;
