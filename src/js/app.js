@@ -108,10 +108,11 @@ MapView.prototype._init_map_elements = function() {
   this.sidebar_nav_list = $("<ul />", {
     "class": "sidebar-nav-list"
   }).insertAfter(this.sidebar_nav_heading);
-  console.log(this.map_items);
+  console.log(this.map_items.length);
   for (var i = 0; i<this.map_items.length; i++) {
     var item = this.map_items[i];
     var title = item.content.acf.card_title;
+    console.log(title);
     //trim long title at ; char
     if ( item.post_id == 23 ) {
       title = title.substring(0, title.indexOf(';')+1);
