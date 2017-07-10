@@ -899,7 +899,7 @@ Draggable.create('.draggable-item', {
                 fontSize: '16px',
                 color: '#666',
                 fontFamily: 'cf_asty_stdbold',
-                backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
                 maxWidth: '150px',
                 height: '45px'
                 // borderColor: '#333',
@@ -914,9 +914,11 @@ Draggable.create('.draggable-item', {
             console.log(targets[i]);
             if (this.hitTest(targets[i], overlapThreshold)) {
                $(targets[i]).addClass("showOver");
-               
+               $(this.target).addClass("hit");
+                
              } else {
                $(targets[i]).removeClass("showOver");
+               // $(this.target).removeClass("hit");
                //$(this.target).removeClass("being_dragged");
              }
           }

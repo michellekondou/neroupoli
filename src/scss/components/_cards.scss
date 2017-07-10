@@ -35,7 +35,7 @@
   display: block;
   float: left;
   text-align: left;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
   padding: 8px 12px 5px 40px;
   line-height: 1.2;
   color: #333;
@@ -64,6 +64,12 @@
   border: 2px solid #fff;
 }
 
+.draggable-item.hit {
+   background: rgba(255, 255, 255, 0.8);
+}
+
+
+
 .being_dragged .circle {
   //border: 2px solid #fff;
 }
@@ -82,9 +88,12 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
+    transition: all .2s ease-in-out; 
   }
   .showOver {
     background: $accent;
+
+    //transform: scale(1.4);
     //border: 2px solid black;
   }
 }
