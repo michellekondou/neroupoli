@@ -1245,7 +1245,8 @@ form mark {
     flex-direction: column; } }
 
 @media (min-width: 960px) {
-  .intro {
+  .intro,
+  .quiz {
     flex-direction: row; } }
 
 .col {
@@ -1456,3 +1457,74 @@ form mark {
   font-size: 21px;
   font-size: 1.3125rem;
   background-color: white; }
+
+/**
+ * Hotspot quiz
+ *
+ *  
+ *
+ * @credits
+ * http://
+ *
+ * TODO: 
+ *  - Second todo item
+ */
+.quiz-hotspot {
+  position: relative;
+  display: flex;
+  flex-direction: row; }
+
+.quiz-hotspot ul {
+  list-style-type: none;
+  margin-top: 0; }
+
+.quiz-hotspot li {
+  border: 1px solid #ccc;
+  padding: 5px;
+  text-align: left;
+  margin-top: 0;
+  line-height: 1;
+  width: 350px;
+  height: 50px; }
+
+.draggable-item {
+  display: block;
+  float: left;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8px 12px 5px 40px;
+  line-height: 1.2;
+  color: #333; }
+  .draggable-item .dragged {
+    padding: 5px 12px 5px 40px; }
+  .draggable-item .circle {
+    position: absolute;
+    left: 11px;
+    top: 13px;
+    background: rgba(255, 255, 255, 0);
+    border: 2px solid #00B9F2;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%; }
+  .draggable-item .text {
+    position: relative;
+    display: block;
+    margin: 0 auto; }
+
+.draggable-item .circle {
+  background: #00B9F2;
+  border: 2px solid #fff; }
+
+.hotspot-image {
+  position: relative;
+  margin: 0; }
+  .hotspot-image .hotspot {
+    display: block;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid #00B9F2;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%; }
+  .hotspot-image .showOver {
+    background: #00B9F2; }

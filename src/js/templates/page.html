@@ -49,6 +49,10 @@
       <h2>ΝΕΡΟΔΙΑΒΑΣΜΑΤΑ</h2>
       {% elif card.type == 'ΔΡΑΣΤΗΡΙΟΤΗΤΑ ΣΕ ΟΜΑΔΕΣ' %}
       <h2>ΔΡΑΣΤΗΡΙΟΤΗΤΑ ΣΕ ΟΜΑΔΕΣ</h2>
+      {% elif card.type == 'ΑΤΟΜΙΚΗ ΔΡΑΣΤΗΡΙΟΤΗΤΑ' %}
+      <h2>ΑΤΟΜΙΚΗ ΔΡΑΣΤΗΡΙΟΤΗΤΑ</h2>
+      {% elif card.type == 'ΕΡΩΤΗΣΗ' %}
+      <h2>ΕΡΩΤΗΣΗ</h2>
       {% elif card.type == 'ΑΠΟ ΕΔΩ ΚΑΙ ΠΕΡΑ' %}
       <h2>ΑΠΟ ΕΔΩ ΚΑΙ ΠΕΡΑ</h2>
       {% endif %}
@@ -58,7 +62,23 @@
     {% set quiz_counter  = ( quiz_counter | default(0) ) + 1 %}
     <div class="card quiz quiz-{{ quiz_counter}}">
       <h2>ΠΑΙΖΩ ΚΑΙ ΜΑΘΑΙΝΩ</h2>
-      {% if card.acf_fc_layout === 'sortable' %}
+      {% if card.acf_fc_layout === 'hotspot' %}
+      <section class="text">
+        <h3>{{ card.hotspot_description }}</h3>
+        <div class="quiz-hotspot">
+          <figure class="hotspot-image" style="width:{{ card.hotspot_file.width }}px;height:{{ card.hotspot_file.height }}px;">
+            <img src="{{ card.hotspot_file.url }}" width="{{ card.hotspot_file.width }}" height="{{ card.hotspot_file.height }}">
+          </figure>
+          <ul class="">
+            {% for hotspot in card.hotspots %}
+            <li>
+              <div class="draggable-item"><span class="circle"></span><span class="text">{{ hotspot.hotspot_title }}</span></div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
+      {% elif card.acf_fc_layout === 'sortable' %}
       <section class="text quiz-sortable">
       {% if card.sortable_text %} 
       {{  card.sortable_text }}

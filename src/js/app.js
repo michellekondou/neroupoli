@@ -108,11 +108,11 @@ MapView.prototype._init_map_elements = function() {
   this.sidebar_nav_list = $("<ul />", {
     "class": "sidebar-nav-list"
   }).insertAfter(this.sidebar_nav_heading);
-  console.log(this.map_items, this.map_items.length);
+ // console.log(this.map_items, this.map_items.length);
   for (var i = 0; i<this.map_items.length; i++) {
     var item = this.map_items[i];
     var title = item.content.acf.card_title;
-    console.log(item.content.id, title, item.content.title);
+    //console.log(item.content.id, title, item.content.title);
     //trim long title at ; char
     if ( item.post_id == 23 ) {
       title = title.substring(0, title.indexOf(';')+1);
@@ -175,7 +175,7 @@ MapView.prototype._init_map_elements = function() {
     }
   }
 
-  console.log(this, info_content, info_post_id);
+ // console.log(this, info_content, info_post_id);
 
   nunjucks.configure('src/js/templates', { autoescape: false });
 
@@ -644,8 +644,9 @@ $(function() {
 
 });
 
-//sortable quiz
-
+/*------------------------------------*\
+  #Sortable Quiz
+\*------------------------------------*/
 var rowSize = 60; // item height
 var container = document.querySelector(".sortable-container");
 var listItems = Array.from(document.querySelectorAll(".list-item")); // Array of elements
@@ -790,7 +791,237 @@ $('#resort').on('click', function(){
     reOrder();
 });
 
+//END Sortable Quiz
 
+/*------------------------------------*\
+  # Hotspot Quiz
+\*------------------------------------*/
+
+this.hotspot_image = $(this.page.modal).find('.hotspot-image img');
+var hotspot_container = $(this.page.modal).find('.hotspot-image');
+var hotspot_data = this.content.acf.cards[5].hotspots;
+
+var hotspot_starting_container = $('.quiz-hotspot ul');
+var hotspot_starting_pos = null; //draggable item position
+var hotspot_target_container = $(this.hotspot_image);
+var hotspot_target = $(this.hotspot);
+var drag_right_offset = $('.hotspot-image img').width() + 50;
+
+var initial_x = 0;
+var initial_y = 0;
+
+var snapX = [],
+    snapY = [],
+    snapIndex = 0,
+    snapping = false;
+//put the hotspot on the image
+for(var hotspot in hotspot_data) { 
+  var hotspot_title = hotspot_data[hotspot].hotspot_title;
+  var hotspot_coordinates = hotspot_data[hotspot].hotspot_coordinates;
+  var hotspot_coordinates_x = hotspot_coordinates.substring(0, hotspot_coordinates.indexOf(','));
+  var hotspot_coordinates_y = hotspot_coordinates.split(',')[1];
+  //console.log(hotspot_coordinates_x);
+
+  var newX = Math.round( parseFloat(hotspot_coordinates_x) - 3);
+  var newY = Math.round( parseFloat(hotspot_coordinates_y) - 4);
+  var pixels_x = $(this.hotspot_image).width()*(newX/100);
+  var pixels_y = $(this.hotspot_image).height()*(newY/100);
+
+  this.hotspot = $("<span />", {
+    "class": "hotspot",
+    "style": "left: " + Math.round( parseFloat(hotspot_coordinates_x) - 3) + "%;" + "top: " + Math.round(parseFloat(hotspot_coordinates_y) - 4) + "%;",
+    "title": hotspot_title,
+    'data_x': pixels_x,
+    'data_y': pixels_y,
+
+  }).appendTo($(hotspot_container));
+
+  this.hotspot_tooltip = $("<div />", {
+      "class": "map-popover tooltip top"
+  }).text(hotspot_title).appendTo($(hotspot_container));
+
+
+
+  //console.log( $(this.hotspot_image).width(), newX, newY, pixels_x, pixels_y);
+
+
+
+  snapX.push(pixels_x);
+  snapY.push(pixels_y);
+
+}
+ 
+ 
+console.log(snapY, snapX);
+ 
+// console.log(snapX, snapY, 'image width', hotspot_coordinates_x,  parseFloat(hotspot_coordinates_x), ( $(this.hotspot_image).width() / 100 ) * parseInt(hotspot_coordinates_x) );
+
+// snap: {
+//     left: function(endValue) {
+//       if (!snapping) {
+//         snapping = true;
+//         var lastEndValue = snapPoints[snapIndex];
+//         // tolerance of 56 is used so that the box has to thrown at least 50% towards the next snappoint - smaller throws will return to the current snappoint
+//         if (endValue > lastEndValue+56 && snapIndex < snapPoints.length-1) {
+//           snapIndex++;
+//         } else if (endValue < lastEndValue-56 && snapIndex > 0) {
+//           snapIndex--;
+//         }
+//       }
+//       return snapPoints[snapIndex];
+//     }
+//   },
+//   onDragStart:function() {
+//     snapping = false;
+//   },
+//   onDragEnd:function() {
+//     snapping = false;
+//     div1.html('End value: ' + this.endX);
+//   }
+// });
+
+console.log( $('.quiz-hotspot ul').position() );
+var targets = $('.hotspot');
+var overlapThreshold = "100%"; 
+
+Draggable.create('.draggable-item', {
+        type: "x,y",
+        bounds: $('.quiz-hotspot'),
+       // throwProps: true,
+        onPress:function() {
+          //record the starting values so we can compare them later...
+          startY = this.y;
+        },
+        onDragStart:function(e) {
+          $(this.target).removeClass("positioned");
+          TweenLite.to(this.target, 0.5, { 
+              css: {
+                fontSize: '16px',
+                color: '#666',
+                fontFamily: 'cf_asty_stdbold',
+                backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                maxWidth: '150px',
+                height: '45px'
+                // borderColor: '#333',
+                // borderWidth: '2px',
+                // borderStyle: 'solid'
+              }
+          });
+        },
+        onDrag:function(e) {
+          $(this.target).addClass("being_dragged");
+          for(var i=0; i<targets.length;i++){
+            console.log(targets[i]);
+            if (this.hitTest(targets[i], overlapThreshold)) {
+               $(targets[i]).addClass("showOver");
+               
+             } else {
+               $(targets[i]).removeClass("showOver");
+               //$(this.target).removeClass("being_dragged");
+             }
+          }
+        },
+        onDragEnd:function(e) {
+          var snapMade = false;
+          for(var i=0; i<targets.length;i++){
+       
+            if(this.hitTest(targets[i], overlapThreshold)){
+              var p = $(targets[i]).position();
+              $(this.target).addClass("positioned");
+              console.log(
+                this,
+                drag_right_offset, 
+                $(targets[i]).attr('data_x'), 
+                -(drag_right_offset - $(targets[i]).attr('data_x')),
+                this.minY,
+                $(targets[i]).attr('data_y'),
+                 parseInt( $(targets[i]).attr('data_y') ) + this.minY - 5
+              );
+              var tl = new TimelineLite();
+              tl
+              .to(this.target, 0.1, { 
+                top: $(targets[i]).attr('data_x'), 
+                left: $(targets[i]).attr('data_y'),
+                backgroundColor: 'rgba(255, 255, 255, 0.8)'
+              })
+              .to(this.target, 0.1, {
+                x: -(drag_right_offset - $(targets[i]).attr('data_x') ),
+                y: parseInt( $(targets[i]).attr('data_y') ) + this.minY - 5
+
+              });
+              snapMade = true;
+            }
+          }
+          if(!snapMade){
+            TweenLite.to(this.target,0.2, {
+              css: {
+                fontSize: '21px',
+                fontFamily: 'cf_asty_stdregular',
+                borderWidth: '0',
+                backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                x: 0, 
+                y: 0,
+                maxWidth: '350px',
+                height: '35px'
+              }
+            });
+          }
+        }
+    });
+        
+        
+
+        function update_snap_value(endValue, axis, orientation, direction) {
+           // var axis = snapX;
+            var target = [];
+            for (end in axis) {
+              var point = axis[end];
+              target.push(point);
+            } 
+            if (axis == snapX) {
+              if ( (endValue) < (orientation - target[0]+20) && (endValue) > (orientation - target[0]-20) ) {
+                console.log( hotspot_data[0], endValue, snapY[0], target[0] );
+                
+                return Math.round( -(orientation - target[0]) );
+              } else if ( (endValue) < (orientation - target[1]+20) && (endValue) > (orientation - target[1]-20) ) {
+                console.log(target);
+                return Math.round( -(orientation - target[1]) );
+              } else if ( (endValue) < (orientation - target[2]+20) && (endValue) > (orientation - target[2]-20) ) {
+                //console.log(endValue, orientatio);
+                return Math.round( -(orientation - target[2]) );
+              } else if ( (endValue) < (orientation - target[3]+20) && (endValue) > (orientation - target[3]-20) ) {
+                //console.log(endValue, orientation);
+                return Math.round( -(orientation - target[3]) );
+              } else if ( (endValue) < (orientation - target[4]+20) && (endValue) > (orientation - target[4]-20) ) {
+                //console.log(endValue, target[4], orientation);
+                return Math.round( -(orientation - target[4]) );
+              }  else if ( (endValue) < (orientation - target[5]+20) && (endValue) > (orientation - target[5]-20) ) {
+                //console.log(endValue, target[5], orientation);
+                return Math.round( -(orientation - target[5]) );
+              } else {
+                return 0;
+              }
+            } else if (axis == snapY) {
+              
+              if ( (endValue) < (orientation) && (endValue) > (orientation) ) {
+                return Math.round(orientation);
+              } else {
+                console.log(endValue, orientation);
+                return 0;
+              }
+
+            }
+           
+           //if there is something in the target already do not accept another solution?
+          //one to one and one to many?    
+        }
+
+
+
+
+// console.log('lookee',hotspot_data);
+ 
+//end open_page function
 };
 
 MapViewItem.prototype.page_close = function () {
@@ -1057,6 +1288,8 @@ MapViewItem.prototype._render = function(){
       nunjucks.render('page-container.html', { 
       }) 
     );
+
+   // console.log(_this.page.modal);
 
 }
 

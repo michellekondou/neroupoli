@@ -1,0 +1,94 @@
+/**
+ * Hotspot quiz
+ *
+ *  
+ *
+ * @credits
+ * http://
+ *
+ * TODO: 
+ *  - Second todo item
+ */
+.quiz-hotspot {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+
+.quiz-hotspot ul {
+  list-style-type: none;
+  margin-top: 0;
+
+}
+
+.quiz-hotspot li {
+  border: 1px solid #ccc;
+  padding: 5px;
+  text-align: left;
+  margin-top: 0;
+  line-height: 1;
+  width: 350px;
+  height: 50px;
+}
+ 
+.draggable-item {
+  display: block;
+  float: left;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8px 12px 5px 40px;
+  line-height: 1.2;
+  color: #333;
+  .dragged {
+    padding: 5px 12px 5px 40px;
+  }
+  .circle {
+    position: absolute;
+    left: 11px;
+    top: 13px;
+    background: rgba(255, 255, 255, 0);
+    border: 2px solid $accent;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+  }
+  .text {
+    position: relative;
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+.draggable-item .circle {
+  background: $accent;
+  border: 2px solid #fff;
+}
+
+.being_dragged .circle {
+  //border: 2px solid #fff;
+}
+
+.hotspot-image {
+  position: relative;
+  margin: 0;
+  img {
+
+  }
+  .hotspot {
+    display: block;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid $accent;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+  }
+  .showOver {
+    background: $accent;
+    //border: 2px solid black;
+  }
+}
+
+
+ 
+

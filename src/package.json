@@ -24,7 +24,7 @@
   "devDependencies": {
     "browser-sync": "^2.18.2",
     "del": "^2.2.2",
-    "gsap": "^1.19.0",
+    "gsap": "^1.20.2",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
     "gulp-rename": "^1.2.2",

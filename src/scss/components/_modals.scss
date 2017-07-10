@@ -595,9 +595,11 @@
 }
 
 @media (min-width: 960px) {
-  .intro {
+  .intro,
+  .quiz {
     flex-direction: row;
   }
+  
 }
 
 .col {
