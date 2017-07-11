@@ -1477,6 +1477,11 @@ form mark {
   display: flex;
   flex-direction: row; }
 
+@media (max-width: 500px) {
+  .quiz-hotspot {
+    flex-direction: column;
+    width: 480px; } }
+
 .quiz-hotspot ul {
   list-style-type: none;
   margin-top: 0; }
@@ -1490,6 +1495,11 @@ form mark {
   margin-top: 0;
   line-height: 1;
   margin-right: 10px; }
+
+@media (max-width: 500px) {
+  .quiz-hotspot ul {
+    margin-top: 10px;
+    padding: 0; } }
 
 .draggable-item {
   display: flex;
@@ -1515,6 +1525,11 @@ form mark {
     margin: 0 auto;
     font-size: 18px;
     font-family: "cf_asty_stdbold"; }
+
+@media (max-width: 500px) {
+  .draggable-item .text {
+    font-size: 12px;
+    font-family: "cf_asty_stdbold"; } }
 
 .draggable-item .circle {
   background: #00B9F2;
