@@ -887,6 +887,7 @@ var overlapThreshold = "100%";
 Draggable.create('.draggable-item', {
         type: "x,y",
         bounds: $('.quiz-hotspot'),
+        allowNativeTouchScrolling:false,
        // throwProps: true,
         onPress:function() {
           //record the starting values so we can compare them later...
