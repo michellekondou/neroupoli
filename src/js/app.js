@@ -799,7 +799,18 @@ $('#resort').on('click', function(){
 
 this.hotspot_image = $(this.page.modal).find('.hotspot-image img');
 var hotspot_container = $(this.page.modal).find('.hotspot-image');
-var hotspot_data = this.content.acf.cards[5].hotspots;
+
+var card_content = this.content.acf.cards;
+var hotspot_data;
+
+for(var card in card_content) {
+  if (card_content[card].acf_fc_layout === 'hotspot') {
+    console.log('for loop',card_content[card].hotspots);
+    hotspot_data = card_content[card].hotspots;
+  }
+}
+
+console.log('hotspot_data', hotspot_data, this.content.acf.cards);
 
 var hotspot_starting_container = $('.quiz-hotspot ul');
 var hotspot_starting_pos = null; //draggable item position
@@ -811,9 +822,7 @@ var initial_x = 0;
 var initial_y = 0;
 
 var snapX = [],
-    snapY = [],
-    snapIndex = 0,
-    snapping = false;
+    snapY = [];
 //put the hotspot on the image
 for(var hotspot in hotspot_data) { 
   var hotspot_title = hotspot_data[hotspot].hotspot_title;
@@ -836,57 +845,36 @@ for(var hotspot in hotspot_data) {
 
   }).appendTo($(hotspot_container));
 
-  this.hotspot_tooltip = $("<div />", {
-      "class": "map-popover tooltip top"
-  }).text(hotspot_title).appendTo($(hotspot_container));
-
-
-
-  //console.log( $(this.hotspot_image).width(), newX, newY, pixels_x, pixels_y);
-
-
+  // this.hotspot_tooltip = $("<div />", {
+  //     "class": "map-popover tooltip top"
+  // }).text(hotspot_title).appendTo($(hotspot_container));
 
   snapX.push(pixels_x);
   snapY.push(pixels_y);
 
 }
- 
- 
-console.log(snapY, snapX);
- 
-// console.log(snapX, snapY, 'image width', hotspot_coordinates_x,  parseFloat(hotspot_coordinates_x), ( $(this.hotspot_image).width() / 100 ) * parseInt(hotspot_coordinates_x) );
 
-// snap: {
-//     left: function(endValue) {
-//       if (!snapping) {
-//         snapping = true;
-//         var lastEndValue = snapPoints[snapIndex];
-//         // tolerance of 56 is used so that the box has to thrown at least 50% towards the next snappoint - smaller throws will return to the current snappoint
-//         if (endValue > lastEndValue+56 && snapIndex < snapPoints.length-1) {
-//           snapIndex++;
-//         } else if (endValue < lastEndValue-56 && snapIndex > 0) {
-//           snapIndex--;
-//         }
-//       }
-//       return snapPoints[snapIndex];
-//     }
-//   },
-//   onDragStart:function() {
-//     snapping = false;
-//   },
-//   onDragEnd:function() {
-//     snapping = false;
-//     div1.html('End value: ' + this.endX);
-//   }
-// });
 
 console.log( $('.quiz-hotspot ul').position() );
 var targets = $('.hotspot');
-var overlapThreshold = "100%"; 
+var overlapThreshold = "90%"; 
 
-Draggable.create('.draggable-item', {
+var draggable;
+var draggable_list_item = $('.quiz-hotspot li .text');
+
+for (var i = 0;i<draggable_list_item.length;i++) {
+  var item = draggable_list_item[i];
+  $(item).width();
+  console.log($(item), $(item).width());
+}
+
+$(this.page.modal).find('.quiz-hotspot').addClass(this.page.point+'-quiz-hotspot');
+// var minX = ;
+// var minY = ;
+draggable = Draggable.create('.draggable-item', {
         type: "x,y",
-        bounds: $('.quiz-hotspot'),
+        //bounds: { target: ".quiz-hotspot", minX: "+=1", maxX: "+=1", maxY: "+=1", minY: "+=1" },
+        bounds: "."+this.page.point+'-quiz-hotspot',
         allowNativeTouchScrolling:false,
        // throwProps: true,
         onPress:function() {
@@ -894,25 +882,16 @@ Draggable.create('.draggable-item', {
           startY = this.y;
         },
         onDragStart:function(e) {
+          this_target = this;
+          console.log('this_target', this_target);
           $(this.target).removeClass("positioned");
-          TweenLite.to(this.target, 0.5, { 
-              css: {
-                fontSize: '16px',
-                color: '#666',
-                fontFamily: 'cf_asty_stdbold',
-                backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                maxWidth: '150px',
-                height: '45px'
-                // borderColor: '#333',
-                // borderWidth: '2px',
-                // borderStyle: 'solid'
-              }
-          });
+          $(this.target).addClass("being_dragged");
+         
         },
         onDrag:function(e) {
           $(this.target).addClass("being_dragged");
           for(var i=0; i<targets.length;i++){
-            console.log(targets[i]);
+            //console.log(targets[i]);
             if (this.hitTest(targets[i], overlapThreshold)) {
                $(targets[i]).addClass("showOver");
                $(this.target).addClass("hit");
@@ -925,14 +904,23 @@ Draggable.create('.draggable-item', {
           }
         },
         onDragEnd:function(e) {
+          console.log(this.pointerEvent);
           var snapMade = false;
+          console.log('GGGGGG',this_target.minX);
           for(var i=0; i<targets.length;i++){
-       
+            
             if(this.hitTest(targets[i], overlapThreshold)){
+              //connect source and target via an identifier
+              var identifier = $(targets[i]).attr('title');
+              console.log('identifier', identifier);
+              $(this.target).addClass(identifier);
               var p = $(targets[i]).position();
               $(this.target).addClass("positioned");
+              $(targets[i]).addClass("match");
               console.log(
                 this,
+                this_target.minX,
+                this_target.minX - parseInt($(targets[i]).attr('data_x')),
                 drag_right_offset, 
                 $(targets[i]).attr('data_x'), 
                 -(drag_right_offset - $(targets[i]).attr('data_x')),
@@ -945,85 +933,33 @@ Draggable.create('.draggable-item', {
               .to(this.target, 0.1, { 
                 top: $(targets[i]).attr('data_x'), 
                 left: $(targets[i]).attr('data_y'),
-                backgroundColor: 'rgba(255, 255, 255, 0.8)'
+                backgroundColor: 'rgba(255, 255, 255, 0.7)'
               })
               .to(this.target, 0.1, {
-                x: -(drag_right_offset - $(targets[i]).attr('data_x') ),
+                x: this.minX + parseInt($(targets[i]).attr('data_x')) - 4,
                 y: parseInt( $(targets[i]).attr('data_y') ) + this.minY - 5
 
               });
               snapMade = true;
+            } else {
+              $(targets[i]).removeClass("match");
             }
           }
           if(!snapMade){
-            TweenLite.to(this.target,0.2, {
-              css: {
-                fontSize: '21px',
-                fontFamily: 'cf_asty_stdregular',
-                borderWidth: '0',
-                backgroundColor: 'rgba(255, 255, 255, 0.8)',
-                x: 0, 
-                y: 0,
-                maxWidth: '350px',
-                height: '35px'
-              }
-            });
+            $(this.target).removeClass("being_dragged");
+            $(this.target).removeClass("hit");
+              TweenLite.to(this.target, 0.2, {
+                css: {
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  x: 0, 
+                  y: 0
+                }
+              });
           }
         }
     });
-        
-        
 
-        function update_snap_value(endValue, axis, orientation, direction) {
-           // var axis = snapX;
-            var target = [];
-            for (end in axis) {
-              var point = axis[end];
-              target.push(point);
-            } 
-            if (axis == snapX) {
-              if ( (endValue) < (orientation - target[0]+20) && (endValue) > (orientation - target[0]-20) ) {
-                console.log( hotspot_data[0], endValue, snapY[0], target[0] );
-                
-                return Math.round( -(orientation - target[0]) );
-              } else if ( (endValue) < (orientation - target[1]+20) && (endValue) > (orientation - target[1]-20) ) {
-                console.log(target);
-                return Math.round( -(orientation - target[1]) );
-              } else if ( (endValue) < (orientation - target[2]+20) && (endValue) > (orientation - target[2]-20) ) {
-                //console.log(endValue, orientatio);
-                return Math.round( -(orientation - target[2]) );
-              } else if ( (endValue) < (orientation - target[3]+20) && (endValue) > (orientation - target[3]-20) ) {
-                //console.log(endValue, orientation);
-                return Math.round( -(orientation - target[3]) );
-              } else if ( (endValue) < (orientation - target[4]+20) && (endValue) > (orientation - target[4]-20) ) {
-                //console.log(endValue, target[4], orientation);
-                return Math.round( -(orientation - target[4]) );
-              }  else if ( (endValue) < (orientation - target[5]+20) && (endValue) > (orientation - target[5]-20) ) {
-                //console.log(endValue, target[5], orientation);
-                return Math.round( -(orientation - target[5]) );
-              } else {
-                return 0;
-              }
-            } else if (axis == snapY) {
-              
-              if ( (endValue) < (orientation) && (endValue) > (orientation) ) {
-                return Math.round(orientation);
-              } else {
-                console.log(endValue, orientation);
-                return 0;
-              }
-
-            }
-           
-           //if there is something in the target already do not accept another solution?
-          //one to one and one to many?    
-        }
-
-
-
-
-// console.log('lookee',hotspot_data);
- 
+ console.log('draggable',draggable);
 //end open_page function
 };
 
@@ -1043,7 +979,8 @@ MapViewItem.prototype.page_close = function () {
       console.log('firing end', $(parent.page.modal).offset().left ) ;
     }
   });
-
+var draggable = Draggable.get('.draggable-item');
+draggable.disable();
   tl.add( 
     TweenLite.to(parent.page.modal, 0.8, {
      x: -'80%'
