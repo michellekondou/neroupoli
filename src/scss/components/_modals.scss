@@ -316,27 +316,28 @@
   }
 }
 
-@media (max-width: 11140px) {
+@media (max-width: 1000px) {
   
   .page {
-    //width: 95%;
+    width: 100%;
+    right: -100%;
   }
 
   .page-open {
-    //transform: translate3d(-95%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
     //animation: center-popout 1s ease-in-out;  
   }
 
 }
 
-@media (max-width: 1280px) {
+@media (min-width: 1001px)  and (max-width: 1280px) {
   
   .page {
     width: 90%;
   }
 
   .page-open {
-    transform: translate3d(-90%, 0, 0);
+   // transform: translate3d(-90%, 0, 0);
     //animation: center-popout 1s ease-in-out;    
   }
 
@@ -349,7 +350,7 @@
   }
 
   .page-open {
-    transform: translate3d(-85%, 0, 0); 
+    //transform: translate3d(-85%, 0, 0); 
     //animation: center-popout 1s ease-in-out;   
   }
 
