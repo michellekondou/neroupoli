@@ -591,6 +591,7 @@ function getFormData(form) {
   return data;
 }
  
+$(".checkbox-prompt").removeClass('visible');
 
 $(function() {
   $('.likert input').on('change', function(){
@@ -621,12 +622,14 @@ $(function() {
   $('.submit').on('click', function() {
     var submit_id = $(this).attr("id");  
     var forms = $('form');  
-    var option = $('#' + submit_id + " input");
+    var option = $('#' + submit_id + " input:radio" + ',#' + submit_id + " input:checkbox");
     var selectedOption = $('#' + submit_id + " input:checked");
-    for (var i=0;i<option.length;i++) {
-      if ( $(option).is(':checked') ) {
+    for (var j=0;j<option.length;j++) {
+      var this_option = option[j];
+      console.log(this_option);
+      if ( $(this_option).is(':checked') ) {
         $('#' + submit_id + '.form-error').html('')
-        console.log('submit form');
+    
         $('#' + submit_id + ' .loader.quiz').css('display','inline-block');
         for(var i=0;i<forms.length;i++){
           var this_form = forms[i];
@@ -645,20 +648,32 @@ $(function() {
                 $(form).addClass('submitted');
                 $('#' + submit_id + ".thankyou_message").css('display','block');
                 console.log(selectedOption);
+                $('#' + submit_id + " .checkbox-prompt").addClass('visible');
                 selectedOption.siblings('label').addClass('selected');
                 if ( selectedOption.attr('data-type') == "correct" ) {
                   $('.check-answer').html('Σωστά!')
+                  if ( $(this_option).is(':radio') ) {
+                    $('.check-answer').html('Σωστά!')
+                  } else if ($(this_option).is(':checkbox') ) {
+                    $('.check-answer').html('Όλα σωστά! Μπράβο!')
+                  }
                 } else if ( selectedOption.attr('data-type') == 'wrong') {
-                   $('.check-answer').html('Λάθος!')
+                  if ( $(this_option).is(':radio') ) {
+                    $('.check-answer').html('Λάθος!')
+                  } else if ($(this_option).is(':checkbox') ) {
+                    $('.check-answer').html('Υπήρχαν κάποιες λάθος απαντήσεις!')
+                  }
                 }
               }
             });//end ajax  
           }//end if
         }//end for loop
       } else {
-        $('#' + submit_id + '.form-error').html('Παρακαλούμε διάλεξε πρώτα μια απάντηση!');
-        $('#' + submit_id + '.submit').addClass('disabled');
-        console.log('please choose an option to submit the form');
+        if ( $(this_option).is(':radio') ) {
+          $('#' + submit_id + '.form-error').html('Παρακαλούμε διάλεξε πρώτα μια απάντηση!');
+          $('#' + submit_id + '.submit').addClass('disabled');
+          console.log('please choose an option to submit the form');
+        }
       }
     }//end outer for loop      
   });//submit function

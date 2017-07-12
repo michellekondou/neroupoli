@@ -154,6 +154,11 @@
                 <span></span>
                 {{  option.quiz_input_value }}
               </label>
+              {% if card.acf_fc_layout === 'checkbox' %}
+                {% if option.quiz_prompt %}
+                <span class="checkbox-prompt">{{ option.quiz_prompt }}</span>
+                {% endif %}
+              {% endif %}
             </p>
             {% endfor %}
             {% endif %}
