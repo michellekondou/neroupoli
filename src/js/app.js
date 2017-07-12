@@ -614,33 +614,40 @@ $(function() {
   });
 
   $('.submit').on('click', function() {
-    $('.loader.quiz').css('display','inline-block');        
-    var form = $('.checkbox-quiz, .multiple-choice');
-    var data = getFormData(form);
-    var url = form.attr('action');
-    $.ajax({
-      type: "POST",
-      url: url,
-      data: data,
-      success: function(data){
-        $('.loader').css('display','none'); 
-        $(form).find('input').attr("disabled", true);
-        $('.submit').addClass('none');  
-        $(form).addClass('submitted');
-        $(form).siblings(".thankyou_message").css('display','block');
-        var selectedOption = $("input:radio:checked");
-        console.log(selectedOption);
-        selectedOption.siblings('label').addClass('selected');
-        if ( selectedOption.attr('data-type') == "correct" ) {
-          $('.check-answer').html('Σωστά!')
-        } else if ( selectedOption.attr('data-type') == 'wrong') {
-           $('.check-answer').html('Λάθος!')
-        }
-        
-        //return; 
-      }
-    });            
-  });
+    var submit_id = $(this).attr("id"); 
+    $('#' + submit_id + ' .loader.quiz').css('display','inline-block'); 
+    var forms = $('form');  
+    for(var i=0;i<forms.length;i++){
+      var this_form = forms[i];
+      if ( $(this_form).attr("id") === submit_id ) {
+        console.log( $(this_form) );     
+        var form = $(this_form);
+        console.log(form);
+        var data = getFormData(form);
+        var url = form.attr('action');
+        $.ajax({
+          type: "POST",
+          url: url,
+          data: data,
+          success: function(data){
+            $('#' + submit_id + ' .loader').css('display','none'); 
+            $(form).find('input').attr("disabled", true);
+            $('#' + submit_id + '.submit').addClass('none');  
+            $(form).addClass('submitted');
+            $('#' + submit_id + ".thankyou_message").css('display','block');
+            var selectedOption = $('#' + submit_id + " input:radio:checked");
+            console.log(selectedOption);
+            selectedOption.siblings('label').addClass('selected');
+            if ( selectedOption.attr('data-type') == "correct" ) {
+              $('.check-answer').html('Σωστά!')
+            } else if ( selectedOption.attr('data-type') == 'wrong') {
+               $('.check-answer').html('Λάθος!')
+            }
+          }
+        });//end ajax  
+      }//end if
+    }//end for loop         
+  });//submit function
 
 });
 

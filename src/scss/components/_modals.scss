@@ -543,6 +543,11 @@
   opacity: 0.5;
 }
 
+.disabled.submit {
+  background-color: $text;
+  cursor: default;
+}
+
 /**
  * Individual card content
  */
