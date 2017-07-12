@@ -1523,13 +1523,11 @@ form mark {
     position: relative;
     display: block;
     margin: 0 auto;
-    font-size: 18px;
-    font-family: "cf_asty_stdbold"; }
+    font-size: 18px; }
 
 @media (max-width: 500px) {
   .draggable-item .text {
-    font-size: 12px;
-    font-family: "cf_asty_stdbold"; } }
+    font-size: 12px; } }
 
 .draggable-item .circle {
   background: #00B9F2;

@@ -959,7 +959,7 @@ draggable = Draggable.create('.draggable-item', {
         }
     });
 
- console.log('draggable',draggable);
+ 
 //end open_page function
 };
 
@@ -979,8 +979,7 @@ MapViewItem.prototype.page_close = function () {
       console.log('firing end', $(parent.page.modal).offset().left ) ;
     }
   });
-var draggable = Draggable.get('.draggable-item');
-draggable.disable();
+ 
   tl.add( 
     TweenLite.to(parent.page.modal, 0.8, {
      x: -'80%'
