@@ -105,7 +105,8 @@
             <fieldset>
               <legend 
                   for="{{  option.quiz_field_name }}" 
-                  name="{{ option.quiz_field_name }}">{{  option.quiz_title }}
+                  name="{{ option.quiz_field_name }}">
+                  {{  option.quiz_title }}{{ option.quiz_extended_text }}
               </legend>
                 {% for sub_option in option.quiz_options %}
                 {% set sub_options_counter  = ( sub_options_counter | default(0) ) + 1 %}
@@ -137,7 +138,7 @@
       <form id="gform-{{ text.title.rendered }}-{{ quiz_counter }}" class="{% if card.acf_fc_layout === 'multiple_choice' %}multiple-choice{% elif card.acf_fc_layout === 'checkbox' %}checkbox-quiz{% elif card.acf_fc_layout === 'likert' %}likert{% endif %}" action="{{  card.quiz_form_url }}" method="POST">
         <fieldset>
           <legend for="{{  card.quiz_field_name }}{{ options_counter }}" 
-                name="{% if card.acf_fc_layout === 'multiple_choice' or card.acf_fc_layout === 'likert' %}{{ card.quiz_field_name }}{% elif card.acf_fc_layout === 'checkbox' %}{{  card.quiz_field_name }}{{ options_counter }}{% endif %}">{{  card.quiz_title }}</legend>
+                name="{% if card.acf_fc_layout === 'multiple_choice' or card.acf_fc_layout === 'likert' %}{{ card.quiz_field_name }}{% elif card.acf_fc_layout === 'checkbox' %}{{  card.quiz_field_name }}{{ options_counter }}{% endif %}">{{  card.quiz_title }}{{ card.quiz_extended_text }}</legend>
             {% if card.acf_fc_layout === 'multiple_choice' or card.acf_fc_layout === 'checkbox'  %}
             {% for option in card.quiz_options %}
             {% set options_counter  = ( options_counter | default(0) ) + 1 %}
