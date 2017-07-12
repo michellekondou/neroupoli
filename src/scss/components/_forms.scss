@@ -327,7 +327,12 @@ form mark {
   line-height: 1;
 }
 
-
 .thankyou_message {
   @include rem-fallback(margin-bottom, 60);
 }
+
+.form-error {
+  color: black;
+}
+
+

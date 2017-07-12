@@ -391,6 +391,9 @@ form mark {
   margin-bottom: 60px;
   margin-bottom: 3.75rem; }
 
+.form-error {
+  color: black; }
+
 .floating-element {
   position: absolute;
   z-index: 1;

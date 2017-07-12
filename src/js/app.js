@@ -613,40 +613,54 @@ $(function() {
     });            
   });
 
+  $('input').on('change', function(){
+     $('.form-error').html('');
+     $('.submit').removeClass('disabled');
+  });
+
   $('.submit').on('click', function() {
-    var submit_id = $(this).attr("id"); 
-    $('#' + submit_id + ' .loader.quiz').css('display','inline-block'); 
+    var submit_id = $(this).attr("id");  
     var forms = $('form');  
-    for(var i=0;i<forms.length;i++){
-      var this_form = forms[i];
-      if ( $(this_form).attr("id") === submit_id ) {
-        console.log( $(this_form) );     
-        var form = $(this_form);
-        console.log(form);
-        var data = getFormData(form);
-        var url = form.attr('action');
-        $.ajax({
-          type: "POST",
-          url: url,
-          data: data,
-          success: function(data){
-            $('#' + submit_id + ' .loader').css('display','none'); 
-            $(form).find('input').attr("disabled", true);
-            $('#' + submit_id + '.submit').addClass('none');  
-            $(form).addClass('submitted');
-            $('#' + submit_id + ".thankyou_message").css('display','block');
-            var selectedOption = $('#' + submit_id + " input:radio:checked");
-            console.log(selectedOption);
-            selectedOption.siblings('label').addClass('selected');
-            if ( selectedOption.attr('data-type') == "correct" ) {
-              $('.check-answer').html('Σωστά!')
-            } else if ( selectedOption.attr('data-type') == 'wrong') {
-               $('.check-answer').html('Λάθος!')
-            }
-          }
-        });//end ajax  
-      }//end if
-    }//end for loop         
+    var option = $('#' + submit_id + " input");
+    var selectedOption = $('#' + submit_id + " input:checked");
+    for (var i=0;i<option.length;i++) {
+      if ( $(option).is(':checked') ) {
+        $('#' + submit_id + '.form-error').html('')
+        console.log('submit form');
+        $('#' + submit_id + ' .loader.quiz').css('display','inline-block');
+        for(var i=0;i<forms.length;i++){
+          var this_form = forms[i];
+          if ( $(this_form).attr("id") === submit_id ) {     
+            var form = $(this_form);
+            var data = getFormData(form);
+            var url = form.attr('action');
+            $.ajax({
+              type: "POST",
+              url: url,
+              data: data,
+              success: function(data){
+                $('#' + submit_id + ' .loader').css('display','none'); 
+                $(form).find('input').attr("disabled", true);
+                $('#' + submit_id + '.submit').addClass('none');  
+                $(form).addClass('submitted');
+                $('#' + submit_id + ".thankyou_message").css('display','block');
+                console.log(selectedOption);
+                selectedOption.siblings('label').addClass('selected');
+                if ( selectedOption.attr('data-type') == "correct" ) {
+                  $('.check-answer').html('Σωστά!')
+                } else if ( selectedOption.attr('data-type') == 'wrong') {
+                   $('.check-answer').html('Λάθος!')
+                }
+              }
+            });//end ajax  
+          }//end if
+        }//end for loop
+      } else {
+        $('#' + submit_id + '.form-error').html('Παρακαλούμε διάλεξε πρώτα μια απάντηση!');
+        $('#' + submit_id + '.submit').addClass('disabled');
+        console.log('please choose an option to submit the form');
+      }
+    }//end outer for loop      
   });//submit function
 
 });
