@@ -56,6 +56,7 @@ var jsFiles = [
       'node_modules/gsap/src/minified/TimelineMax.min.js',
       'node_modules/gsap/src/minified/TweenMax.min.js',
       'node_modules/gsap/src/minified/TweenLite.min.js',
+      'node_modules/gsap/src/minified/TweenLite.min.js',
       'js/helper-functions.js',
       'js/app.js'
     ],  

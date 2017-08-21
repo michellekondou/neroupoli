@@ -9,7 +9,7 @@ if (cw < ch) {
   var lph = vh;
 } else {
   if (cw <= 1366) {
-    var mapSrc = 'src/graphics/map-1.4-1366-v1.svg';
+    var mapSrc = 'src/graphics/map_1366x768-v4.svg';
     var vw = 1366;
     var vh = 768;
     var lpw = vw;
@@ -519,7 +519,7 @@ MapViewItem.prototype.page_open = function () {
   }).responseText);
 
   nunjucks.configure('src/js/templates', { autoescape: false });
-  
+  console.log('this.content',this.content);
   this.page.modal.find('.page-content').html(
 
     nunjucks.render('page.html', { 

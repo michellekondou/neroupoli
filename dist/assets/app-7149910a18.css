@@ -3,9 +3,8 @@
    @CORE -> MIXINS -> TEXT INPUT PLACEHOLDER COLOUR
    ========================================================================= */
 /**
- * A mixin that allows you to override the default browser colour for the text
- * input `placeholder` attribute. A default colour is set in Core -> Settings
- * -> Colours.
+ * A mixin that allows you to override the default browser color for the text
+ * input `placeholder` attribute.
  *
  * N.B. by default Firefox sets its placeholder attribute to have an opacity
  * of '0.4' so we override that to be '1'.

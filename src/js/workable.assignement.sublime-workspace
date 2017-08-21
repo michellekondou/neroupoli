@@ -1,0 +1,1279 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"att",
+				"attract"
+			],
+			[
+				"at",
+				"attract"
+			],
+			[
+				"jump",
+				"jump-to-section"
+			],
+			[
+				"te",
+				"tealBlue"
+			],
+			[
+				"tra",
+				"transition"
+			],
+			[
+				"vi",
+				"visibility"
+			],
+			[
+				"TIm",
+				"TimelineLite"
+			],
+			[
+				"z",
+				"z-index"
+			],
+			[
+				"marig",
+				"margin-top"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"backgr",
+				"background-color"
+			],
+			[
+				"dta",
+				"data-href"
+			],
+			[
+				"flex",
+				"flex-direction"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"c-",
+				"c-multi\tcss-multi-comment"
+			],
+			[
+				"onC",
+				"onclick\tAttr"
+			],
+			[
+				"data",
+				"data-href"
+			],
+			[
+				"gr",
+				"grey_light"
+			],
+			[
+				"visi",
+				"visible"
+			],
+			[
+				"dis",
+				"disabled"
+			],
+			[
+				"op",
+				"opacity"
+			],
+			[
+				"margin",
+				"margin-top"
+			],
+			[
+				"max-",
+				"max-width"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"hotspot",
+				"hotspot_data"
+			],
+			[
+				"min",
+				"min-height"
+			],
+			[
+				"tr",
+				"transform"
+			],
+			[
+				"end",
+				"endX"
+			],
+			[
+				"bord",
+				"border"
+			],
+			[
+				"dat",
+				"data_y"
+			],
+			[
+				"hotsp",
+				"hotspot_image"
+			],
+			[
+				"hot",
+				"hotspot_image"
+			],
+			[
+				"up",
+				"update_snap_value"
+			],
+			[
+				"snp",
+				"snapX"
+			],
+			[
+				"snap",
+				"snapX"
+			],
+			[
+				"mouse",
+				"mouseover"
+			],
+			[
+				"border",
+				"border-bottom"
+			],
+			[
+				"list-",
+				"list-style-type"
+			],
+			[
+				"text",
+				"textContent"
+			],
+			[
+				"query",
+				"querySelectorAll"
+			],
+			[
+				"page",
+				"page-open"
+			],
+			[
+				"paddi",
+				"padding"
+			],
+			[
+				"add",
+				"addClass"
+			],
+			[
+				"line",
+				"line-height"
+			],
+			[
+				"ba",
+				"background-color"
+			],
+			[
+				"bore",
+				"border-radius"
+			],
+			[
+				"trna",
+				"translate"
+			],
+			[
+				"bac",
+				"background-color"
+			],
+			[
+				"lo",
+				"lower-alpha"
+			],
+			[
+				"margi",
+				"margin-top"
+			],
+			[
+				"le",
+				"letter-spacing"
+			],
+			[
+				"zoo",
+				"zoom-in"
+			],
+			[
+				"_render",
+				"_render_map"
+			],
+			[
+				"_re",
+				"_render_map"
+			],
+			[
+				"zoom",
+				"zoom_level"
+			],
+			[
+				"scale",
+				"scaleExtent"
+			],
+			[
+				"mous",
+				"mousedown"
+			],
+			[
+				"list",
+				"list-item"
+			],
+			[
+				"right",
+				"rightOrder"
+			],
+			[
+				"check",
+				"checkbox"
+			],
+			[
+				"tran",
+				"translate"
+			],
+			[
+				"get",
+				"getElementById"
+			],
+			[
+				"mo",
+				"mousedown"
+			],
+			[
+				"init",
+				"_init_ui"
+			],
+			[
+				"dra",
+				"_draggable"
+			],
+			[
+				"po",
+				"point"
+			],
+			[
+				"pos",
+				"position"
+			],
+			[
+				"max",
+				"max-width"
+			],
+			[
+				"pz",
+				"panzoom"
+			],
+			[
+				"pa",
+				"panZoom"
+			],
+			[
+				"pan",
+				"panZoom"
+			],
+			[
+				"pn",
+				"panzoom"
+			],
+			[
+				"Ma",
+				"MapView"
+			],
+			[
+				"map",
+				"map_items"
+			],
+			[
+				"svg",
+				"svgmap"
+			],
+			[
+				"hi",
+				"height"
+			],
+			[
+				"is_",
+				"is_tooltip"
+			],
+			[
+				"pop",
+				"popup"
+			],
+			[
+				"p",
+				"popup"
+			],
+			[
+				"cur",
+				"cursor"
+			],
+			[
+				"tw",
+				"TweenMax"
+			],
+			[
+				"Ti",
+				"TimelineMax"
+			],
+			[
+				"Time",
+				"TimelineLite"
+			],
+			[
+				"group",
+				"group_one"
+			],
+			[
+				"info",
+				"infoBubble"
+			],
+			[
+				"poi",
+				"pointY"
+			],
+			[
+				"vis",
+				"visible"
+			],
+			[
+				"app",
+				"appendTo"
+			],
+			[
+				"fade",
+				"fadeGroup"
+			],
+			[
+				"not",
+				"notClicked"
+			],
+			[
+				"no",
+				"notClicked"
+			],
+			[
+				"b",
+				"backgroundColor"
+			],
+			[
+				"gou",
+				"group_four"
+			],
+			[
+				"clic",
+				"clicked"
+			],
+			[
+				"high",
+				"highlightPath"
+			],
+			[
+				"point",
+				"points"
+			],
+			[
+				"fucn",
+				"function"
+			],
+			[
+				"on",
+				"onStart"
+			],
+			[
+				"anima",
+				"animationState"
+			],
+			[
+				"pro",
+				"prototype"
+			],
+			[
+				"T",
+				"TimelineMax"
+			],
+			[
+				"startPo",
+				"startPoint"
+			],
+			[
+				"sta",
+				"startPosition"
+			],
+			[
+				"tween",
+				"TweenMax"
+			],
+			[
+				"visib",
+				"visible"
+			],
+			[
+				"_el",
+				"_eleven"
+			],
+			[
+				"_s",
+				"_seven"
+			],
+			[
+				"_t",
+				"_ten"
+			],
+			[
+				"bor",
+				"border"
+			],
+			[
+				"Q",
+				"Quote"
+			],
+			[
+				"fo",
+				"for\tfor …"
+			],
+			[
+				"di",
+				"display"
+			],
+			[
+				"over",
+				"overflow"
+			],
+			[
+				"mar",
+				"margin-top"
+			],
+			[
+				"inlien",
+				"inline-block"
+			],
+			[
+				"c-u",
+				"c-multi\tcss-multi-comment"
+			],
+			[
+				"marg",
+				"margin-right"
+			],
+			[
+				"cet",
+				"center"
+			],
+			[
+				"B",
+				"BuySellAds"
+			],
+			[
+				"va",
+				"variables"
+			],
+			[
+				"widh",
+				"width"
+			],
+			[
+				"borde",
+				"border-radius"
+			],
+			[
+				"he",
+				"hex_666"
+			],
+			[
+				"sans",
+				"sans-serif-light"
+			],
+			[
+				"sa",
+				"sans-serif"
+			],
+			[
+				"for",
+				"foreach\tforeach …"
+			],
+			[
+				"c-s",
+				"c-section\tcss-section-comment"
+			],
+			[
+				"fon",
+				"font-family"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/C/sites/workable/index.html",
+			"settings":
+			{
+				"buffer_size": 9906,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 173.0,
+		"last_filter": "Snippet: comm",
+		"selected_items":
+		[
+			[
+				"Snippet: comm",
+				"Snippet: css-numbered-comment"
+			],
+			[
+				"Snippet: com",
+				"Snippet: css-long-comment"
+			],
+			[
+				"Snippet: ",
+				"Snippet: Comment"
+			],
+			[
+				"Pa",
+				"Package Control: Remove Package"
+			],
+			[
+				"p",
+				"Package Control: Install Package"
+			],
+			[
+				"pa",
+				"Package Control: Install Package"
+			],
+			[
+				"format",
+				"Git (SideBarGit): Branch: new from master and switch to…"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Preferences: Browse Packages"
+			]
+		],
+		"width": 664.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"view.settings().get('syntax')",
+			"import urllib.request,os; pr='Preferences.sublime-settings'; ip='ignored_packages'; n='Package Control'; s=sublime.load_settings(pr); ig=s.get(ip); ig.append(n); s.set(ip,ig); sublime.save_settings('Preferences.sublime-settings'); pf=n+'.sublime-package'; urllib.request.install_opener(urllib.request.build_opener(urllib.request.ProxyHandler())); by=urllib.request.urlopen('https://packagecontrol.io/'+pf.replace(' ','%20')).read(); open(os.path.join(sublime.installed_packages_path(),pf),'wb').write(by); ig.remove(n); s.set(ip,ig); sublime.save_settings(pr); print('Package Control: 3.0.0 upgrade successful!')",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/sites/workable",
+		"/C/sites/workable/src"
+	],
+	"file_history":
+	[
+		"/C/sites/neroupoli/src/js/app.js",
+		"/C/sites/pharmedium/src/scss/components/_header.scss",
+		"/C/sites/pharmedium/src/scss/components/_attract.scss",
+		"/C/sites/pharmedium/src/scss/components/_page.scss",
+		"/C/sites/pharmedium/src/scss/components/_navigation.scss",
+		"/C/sites/pharmedium/src/js/data.js",
+		"/C/sites/pharmedium/.gitignore",
+		"/C/sites/pharmedium/dist/proxy/data.json",
+		"/C/sites/pharmedium/dist/views/index.html",
+		"/C/sites/pharmedium/dist/dev.html",
+		"/C/sites/pharmedium/dist/views/templates/header.html",
+		"/C/sites/pharmedium/dist/views/templates/attract.html",
+		"/C/sites/pharmedium/dist/views/templates/page.html",
+		"/C/sites/pharmedium/src/js/views/attract.js",
+		"/C/sites/pharmedium/src/js/views.js",
+		"/C/sites/pharmedium/src/js/app.js",
+		"/C/sites/pharmedium/src/js/views/templates/header.html",
+		"/C/sites/pharmedium/src/scss/mixins/_typography.scss",
+		"/C/sites/pharmedium/src/scss/styles.scss",
+		"/C/sites/neroupoli/src/js/templates/page.html",
+		"/C/sites/motb-original/src/js/views/menu.js",
+		"/C/sites/motb-original/src/js/views/menu_item.js",
+		"/C/sites/pharmedium/src/scss/common/_global.scss",
+		"/C/sites/pharmedium/dist/proxy/index.php",
+		"/C/Users/michellekondou/AppData/Local/Temp/fz3temp-2/functions.php",
+		"/C/sites/pharmedium/src/gulpfile.js",
+		"/C/sites/pharmedium/dist/views/rev-manifest.json",
+		"/C/sites/pharmedium/src/scss/mixins/_px_to_rem.scss",
+		"/C/sites/pharmedium/src/compiled/css/app.css",
+		"/C/sites/pharmedium/src/scss/common/_variables.scss",
+		"/C/sites/pharmedium/dist/views/templates/footer.html",
+		"/C/sites/motb-original/src/node_modules/grunt/node_modules/findup-sync/node_modules/lodash/dist/lodash.compat.js",
+		"/C/sites/neroupoli/src/gulpfile.js",
+		"/C/sites/neroupoli/src/scss/common/_global.scss",
+		"/C/sites/dgb/frontend/compiled/concat/css/cms/ckeditor.css",
+		"/C/sites/dgb/frontend/compiled/concat/css/guestbook-kiosk/styles.css",
+		"/C/sites/dgb/frontend/.sass-cache/4e0b4e850d58b55f308e2b640d6de7fab3ceb4d1/_font-source-declaration.scssc",
+		"/C/sites/pharmedium/src/scss/components/_section.scss",
+		"/C/sites/pharmedium/dist/views/templates/main.html",
+		"/C/sites/dgb/frontend/scss/shared/mixins/_typography.scss",
+		"/C/sites/pharmedium/dev.html",
+		"/C/sites/pharmedium/dist/index.html",
+		"/C/sites/pharmedium/dist/view/index.html",
+		"/C/sites/pharmedium/dist/rev-manifest.json",
+		"/C/sites/pharmedium/src/compiled/rev-manifest.json",
+		"/C/sites/pharmedium/src/js/templates/page.html",
+		"/C/sites/pharmedium/dist/compiled/index.html",
+		"/C/sites/pharmedium/index.html",
+		"/C/sites/PharMEDium/src/js/app.js",
+		"/C/sites/pharmedium/src/js/templates/footer.html",
+		"/C/sites/pharmedium/src/js/templates/header.html",
+		"/C/sites/pharmedium/src/scss/components/_footer.scss",
+		"/C/sites/pharmedium/src/js/templates/main.html",
+		"/C/sites/pharmedium/src/scss/components/_section.html",
+		"/C/sites/PharMEDium/src/gulpfile.js",
+		"/C/sites/PharMEDium/src/scss/styles.scss",
+		"/C/sites/wprestapi/wp-content/themes/twentysixteen/functions.php",
+		"/C/sites/PharMEDium/dist/index.html",
+		"/C/sites/PharMEDium/dev.html",
+		"/C/sites/PharMEDium/src/package.json",
+		"/C/sites/neroupoli/src/scss/components/_modals.scss",
+		"/C/sites/neroupoli/src/scss/components/_cards.scss",
+		"/C/sites/neroupoli/src/scss/components/_forms.scss",
+		"/C/sites/neroupoli/index.html",
+		"/C/sites/neroupoli/dev.html",
+		"/C/sites/neroupoli/dist/proxy/data.json",
+		"/C/sites/neroupoli/src/scss/styles.scss",
+		"/C/sites/neroupoli/dist/proxy/index.php",
+		"/C/sites/neroupoli/src/package.json",
+		"/C/sites/neroupoli/src/scss/common/_variables.scss",
+		"/C/sites/neroupoli/src/js/templates/page-header.html",
+		"/C/sites/neroupoli/src/graphics/map-1920x1080-v4.svg",
+		"/C/Users/michellekondou/AppData/Local/Temp/fz3temp-2/app.js",
+		"/C/sites/neroupoli/.gitignore",
+		"/C/Users/michellekondou/AppData/Local/Temp/fz3temp-2/app-6475cdf957.js",
+		"/C/Users/michellekondou/AppData/Local/Temp/fz3temp-2/functions 2.php",
+		"/C/Users/michellekondou/AppData/Local/Temp/fz3temp-2/data 2.json",
+		"/C/Users/michellekondou/AppData/Local/Temp/fz3temp-2/data.json",
+		"/C/Users/michellekondou/AppData/Local/Temp/fz3temp-2/data 3.json",
+		"/C/Users/michellekondou/AppData/Local/Temp/fz3temp-2/index.php",
+		"/C/sites/neroupoli/deploy-test.html",
+		"/C/sites/neroupoli/src/files/wprestapi_2017-06-29_16-14-04.sql/wprestapi_2017-06-29_16-14-04.sql",
+		"/C/sites/wprestapi/data.json",
+		"/C/sites/wprestapi/wp-config.php",
+		"/C/Users/michellekondou/AppData/Local/Temp/fz3temp-2/plugin.php",
+		"/C/sites/neroupoli/src/graphics/map-1920x1080-v3.svg",
+		"/C/sites/neroupoli/src/files/wprestapi_2017-06-29_16-14-04.sql.zip",
+		"/C/sites/neroupoli/src/graphics/map-1920x1080-v2.svg",
+		"/C/sites/neroupoli/src/graphics/map-1.4-1920x1080-v1.svg",
+		"/C/sites/neroupoli/src/graphics/map-1920x1080-v2.1.svg",
+		"/C/sites/neroupoli/src/files/assets/map/MAP_170407_1920x1080.svg",
+		"/C/sites/neroupoli/src/js/templates/info-content.html",
+		"/C/sites/neroupoli/src/js/templates/info-header.html",
+		"/C/sites/neroupoli/src/js/templates/info-shell.html",
+		"/C/sites/neroupoli/src/scss/components/_navigation.scss",
+		"/C/sites/neroupoli/dist/index.html",
+		"/C/sites/neroupoli/src/scss/components/_tabs.scss",
+		"/C/Program Files (x86)/Git/ReleaseNotes.html",
+		"/C/sites/dgb_old/.env",
+		"/C/sites/dgb/.env-brooklynmuseum",
+		"/C/sites/neroupoli/src/files/assets/map/map-optimise-test.svg",
+		"/C/sites/neroupoli/src/graphics/map-1.4-1366-v1.svg",
+		"/C/sites/neroupoli/src/graphics/map-1.4-768x1024.svg",
+		"/C/sites/neroupoli/src/js/templates/page-container.html",
+		"/C/sites/neroupoli/src/node_modules/jquery-cycle/index.js",
+		"/C/sites/neroupoli/src/compiled/graphics/checkbox-r.svg",
+		"/C/sites/neroupoli/src/compiled/graphics/checkbox-w-thick.svg",
+		"/C/sites/neroupoli/dist/graphics/checkbox-w.svg",
+		"/C/sites/neroupoli/src/graphics/checkbox-w.svg",
+		"/C/sites/neroupoli/src/graphics/checkbox-r.svg",
+		"/C/sites/neroupoli/src/files/backups-js/app30032017.js",
+		"/C/sites/gdb/dgb/.env",
+		"/C/sites/neroupoli/src/scss/components/_buttons.scss",
+		"/C/sites/neroupoli/src/compiled/graphics/next.svg",
+		"/C/Users/michellekondou/AppData/Local/Temp/fz3temp-2/wp-config.php",
+		"/C/sites/neroupoli/src/scss/components/_page.scss",
+		"/C/sites/neroupoli/src/scss/map.css",
+		"/C/sites/neroupoli/src/compiled/graphics/logo.svg",
+		"/C/sites/neroupoli/src/graphics/map-1.3-v1.svg",
+		"/C/sites/neroupoli/src/index.html",
+		"/C/sites/neroupoli/src/graphics/map-1.2.svg",
+		"/C/sites/neroupoli/src/graphics/map-1.3.svg",
+		"/C/sites/neroupoli/src/files/assets/map/map-1.1.svg",
+		"/C/sites/neroupoli/src/graphics/map7.svg",
+		"/C/sites/neroupoli/src/files/backups-js/form-functions-15032017.js",
+		"/C/sites/neroupoli/src/files/forms/mc-form.html",
+		"/C/sites/neroupoli/src/compiled/css/app.css",
+		"/C/sites/neroupoli/src/scss/components/forms-example.css"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 96.0,
+		"where_history":
+		[
+			"C:\\sites\\pharmedium\\src\\scss",
+			"C:\\sites\\dgb",
+			"C:\\sites\\dgb\\frontend\\scss",
+			"C:\\sites\\dgb\\frontend",
+			"C:\\sites\\pharmedium\\src\\scss",
+			"C:\\sites\\neroupoli\\src\\scss",
+			"C:\\wamp\\www\\motb-original\\src\\nshell",
+			"C:\\wamp\\www\\motb-original\\src",
+			"C:\\wamp\\www\\motb-original",
+			"C:\\sites\\witc-old\\witc\\src\\js",
+			"C:\\sites\\witc-old\\witc\\src",
+			"C:\\sites\\alistapart\\public_html\\components\\templates",
+			"C:\\sites\\alistapart\\public_html\\components, -*/node_modules/*",
+			"C:\\sites\\alistapart\\public_html\\components, */node_modules/*",
+			"C:\\sites\\alistapart\\public_html\\components\\templates",
+			"C:\\sites\\alistapart\\public_html\\components",
+			"C:\\sites\\alistapart\\public_html\\components\\templates",
+			"C:\\sites\\alistapart\\public_html\\components\\templates\\default_site",
+			"C:\\sites\\alistapart\\public_html\\components\\templates",
+			"C:\\sites\\alistapart\\eecms",
+			"C:\\sites\\alistapart\\eecms\\expressionengine\\libraries\\typography",
+			"C:\\sites\\alistapart\\public_html\\components\\templates",
+			"C:\\sites\\alistapart\\public_html\\components\\templates\\snippets",
+			"C:\\sites\\alistapart\\public_html\\components\\assets\\css",
+			"C:\\sites\\alistapart\\public_html\\components\\assets\\styles",
+			"C:\\sites\\alistapart\\public_html\\components\\templates",
+			"C:\\sites\\alistapart\\public_html\\components\\assets\\styles",
+			"C:\\sites\\alistapart\\public_html\\components\\assets\\js",
+			"C:\\sites\\alistapart\\public_html\\components\\assets",
+			"C:\\sites\\alistapart\\public_html\\components\\assets\\styles",
+			"C:\\sites\\alistapart\\eecms",
+			"C:\\sites\\alistapart\\public_html\\components, -*/node_modules/*",
+			"C:\\sites\\alistapart\\public_html\\components",
+			"C:\\sites\\alistapart\\public_html\\components\\templates",
+			"C:\\sites\\alistapart\\public_html\\components, -*/node_modules/*",
+			"C:\\sites\\alistapart\\public_html\\components\\templates",
+			"C:\\sites\\alistapart\\public_html\\components\\assets\\css",
+			"C:\\sites\\alistapart\\eecms, -*/node_modules/* ",
+			"C:\\sites\\alistapart\\public_html\\components, -*/node_modules/* ",
+			"C:\\sites\\alistapart\\public_html\\components\\assets",
+			"C:\\sites\\alistapart\\public_html\\components\\templates",
+			"C:\\sites\\alistapart\\public_html\\components\\assets\\css",
+			"C:\\sites\\alistapart\\public_html\\components\\templates, -*/master-old/*",
+			"C:\\sites\\alistapart\\public_html\\components\\templates",
+			"C:\\sites\\alistapart\\public_html\\components\\, -*/node_modules/*",
+			"C:\\sites\\alistapart\\public_html\\components\\",
+			"C:\\sites\\alistapart\\public_html\\components\\templates",
+			"C:\\sites\\alistapart\\public_html\\components",
+			"C:\\sites\\alistapart\\public_html\\components\\assets",
+			"C:\\sites\\alistapart\\eecms\\expressionengine\\third_party\\user",
+			"C:\\sites\\alistapart\\public_html\\components\\templates",
+			"C:\\sites\\alistapart\\public_html\\components\\templates\\snippets",
+			"C:\\sites\\alistapart\\, -*/node_modules/*, -*/files/*",
+			"C:\\sites\\alistapart\\public_html\\components\\, -*/node_modules/*",
+			"C:\\sites\\alistapart\\public_html\\components\\, -*node_modules*",
+			"C:\\sites\\alistapart\\public_html\\components\\templates",
+			"C:\\sites\\alistapart\\public_html\\components\\, -*/node_modules/*",
+			"C:\\sites\\alistapart\\public_html\\components\\, -*/node-modules/*",
+			"C:\\sites\\alistapart\\public_html\\components\\, *-node-modules*",
+			"C:\\sites\\alistapart\\public_html\\components\\, -node-modules",
+			"C:\\sites\\alistapart\\public_html\\components\\, -*node-modules*",
+			"C:\\sites\\alistapart\\public_html\\components\\ -*node-modules*",
+			"C:\\sites\\alistapart\\public_html\\components\\",
+			"C:\\sites\\alistapart\\public_html\\components\\assets",
+			"C:\\sites\\alistapart\\public_html\\components\\templates",
+			"C:\\sites\\alistapart\\public_html,-components/node_modules",
+			"C:\\sites\\alistapart\\public_html,-node_modules",
+			"C:\\sites\\alistapart\\public_html,-*node_modules",
+			"C:\\sites\\alistapart\\public_html",
+			"C:\\sites\\alistapart\\public_html\\components\\templates\\default_site",
+			"C:\\sites\\alistapart\\public_html\\components\\templates",
+			"C:\\sites\\alistapart\\public_html",
+			"C:\\sites\\alistapart\\public_html\\components\\templates\\default_site",
+			"C:\\sites\\alistapart\\eecms",
+			"C:\\sites\\alistapart\\public_html\\components\\templates",
+			"C:\\sites\\alistapart",
+			"C:\\sites\\alistapart\\public_html\\components\\templates\\specialty_templates\\default_site",
+			"C:\\sites\\alistapart\\public_html\\components\\templates",
+			"C:\\sites\\alistapart\\public_html",
+			"C:\\sites\\alistapart\\public_html\\d",
+			"C:\\sites\\alistapart\\eecms",
+			"C:\\sites\\alistapart\\public_html\\components\\assets",
+			"C:\\sites\\alistapart\\eecms\\expressionengine",
+			"C:\\sites\\alistapart\\eecms",
+			"C:\\sites\\alistapart\\public_html\\d",
+			"C:\\sites\\alistapart\\eecms",
+			"C:\\sites\\alistapart\\public_html\\components",
+			"C:\\sites\\alistapart\\public_html\\d\\slashdot",
+			"C:\\sites\\alistapart\\public_html\\d",
+			"C:\\sites\\alistapart\\public_html\\d\\slidingdoors\\v1",
+			"C:\\sites\\alistapart\\public_html\\d\\cssatten",
+			"C:\\sites\\alistapart\\public_html\\components",
+			"C:\\sites\\alistapart\\",
+			"C:\\sites\\alistapart\\public_html\\components",
+			"C:\\sites\\alistapart\\eecms\\expressionengine\\third_party\\ala_auth",
+			"C:\\sites\\alistapart\\eecms\\expressionengine",
+			"C:\\sites\\alistapart\\eecms\\expressionengine\\third_party\\freemember",
+			"C:\\sites\\alistapart\\eecms\\expressionengine\\",
+			"C:\\sites\\alistapart\\eecms\\expressionengine\\third_party\\freemember",
+			"C:\\sites\\alistapart\\eecms\\expressionengine\\third_party\\ala_auth",
+			"C:\\sites\\alistapart\\public_html\\components\\templates",
+			"C:\\sites\\alistapart\\eecms\\expressionengine\\third_party\\ala_auth",
+			"C:\\sites\\alistapart\\eecms\\expressionengine\\third_party\\freemember",
+			"C:\\sites\\alistapart\\eecms",
+			"C:\\sites\\alistapart\\eecms\\expressionengine\\third_party\\freemember",
+			"C:\\sites\\alistapart\\eecms",
+			"C:\\sites\\alistapart",
+			"C:\\sites\\alistapart\\eecms",
+			"C:\\sites\\alistapart\\public_html\\components",
+			"C:\\sites\\alistapart\\eecms",
+			"C:\\sites\\alistapart\\public_html\\components",
+			"C:\\sites\\alistapart\\eecms\\expressionengine\\language\\english",
+			"C:\\sites\\alistapart\\public_html\\components\\templates\\snippets",
+			"C:\\sites\\alistapart\\,<open files>",
+			"C:\\sites\\alistapart\\",
+			"C:\\sites\\alistapart\\public_html\\components",
+			"C:\\sites\\alistapart\\",
+			"C:\\sites\\alistapart\\eecms",
+			"C:\\sites\\alistapart\\eecms\\expressionengine\\third_party\\freemember",
+			"C:\\sites\\alistapart\\eecms",
+			"C:\\sites\\alistapart\\",
+			"C:\\sites\\alistapart\\public_html\\components",
+			"C:\\sites\\alistapart\\",
+			"C:\\sites\\alistapart\\public_html\\components",
+			"C:\\sites\\alistapart\\",
+			"C:\\sites\\alistapart\\public_html\\components\\templates",
+			"C:\\sites\\alistapart\\public_html\\components\\templates\\default_site\\tools.group",
+			"C:\\sites\\alistapart\\public_html\\components\\templates"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"uploa",
+			"console",
+			"  \n",
+			"cyc",
+			"convert",
+			"300",
+			"page_clo",
+			"page_open",
+			"_init",
+			"page_open",
+			"  \n",
+			"MapViewItem",
+			"child",
+			"parent",
+			"media",
+			"kit",
+			"ancho",
+			".fact",
+			"backgr",
+			"backg",
+			"cyc",
+			"@font-face",
+			"fontFace",
+			"Brooklynesque",
+			"prox",
+			"font-size",
+			"          \n",
+			"sort",
+			" this.info_panel",
+			"id",
+			"PharmediumViews",
+			"thankyou_message",
+			"disabled",
+			"multiple_choice_multiple",
+			".page",
+			"drag_right_offset",
+			";\n",
+			"c3_chart",
+			"c3_chart_internal_fn",
+			"updateZoom",
+			"-endValue",
+			"drag_right_offset",
+			"target_x",
+			"396",
+			"imgWidth",
+			"style",
+			" >",
+			"rgba",
+			".intro",
+			",intro",
+			"id=\"snow",
+			"id=\"snow:",
+			"id=\"rain\"",
+			"g id=\"city\"",
+			"city",
+			"\t\n",
+			"michellekondou",
+			"utf8mb4",
+			"utf8mb4_unicode_520_ci",
+			"      \n",
+			"proxy",
+			"id=\"",
+			"class=\"point",
+			"class=\"points\"",
+			"g id=",
+			"%;\n",
+			"close",
+			"sidebar",
+			";\n",
+			"linearGradient",
+			"console",
+			"1024",
+			"g id=\"",
+			"http:",
+			"http",
+			"_render_app_navigation",
+			"translate",
+			".points-nav",
+			"page_close",
+			".popup",
+			"pop.modal",
+			"page_open",
+			"ffffff",
+			"flex",
+			"#065b80",
+			".check-answer",
+			"  \n",
+			".page p",
+			"loader",
+			"$text",
+			"font-si",
+			"font-size",
+			"open_",
+			"submit-button",
+			"quiz",
+			".outer-point-title",
+			".page .outer-point-title",
+			".text",
+			".block_2 p ",
+			"opacity",
+			"rgb(",
+			"backgrounf",
+			"065b80",
+			"console",
+			"page_close",
+			"close",
+			"upper",
+			"nunjucks",
+			"page-content",
+			"submit",
+			"page_open",
+			"transform",
+			"color: initial",
+			"black",
+			"#ccc",
+			"color",
+			"cw <",
+			"g id=\"",
+			"_1_",
+			" \n",
+			"mousewheel.zoom",
+			"zoomed",
+			"g id=\"",
+			"snow",
+			"zoomed",
+			"ship",
+			"title",
+			"cursor"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"endValue",
+			"orientation",
+			"target",
+			"drag_right_offset",
+			"396",
+			"utf8",
+			"utf8_general_ci",
+			"class=\"point\"",
+			"https:",
+			"00B9F2",
+			"#ffffff",
+			"00B9F2",
+			"color: $text",
+			"$text",
+			"",
+			"'click touchstart'",
+			"page",
+			"$map",
+			"_twelve",
+			"path_12",
+			"_eleven",
+			"path_11",
+			"_ten",
+			"path_10",
+			"_nine",
+			"path_9",
+			"_eight",
+			"path_8",
+			"_seven",
+			"path_7",
+			"_six",
+			"path_6",
+			"path_",
+			"path_6",
+			"",
+			"fadePath",
+			"$666",
+			"“",
+			"”",
+			"exp:ala_typography:inline",
+			"http://alistapart.com",
+			"c-panel-list",
+			"$accent-primary-background-alt",
+			"$accent-primary-text",
+			"$accent-primary-background",
+			",",
+			"",
+			"'",
+			"abstracts",
+			"row",
+			"",
+			"username",
+			"alistapart.com",
+			"strtotime('-14",
+			"strtotime('-13",
+			"add_to_foot",
+			"{/legacy_article_",
+			"{if legacy_article_",
+			"{legacy_article_",
+			"legacy_article_series",
+			"legacy_article_translations",
+			"channel=\"legacy_articles\"",
+			"channel=\"articles|legacy_articles\"",
+			"column_authors",
+			"blog_authors",
+			"article_export_authors:authors",
+			"</entry>",
+			"articles",
+			"channel_short_name=='legacy_articles|new_articles'",
+			"channel_short_name=='legacy_articles'",
+			"channel=\"legacy_articles",
+			"{/legacy_article_",
+			"{if:elseif legacy_article_",
+			"{if legacy_article_",
+			"{legacy_article_",
+			"if:elseif legacy_article_",
+			"OR legacy_article_",
+			"{if legacy_article_",
+			"{/legacy_article_",
+			"{legacy_article_",
+			"<code class=\"language-markup\">",
+			"</td>",
+			"<td>",
+			"td",
+			"href=\"http://$1$2\"",
+			"href=\"http://$1\"",
+			"href=\"http://$1",
+			"href=\"http://",
+			"href=\"http://$1$2",
+			"href=\"http://$1",
+			"href=\"http://",
+			"\"/d/complexdynamiclists/order.html\" title=\"order.html?a$1\" rel=\"nofollow\"",
+			"\"/d/complexdynamiclists/finder.html\" title=\"finder.html?a$1\" rel=\"nofollow\"",
+			"/d/complexdynamiclists/list.html\" title=\"order.php?a$1\" ",
+			"/d/complexdynamiclists/list.html\" title=\"order.php?$1\" ",
+			"/d/complexdynamiclists/list.html\" title=\"order.php?$1\"",
+			"/d/complexdynamiclists/list.html\" title=\"order.php?$1\"\\s",
+			"href=\"/d/complexdynamiclists/list.html\" title=\"order.php?$1\"",
+			"href=\"/d/sizematters/shell.html\" title=\"foo\"",
+			"href=\"http://www.csszengarden.com/examples/style.css\"",
+			"href=\"http://www.csszengarden.com/examples/index\"",
+			"&lt;/a&gt;",
+			"&lt;/a&gt",
+			"&lt;a",
+			"\"/{assets_path}",
+			"/{assets_path}",
+			"{assets_path}/",
+			"AlaAuth.spinnerStop();",
+			"AlaAuth.spinnerStart();",
+			"reset_password",
+			"ala_auth",
+			"Ala_auth",
+			"forgot_password",
+			"do_forgot_password",
+			"ala_auth",
+			"ala_auth_model",
+			"ala_auth",
+			"Ala_auth",
+			"do_",
+			"Ala_auth",
+			"ala_auth",
+			"Ala_auth",
+			"ALAAUTH_",
+			"ala_auth",
+			"ala_auth_model",
+			"ala_auth",
+			"alaAuth",
+			"alaAuth_model"
+		],
+		"reverse": false,
+		"show_context": false,
+		"use_buffer2": false,
+		"whole_word": false,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/C/sites/workable/index.html",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 9906,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1544,
+								1441
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4380.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 221.0
+	},
+	"pinned_build_system": "",
+	"project": "workable.assignement.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"C:\\sites\\pharmedium\\pharmedium.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 315.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
