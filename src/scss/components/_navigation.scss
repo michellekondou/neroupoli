@@ -294,5 +294,16 @@
   }
 }
 
+/**
+ * Card navigation with symbols
+ */
 
-
+.symbol-container {
+  opacity: 0.3;
+  cursor: pointer;
+  &.activeSlide, 
+  &.visited,
+  &:hover {
+    opacity: 1;
+  }
+}

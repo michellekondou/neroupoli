@@ -1,0 +1,141 @@
+/**
+ * Symbol-buttons that make up each cards inner navigation
+ */
+
+ /**
+ * symbol map
+ */
+
+$symbol-path: '../graphics/';
+
+$symbols: (
+  'intro': (
+    'icon': 'symbol-intro.svg',
+    'width': 64px,
+    'height': 66px
+  ),
+  'age-group': (
+    'icon': 'symbol-age-group.svg',
+    'width': 35px,
+    'height': 72px
+  ),
+  'activity-duration': (
+    'icon': 'symbol-activity-duration.svg',
+    'width': 70px,
+    'height': 85px
+  ),
+  'study': (
+    'icon': 'symbol-study.svg',
+    'width': 49px,
+    'height': 61px
+  ),
+  'question': (
+    'icon': 'symbol-study.svg',
+    'width': 49px,
+    'height': 61px
+  ),
+  'group-activity': (
+    'icon': 'symbol-group-activity.svg',
+    'width': 62px,
+    'height': 72px
+  ),
+  'single-activity': (
+    'icon': 'symbol-single-activity.svg',
+    'width': 23px,
+    'height': 37px
+  ),
+  'outdoor': (
+    'icon': 'symbol-outdoor.svg',
+    'width': 68px,
+    'height': 76px
+  ),
+  'indoor': (
+    'icon': 'symbol-indoor.svg',
+    'width': 89px,
+    'height': 76px
+  ),
+  'going-forward': (
+    'icon': 'symbol-going-forward.svg',
+    'width': 32px,
+    'height': 80px
+  ),
+  'feedback': (
+    'icon': 'symbol-feedback.svg',
+    'width': 51px,
+    'height': 53px
+  ),
+  'play-learn': (
+    'icon': 'symbol-play-learn.svg',
+    'width': 61px,
+    'height': 55px
+  )
+) !default;
+
+/// Symbolify mixin
+/// @access private
+/// @author Michelle Kondou
+/// @param {String} $property - Property to themify
+/// @param {String} $key - Icon property to use from theme
+/// @param {Map} $symbols [$symbols] - Map of symbols to use
+@mixin symbolify($symbols: $symbols) {
+  // Iterate over the themes
+  @each $symbol, $icon-property in $symbols {
+    // Create a selector (e.g. `.media.theme-unicorn, .theme-unicorn .media`)
+    // &.theme-#{$theme},
+    .symbol-#{$symbol} & {
+      // Output the declaration
+      background-image: url( '#{$symbol-path}#{map-get($icon-property, 'icon')}' );
+      width: map-get($icon-property,'width');
+      height: map-get($icon-property,'height');
+    }
+  }
+}
+
+/// Shorthand to symbolify icon-property through `symbolify` mixin
+/// @access public
+/// @see {mixin} symbolify
+@mixin create-symbol($arguments...) {
+  @include symbolify($arguments...);
+}
+
+
+.symbol-icon {
+  display: block;
+  @include create-symbol();
+}
+
+.study-icon {
+
+}
+
+.play-icon {
+
+}
+
+.activity-single-icon {
+
+}
+
+.activity-group-icon {
+
+}
+
+.worksheet-icon {
+
+}
+
+.feedback-icon {
+
+}
+
+.happy-state-icon {
+
+}
+
+.sad-state-icon {
+
+}
+
+.next-steps-icon {
+  
+}

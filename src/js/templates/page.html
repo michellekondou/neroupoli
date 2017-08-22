@@ -1,5 +1,6 @@
 
-  <main id="cards">
+  <main 
+    id="cards">
 
   {% for card in text.acf.cards %} 
     {% if card.acf_fc_layout === 'intro' %}
@@ -62,7 +63,7 @@
     {% else %}
     {% set quiz_counter  = ( quiz_counter | default(0) ) + 1 %}
     <div class="card quiz quiz-{{ quiz_counter}}">
-      <h2>ΠΑΙΖΩ ΚΑΙ ΜΑΘΑΙΝΩ</h2>
+      {% if card.acf_fc_layout === 'likert' %}<h2>ΠΕΣ ΜΑΣ ΤΗ ΓΝΩΜΗ ΣΟΥ</h2>{% else %}<h2>ΠΑΙΖΩ ΚΑΙ ΜΑΘΑΙΝΩ</h2>{% endif %}
       {% if card.acf_fc_layout === 'hotspot' %}
       <section class="text">
         {{ card.hotspot_description }}

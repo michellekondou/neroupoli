@@ -375,7 +375,8 @@
 .page header {
   float: left;
   width: 100%;
-  height: 18%;
+  height: 25%;
+  overflow: hidden;
 }
 
 /**
@@ -383,7 +384,7 @@
  */
 .page-content {    
   width: 97.5%;
-  height: 70%;
+  height: 63%;
   padding: 0 6%;
   margin: 20px 0 0; 
   margin: 0 0 0; 
@@ -429,19 +430,23 @@
 //progress bar
 .progress-bar {
   position: relative;
-  //margin-top: 30px;
-  margin-top: 2.21%;
+  margin-top: 0;
   margin-left: 3%; //40px
   margin-right: 6%; //80px;
   display: flex;
   justify-content: space-between;
 }
 
-.progress-bar .symbol {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: $grey_light;
+.progress-bar .symbol-container {
+  position: relative;
+  width: 100px;
+  height: 85px;
+  background-color: #fff;
+  margin-right: 10px;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 .progress-bar-line {
@@ -450,44 +455,11 @@
   transform: translate(0, -50%);
   width: 100%;
   height: 2px;
-  background-color: $grey_light;
+  //background-color: $grey_light;
+  z-index: 1;
 }
 
-.study-icon {
 
-}
-
-.play-icon {
-
-}
-
-.activity-single-icon {
-
-}
-
-.activity-group-icon {
-
-}
-
-.worksheet-icon {
-
-}
-
-.feedback-icon {
-
-}
-
-.happy-state-icon {
-
-}
-
-.sad-state-icon {
-
-}
-
-.next-steps-icon {
-  
-}
 
 /**
  * Page footer

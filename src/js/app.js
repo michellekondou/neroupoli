@@ -543,21 +543,30 @@ MapViewItem.prototype.page_open = function () {
   //handle card content
   var cards = this.page.modal.find('#cards');
  
-  $(cards).cycle({ 
+  $(cards)
+  .cycle({ 
     fx:     'fade', 
     speed:  'fast', 
     timeout: 0, 
     next:   '.next', 
     prev:   '.previous',
+    pager: '.progress-bar',
+    pagerAnchorBuilder: function(idx, slide) { 
+      // return selector string for existing anchor 
+      return '.progress-bar div:eq(' + idx + ')'; 
+    },
     before: function(){
-
       $(this).parent().find('.current').removeClass('current');
     },
     after: function(){
       $(this).addClass('current');
+      $('.progress-bar div:eq(0), .activeSlide').addClass('visited');
     },
     fit: true 
   });
+
+
+
 
 //form handler TODO put this stuff in its own function
 // get all data in form and return object
