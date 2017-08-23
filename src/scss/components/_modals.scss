@@ -505,7 +505,6 @@
   &.last svg {
     fill: $text;
   }
-  // background-image: url('../graphics/next.svg');
 }
 
 .previous {
@@ -513,6 +512,9 @@
   svg {
     transform: rotate(180deg);
     fill: $accent;
+  }
+  &.last svg {
+    fill: $text;
   }
 }
 

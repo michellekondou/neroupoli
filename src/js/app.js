@@ -571,7 +571,7 @@ MapViewItem.prototype.page_open = function () {
     $(this).addClass('current');
     $('#' + parent.page.modal[0].id + ' .progress-bar div:eq(0), .activeSlide').addClass('visited');
     var index = opts.currSlide;
-    $('#' + parent.page.modal[0].id + ' .previous')[index == 0 ? 'hide' : 'show']();
+    $('#' + parent.page.modal[0].id + ' .previous')[index == 0 ? 'addClass' : 'removeClass']('last');
     $('#' + parent.page.modal[0].id + ' .next')[index == opts.slideCount - 1 ? 'addClass' : 'removeClass']('last');
   }
 

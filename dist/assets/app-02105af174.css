@@ -1299,6 +1299,8 @@ form mark {
   .previous svg {
     transform: rotate(180deg);
     fill: #00B9F2; }
+  .previous.last svg {
+    fill: #939598; }
 
 .disabled {
   opacity: 0.5; }
