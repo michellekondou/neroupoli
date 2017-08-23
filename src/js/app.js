@@ -519,7 +519,7 @@ MapViewItem.prototype.page_open = function () {
   }).responseText);
 
   nunjucks.configure('src/js/templates', { autoescape: false });
-  console.log('this.content',this.content);
+  //console.log('this.content',this.content);
   this.page.modal.find('.page-content').html(
 
     nunjucks.render('page.html', { 
@@ -542,7 +542,8 @@ MapViewItem.prototype.page_open = function () {
 
   //handle card content
   var cards = this.page.modal.find('#cards');
- 
+  var cards_navigation = this.page.modal.find('.progress-bar');
+  console.log(this, this.page.modal[0].id, cards_navigation);
   $(cards)
   .cycle({ 
     fx:     'fade', 
@@ -550,22 +551,20 @@ MapViewItem.prototype.page_open = function () {
     timeout: 0, 
     next:   '.next', 
     prev:   '.previous',
-    pager: '.progress-bar',
+    pager: cards_navigation,
     pagerAnchorBuilder: function(idx, slide) { 
-      // return selector string for existing anchor 
-      return '.progress-bar div:eq(' + idx + ')'; 
+      var thisPager = '#' + parent.page.modal[0].id + ' .progress-bar div:eq(' + idx + ')';
+      return thisPager; 
     },
     before: function(){
       $(this).parent().find('.current').removeClass('current');
     },
     after: function(){
       $(this).addClass('current');
-      $('.progress-bar div:eq(0), .activeSlide').addClass('visited');
+      $('#' + parent.page.modal[0].id + ' .progress-bar div:eq(0), .activeSlide').addClass('visited');
     },
     fit: true 
   });
-
-
 
 
 //form handler TODO put this stuff in its own function
@@ -623,16 +622,15 @@ $(function() {
     });            
   });
 
-  $('input').on('change', function(){
-     $('.form-error').html('');
-     $('.submit').removeClass('disabled');
-  });
-
   $('.submit').on('click', function() {
     var submit_id = $(this).attr("id");  
     var forms = $('form');  
     var option = $('#' + submit_id + " input:radio" + ',#' + submit_id + " input:checkbox");
     var selectedOption = $('#' + submit_id + " input:checked");
+    if (!selectedOption) {
+      console.log('nothing selected');
+    }
+     console.log(selectedOption);
     for (var j=0;j<option.length;j++) {
       var this_option = option[j];
       console.log(this_option);
@@ -677,15 +675,23 @@ $(function() {
             });//end ajax  
           }//end if
         }//end for loop
-      } else {
-        if ( $(this_option).is(':radio') ) {
+      } else if ( !($(this_option).is(':checked')) ) {
+        //if ( $(this_option).is(':radio') ) {
           $('#' + submit_id + '.form-error').html('Παρακαλούμε διάλεξε πρώτα μια απάντηση!');
           $('#' + submit_id + '.submit').addClass('disabled');
           console.log('please choose an option to submit the form');
-        }
+        // }
       }
     }//end outer for loop      
   });//submit function
+
+  $('input, form').on('change submit', function(){
+    console.log('form submitted');
+    var submit_id = $(this).attr("id");
+    $('.form-error').html('');
+    $('.submit').removeClass('disabled');
+
+  });
 
 });
 
@@ -850,12 +856,12 @@ var hotspot_data;
 
 for(var card in card_content) {
   if (card_content[card].acf_fc_layout === 'hotspot') {
-    console.log('for loop',card_content[card].hotspots);
+    //console.log('for loop',card_content[card].hotspots);
     hotspot_data = card_content[card].hotspots;
   }
 }
 
-console.log('hotspot_data', hotspot_data, this.content.acf.cards);
+//console.log('hotspot_data', hotspot_data, this.content.acf.cards);
 
 var hotspot_starting_container = $('.quiz-hotspot ul');
 var hotspot_starting_pos = null; //draggable item position
@@ -900,7 +906,7 @@ for(var hotspot in hotspot_data) {
 }
 
 
-console.log( $('.quiz-hotspot ul').position() );
+//console.log( $('.quiz-hotspot ul').position() );
 var targets = $('.hotspot');
 var overlapThreshold = "90%"; 
 
@@ -1018,10 +1024,10 @@ MapViewItem.prototype.page_close = function () {
 
   var tl = new TimelineLite({
     onStart: function(){
-      console.log('firing start', $(parent.page.modal).offset().left ) ;
+      //console.log('firing start', $(parent.page.modal).offset().left ) ;
     },
     onComplete: function(){
-      console.log('firing end', $(parent.page.modal).offset().left ) ;
+      //console.log('firing end', $(parent.page.modal).offset().left ) ;
     }
   });
  
