@@ -552,6 +552,10 @@ MapViewItem.prototype.page_open = function () {
     next:   '.next', 
     prev:   '.previous',
     pager: cards_navigation,
+    nowrap: 1,
+    end: function() {
+      console.log('end of slideshow');
+    },
     pagerAnchorBuilder: function(idx, slide) { 
       var thisPager = '#' + parent.page.modal[0].id + ' .progress-bar div:eq(' + idx + ')';
       return thisPager; 
@@ -559,12 +563,18 @@ MapViewItem.prototype.page_open = function () {
     before: function(){
       $(this).parent().find('.current').removeClass('current');
     },
-    after: function(){
-      $(this).addClass('current');
-      $('#' + parent.page.modal[0].id + ' .progress-bar div:eq(0), .activeSlide').addClass('visited');
-    },
+    after: onAfter,
     fit: true 
   });
+
+  function onAfter(curr, next, opts) {
+    $(this).addClass('current');
+    $('#' + parent.page.modal[0].id + ' .progress-bar div:eq(0), .activeSlide').addClass('visited');
+    var index = opts.currSlide;
+    $('#' + parent.page.modal[0].id + ' .previous')[index == 0 ? 'hide' : 'show']();
+    $('#' + parent.page.modal[0].id + ' .next')[index == opts.slideCount - 1 ? 'addClass' : 'removeClass']('last');
+  }
+
 
 
 //form handler TODO put this stuff in its own function

@@ -502,13 +502,18 @@
   svg {
      fill: $accent;
   }
+  &.last svg {
+    fill: $text;
+  }
   // background-image: url('../graphics/next.svg');
 }
 
 .previous {
-  background-image: url('../graphics/next.svg');
-  transform: rotate(180deg);
   margin-right: 15px;
+  svg {
+    transform: rotate(180deg);
+    fill: $accent;
+  }
 }
 
 .disabled {

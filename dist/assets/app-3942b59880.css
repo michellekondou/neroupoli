@@ -1291,10 +1291,14 @@ form mark {
 .next svg {
   fill: #00B9F2; }
 
+.next.last svg {
+  fill: #939598; }
+
 .previous {
-  background-image: url("../graphics/next.svg");
-  transform: rotate(180deg);
   margin-right: 15px; }
+  .previous svg {
+    transform: rotate(180deg);
+    fill: #00B9F2; }
 
 .disabled {
   opacity: 0.5; }
