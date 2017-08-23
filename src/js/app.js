@@ -630,10 +630,10 @@ $(function() {
     if (!selectedOption) {
       console.log('nothing selected');
     }
-     console.log(selectedOption);
+     //console.log(selectedOption);
     for (var j=0;j<option.length;j++) {
       var this_option = option[j];
-      console.log(this_option);
+      //console.log(this_option);
       if ( $(this_option).is(':checked') ) {
         $('#' + submit_id + '.form-error').html('')
     
@@ -649,6 +649,8 @@ $(function() {
               url: url,
               data: data,
               success: function(data){
+                $('.form-error').html('');
+                $('.submit').removeClass('disabled');
                 $('#' + submit_id + ' .loader').css('display','none'); 
                 $(form).find('input').attr("disabled", true);
                 $('#' + submit_id + '.submit').addClass('none');  
@@ -685,12 +687,15 @@ $(function() {
     }//end outer for loop      
   });//submit function
 
-  $('input, form').on('change submit', function(){
-    console.log('form submitted');
+  $('input').on('change', function(){
+    console.log('input selected');
     var submit_id = $(this).attr("id");
     $('.form-error').html('');
     $('.submit').removeClass('disabled');
+  });
 
+  $('form').on('submit', function(){
+     console.log('form submitted');
   });
 
 });
