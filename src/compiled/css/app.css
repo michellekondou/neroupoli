@@ -667,26 +667,24 @@ form mark {
 .info-panel {
   position: fixed;
   top: 0;
-  width: 0;
-  height: 0;
-  background-color: #00B9F2;
-  color: #fff; }
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  transform: translateX(-100%);
+  transition: all 0.5s cubic-bezier(0.18, 0.44, 0.28, 0.93); }
 
 .info-panel--closed {
   width: auto;
   height: auto;
-  transform-origin: 0 100%;
-  animation: info-popin 1s ease;
-  animation-fill-mode: forwards; }
+  transform-origin: 0 100%; }
 
 .info-panel--visible {
   visibility: visible;
-  right: 0;
   z-index: 4;
   width: 100vw;
   height: 100vh;
-  transform-origin: 0 100%;
-  animation: info-popout 0.5s ease-in-out; }
+  transform: translateX(0);
+  transition: all 0.6s cubic-bezier(0.27, 0.01, 0.31, 0.95); }
 
 .info-header {
   padding: 20px;
@@ -726,14 +724,15 @@ form mark {
   display: flex;
   list-style: none;
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  background-color: #fff; }
 
 .c-tabs-nav__link {
   margin-right: 4px;
   padding-right: 30px;
   padding-right: 1.875rem;
-  color: #fff;
-  background-color: #00B9F2;
+  color: #939598;
+  background-color: #fff;
   text-align: center;
   transition: color 0.3s; }
 
@@ -741,8 +740,8 @@ form mark {
   margin-right: 0; }
 
 .c-tabs-nav__link.is-active {
-  color: #fff;
-  background-color: #00B9F2; }
+  color: #939598;
+  background-color: #fff; }
 
 .c-tabs-nav__link i,
 .c-tabs-nav__link span {
@@ -769,7 +768,7 @@ form mark {
  */
 .c-tab {
   display: none;
-  background-color: #00B9F2; }
+  background-color: #fff; }
 
 .c-tab.is-active {
   display: block;
@@ -845,7 +844,7 @@ form mark {
  */
 .c-tabs-nav {
   justify-content: flex-start;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid #e0e4e2;
   padding: 30px;
   padding: 1.875rem;
   padding-bottom: 15px;
@@ -856,10 +855,10 @@ form mark {
   font-family: "cf_asty_stdbold";
   font-size: 14px;
   font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.5); }
+  color: rgba(147, 149, 152, 0.5); }
 
 .c-tab__content a {
-  color: #fff; }
+  color: #939598; }
 
 .c-tab__content p {
   line-height: 1.4; }
@@ -1126,11 +1125,11 @@ form mark {
   box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.1), 0 10px 30px 0 rgba(0, 0, 0, 0.2);
   overflow: hidden;
   transform: translateX(100%);
-  transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+  transition: all 0.5s cubic-bezier(0.18, 0.44, 0.28, 0.93);
   z-index: 10; }
   .page.page-open {
     transform: translateX(0);
-    transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1); }
+    transition: all 0.6s cubic-bezier(0.27, 0.01, 0.31, 0.95); }
 
 @keyframes center-popout {
   0% {

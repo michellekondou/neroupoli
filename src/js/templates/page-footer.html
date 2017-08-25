@@ -1,4 +1,5 @@
-    {}
+    <div class="left-col">
+    {% if text.acf.fact_sheet %}
     <a href="{{ text.acf.fact_sheet.url }}" download="Water-Polis-Fyllo-Ergasias-{{ text.acf.fact_sheet.name }}.doc" class="download-pdf">
       <i class="pdf-icon">
         <svg class="is-default" viewBox="0 0 51 68"><use xlink:href="#icon-download-pdf"></use></svg>
@@ -6,6 +7,8 @@
       </i>
       <span>ΦΥΛΛΟ ΕΡΓΑΣΙΑΣ</span>
     </a>
+    {% endif %}
+    </div>
     <nav class="card-nav">
       <button class='previous'>
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="41px" height="52px" viewBox="0 0 41 52" enable-background="new 0 0 41 52" xml:space="preserve">

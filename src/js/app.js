@@ -504,8 +504,8 @@ MapViewItem.prototype.page_open = function () {
   //   x: 0
   // });
 
-  this.pop.modal.open = false;
-  $(this.pop.modal).removeClass('popup-open');
+  // this.pop.modal.open = false;
+  // $(this.pop.modal).removeClass('popup-open');
   $('.map-loader').css('display','block'); 
   //load content on page open to be able to refresh forms
   var post = $.parseJSON($.ajax({
