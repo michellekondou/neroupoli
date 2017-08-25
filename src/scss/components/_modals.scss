@@ -15,24 +15,13 @@
   padding: 1px;
   font-family: $regular;
   @include rem-fallback(font-size, 14);
-  font-style: normal;
-  font-weight: normal;
   line-height: 1.42857143;
   text-align: left;
-  text-align: start;
   text-decoration: none;
-  text-shadow: none;
-  text-transform: none;
-  letter-spacing: normal;
-  word-break: normal;
-  word-spacing: normal;
-  word-wrap: normal;
-  white-space: normal;
   background-color: $accent;
   -webkit-background-clip: padding-box;
           background-clip: padding-box;
   border-radius: 0px;
-  // -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
   box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
   opacity: 0;
   z-index: -1;
@@ -190,7 +179,6 @@
   line-height: 1;
   color: #fff;
   text-align: center;
-  //text-transform: uppercase;
   border: 2px solid #fff;
   border-radius: 30px;
 }
@@ -238,15 +226,6 @@
 
  /**
  * Cards / Pages
- *
- * Multi Comment description
- *
- * @credits
- * http://
- *
- * TODO: 
- *  - First todo item
- *  - Second todo item
  */
 .overlay {
   position: fixed;
@@ -257,6 +236,10 @@
   height: 100%;
   opacity: 0;
   z-index: -1;
+  &.overlay-open {
+    opacity: 1; 
+    z-index: 4;
+  }
 }
 
 .open, 
@@ -265,37 +248,29 @@
   z-index: 1;
 }
 
-
 .popup-open {
   transform: translate3d(-80%, 0, 0); 
   transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1); 
-}
-
-.page-open {
-  opacity: 1; 
-  z-index: 4;
-  transform: translate3d(-80%, 0, 0);
-  transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 .page {
   position: absolute;
   padding: 0;
   top: 0;
-  right: -80%;
+  right: 0;
   width: 80%;
   height: 100%;
   background: #fff;
   border-radius: 0;
   box-shadow: 0 0 12px 0 rgba(0,0,0,0.1), 0 10px 30px 0 rgba(0,0,0,0.2);
   overflow: hidden;
-  //transform: translate3d(100%, 0, 0);   
-  //transition: all 0s cubic-bezier(0, 0, 0, 0); 
+  transform: translateX(100%);   
+  transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1); 
   z-index: 10;
-}
-
-.page-closed {
-
+  &.page-open {
+    transform: translateX(0);
+    transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+  }
 }
 
 @keyframes center-popout {
@@ -337,7 +312,7 @@
   }
 
   .page-open {
-   // transform: translate3d(-90%, 0, 0);
+    transform: translate3d(-90%, 0, 0);
     //animation: center-popout 1s ease-in-out;    
   }
 
@@ -401,6 +376,9 @@
   background-color: $grey_light;
   height: 12%;
   padding: 1% 5.8%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 /**
@@ -468,24 +446,40 @@
 /**
  * Download PDF button
  */
-.download-pdf {
+.page .download-pdf {
   @include rem-fallback(font-size, 12);
   font-family: $bold;
-  margin: auto;
-  margin-top: 2%;
+  color: $text;
   span {
-      display: inline-block;
-      max-width: 105px;
-      margin-left: 6px;
+    display: inline-block;
+    margin-left: 6px;
+    line-height: 1;
   }
 }
 
 .pdf-icon {
   display: inline-block;
-  background-image: url('../graphics/pdf.svg');
-  width: 21px;
-  height: 29px;
+  width: 51px;
+  height: 68px;
+  vertical-align: bottom;
 }
+
+.pdf-icon .is-pressed {
+  display: none;
+}
+
+.download-pdf:hover .is-default,
+.download-pdf:active .is-default  {
+  display: none;
+}
+
+.download-pdf:hover .is-pressed,
+.download-pdf:active .is-pressed {
+  display: block;
+}
+
+
+
 
 /**
  * Previous next buttons

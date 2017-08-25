@@ -148,6 +148,9 @@ svg {
 .none {
   display: none; }
 
+.svg-templates {
+  display: none; }
+
 button {
   background-color: transparent;
   border: none;
@@ -897,19 +900,9 @@ form mark {
   font-family: "cf_asty_stdregular";
   font-size: 14px;
   font-size: 0.875rem;
-  font-style: normal;
-  font-weight: normal;
   line-height: 1.42857143;
   text-align: left;
-  text-align: start;
   text-decoration: none;
-  text-shadow: none;
-  text-transform: none;
-  letter-spacing: normal;
-  word-break: normal;
-  word-spacing: normal;
-  word-wrap: normal;
-  white-space: normal;
   background-color: #00B9F2;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
@@ -1098,15 +1091,6 @@ form mark {
  */
 /**
  * Cards / Pages
- *
- * Multi Comment description
- *
- * @credits
- * http://
- *
- * TODO: 
- *  - First todo item
- *  - Second todo item
  */
 .overlay {
   position: fixed;
@@ -1117,6 +1101,9 @@ form mark {
   height: 100%;
   opacity: 0;
   z-index: -1; }
+  .overlay.overlay-open {
+    opacity: 1;
+    z-index: 4; }
 
 .open,
 .popup-open {
@@ -1127,24 +1114,23 @@ form mark {
   transform: translate3d(-80%, 0, 0);
   transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1); }
 
-.page-open {
-  opacity: 1;
-  z-index: 4;
-  transform: translate3d(-80%, 0, 0);
-  transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1); }
-
 .page {
   position: absolute;
   padding: 0;
   top: 0;
-  right: -80%;
+  right: 0;
   width: 80%;
   height: 100%;
   background: #fff;
   border-radius: 0;
   box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.1), 0 10px 30px 0 rgba(0, 0, 0, 0.2);
   overflow: hidden;
+  transform: translateX(100%);
+  transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
   z-index: 10; }
+  .page.page-open {
+    transform: translateX(0);
+    transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1); }
 
 @keyframes center-popout {
   0% {
@@ -1167,7 +1153,9 @@ form mark {
 
 @media (min-width: 1001px) and (max-width: 1280px) {
   .page {
-    width: 90%; } }
+    width: 90%; }
+  .page-open {
+    transform: translate3d(-90%, 0, 0); } }
 
 @media (min-width: 1281px) and (max-width: 1365px) {
   .page {
@@ -1205,7 +1193,10 @@ form mark {
   width: 100%;
   background-color: #e0e4e2;
   height: 12%;
-  padding: 1% 5.8%; }
+  padding: 1% 5.8%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; }
 
 /**
  * Page Typography
@@ -1262,22 +1253,32 @@ form mark {
 /**
  * Download PDF button
  */
-.download-pdf {
+.page .download-pdf {
   font-size: 12px;
   font-size: 0.75rem;
   font-family: "cf_asty_stdbold";
-  margin: auto;
-  margin-top: 2%; }
-  .download-pdf span {
+  color: #939598; }
+  .page .download-pdf span {
     display: inline-block;
-    max-width: 105px;
-    margin-left: 6px; }
+    margin-left: 6px;
+    line-height: 1; }
 
 .pdf-icon {
   display: inline-block;
-  background-image: url("../graphics/pdf.svg");
-  width: 21px;
-  height: 29px; }
+  width: 51px;
+  height: 68px;
+  vertical-align: bottom; }
+
+.pdf-icon .is-pressed {
+  display: none; }
+
+.download-pdf:hover .is-default,
+.download-pdf:active .is-default {
+  display: none; }
+
+.download-pdf:hover .is-pressed,
+.download-pdf:active .is-pressed {
+  display: block; }
 
 /**
  * Previous next buttons

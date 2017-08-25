@@ -388,24 +388,24 @@ MapView.prototype._render_map = function() {
  
   var svgWidth = d3.select(mapSvg).attr("width");
   var svgHeight = d3.select(mapSvg).attr("height");
-  if (cw < ch) {
-    if (cw < 480) {
-      var t = -width/3.5, //top
-          l = -height/12, //left
-          b = width+width/3.5, //bottom
-          r = height+height/12; //right
-    } else {
-      var t = -width/5.5, //top
-          l = -height/12, //left
-          b = width+width/5.5, //bottom
-          r = height+height/12; //rights
-    }
-  } else {
+  // if (cw < ch) {
+  //   if (cw < 480) {
+  //     var t = -width/3.5, //top
+  //         l = -height/12, //left
+  //         b = width+width/3.5, //bottom
+  //         r = height+height/12; //right
+  //   } else {
+  //     var t = -width/5.5, //top
+  //         l = -height/12, //left
+  //         b = width+width/5.5, //bottom
+  //         r = height+height/12; //rights
+  //   }
+  // } else {
     var t = 0,
         l = 0,
         b = width,
         r = height;
-  }
+  // }
 
   var zoom = d3.zoom()
       .scaleExtent([1, 10])
@@ -495,8 +495,8 @@ MapViewItem.prototype.page_open = function () {
   if(this.page.open) { return; }
   //console.log(this, this.page.modal, this.page.modal[0].children[0]);
   this.page.open = true;
-  $(this.page.modal).addClass('page-open');
-
+  $(this.page.modal).addClass('overlay-open');
+  $(this.page.modal).find('.page').addClass('page-open');
   var parent = this;
   //remove transform style generated after closing the page
   $(parent.page.modal).css("transform","");
@@ -533,6 +533,15 @@ MapViewItem.prototype.page_open = function () {
 
   this.page.modal.find('.page-header').html(
     nunjucks.render('page-header.html', { 
+      title: this.content,
+      text: this.content,
+      quiz:  post,
+      open: this.open
+    }) 
+  );
+
+  this.page.modal.find('.page-footer').html(
+    nunjucks.render('page-footer.html', { 
       title: this.content,
       text: this.content,
       quiz:  post,
@@ -1030,32 +1039,26 @@ draggable = Draggable.create('.draggable-item', {
 };
 
 MapViewItem.prototype.page_close = function () {
-  if(!this.page.open) { return; }
   var parent = this;
-  this.page.open = false;
-  var closeFunc = function() {
-    $(parent.page.modal).removeClass('page-open');
+  var inner_page = $(this.page.modal).find('.page');
+
+  if(!this.page.open) { 
+    console.log('page closed already cannot reclose');
+    return; 
+  }
+  console.log('page_close fired', parent.page.modal);
+
+  parent.page.open = false;
+  inner_page.removeClass('page-open');
+
+  var closeOverlay = function() {
+    $(parent.page.modal).removeClass('overlay-open');
   } 
 
-  var tl = new TimelineLite({
-    onStart: function(){
-      //console.log('firing start', $(parent.page.modal).offset().left ) ;
-    },
-    onComplete: function(){
-      //console.log('firing end', $(parent.page.modal).offset().left ) ;
-    }
-  });
+  var tl = new TimelineLite();
  
-  tl.add( 
-    TweenLite.to(parent.page.modal, 0.8, {
-     x: -'80%'
-    }) 
-  );
   tl.addLabel("hide-overlay", 0.8);
-  tl.add(closeFunc, "hide-overlay");
-  tl.set(parent.page.modal, {
-    x: 0
-  });
+  tl.add(closeOverlay, "hide-overlay");
 
   //return tl;
 };
@@ -1156,24 +1159,24 @@ var $map    = document.getElementById("map"),
  
   var svgWidth = d3.select(mapSvg).attr("width");
   var svgHeight = d3.select(mapSvg).attr("height");
-  if (cw < ch) {
-    if (cw < 480) {
-      var t = -width/3.5, //top
-          l = -height/12, //left
-          b = width+width/3.5, //bottom
-          r = height+height/12; //right
-    } else {
-      var t = -width/5.5, //top
-          l = -height/12, //left
-          b = width+width/5.5, //bottom
-          r = height+height/12; //rights
-    }
-  } else {
+  // if (cw < ch) {
+  //   if (cw < 480) {
+  //     var t = -width/3.5, //top
+  //         l = -height/12, //left
+  //         b = width+width/3.5, //bottom
+  //         r = height+height/12; //right
+  //   } else {
+  //     var t = -width/5.5, //top
+  //         l = -height/12, //left
+  //         b = width+width/5.5, //bottom
+  //         r = height+height/12; //rights
+  //   }
+  // } else {
     var t = 0,
         l = 0,
         b = width,
         r = height;
-  }
+  // }
 
 for(var p = 0; p < parent.map_items.length;p++) {
   var map_item = parent.map_items[p]; 
