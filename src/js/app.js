@@ -1079,9 +1079,19 @@ MapViewItem.prototype.glossary = function () {
     for (var i=0;i<all_open_popups.length;i++) {
      $(all_open_popups[i]).removeClass('open');
     }
-    console.log(element.target, this_popup);
+
+    $(element.target).parent().width();
+    //position the popup relative to trigger
+    var trigger_position_left = $(element.target).position().left;
+    var parent_width = $(element.target).parent().width();
+
+    if ( parseInt(parent_width - trigger_position_left) <  this_popup.width()/1.5 ) {
+      this_popup.css('right', 0);
+    } else {
+      this_popup.css('left', trigger_position_left);
+    }
+      
     //toggle the open class on click
-    //this_popup.hasClass('open') ? this_popup.removeClass('open') : this_popup.addClass('open');
     this_popup.addClass('open');
   }
   //for each glossary term in the content 
