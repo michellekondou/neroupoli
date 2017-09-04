@@ -3,6 +3,7 @@ src/node_modules
 src/npm-debug.log
 src/files
 dist/proxy/index.php
+dist/proxy/data.json
 admin
 neroupoli.sublime-project
 neroupoli.sublime-workspace
