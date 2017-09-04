@@ -908,6 +908,55 @@ form mark {
   width: 32px;
   height: 32px; }
 
+.glossary-term {
+  position: relative;
+  background: url("../graphics/glossary-underline.svg") bottom no-repeat;
+  padding-bottom: 5px;
+  z-index: 1;
+  cursor: default; }
+  .glossary-term.current {
+    z-index: 2; }
+
+.glossary-popup {
+  position: absolute;
+  padding-top: 20px;
+  padding-top: 1.25rem;
+  padding-bottom: 20px;
+  padding-bottom: 1.25rem;
+  padding-left: 20px;
+  padding-left: 1.25rem;
+  padding-right: 34px;
+  padding-right: 2.125rem;
+  background-color: #00B9F2;
+  color: #fff;
+  opacity: 0;
+  z-index: -1;
+  transform: translate3d(0, 0, 0);
+  cursor: default; }
+  .glossary-popup .close {
+    position: absolute;
+    top: 5px !important;
+    right: 10px !important;
+    cursor: pointer; }
+  .glossary-popup.open {
+    width: 320px;
+    margin-top: 5px;
+    animation: slide-in-fwd-center 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s 1 normal both;
+    z-index: 2; }
+    .glossary-popup.open a {
+      color: #fff; }
+
+/**
+ * ----------------------------------------
+ * animation slide-in-fwd-center
+ * ----------------------------------------
+ */
+@keyframes slide-in-fwd-center {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
 .map-popover {
   position: fixed;
   max-width: 320px;
@@ -1141,7 +1190,7 @@ form mark {
   box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.1), 0 10px 30px 0 rgba(0, 0, 0, 0.2);
   overflow: hidden;
   transform: translate3d(100%, 0, 0);
-  transition: all 0.5s cubic-bezier(0.18, 0.44, 0.28, 0.93);
+  transition: transform 0.5s cubic-bezier(0.18, 0.44, 0.28, 0.93);
   z-index: 10; }
   .page.page-open {
     transform: translate3d(0, 0, 0);
@@ -1403,7 +1452,7 @@ form mark {
   margin-top: 1.125rem;
   font-size: 21px;
   font-size: 1.3125rem;
-  line-height: 1.4; }
+  line-height: 1.45; }
 
 .page li {
   margin-bottom: 10px;

@@ -1034,9 +1034,66 @@ draggable = Draggable.create('.draggable-item', {
         }
     });
 
- 
+
+/*------------------------------------*\
+  # Glossary function
+\*------------------------------------*/
+  parent.glossary();
+
 //end open_page function
 };
+
+MapViewItem.prototype.glossary = function () {
+  var parent = this;
+
+  var glossary_term = document.querySelectorAll('.glossary-term');
+
+  var create_glossary_popups = function (element) {
+    var parent = this;
+    this.popup_text = element.getAttribute('data-html');
+    this.popup = $('<div />', {
+      'class': 'glossary-popup',
+      'html': this.popup_text
+    }).insertAfter(element);
+    this.popup_close = $('<span />', {
+      'class': 'close glossary-close'
+    }).appendTo(popup);
+
+    $('.glossary-close').on('click', function(e){
+      $(this).parent().removeClass('open');
+      
+      console.log($(this).parent());
+    }) 
+  }
+
+  var open_glossary_popup = function (element) {
+    if (element.target !== this) {
+      return;
+    }
+    //$(element.target).addClass('current');
+    //get the target's popup
+    var this_popup = $(element.target).next('.glossary-popup');
+    //get all open popups except for our target
+    var all_open_popups = $('.glossary-term').not(element.target).next('.glossary-popup.open');
+    //remove all open popups before opening a new one
+    for (var i=0;i<all_open_popups.length;i++) {
+     $(all_open_popups[i]).removeClass('open');
+    }
+    console.log(element.target, this_popup);
+    //toggle the open class on click
+    //this_popup.hasClass('open') ? this_popup.removeClass('open') : this_popup.addClass('open');
+    this_popup.addClass('open');
+  }
+  //for each glossary term in the content 
+  // 1. create a popup
+  // 2. add a click event
+  for (var i=0;i<glossary_term.length;i++) {
+    create_glossary_popups(glossary_term[i]); /*1*/
+    glossary_term[i].addEventListener('mouseover', open_glossary_popup, true); /*2*/
+  }
+
+}
+
 
 MapViewItem.prototype.page_close = function () {
   var parent = this;
