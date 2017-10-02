@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="preload" as="font" type="font/woff2" href="dist/fonts/cfastystd-book-webfont.woff2">
-    <link rel="stylesheet" type="text/css" href="dist/assets/app-3fac79a30e.css">
     <link rel="manifest" href="/manifest.json"> 
     <meta name="theme-color" content="#00b9f2"/>
   </head>
@@ -36,6 +35,21 @@
     </div>
   </div>
 <!-- popups -->
-
+<noscript id="deferred-styles">
+  <link rel="stylesheet" type="text/css" href="dist/assets/app-3fac79a30e.css"/>
+</noscript>
+<script>
+  var loadDeferredStyles = function() {
+    var addStylesNode = document.getElementById("deferred-styles");
+    var replacement = document.createElement("div");
+    replacement.innerHTML = addStylesNode.textContent;
+    document.body.appendChild(replacement)
+    addStylesNode.parentElement.removeChild(addStylesNode);
+  };
+  var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+      webkitRequestAnimationFrame || msRequestAnimationFrame;
+  if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+  else window.addEventListener('load', loadDeferredStyles);
+</script>
 </body>
 </html>
