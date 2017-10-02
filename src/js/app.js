@@ -1458,7 +1458,7 @@ Modal.prototype.render_modal = function(){
 
 //-------------------------PROMISES-----------------------------//
 
-  const url = 'dist/proxy/data.json';
+  var url = 'dist/proxy/data.json';
 
   fetch(url) // Call the fetch function passing the url of the API as a parameter
   .then(function(response){
