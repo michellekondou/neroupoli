@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
-// var browserSync = require('browser-sync').create();
 var runSequence = require('run-sequence');
 var del = require('del');
 var concat = require('gulp-concat');  
@@ -10,17 +9,12 @@ var rev = require('gulp-rev');
 var revReplace = require('gulp-rev-replace');
 var revDel = require('gulp-rev-del-redundant');
 var save = require('gulp-save');
+var jsonmin = require('gulp-jsonmin');
+const nunjucks = require('gulp-nunjucks');
+let cleanCSS = require('gulp-clean-css');
+var svgmin = require('gulp-svgmin');
 var package = require('./package.json');
 
- 
-
-// gulp.task('browserSync', function() {
-//   browserSync.init({
-//     server: {
-//       baseDir: '../'
-//     },
-//   })
-// })
 
 //script paths
 var cssFiles = [
@@ -33,6 +27,8 @@ gulp.task('sass', function() {
   return gulp.src(cssFiles) // Gets all files ending with .scss in app/scss and children dirs
     .pipe(sass())
     .pipe(concat('app.css'))
+    .pipe(gulp.dest(cssDest))
+    .pipe(cleanCSS({compatibility: 'ie8'}))
     .pipe(gulp.dest(cssDest))
     // //.pipe(browserSync.reload({
     //   stream: true
@@ -58,7 +54,8 @@ var jsFiles = [
       'node_modules/gsap/src/minified/TweenLite.min.js',
       'node_modules/gsap/src/minified/TweenLite.min.js',
       'js/helper-functions.js',
-      'js/app.js'
+      'js/app.js',
+      'js/output/*.js'
     ],  
     jsDest = 'compiled/js';
 
@@ -92,16 +89,38 @@ gulp.task("revreplace", ["rev"], function(){
     .pipe(gulp.dest("../"));
 })
 
+
+gulp.task('json:minify', function() {
+  return gulp.src(['compiled/proxy/*.json'])
+    .pipe(jsonmin())
+    .pipe(gulp.dest('../dist/proxy/'));
+    //.on('error', util.log);
+});
+
+gulp.task('nunjucks', () =>
+  gulp.src('js/templates/*')
+    .pipe(nunjucks.precompile())
+    .pipe(gulp.dest('js/output'))
+);
+
 gulp.task('watch', ['sass', 'scripts'], function(){
   gulp.watch('scss/**/*.scss', ['sass']);
   //gulp.watch('js/**/*.js', ['scripts']);     
 })
+
+gulp.task('svg:minify', function () {
+    return gulp.src('graphics/map-1920x1080-v42.svg')
+      .pipe(svgmin())
+      .pipe(gulp.dest('./min'));
+});
  
 gulp.task('build-production', function(callback) {
   runSequence(
     'sass',
     'scripts',
     'revreplace',
+    'json:minify',
+    'nunjucks',
     callback
   )
 })

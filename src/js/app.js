@@ -1,7 +1,20 @@
+//service worker registration
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').then(function(registration) {
+      // Registration was successful
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }, function(err) {
+      // registration failed :(
+      console.log('ServiceWorker registration failed: ', err);
+    });
+  });
+}
+
 var cw = document.documentElement.clientWidth;
 var ch = document.documentElement.clientHeight;
 
-if (cw < ch) {
+if (cw < ch) {  
   var mapSrc = 'src/graphics/map-768x1024-v42.svg';
   var vw = 768;
   var vh = 1024;
@@ -37,14 +50,16 @@ MapObject.prototype._init_map_object = function() {
   }).appendTo('#container');
 }
 
-var MapView = function(map) {
+var MapView = function(posts) {
   this.map = map;
+  this.posts = posts;
   this.map_items = [];
   this._init_map_elements();
 }
 
 MapView.prototype._init_map_elements = function() {
   var _this = this;
+  var parent = this;
   this.map = document.getElementById("map");
   //get the SVG document inside the Object tag
   this.svgDoc = this.map.contentDocument;
@@ -53,21 +68,13 @@ MapView.prototype._init_map_elements = function() {
   //get svg properties
   this.map_bcr = this.map.getBoundingClientRect();
 
- 
   //svg points
   var points = this.svgDoc.querySelectorAll('.point');
-  //get the json data
-  var posts = $.parseJSON($.ajax({
-    //url: 'http://water-polis.gr/admin/index.php/wp-json/wp/v2/posts/?per_page=20',
-    url: 'dist/proxy/data.json',
-    dataType: "json", 
-    async: false
-  }).responseText);
 
-  //save the json data in an array
   var post_data = [];
-  for(var i = 0;i<posts.length;i++) { 
-    var post = posts[i];
+  //save the json data in an array
+  for(var i = 0;i<parent.posts.length;i++) { 
+    var post = parent.posts[i];
     post_data.push(post); 
   }
 
@@ -177,11 +184,14 @@ MapView.prototype._init_map_elements = function() {
 
  // console.log(this, info_content, info_post_id);
 
-  nunjucks.configure('src/js/templates', { autoescape: false });
+  nunjucks.configure('src/js/templates', { 
+    autoescape: false
+   });
 
   this.info_panel.html(
-      nunjucks.render('info-shell.html', { 
-    }) 
+      nunjucks.render('info-shell.html',{
+         // check err and handle result
+      })
   );
 
   this.info_panel.find('.info-header').html(
@@ -508,24 +518,26 @@ MapViewItem.prototype.page_open = function () {
   // $(this.pop.modal).removeClass('popup-open');
   $('.map-loader').css('display','block'); 
   //load content on page open to be able to refresh forms
-  var post = $.parseJSON($.ajax({
-    //url: 'http://water-polis.gr/admin/index.php/wp-json/wp/v2/posts/'+this.post_id,
-    url:' dist/proxy/data.json',
-    dataType: "json", 
-    async: false,
-    success: function(data){
-      $('.map-loader').css('display','none'); 
-    }
-  }).responseText);
+  // var post = $.parseJSON($.ajax({
+  //   //url: 'http://water-polis.gr/admin/index.php/wp-json/wp/v2/posts/'+this.post_id,
+  //   url:' dist/proxy/data.json',
+  //   dataType: "json", 
+  //   async: false,
+  //   success: function(data){
+  //     $('.map-loader').css('display','none'); 
+  //   }
+  // }).responseText);
 
-  nunjucks.configure('src/js/templates', { autoescape: false });
+  nunjucks.configure('src/js/templates', { 
+    autoescape: false
+  });
   //console.log('this.content',this.content);
   this.page.modal.find('.page-content').html(
 
     nunjucks.render('page.html', { 
       title: this.content,
       text: this.content,
-      quiz:  post,
+      quiz:  parent.posts,
       open: this.open
     }) 
   );
@@ -535,7 +547,7 @@ MapViewItem.prototype.page_open = function () {
     nunjucks.render('page-header.html', { 
       title: this.content,
       text: this.content,
-      quiz:  post,
+      quiz:  parent.posts,
       open: this.open
     }) 
   );
@@ -544,7 +556,7 @@ MapViewItem.prototype.page_open = function () {
     nunjucks.render('page-footer.html', { 
       title: this.content,
       text: this.content,
-      quiz:  post,
+      quiz:  parent.posts,
       open: this.open
     }) 
   );
@@ -1357,7 +1369,9 @@ MapViewItem.prototype._addListeners = function(){
 MapViewItem.prototype._render = function(){
     var _this = this;   
     //load static parts of the page, tools, next
-    nunjucks.configure('src/js/templates', { autoescape: false });
+    nunjucks.configure('src/js/templates', { 
+      autoescape: false
+    });
     
     _this.page.modal.html(
       nunjucks.render('page-container.html', { 
@@ -1383,7 +1397,12 @@ var Modal = function(type, point, title, summary){
 }
 
 Modal.prototype.init = function(){
-  nunjucks.configure('src/js/templates', { autoescape: true });
+  nunjucks.configure('src/js/templates', { 
+    autoescape: true, 
+    web: {
+      async: true 
+    }
+});
 
   if(this.type == "popup") {
     this.modal = $("<div />", {
@@ -1421,7 +1440,12 @@ Modal.prototype.style = function(styles){
 } 
 
 Modal.prototype.render_modal = function(){
-  nunjucks.configure('src/js/templates', { autoescape: true });
+  nunjucks.configure('src/js/templates', { 
+    autoescape: true, 
+    web: {
+      async: true 
+    }
+  });
  
   if(this.type == "tooltip") {
     this.modal.html("<h3 class='map-popover-title'>"+this.title+"</h3>");
@@ -1431,11 +1455,46 @@ Modal.prototype.render_modal = function(){
 
 }
 
-window.onload = function() {
-  var mapView = new MapView();
-}
+
+//-------------------------PROMISES-----------------------------//
+
+  const url = 'dist/proxy/data.json';
+
+  fetch(url) // Call the fetch function passing the url of the API as a parameter
+  .then(function(response){
+    return response.json();
+  })
+  .then(function(data) {
+      // code for handling the data from the API
+      window.onload = function() {
+        var mapView = new MapView(data);
+        console.log(mapView);
+      }
+  })
+  .catch(function(error) {
+      // run code if the server returns any errors
+      console.log(error);
+  });
+
+  //nunjucks templates configuration
+  // var env = new nunjucks.Environment(new nunjucks.FileSystemLoader('templates'));
+
+  // // async filters must be known at compile-time
+  // env.addFilter('asyncFilter', function(templates, opts) {
+  //   // do something
+  //     nunjucks.precompile('/templates', { env: env });
+  // }, true);
+
+
+    
+//-------------------------PROMISES-----------------------------//
+
+$(function(){ 
+  var map = new MapObject();
+});
 
 
 
 
+  
 
