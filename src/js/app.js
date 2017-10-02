@@ -1489,9 +1489,7 @@ Modal.prototype.render_modal = function(){
     
 //-------------------------PROMISES-----------------------------//
 
-$(function(){ 
-  var map = new MapObject();
-});
+
 
 
 
