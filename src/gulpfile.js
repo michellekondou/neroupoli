@@ -180,7 +180,7 @@ gulp.task('renew', function(callback) {
 // Generate & Inline Critical-path CSS
 gulp.task('critical', function () {
   return gulp.src('../index.html')
-      .pipe(critical({base: './', inline: true, minify: true, css: ['../dist/assets/app-1ce2aa4119.css']}))
+      .pipe(critical({base: './', inline: true, minify: true, css: ['../dist/assets/app-9863269920.css']}))
       .on('error', function(err) { gutil.log(gutil.colors.red(err.message)); })
       .pipe(gulp.dest('../'));
 });
@@ -198,9 +198,9 @@ gulp.task('build', function(callback) {
     // 'revreplace',
     //'json:minify',
     //'revreplace-dev',
-    'nunjucks',
+    //'nunjucks',
     //'sprites',
-    //'critical',
+    'critical',
 
     callback
   )

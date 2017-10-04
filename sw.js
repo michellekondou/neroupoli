@@ -3,6 +3,8 @@ self.addEventListener('install', function(event) {
   var CACHE_NAME = 'waterpolis-cache-v1';
   var urlsToCache = [
     '/',
+    'dist/assets/app-9863269920.css',
+    'dist/assets/app-d07cad88c5.js',
     'src/graphics/map-1920x1080-v42.svg',
     'src/graphics/map-1366x768-v42.svg',
     'src/graphics/map-768x1024-v42.svg',
