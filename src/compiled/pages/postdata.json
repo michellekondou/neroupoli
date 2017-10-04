@@ -1,0 +1,302 @@
+
+    {
+        "id": 363,
+        "acf": {
+            "intro_text": "<p>test</p>\n",
+            "tabs": false,
+            "card_title": "Γνωρίζουμε τις … λεκάνες της φύσης",
+            "card_summary": "Τι είναι η 'λεκάνη απορροής', πώς αυτή σχετίζεται με τη ζωή μας, και γιατί τη μελετούν οι ειδικοί;",
+            "cards": [
+                {
+                    "acf_fc_layout": "intro",
+                    "block_1": "<p>Σε αυτή τη δραστηριότητα μαθαίνουμε τι είναι η λεκάνη απορροής, πώς αυτή σχετίζεται με τη ζωή μας και γιατί τη μελετούν οι ειδικοί.</p>\n",
+                    "block_2": "<p>Σε αυτή τη δραστηριότητα θα:</p>\n<ul>\n<li>Μάθεις να αναγνωρίζεις τη λεκάνη απορροής παρατηρώντας γύρω σου.</li>\n<li>Διερευνήσεις τους τρόπους με τους οποίους κινείται το νερό σε μια λεκάνη απορροής.</li>\n<li>Ενημερωθείς για το υδατικό ισοζύγιο μιας περιοχής.</li>\n</ul>\n",
+                    "block_3": "χαρτί του μέτρου ή περιτυλίγματος ή μια εφημερίδα, ένα μεγάλο ταψί, ένα δοχείο με σπρέι (ψεκαστήρι), μαρκαδόρους",
+                    "level": "ΣΤ Δημοτικού & Α Γυμνασίου",
+                    "duration": "60 λεπτά",
+                    "classroom": true
+                },
+                {
+                    "acf_fc_layout": "multiple_choice",
+                    "quiz_form_url": "",
+                    "quiz_title": "Όταν στέκεσαι πάνω στο έδαφος, σε οποιοδήποτε μέρος της Γης κι αν είσαι, βρίσκεσαι πάντα μέσα σε μια «λεκάνη απορροής»!",
+                    "quiz_extended_text": "<p>Για να εντοπίσεις μέχρι που εκτείνεται η λεκάνη απορροής, αρκεί να κοιτάξεις ψηλά την κορυφογραμμή του πιο κοντινού υψώματος ή βουνού! Βρίσκεσαι &#8220;μέσα&#8221; στη λεκάνη της πλευράς που αντικρίζεις, ενώ η πίσω πλευρά του βουνού ανήκει στη διπλανή λεκάνη.</p>\n<p>Για να καταλάβεις πως λειτουργεί μια λεκάνη απορροής παρατήρησε τη σκεπή της εικόνας. Το νερό της βροχής, αφού πέσει στη σκεπή, σε πόσες κατευθύνσεις μπορεί να κινηθεί μέσω των υδρορροών;</p>\n<p><img class=\"alignnone wp-image-427\" src=\"http://water-polis.gr/admin/wp-content/uploads/2017/06/basin-question.fw_-300x168.png\" alt=\"basin-question.fw\" width=\"300\" height=\"168\" /></p>\n<p>&nbsp;</p>\n",
+                    "quiz_options": [
+                        {
+                            "quiz_input_value": "3",
+                            "quiz_input_type": "Σωστό"
+                        },
+                        {
+                            "quiz_input_value": "4",
+                            "quiz_input_type": "Λάθος"
+                        },
+                        {
+                            "quiz_input_value": "6",
+                            "quiz_input_type": "Λάθος"
+                        }
+                    ],
+                    "quiz_field_name": "",
+                    "quiz_thank_you_msg": "<p>H κορυφή της σκεπής οδηγεί το νερό σε 3 κατευθύνσεις όπως δείχνουν τα βέλη.</p>\n<p><img class=\"alignnone wp-image-572\" src=\"http://water-polis.gr/admin/wp-content/uploads/2017/06/basin-anwer.fw_.png\" alt=\"basin-anwer.fw\" width=\"300\" height=\"168\" /></p>\n<p>Με ανάλογο τρόπο λειτουργεί και η κορυφή των βουνών, που καθορίζει προς ποια πλευρά (λεκάνη) θα κινηθεί η βροχή και ονομάζεται <strong>υδροκρίτης</strong>.</p>\n"
+                },
+                {
+                    "acf_fc_layout": "text",
+                    "type": "ΝΕΡΟΔΙΑΒΑΣΜΑΤΑ",
+                    "text": "<h3>Τι είναι η λεκάνη απορροής;</h3>\n<p>Λεκάνη απορροής (ή αποστράγγισης) είναι μία περιοχή που περιβάλλεται από υψώματα και στην οποία όλα τα επιφανειακά νερά ρέουν προς ένα σημείο (ποτάμι, λίμνη ή τελικά τη θάλασσα), εξαιτίας της κατηφορικής κλίσης και της βαρύτητας.</p>\n<p><img class=\"alignnone wp-image-431\" src=\"http://water-polis.gr/admin/wp-content/uploads/2017/06/lekani-aporois.fw_-300x67.png\" alt=\"lekani-aporois.fw\" width=\"400\" height=\"90\" /></p>\n<p>Στο παρακάτω σχήμα φάινεται πώς ο υδροκρίτης (κόκκινη γραμμή) χωρίζει δύο λεκάνες απορροής.</p>\n<p><img class=\"alignnone size-medium wp-image-606\" src=\"http://water-polis.gr/admin/wp-content/uploads/2017/06/drasthriotita2-300x170.png\" alt=\"drasthriotita2\" width=\"300\" height=\"170\" /></p>\n<p><em> </em><em>Γιατί οι επιστήμονες μελετούν τη λεκάνη απορροής γύρω από μια πόλη;<br />\nΑναφέρουμε μερικούς σημαντικούς λόγους:<br />\n</em></p>\n<ul>\n<li>Καταρχάς, παρατηρούν την κατεύθυνση του νερού και εξετάζουν αν μπορεί αυτό να συγκεντρωθεί π.χ. με ένα φράγμα, πριν αυτό διαφύγει στη θάλασσα.</li>\n<li>Ανάλογα με την κατεύθυνση του νερού, εντοπίζουν τα σημεία που πιθανά να είναι πλούσια σε υπόγεια νερά, και άρα, κατάλληλα για γεωτρήσεις.</li>\n<li>Εντοπίζουν τις διαδρομές της ρύπανσης, δηλ. πώς οι ρύποι από οποιαδήποτε σημείο της λεκάνης μεταφέρονται προς το σημείο που συγκεντρώνονται τα νερά.</li>\n<li>Υπολογίζουν πόσο νερό δέχεται η λεκάνη απορροής (εισροές) και αν αυτό επαρκεί για τις ανάγκες των κατοίκων που ζουν σε αυτή.</li>\n<li>Γνωρίζοντας την κατεύθυνση του νερού, μπορούν να σχεδιάσουν τα απαραίτητα αντιπλημμυρικά έργα στους οικισμούς.</li>\n</ul>\n<p><em>Γνωρίζεις αν η περιοχή που ζεις βασίζεται στο νερό της λεκάνης στην οποία βρίσκεται για να καλύψει της ανάγκες της ή αν αυτό μεταφέρεται από άλλη λεκάνη; </em></p>\n<p><em> </em><em>Οι λεκάνες απορροής δεν έχουν εθνικά σύνορα. Γνωρίζεις αν η λεκάνη απορροής της περιοχής σου ανήκει αποκλειστικά στην Ελλάδα ή είναι μοιρασμένη και σε άλλες χώρες; </em></p>\n"
+                },
+                {
+                    "acf_fc_layout": "text",
+                    "type": "ΔΡΑΣΤΗΡΙΟΤΗΤΑ ΣΕ ΟΜΑΔΕΣ",
+                    "text": "<h3>Φτιάχνουμε το μοντέλο της λεκάνης απορροής</h3>\n<p><em><img class=\"wp-image-432 alignright\" src=\"http://water-polis.gr/admin/wp-content/uploads/2017/06/lekani-aporois-drastiriotita.fw_.png\" alt=\"lekani-aporois-drastiriotita.fw\" width=\"200\" height=\"148\" /></em></p>\n<ol>\n<li>Χρησιμοποίησε λίγα φύλλα εφημερίδας, ή χαρτί με μέγεθος περίπου 1μ. Χ 1μ. Τσαλάκωσέ το αφήνοντας κάποιες &#8220;κοιλότητες&#8221;  αλλά και &#8220;κορυφές&#8221;.</li>\n<li>Άπλωσε το τσαλακωμένο χαρτί μέσα στο ταψί ώστε να σχηματίζονται από τις τσακίσεις κάποιες &#8220;κορυφές&#8221;.</li>\n<li>Ψέκασε ελαφρά με νερό, κυρίως τις &#8220;κορυφές&#8217;. Τι παρατηρείς; Συνέχισε να ψεκάζεις και παρατήρησε μήπως το νερό συγκεντρώνεται σε κάποιο σημείο<em>.</em></li>\n</ol>\n<p>Συζητείστε στις ομάδες σας τα εξής:</p>\n<ul>\n<li><em>Τι αναπαριστά το μοντέλο που έφτιαξες; </em></li>\n<li><em>Τι αναπαριστά το νερό από το σπρέι;</em></li>\n<li><em>Τι αναπαριστούν οι κορυφές στο χαρτί;</em></li>\n<li><em>Τι αναπαριστούν οι κοίλες επιφάνειες;</em></li>\n<li><em>Τι αναπαριστά το νερό που κυλά στο χαρτί;</em></li>\n<li><em>Τι αναπαριστά το νερό διαπερνά το χαρτί;</em></li>\n<li><em>Τι αναπαριστά το νερό που συγκεντρώνεται σε ένα σημείο; </em></li>\n</ul>\n"
+                },
+                {
+                    "acf_fc_layout": "dragndrop",
+                    "intro_text": "Τι αναπαριστά το καθένα απο τα παρακάτω στοιχεία του μοντέλου που έφτιαξες; Κάνε την αντιστοίχιση για να το βρεις!",
+                    "items": [
+                        {
+                            "option": "Το ταψί με το χαρτί",
+                            "target": "λεκάνη απορροής"
+                        },
+                        {
+                            "option": "Το νερό από το σπρέι",
+                            "target": "βροχή, κατακρημνίσεις"
+                        },
+                        {
+                            "option": "Οι κορυφές στο χαρτί",
+                            "target": "υδροκρίτης"
+                        },
+                        {
+                            "option": "Οι κοίλες επιφάνειες στο χαρτί",
+                            "target": "κοιλάδες"
+                        },
+                        {
+                            "option": "Το νερό που κυλά στο χαρτί",
+                            "target": "επιφανειακή απορροή"
+                        },
+                        {
+                            "option": "Το νερό που περνά κάτω απο το χαρτί",
+                            "target": "υπόγειο νερό"
+                        },
+                        {
+                            "option": "Το νερό που συγκεντρώνεται σε ένα σημείο",
+                            "target": "λίμνη ή θάλασσα"
+                        }
+                    ]
+                },
+                {
+                    "acf_fc_layout": "text",
+                    "type": "ΝΕΡΟΔΙΑΒΑΣΜΑΤΑ",
+                    "text": "<h3>Το υδατικό ισοζύγιο σε μια λεκάνη απορροής</h3>\n<p>Σε μια λεκάνη απορροής, το νερό εισέρχεται κυρίως από τις βροχές (<em>εισροές</em>), που συχνά σχηματίζουν ποτάμια. Κάποιο από αυτό το νερό συγκρατείται μέσα στη λεκάνη π.χ. σε μια λίμνη ή σε υπόγειες φλέβες (<em>αποθέματα</em>) και το υπόλοιπο &#8220;διαφεύγει&#8221; μέσω της εξάτμισης, της διαπνοής και των απορροών των ποταμών (<em>εκροές</em>).</p>\n<p>Αν το φανταστούμε σαν μια ζυγαριά, οι εισροές είναι σε ισορροπία με τις εκροές και τα αποθέματα μαζί.</p>\n<p><em><img class=\"alignnone wp-image-433 size-medium\" src=\"http://water-polis.gr/admin/wp-content/uploads/2017/06/lekani-aporois-isozygio-ydatiko.fw_-300x191.png\" alt=\"lekani-aporois-isozygio-ydatiko.fw\" width=\"300\" height=\"191\" /></em></p>\n<p>Το <strong>υδατικό ισοζύγιο</strong> μελετάει ακριβώς αυτό, δηλαδή:</p>\n<ul>\n<li>Πόση είναι η εισροή στη λεκάνη, και τι είδους (βροχή, χιόνι, χαλάζι)</li>\n<li>Πόση είναι η εκροή από τη λεκάνη (κυρίως απο τα ποτάμια).</li>\n<li>Πόσο είναι το διαθέσιμο νερό αποθηκευμένο στη λεκάνη (υπόγεια νερά, φράγματα, λίμνες)</li>\n</ul>\n<p>Για τη διαχείριση του νερού σε μια πόλη οι ειδικοί υπολογίζουν τις εισροές και τις εκροές στη λεκάνη απορροής, αλλά και αν τα αποθέματα φτάνουν για να καλυφθούν οι ανάγκες σε νερό για όλον τον πληθυσμό.</p>\n"
+                },
+                {
+                    "acf_fc_layout": "multiple_choice_multiple",
+                    "quiz_description": "<p>Να αντιστοιχίσεις τις παρακάτω φράσεις σε «εισροές» και «εκροές» νερού στο ισοζύγιο μιας πόλης.</p>\n",
+                    "quiz": [
+                        {
+                            "quiz_form_url": "",
+                            "quiz_title": "Λιώσιμο χιονιού",
+                            "quiz_extended_text": "",
+                            "quiz_options": [
+                                {
+                                    "quiz_input_value": "ΕΙΣΡΟΗ",
+                                    "quiz_input_type": "Σωστό"
+                                },
+                                {
+                                    "quiz_input_value": "ΕΚΡΟΗ",
+                                    "quiz_input_type": "Λάθος"
+                                }
+                            ],
+                            "quiz_field_name": "liosimo-xioniou",
+                            "quiz_thank_you_message": ""
+                        },
+                        {
+                            "quiz_form_url": "",
+                            "quiz_title": "Η βροχή",
+                            "quiz_extended_text": "",
+                            "quiz_options": [
+                                {
+                                    "quiz_input_value": "ΕΙΣΡΟΗ",
+                                    "quiz_input_type": "Σωστό"
+                                },
+                                {
+                                    "quiz_input_value": "ΕΚΡΟΗ",
+                                    "quiz_input_type": "Λάθος"
+                                }
+                            ],
+                            "quiz_field_name": "vroxi",
+                            "quiz_thank_you_message": ""
+                        },
+                        {
+                            "quiz_form_url": "",
+                            "quiz_title": "Η είσοδος ενός ποταμού σε μια περιοχή (ανάντη)",
+                            "quiz_extended_text": "",
+                            "quiz_options": [
+                                {
+                                    "quiz_input_value": "ΕΙΣΡΟΗ",
+                                    "quiz_input_type": "Σωστό"
+                                },
+                                {
+                                    "quiz_input_value": "ΕΚΡΟΗ",
+                                    "quiz_input_type": "Λάθος"
+                                }
+                            ],
+                            "quiz_field_name": "ananti",
+                            "quiz_thank_you_message": ""
+                        },
+                        {
+                            "quiz_form_url": "",
+                            "quiz_title": "Η διαπνοή των φυτών",
+                            "quiz_extended_text": "",
+                            "quiz_options": [
+                                {
+                                    "quiz_input_value": "ΕΙΣΡΟΗ",
+                                    "quiz_input_type": "Λάθος"
+                                },
+                                {
+                                    "quiz_input_value": "ΕΚΡΟΗ",
+                                    "quiz_input_type": "Σωστό"
+                                }
+                            ],
+                            "quiz_field_name": "diapnoi-fytwn",
+                            "quiz_thank_you_message": ""
+                        },
+                        {
+                            "quiz_form_url": "",
+                            "quiz_title": "Eξάτμιση νερού από μια λίμνη",
+                            "quiz_extended_text": "",
+                            "quiz_options": [
+                                {
+                                    "quiz_input_value": "ΕΙΣΡΟΗ",
+                                    "quiz_input_type": "Λάθος"
+                                },
+                                {
+                                    "quiz_input_value": "ΕΚΡΟΗ",
+                                    "quiz_input_type": "Σωστό"
+                                }
+                            ],
+                            "quiz_field_name": "eksatmish-nerou-apo-deksameni",
+                            "quiz_thank_you_message": ""
+                        },
+                        {
+                            "quiz_form_url": "",
+                            "quiz_title": "Ένα ρυάκι βρόχινου νερού που καταλήγει στη θάλασσα",
+                            "quiz_extended_text": "",
+                            "quiz_options": [
+                                {
+                                    "quiz_input_value": "ΕΙΣΡΟΗ",
+                                    "quiz_input_type": "Λάθος"
+                                },
+                                {
+                                    "quiz_input_value": "ΕΚΡΟΗ",
+                                    "quiz_input_type": "Σωστό"
+                                }
+                            ],
+                            "quiz_field_name": "aporoi-vroxinou-sth-thalassa",
+                            "quiz_thank_you_message": ""
+                        }
+                    ]
+                },
+                {
+                    "acf_fc_layout": "feedback",
+                    "type": [
+                        {
+                            "acf_fc_layout": "short_text",
+                            "form_url": "",
+                            "form_description": "<p>Έχεις ακούσει την φράση «<em>O</em><em> επόμενος πόλεμος θα γίνει για το νερό»;<br />\n</em>Πώς σχετίζεται η φράση αυτή με την λεκάνη απορροής;</p>\n<p>Γράψε μας την άποψή σου σε μια σύντομη παράγραφο.</p>\n",
+                            "form_field_name": "polemos-gia-to-nero-short-text"
+                        },
+                        {
+                            "acf_fc_layout": "likert_scale"
+                        }
+                    ]
+                },
+                {
+                    "acf_fc_layout": "likert",
+                    "quiz_form_url": "",
+                    "quiz_title": "Η δραστηριότητα αυτή μου άρεσε…",
+                    "quiz_options": [
+                        {
+                            "quiz_input_value": "1"
+                        },
+                        {
+                            "quiz_input_value": "2"
+                        },
+                        {
+                            "quiz_input_value": "3"
+                        },
+                        {
+                            "quiz_input_value": "4"
+                        },
+                        {
+                            "quiz_input_value": "5"
+                        }
+                    ],
+                    "quiz_field_name": "",
+                    "quiz_thank_you_msg": ""
+                },
+                {
+                    "acf_fc_layout": "text",
+                    "type": "ΑΠΟ ΕΔΩ ΚΑΙ ΠΕΡΑ",
+                    "text": "<p><strong>Στον ωκεανό του διαδικτύου </strong></p>\n<p>Δες <a href=\"http://www.meteo-news.gr/2013/09/ta-ipsi-vroxis-stin-ellada.html\" target=\"_blank\">εδώ</a> τη μέση ετήσια βροχόπτωση σε χιλιοστά (mm)<br />\nΉ επισκέψου την ιστοσελίδα της Εθνικής Μετεωρολογικής Υπηρεσίας (<a href=\"http://www.hnms.gr/\" target=\"_blank\">ΕΜΥ</a>):</p>\n<p><strong>Τι άλλο μπορείς να κάνεις;<br />\n</strong>Φτιάξε ένα βροχόμετρο για να μετρήσεις το ύψος της βροχής. Δες <a href=\"http://5dim-pyrgou.ilei.sch.gr/climate/html/rain.htm\" target=\"_blank\">εδώ</a> τις σύντομες οδηγίες που μοιράστηκε στο διαδίκτυο το 5<sup>ο</sup> Δημ. Σχολείο Πύργου.</p>\n<p><strong> </strong><strong>Τσαλαβούτα κι εδώ!</strong></p>\n<p>Αν θες να διερευνήσεις από πού έρχεται το νερό στην πόλη σου πήγαινε <a href=\"http://water-polis.gr/admin/index.php/2016/11/03/i-ton/\">εδώ</a><br />\nΑν θες να θυμηθείς τι είναι ο υδρολογικός κύκλος <a href=\"http://water-polis.gr/admin/index.php/2016/11/03/chay-al/\">εδώ</a><br />\nΑν θες να γυρίσεις στην νερούπολη πήγαινε <a href=\"http://water-polis.gr\">εδώ</a>.</p>\n"
+                }
+            ],
+            "fact_sheet": false
+        },
+        "_links": {
+            "self": [
+                {
+                    "href": "http://waterpolis.local/admin/wp-json/wp/v2/posts/363"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "http://waterpolis.local/admin/wp-json/wp/v2/posts"
+                }
+            ],
+            "about": [
+                {
+                    "href": "http://waterpolis.local/admin/wp-json/wp/v2/types/post"
+                }
+            ],
+            "author": [
+                {
+                    "embeddable": true,
+                    "href": "http://waterpolis.local/admin/wp-json/wp/v2/users/1"
+                }
+            ],
+            "replies": [
+                {
+                    "embeddable": true,
+                    "href": "http://waterpolis.local/admin/wp-json/wp/v2/comments?post=363"
+                }
+            ],
+            "version-history": [
+                {
+                    "href": "http://waterpolis.local/admin/wp-json/wp/v2/posts/363/revisions"
+                }
+            ],
+            "wp:attachment": [
+                {
+                    "href": "http://waterpolis.local/admin/wp-json/wp/v2/media?parent=363"
+                }
+            ],
+            "wp:term": [
+                {
+                    "taxonomy": "category",
+                    "embeddable": true,
+                    "href": "http://waterpolis.local/admin/wp-json/wp/v2/categories?post=363"
+                },
+                {
+                    "taxonomy": "post_tag",
+                    "embeddable": true,
+                    "href": "http://waterpolis.local/admin/wp-json/wp/v2/tags?post=363"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    }

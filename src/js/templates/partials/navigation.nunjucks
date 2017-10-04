@@ -1,0 +1,30 @@
+  <div id="preloader"></div>
+  <div id="app">
+    <h1 class="logo floating-element top left">
+    <span class="visually-hidden">To Νερό στην πόλη</span>
+    <i class="icon logo"></i>
+    </h1>
+    <button class="points-nav floating-element floating-element--button top right" id="nav-icon">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <button class="info floating-element floating-element--button bottom left" id="info-icon">
+      <i class="icon info"></i>
+    </button>
+    <div class="map-controls floating-element bottom right">
+      <button id="zoom-in" class="floating-element--button">
+        <i class="icon zoom-in"></i>
+      </button>
+      <button id="zoom-out" class="floating-element--button">
+        <i class="icon zoom-out"></i>
+      </button>
+      <button id="reset" class="floating-element--button">
+        <i class="icon reset"></i>
+      </button>
+    </div>
+    <!-- panzoom -->
+    <div id="container">
+    </div>
+  </div>

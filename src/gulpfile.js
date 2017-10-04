@@ -10,18 +10,25 @@ var revReplace = require('gulp-rev-replace');
 var revDel = require('gulp-rev-del-redundant');
 var save = require('gulp-save');
 var jsonmin = require('gulp-jsonmin');
-const nunjucks = require('gulp-nunjucks');
+var nunjucksRender = require('gulp-nunjucks-render');
 let cleanCSS = require('gulp-clean-css');
 var svgmin = require('gulp-svgmin');
 var package = require('./package.json');
+var fs = require('fs');
+var dom  = require('gulp-dom'); //modify the dom
+var replace = require('gulp-string-replace'); //replace strings in html
+var svgSprite = require("gulp-svg-sprites"); //generate sprites for svg
+var gutil = require('gulp-util'); //needed for critical
+var critical = require('critical').stream; //inline critical css
+var gzip = require('gulp-gzip');//gzip assets
 
 
 //script paths
 var cssFiles = [
-      //'node_modules/bootstrap/dist/css/bootstrap.min.css',
-      'scss/**/*.scss'
-    ],  
-    cssDest = 'compiled/css';
+  'scss/**/*.scss'
+],  
+cssDest = 'compiled/css';
+
 
 gulp.task('sass', function() {
   return gulp.src(cssFiles) // Gets all files ending with .scss in app/scss and children dirs
@@ -30,11 +37,7 @@ gulp.task('sass', function() {
     .pipe(gulp.dest(cssDest))
     .pipe(cleanCSS({compatibility: 'ie8'}))
     .pipe(gulp.dest(cssDest))
-    // //.pipe(browserSync.reload({
-    //   stream: true
-    // }))
 })
-
 
 //script paths
 var jsFiles = [
@@ -66,9 +69,6 @@ gulp.task('scripts', function() {
         //.pipe(rename('app.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest(jsDest))
-        // .pipe(browserSync.reload({
-        //   stream: true
-        // }));
 })
 
 gulp.task('rev', ['sass', 'scripts'], function() {
@@ -80,15 +80,55 @@ gulp.task('rev', ['sass', 'scripts'], function() {
     .pipe(revDel({ dest: '../dist/assets', force: true }));
 })
 
-
 gulp.task("revreplace", ["rev"], function(){
   var manifest = gulp.src("../dist/rev-manifest.json");
 
-  return gulp.src("../dist/index.html")
-    .pipe(revReplace({manifest: manifest}))
-    .pipe(gulp.dest("../"));
+return gulp.src("../dist/index.html")
+  .pipe(revReplace({manifest: manifest}))
+  .pipe(dom(function(){
+      var imgEl = this.getElementsByTagName('img');
+      var parent = this;
+      for(var i=0;i<imgEl.length;i++){
+        var item = imgEl[i];
+        item.classList.add("js-lazy-image");
+      }
+    return this;
+  }))
+  .pipe(replace('src="http:', 'data-src="https:'))
+  .pipe(gulp.dest("../"));
 })
 
+gulp.task("revreplace-dev", ["rev"], function(){
+
+return gulp.src("../dist/dev.html")
+  .pipe(dom(function(){
+      var imgEl = this.getElementsByTagName('img');
+      var parent = this;
+      for(var i=0;i<imgEl.length;i++){
+        var item = imgEl[i];
+        console.log(item);
+        item.classList.add("js-lazy-image");
+      }
+    return this;
+  }))
+  .pipe(replace('src="http:', 'data-src="https:'))
+  .pipe(gulp.dest("../"));
+})
+
+gulp.task("html", function(){
+  return gulp.src("../dev.html")
+    .pipe(dom(function(){
+      var imgEl = this.getElementsByTagName('img');
+      var parent = this;
+      for(var i=0;i<imgEl.length;i++){
+        var item = imgEl[i];
+        console.log(item);
+        item.classList.add("js-lazy-image");
+      }
+      return this;
+    }))
+    .pipe(gulp.dest("../"));
+})
 
 gulp.task('json:minify', function() {
   return gulp.src(['compiled/proxy/*.json'])
@@ -97,30 +137,71 @@ gulp.task('json:minify', function() {
     //.on('error', util.log);
 });
 
-gulp.task('nunjucks', () =>
-  gulp.src('js/templates/*')
-    .pipe(nunjucks.precompile())
-    .pipe(gulp.dest('js/output'))
-);
-
-gulp.task('watch', ['sass', 'scripts'], function(){
+gulp.task('watch', ['sass', 'scripts', 'nunjucks'], function(){
   gulp.watch('scss/**/*.scss', ['sass']);
-  //gulp.watch('js/**/*.js', ['scripts']);     
+  //gulp.watch('js/**/*.js', ['scripts']);   
 })
 
-gulp.task('svg:minify', function () {
-    return gulp.src('graphics/map-1920x1080-v42.svg')
-      .pipe(svgmin())
-      .pipe(gulp.dest('./min'));
+gulp.task('nunjucks', function() {
+
+  var path = '../dist/proxy/data.json';
+  var jsondata = JSON.parse(fs.readFileSync(path, 'utf8'));
+
+  // Gets .html and .nunjucks files in pages
+  return gulp.src('js/pages/**/*.+(html|nunjucks)')
+  .pipe(nunjucksRender({
+      data: {
+        content: jsondata
+      },
+      envOptions: {
+        autoescape: false
+      },
+      path: ['js/templates']
+    }))
+  // output files in app folder
+  .pipe(gulp.dest('../dist/'))
 });
- 
-gulp.task('build-production', function(callback) {
+
+gulp.task('sprites', function () {
+  return gulp.src('../dist/graphics/*.svg')
+    .pipe(svgSprite())
+    .pipe(gulp.dest("../dist/graphics/dist"));
+});
+
+gulp.task('renew', function(callback) {
   runSequence(
-    'sass',
-    'scripts',
     'revreplace',
-    'json:minify',
+    'revreplace-dev',
     'nunjucks',
+    callback
+  )
+})
+
+// Generate & Inline Critical-path CSS
+gulp.task('critical', function () {
+  return gulp.src('../index.html')
+      .pipe(critical({base: './', inline: true, minify: true, css: ['../dist/assets/app-1ce2aa4119.css']}))
+      .on('error', function(err) { gutil.log(gutil.colors.red(err.message)); })
+      .pipe(gulp.dest('../'));
+});
+
+gulp.task('compress', function() {
+    gulp.src('../dist/assets/*.css')
+  .pipe(gzip(config))
+  .pipe(gulp.dest('../dist/assets/'));
+});
+
+gulp.task('build', function(callback) {
+  runSequence(
+    // 'sass',
+    // 'scripts',
+    // 'revreplace',
+    // 'json:minify',
+    // 'revreplace-dev',
+    // 'nunjucks',
+    // 'sprites',
+    'critical',
+
     callback
   )
 })

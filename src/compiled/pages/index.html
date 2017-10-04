@@ -1,67 +1,45 @@
+<!-- layout.nunjucks -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" type="text/css" href="dist/assets/app.css">
-    <link rel="manifest" href="/manifest.json"> 
-    <meta name="theme-color" content="#00b9f2"/>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+
+  <!-- You write code for this content block in another file -->
   
-  <div id="preloader"></div>
-  <div id="app">
-    <h1 class="logo floating-element top left">
-    <span class="visually-hidden">To Νερό στην πόλη</span>
-    <i class="icon logo"></i>
-    </h1>
-    <button class="points-nav floating-element floating-element--button top right" id="nav-icon">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    <button class="info floating-element floating-element--button bottom left" id="info-icon">
-      <i class="icon info"></i>
-    </button>
-    <div class="map-controls floating-element bottom right">
-      <button id="zoom-in" class="floating-element--button">
-        <i class="icon zoom-in"></i>
-      </button>
-      <button id="zoom-out" class="floating-element--button">
-        <i class="icon zoom-out"></i>
-      </button>
-      <button id="reset" class="floating-element--button">
-        <i class="icon reset"></i>
-      </button>
-    </div>
-    <!-- panzoom -->
-    <div id="container">
-    </div>
-  </div>
+<!-- navigation.nunjucks -->
+<nav>
+  <a href="#">Home</a>
+  <a href="#">About</a>
+  <a href="#">Contact</a>
+</nav>
 
 <!--tooltip-->
 <div class="map-popover tooltip top" id="basin-tooltip">
   <h3 class="map-popover-title">Γνωρίζουμε τις … λεκάνες της φύσης</h3>
 </div>
+<!--tooltip-->
+
 <!--popup-->
-<div class="map-popover popup right popup" id="basin-popup">
+<div class="map-popover popup right popup-open" id="basin-popup">
   <div class="arrow"></div>  
-  <button class="close">
-    <i class="icon close-popup"></i>
-  </button>
+  <button class="close"></button>
   <h3 class="map-popover-title">Γνωρίζουμε τις … λεκάνες της φύσης</h3>
   <p class="map-popover-content">
     Τι είναι η 'λεκάνη απορροής', πώς αυτή σχετίζεται με τη ζωή μας, και γιατί τη μελετούν οι ειδικοί; 
     <button class="open_page">Συνέχισε!</button>
   </p>
 </div>
+<!--popup-->
+
 <!--page-->
-<div class="overlay overlay" id="basin-page">
-  <div class="page slide page">
-    <button class="close">
-      <i class="icon close-page-color"></i>
-    </button>
+<div class="overlay overlay-open" id="basin-page">
+  <div class="page slide page-open">
+    <button class="close"></button>
 
     <!--header-->
     <header class="page-header"> 
@@ -70,43 +48,43 @@
       <!--   <div class="progress-bar-line"></div> -->
          
         <div class="symbol-container symbol-intro">
-          <i class="symbol-icon icon symbol-intro"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-study">
-          <i class="symbol-icon icon symbol-study"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-group-activity">
-          <i class="symbol-icon icon symbol-group-activity"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-study">
-          <i class="symbol-icon icon symbol-study"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-feedback">
-          <i class="symbol-icon icon symbol-feedback"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-going-forward">
-          <i class="symbol-icon icon symbol-going-forward"></i>
+          <i class="symbol-icon"></i>
         </div>
         
       </div>
@@ -822,30 +800,31 @@
 
   </div><!--end page slide-->
 </div><!--end overlay-->
+<!--page-->
 
 
 <!--tooltip-->
 <div class="map-popover tooltip top" id="info-tooltip">
   <h3 class="map-popover-title"></h3>
 </div>
+<!--tooltip-->
+
 <!--popup-->
-<div class="map-popover popup right popup" id="info-popup">
+<div class="map-popover popup right popup-open" id="info-popup">
   <div class="arrow"></div>  
-  <button class="close">
-    <i class="icon close-popup"></i>
-  </button>
+  <button class="close"></button>
   <h3 class="map-popover-title"></h3>
   <p class="map-popover-content">
      
     <button class="open_page">Συνέχισε!</button>
   </p>
 </div>
+<!--popup-->
+
 <!--page-->
-<div class="overlay overlay" id="info-page">
-  <div class="page slide page">
-    <button class="close">
-      <i class="icon close-page-color"></i>
-    </button>
+<div class="overlay overlay-open" id="info-page">
+  <div class="page slide page-open">
+    <button class="close"></button>
 
     <!--header-->
     <header class="page-header"> 
@@ -899,30 +878,31 @@
 
   </div><!--end page slide-->
 </div><!--end overlay-->
+<!--page-->
 
 
 <!--tooltip-->
 <div class="map-popover tooltip top" id="city-tooltip">
   <h3 class="map-popover-title">Το νερό στην πόλη</h3>
 </div>
+<!--tooltip-->
+
 <!--popup-->
-<div class="map-popover popup right popup" id="city-popup">
+<div class="map-popover popup right popup-open" id="city-popup">
   <div class="arrow"></div>  
-  <button class="close">
-    <i class="icon close-popup"></i>
-  </button>
+  <button class="close"></button>
   <h3 class="map-popover-title">Το νερό στην πόλη</h3>
   <p class="map-popover-content">
     Μαθαίνουμε για τον "αστικό" κύκλο του νερού και την ολοκληρωμένη διαχείριση του νερού σε μια πόλη.   
     <button class="open_page">Συνέχισε!</button>
   </p>
 </div>
+<!--popup-->
+
 <!--page-->
-<div class="overlay overlay" id="city-page">
-  <div class="page slide page">
-    <button class="close">
-      <i class="icon close-page-color"></i>
-    </button>
+<div class="overlay overlay-open" id="city-page">
+  <div class="page slide page-open">
+    <button class="close"></button>
 
     <!--header-->
     <header class="page-header"> 
@@ -931,47 +911,47 @@
       <!--   <div class="progress-bar-line"></div> -->
          
         <div class="symbol-container symbol-intro">
-          <i class="symbol-icon icon symbol-intro"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-study">
-          <i class="symbol-icon icon symbol-study"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-single-activity">
-          <i class="symbol-icon icon symbol-single-activity"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-study">
-          <i class="symbol-icon icon symbol-study"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-single-activity">
-          <i class="symbol-icon icon symbol-single-activity"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-feedback">
-          <i class="symbol-icon icon symbol-feedback"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-going-forward">
-          <i class="symbol-icon icon symbol-going-forward"></i>
+          <i class="symbol-icon"></i>
         </div>
         
       </div>
@@ -1686,30 +1666,31 @@
 
   </div><!--end page slide-->
 </div><!--end overlay-->
+<!--page-->
 
 
 <!--tooltip-->
 <div class="map-popover tooltip top" id="refinery-tooltip">
   <h3 class="map-popover-title">Στο… δρόμο μέχρι τη βρύση!</h3>
 </div>
+<!--tooltip-->
+
 <!--popup-->
-<div class="map-popover popup right popup" id="refinery-popup">
+<div class="map-popover popup right popup-open" id="refinery-popup">
   <div class="arrow"></div>  
-  <button class="close">
-    <i class="icon close-popup"></i>
-  </button>
+  <button class="close"></button>
   <h3 class="map-popover-title">Στο… δρόμο μέχρι τη βρύση!</h3>
   <p class="map-popover-content">
     Ας παρακολουθήσουμε το νερό από το διυλιστήριο ως το σπίτι μας!  
     <button class="open_page">Συνέχισε!</button>
   </p>
 </div>
+<!--popup-->
+
 <!--page-->
-<div class="overlay overlay" id="refinery-page">
-  <div class="page slide page">
-    <button class="close">
-      <i class="icon close-page-color"></i>
-    </button>
+<div class="overlay overlay-open" id="refinery-page">
+  <div class="page slide page-open">
+    <button class="close"></button>
 
     <!--header-->
     <header class="page-header"> 
@@ -1718,39 +1699,39 @@
       <!--   <div class="progress-bar-line"></div> -->
          
         <div class="symbol-container symbol-intro">
-          <i class="symbol-icon icon symbol-intro"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-question">
-          <i class="symbol-icon icon symbol-question"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-study">
-          <i class="symbol-icon icon symbol-study"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-group-activity">
-          <i class="symbol-icon icon symbol-group-activity"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-single-activity">
-          <i class="symbol-icon icon symbol-single-activity"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-feedback">
-          <i class="symbol-icon icon symbol-feedback"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-going-forward">
-          <i class="symbol-icon icon symbol-going-forward"></i>
+          <i class="symbol-icon"></i>
         </div>
         
       </div>
@@ -2226,30 +2207,31 @@
 
   </div><!--end page slide-->
 </div><!--end overlay-->
+<!--page-->
 
 
 <!--tooltip-->
 <div class="map-popover tooltip top" id="building-tooltip">
   <h3 class="map-popover-title">Υπάρχει γκρίζο νερό;</h3>
 </div>
+<!--tooltip-->
+
 <!--popup-->
-<div class="map-popover popup right popup" id="building-popup">
+<div class="map-popover popup right popup-open" id="building-popup">
   <div class="arrow"></div>  
-  <button class="close">
-    <i class="icon close-popup"></i>
-  </button>
+  <button class="close"></button>
   <h3 class="map-popover-title">Υπάρχει γκρίζο νερό;</h3>
   <p class="map-popover-content">
     Υπάρχει γκρίζο νερό; Τι είναι; Από πού προέρχεται και πώς μπορούμε να το χρησιμοποιήσουμε;   
     <button class="open_page">Συνέχισε!</button>
   </p>
 </div>
+<!--popup-->
+
 <!--page-->
-<div class="overlay overlay" id="building-page">
-  <div class="page slide page">
-    <button class="close">
-      <i class="icon close-page-color"></i>
-    </button>
+<div class="overlay overlay-open" id="building-page">
+  <div class="page slide page-open">
+    <button class="close"></button>
 
     <!--header-->
     <header class="page-header"> 
@@ -2258,47 +2240,47 @@
       <!--   <div class="progress-bar-line"></div> -->
          
         <div class="symbol-container symbol-intro">
-          <i class="symbol-icon icon symbol-intro"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-question">
-          <i class="symbol-icon icon symbol-question"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-study">
-          <i class="symbol-icon icon symbol-study"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-going-forward">
-          <i class="symbol-icon icon symbol-going-forward"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-feedback">
-          <i class="symbol-icon icon symbol-feedback"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-going-forward">
-          <i class="symbol-icon icon symbol-going-forward"></i>
+          <i class="symbol-icon"></i>
         </div>
         
       </div>
@@ -2895,30 +2877,31 @@
 
   </div><!--end page slide-->
 </div><!--end overlay-->
+<!--page-->
 
 
 <!--tooltip-->
 <div class="map-popover tooltip top" id="country-tooltip">
   <h3 class="map-popover-title">Σύστημα βρόχινου νερού</h3>
 </div>
+<!--tooltip-->
+
 <!--popup-->
-<div class="map-popover popup right popup" id="country-popup">
+<div class="map-popover popup right popup-open" id="country-popup">
   <div class="arrow"></div>  
-  <button class="close">
-    <i class="icon close-popup"></i>
-  </button>
+  <button class="close"></button>
   <h3 class="map-popover-title">Σύστημα βρόχινου νερού</h3>
   <p class="map-popover-content">
     Σε ρόλο «μηχανικού» εξετάζουμε ένα σύστημα συλλογής βρόχινου νερού σε μια κατοικία.  
     <button class="open_page">Συνέχισε!</button>
   </p>
 </div>
+<!--popup-->
+
 <!--page-->
-<div class="overlay overlay" id="country-page">
-  <div class="page slide page">
-    <button class="close">
-      <i class="icon close-page-color"></i>
-    </button>
+<div class="overlay overlay-open" id="country-page">
+  <div class="page slide page-open">
+    <button class="close"></button>
 
     <!--header-->
     <header class="page-header"> 
@@ -2927,47 +2910,47 @@
       <!--   <div class="progress-bar-line"></div> -->
          
         <div class="symbol-container symbol-intro">
-          <i class="symbol-icon icon symbol-intro"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-question">
-          <i class="symbol-icon icon symbol-question"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-study">
-          <i class="symbol-icon icon symbol-study"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-study">
-          <i class="symbol-icon icon symbol-study"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-single-activity">
-          <i class="symbol-icon icon symbol-single-activity"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-feedback">
-          <i class="symbol-icon icon symbol-feedback"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-feedback">
-          <i class="symbol-icon icon symbol-feedback"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-going-forward">
-          <i class="symbol-icon icon symbol-going-forward"></i>
+          <i class="symbol-icon"></i>
         </div>
         
       </div>
@@ -3576,30 +3559,31 @@
 
   </div><!--end page slide-->
 </div><!--end overlay-->
+<!--page-->
 
 
 <!--tooltip-->
 <div class="map-popover tooltip top" id="land-tooltip">
   <h3 class="map-popover-title">Γιατί πλημμυρίζουμε;</h3>
 </div>
+<!--tooltip-->
+
 <!--popup-->
-<div class="map-popover popup right popup" id="land-popup">
+<div class="map-popover popup right popup-open" id="land-popup">
   <div class="arrow"></div>  
-  <button class="close">
-    <i class="icon close-popup"></i>
-  </button>
+  <button class="close"></button>
   <h3 class="map-popover-title">Γιατί πλημμυρίζουμε;</h3>
   <p class="map-popover-content">
     Πώς επηρεάζει η ύπαρξη βλάστησης την εκδήλωση πλημμύρων; Ποια υλικά είναι διαπερατά και ποια αδιαπέραστα στο νερό; Ώρα για πείραμα! 
     <button class="open_page">Συνέχισε!</button>
   </p>
 </div>
+<!--popup-->
+
 <!--page-->
-<div class="overlay overlay" id="land-page">
-  <div class="page slide page">
-    <button class="close">
-      <i class="icon close-page-color"></i>
-    </button>
+<div class="overlay overlay-open" id="land-page">
+  <div class="page slide page-open">
+    <button class="close"></button>
 
     <!--header-->
     <header class="page-header"> 
@@ -3608,51 +3592,51 @@
       <!--   <div class="progress-bar-line"></div> -->
          
         <div class="symbol-container symbol-intro">
-          <i class="symbol-icon icon symbol-intro"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-question">
-          <i class="symbol-icon icon symbol-question"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-study">
-          <i class="symbol-icon icon symbol-study"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-question">
-          <i class="symbol-icon icon symbol-question"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-group-activity">
-          <i class="symbol-icon icon symbol-group-activity"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-group-activity">
-          <i class="symbol-icon icon symbol-group-activity"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-feedback">
-          <i class="symbol-icon icon symbol-feedback"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-going-forward">
-          <i class="symbol-icon icon symbol-going-forward"></i>
+          <i class="symbol-icon"></i>
         </div>
         
       </div>
@@ -4310,30 +4294,31 @@
 
   </div><!--end page slide-->
 </div><!--end overlay-->
+<!--page-->
 
 
 <!--tooltip-->
 <div class="map-popover tooltip top" id="tank-tooltip">
   <h3 class="map-popover-title">Υπάρχει μαύρο νερό;</h3>
 </div>
+<!--tooltip-->
+
 <!--popup-->
-<div class="map-popover popup right popup" id="tank-popup">
+<div class="map-popover popup right popup-open" id="tank-popup">
   <div class="arrow"></div>  
-  <button class="close">
-    <i class="icon close-popup"></i>
-  </button>
+  <button class="close"></button>
   <h3 class="map-popover-title">Υπάρχει μαύρο νερό;</h3>
   <p class="map-popover-content">
     Μαθαίνουμε για τα αστικά λύματα, την επεξεργασία τους και πως μπορεί να αξιοποιηθεί το ανακτημένο νερό.  
     <button class="open_page">Συνέχισε!</button>
   </p>
 </div>
+<!--popup-->
+
 <!--page-->
-<div class="overlay overlay" id="tank-page">
-  <div class="page slide page">
-    <button class="close">
-      <i class="icon close-page-color"></i>
-    </button>
+<div class="overlay overlay-open" id="tank-page">
+  <div class="page slide page-open">
+    <button class="close"></button>
 
     <!--header-->
     <header class="page-header"> 
@@ -4342,51 +4327,51 @@
       <!--   <div class="progress-bar-line"></div> -->
          
         <div class="symbol-container symbol-intro">
-          <i class="symbol-icon icon symbol-intro"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-question">
-          <i class="symbol-icon icon symbol-question"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-study">
-          <i class="symbol-icon icon symbol-study"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-group-activity">
-          <i class="symbol-icon icon symbol-group-activity"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-feedback">
-          <i class="symbol-icon icon symbol-feedback"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-feedback">
-          <i class="symbol-icon icon symbol-feedback"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-feedback">
-          <i class="symbol-icon icon symbol-feedback"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-feedback">
-          <i class="symbol-icon icon symbol-feedback"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-feedback">
-          <i class="symbol-icon icon symbol-feedback"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-feedback">
-          <i class="symbol-icon icon symbol-feedback"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-going-forward">
-          <i class="symbol-icon icon symbol-going-forward"></i>
+          <i class="symbol-icon"></i>
         </div>
         
       </div>
@@ -5181,30 +5166,31 @@
 
   </div><!--end page slide-->
 </div><!--end overlay-->
+<!--page-->
 
 
 <!--tooltip-->
 <div class="map-popover tooltip top" id="snow-tooltip">
   <h3 class="map-popover-title">Ο κύκλος του νερού… στο πιάτο!</h3>
 </div>
+<!--tooltip-->
+
 <!--popup-->
-<div class="map-popover popup right popup" id="snow-popup">
+<div class="map-popover popup right popup-open" id="snow-popup">
   <div class="arrow"></div>  
-  <button class="close">
-    <i class="icon close-popup"></i>
-  </button>
+  <button class="close"></button>
   <h3 class="map-popover-title">Ο κύκλος του νερού… στο πιάτο!</h3>
   <p class="map-popover-content">
     Κατασκευάζουμε ένα μοντέλο του κύκλου του νερού και διερευνούμε πώς επηρεάζεται από τις ανθρώπινες δραστηριότητες.  
     <button class="open_page">Συνέχισε!</button>
   </p>
 </div>
+<!--popup-->
+
 <!--page-->
-<div class="overlay overlay" id="snow-page">
-  <div class="page slide page">
-    <button class="close">
-      <i class="icon close-page-color"></i>
-    </button>
+<div class="overlay overlay-open" id="snow-page">
+  <div class="page slide page-open">
+    <button class="close"></button>
 
     <!--header-->
     <header class="page-header"> 
@@ -5213,47 +5199,47 @@
       <!--   <div class="progress-bar-line"></div> -->
          
         <div class="symbol-container symbol-intro">
-          <i class="symbol-icon icon symbol-intro"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-study">
-          <i class="symbol-icon icon symbol-study"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-question">
-          <i class="symbol-icon icon symbol-question"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-group-activity">
-          <i class="symbol-icon icon symbol-group-activity"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-study">
-          <i class="symbol-icon icon symbol-study"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-feedback">
-          <i class="symbol-icon icon symbol-feedback"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-going-forward">
-          <i class="symbol-icon icon symbol-going-forward"></i>
+          <i class="symbol-icon"></i>
         </div>
         
       </div>
@@ -5940,30 +5926,31 @@
 
   </div><!--end page slide-->
 </div><!--end overlay-->
+<!--page-->
 
 
 <!--tooltip-->
 <div class="map-popover tooltip top" id="action-tooltip">
   <h3 class="map-popover-title">Σώστε το κλίμα!</h3>
 </div>
+<!--tooltip-->
+
 <!--popup-->
-<div class="map-popover popup right popup" id="action-popup">
+<div class="map-popover popup right popup-open" id="action-popup">
   <div class="arrow"></div>  
-  <button class="close">
-    <i class="icon close-popup"></i>
-  </button>
+  <button class="close"></button>
   <h3 class="map-popover-title">Σώστε το κλίμα!</h3>
   <p class="map-popover-content">
     Γνωρίζουμε τις ανθρώπινες δραστηριότητες που οδηγούν στην κλιματική αλλαγή και προτείνουμε τρόπους αντιμετώπισης, ατομικούς και συλλογικούς. Αναλαμβάνουμε Δράση για το κλίμα. 
     <button class="open_page">Συνέχισε!</button>
   </p>
 </div>
+<!--popup-->
+
 <!--page-->
-<div class="overlay overlay" id="action-page">
-  <div class="page slide page">
-    <button class="close">
-      <i class="icon close-page-color"></i>
-    </button>
+<div class="overlay overlay-open" id="action-page">
+  <div class="page slide page-open">
+    <button class="close"></button>
 
     <!--header-->
     <header class="page-header"> 
@@ -5972,39 +5959,39 @@
       <!--   <div class="progress-bar-line"></div> -->
          
         <div class="symbol-container symbol-intro">
-          <i class="symbol-icon icon symbol-intro"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-study">
-          <i class="symbol-icon icon symbol-study"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-study">
-          <i class="symbol-icon icon symbol-study"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-study">
-          <i class="symbol-icon icon symbol-study"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-study">
-          <i class="symbol-icon icon symbol-study"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-single-activity">
-          <i class="symbol-icon icon symbol-single-activity"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-feedback">
-          <i class="symbol-icon icon symbol-feedback"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-going-forward">
-          <i class="symbol-icon icon symbol-going-forward"></i>
+          <i class="symbol-icon"></i>
         </div>
         
       </div>
@@ -6356,30 +6343,31 @@
 
   </div><!--end page slide-->
 </div><!--end overlay-->
+<!--page-->
 
 
 <!--tooltip-->
 <div class="map-popover tooltip top" id="climate-tooltip">
   <h3 class="map-popover-title">Το κλίμα αλλάζει κι εμένα τι με νοιάζει;</h3>
 </div>
+<!--tooltip-->
+
 <!--popup-->
-<div class="map-popover popup right popup" id="climate-popup">
+<div class="map-popover popup right popup-open" id="climate-popup">
   <div class="arrow"></div>  
-  <button class="close">
-    <i class="icon close-popup"></i>
-  </button>
+  <button class="close"></button>
   <h3 class="map-popover-title">Το κλίμα αλλάζει κι εμένα τι με νοιάζει;</h3>
   <p class="map-popover-content">
     Μελετάμε τι είναι η κλιματική αλλαγή, που οφείλεται & ποιες οι επιπτώσεις της στη ζωή μας.  
     <button class="open_page">Συνέχισε!</button>
   </p>
 </div>
+<!--popup-->
+
 <!--page-->
-<div class="overlay overlay" id="climate-page">
-  <div class="page slide page">
-    <button class="close">
-      <i class="icon close-page-color"></i>
-    </button>
+<div class="overlay overlay-open" id="climate-page">
+  <div class="page slide page-open">
+    <button class="close"></button>
 
     <!--header-->
     <header class="page-header"> 
@@ -6388,43 +6376,43 @@
       <!--   <div class="progress-bar-line"></div> -->
          
         <div class="symbol-container symbol-intro">
-          <i class="symbol-icon icon symbol-intro"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-study">
-          <i class="symbol-icon icon symbol-study"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-question">
-          <i class="symbol-icon icon symbol-question"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-group-activity">
-          <i class="symbol-icon icon symbol-group-activity"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-question">
-          <i class="symbol-icon icon symbol-question"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-feedback">
-          <i class="symbol-icon icon symbol-feedback"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-going-forward">
-          <i class="symbol-icon icon symbol-going-forward"></i>
+          <i class="symbol-icon"></i>
         </div>
         
       </div>
@@ -6861,30 +6849,31 @@
 
   </div><!--end page slide-->
 </div><!--end overlay-->
+<!--page-->
 
 
 <!--tooltip-->
 <div class="map-popover tooltip top" id="meteo-tooltip">
   <h3 class="map-popover-title">Μικροί μετεωρολόγοι</h3>
 </div>
+<!--tooltip-->
+
 <!--popup-->
-<div class="map-popover popup right popup" id="meteo-popup">
+<div class="map-popover popup right popup-open" id="meteo-popup">
   <div class="arrow"></div>  
-  <button class="close">
-    <i class="icon close-popup"></i>
-  </button>
+  <button class="close"></button>
   <h3 class="map-popover-title">Μικροί μετεωρολόγοι</h3>
   <p class="map-popover-content">
     Στη δραστηριότητα αυτή μελετάμε τι σημαίνουν τα σύμβολα σε ένα Δελτίο Καιρού Πρόγνωσης Καιρού και συνθέτουμε το δικό μας Δελτίο. 
     <button class="open_page">Συνέχισε!</button>
   </p>
 </div>
+<!--popup-->
+
 <!--page-->
-<div class="overlay overlay" id="meteo-page">
-  <div class="page slide page">
-    <button class="close">
-      <i class="icon close-page-color"></i>
-    </button>
+<div class="overlay overlay-open" id="meteo-page">
+  <div class="page slide page-open">
+    <button class="close"></button>
 
     <!--header-->
     <header class="page-header"> 
@@ -6893,39 +6882,39 @@
       <!--   <div class="progress-bar-line"></div> -->
          
         <div class="symbol-container symbol-intro">
-          <i class="symbol-icon icon symbol-intro"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-study">
-          <i class="symbol-icon icon symbol-study"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-group-activity">
-          <i class="symbol-icon icon symbol-group-activity"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-group-activity">
-          <i class="symbol-icon icon symbol-group-activity"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-feedback">
-          <i class="symbol-icon icon symbol-feedback"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-going-forward">
-          <i class="symbol-icon icon symbol-going-forward"></i>
+          <i class="symbol-icon"></i>
         </div>
         
       </div>
@@ -7333,30 +7322,31 @@
 
   </div><!--end page slide-->
 </div><!--end overlay-->
+<!--page-->
 
 
 <!--tooltip-->
 <div class="map-popover tooltip top" id="rain-tooltip">
   <h3 class="map-popover-title">Καιρός και Κλίμα: Ξέρεις τη διαφορά;</h3>
 </div>
+<!--tooltip-->
+
 <!--popup-->
-<div class="map-popover popup right popup" id="rain-popup">
+<div class="map-popover popup right popup-open" id="rain-popup">
   <div class="arrow"></div>  
-  <button class="close">
-    <i class="icon close-popup"></i>
-  </button>
+  <button class="close"></button>
   <h3 class="map-popover-title">Καιρός και Κλίμα: Ξέρεις τη διαφορά;</h3>
   <p class="map-popover-content">
     Τι ονομάζουμε καιρό και τι κλίμα; Μαθαίνουμε να διακρίνουμε τις διαφορές μεταξύ τους. 
     <button class="open_page">Συνέχισε!</button>
   </p>
 </div>
+<!--popup-->
+
 <!--page-->
-<div class="overlay overlay" id="rain-page">
-  <div class="page slide page">
-    <button class="close">
-      <i class="icon close-page-color"></i>
-    </button>
+<div class="overlay overlay-open" id="rain-page">
+  <div class="page slide page-open">
+    <button class="close"></button>
 
     <!--header-->
     <header class="page-header"> 
@@ -7365,31 +7355,31 @@
       <!--   <div class="progress-bar-line"></div> -->
          
         <div class="symbol-container symbol-intro">
-          <i class="symbol-icon icon symbol-intro"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-group-activity">
-          <i class="symbol-icon icon symbol-group-activity"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-study">
-          <i class="symbol-icon icon symbol-study"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-feedback">
-          <i class="symbol-icon icon symbol-feedback"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-going-forward">
-          <i class="symbol-icon icon symbol-going-forward"></i>
+          <i class="symbol-icon"></i>
         </div>
         
       </div>
@@ -7662,30 +7652,31 @@
 
   </div><!--end page slide-->
 </div><!--end overlay-->
+<!--page-->
 
 
 <!--tooltip-->
 <div class="map-popover tooltip top" id="river-tooltip">
   <h3 class="map-popover-title">Ακολουθούμε το νερό</h3>
 </div>
+<!--tooltip-->
+
 <!--popup-->
-<div class="map-popover popup right popup" id="river-popup">
+<div class="map-popover popup right popup-open" id="river-popup">
   <div class="arrow"></div>  
-  <button class="close">
-    <i class="icon close-popup"></i>
-  </button>
+  <button class="close"></button>
   <h3 class="map-popover-title">Ακολουθούμε το νερό</h3>
   <p class="map-popover-content">
     Ώρα για εξερεύνηση και δουλειά στο πεδίο! Ας ανακαλύψουμε τους υδάτινους πόρους της περιοχής μας. 
     <button class="open_page">Συνέχισε!</button>
   </p>
 </div>
+<!--popup-->
+
 <!--page-->
-<div class="overlay overlay" id="river-page">
-  <div class="page slide page">
-    <button class="close">
-      <i class="icon close-page-color"></i>
-    </button>
+<div class="overlay overlay-open" id="river-page">
+  <div class="page slide page-open">
+    <button class="close"></button>
 
     <!--header-->
     <header class="page-header"> 
@@ -7694,35 +7685,35 @@
       <!--   <div class="progress-bar-line"></div> -->
          
         <div class="symbol-container symbol-intro">
-          <i class="symbol-icon icon symbol-intro"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-study">
-          <i class="symbol-icon icon symbol-study"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-group-activity">
-          <i class="symbol-icon icon symbol-group-activity"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-question">
-          <i class="symbol-icon icon symbol-question"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-feedback">
-          <i class="symbol-icon icon symbol-feedback"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-going-forward">
-          <i class="symbol-icon icon symbol-going-forward"></i>
+          <i class="symbol-icon"></i>
         </div>
         
       </div>
@@ -8158,30 +8149,31 @@
 
   </div><!--end page slide-->
 </div><!--end overlay-->
+<!--page-->
 
 
 <!--tooltip-->
 <div class="map-popover tooltip top" id="water-tooltip">
   <h3 class="map-popover-title">Από πού να ξεκινήσω;  Γιατί να μάθω για το νερό στην πόλη μου;</h3>
 </div>
+<!--tooltip-->
+
 <!--popup-->
-<div class="map-popover popup right popup" id="water-popup">
+<div class="map-popover popup right popup-open" id="water-popup">
   <div class="arrow"></div>  
-  <button class="close">
-    <i class="icon close-popup"></i>
-  </button>
+  <button class="close"></button>
   <h3 class="map-popover-title">Από πού να ξεκινήσω;  Γιατί να μάθω για το νερό στην πόλη μου;</h3>
   <p class="map-popover-content">
     Γιατί είναι σημαντικό να γνωρίζουμε για το νερό στον τόπο μας; Αποφασίζουμε τι παραπάνω θα θέλαμε να μάθουμε γι’ αυτό. 
     <button class="open_page">Συνέχισε!</button>
   </p>
 </div>
+<!--popup-->
+
 <!--page-->
-<div class="overlay overlay" id="water-page">
-  <div class="page slide page">
-    <button class="close">
-      <i class="icon close-page-color"></i>
-    </button>
+<div class="overlay overlay-open" id="water-page">
+  <div class="page slide page-open">
+    <button class="close"></button>
 
     <!--header-->
     <header class="page-header"> 
@@ -8190,35 +8182,35 @@
       <!--   <div class="progress-bar-line"></div> -->
          
         <div class="symbol-container symbol-intro">
-          <i class="symbol-icon icon symbol-intro"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-group-activity">
-          <i class="symbol-icon icon symbol-group-activity"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-study">
-          <i class="symbol-icon icon symbol-study"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-group-activity">
-          <i class="symbol-icon icon symbol-group-activity"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-play-learn">
-          <i class="symbol-icon icon symbol-play-learn"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-feedback">
-          <i class="symbol-icon icon symbol-feedback"></i>
+          <i class="symbol-icon"></i>
         </div>
          
         <div class="symbol-container symbol-going-forward">
-          <i class="symbol-icon icon symbol-going-forward"></i>
+          <i class="symbol-icon"></i>
         </div>
         
       </div>
@@ -8572,10 +8564,27 @@
 
   </div><!--end page slide-->
 </div><!--end overlay-->
+<!--page-->
 
 
 
 
-<script src="dist/assets/app.js"></script>
+
+    <script src="src/js/jquery.min.js"></script>
+    <script src="src/node_modules/jquery-mousewheel/jquery.mousewheel.js"></script>
+    <script src="src/node_modules/jquery-cycle/index.js"></script>  
+    <script src="src/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="src/node_modules/nunjucks/browser/nunjucks.js"></script> 
+    <script src="src/bower_components/d3/d3.js"></script>
+    <script src="src/node_modules/gsap/src/minified/utils/Draggable.min.js"></script> 
+    <script src="src/js/lib/ThrowPropsPlugin.js"></script> 
+    <script src="src/js/lib/DirectionalRotationPlugin.min.js"></script> 
+    <script src="src/node_modules/gsap/src/minified/plugins/CSSPlugin.min.js"></script>
+    <script src="src/node_modules/gsap/src/minified/TimelineLite.min.js"></script>
+    <script src="src/node_modules/gsap/src/minified/TweenMax.min.js"></script>
+    <script src="src/node_modules/gsap/src/minified/TimelineMax.min.js"></script>
+    <script src="src/node_modules/gsap/src/minified/TweenLite.min.js"></script>
+    <script src="src/js/helper-functions.js"></script>
+    <script src="src/js/app.js"></script> 
 </body>
 </html>

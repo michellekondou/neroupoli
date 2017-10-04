@@ -1,0 +1,299 @@
+.icon {
+    font-size: 10px;
+}
+
+.icon:before {
+    content:' ';
+    vertical-align:middle;
+    display: inline-block;
+    background-image: url("../svg/sprite.svg");
+    background-repeat: no-repeat;
+    background-size: 16.8em 234.3em;
+}
+
+.no-svg .icon:before {
+    background-image: url("../svg/sprite.png");
+}
+
+
+
+  .icon.checkbox-r:before {
+      background-position: 0em 0em;
+      width: 1.9664000000000001em;
+      height: 1.5999em;
+  }
+
+
+
+
+  .icon.checkbox-w:before {
+      background-position: 0em -1.6em;
+      width: 3.4em;
+      height: 3.4em;
+  }
+
+
+
+
+  .icon.checkbox-w-thick:before {
+      background-position: 0em -5em;
+      width: 3.4em;
+      height: 3.4em;
+  }
+
+
+
+
+  .icon.classroom:before {
+      background-position: 0em -8.4em;
+      width: 3.6em;
+      height: 2.4em;
+  }
+
+
+
+
+  .icon.clock:before {
+      background-position: 0em -10.8em;
+      width: 2.8em;
+      height: 2.8em;
+  }
+
+
+
+
+  .icon.close-page:before {
+      background-position: 0em -13.6em;
+      width: 3.4em;
+      height: 3.4em;
+  }
+
+
+
+
+  .icon.close-page-color:before {
+      background-position: 0em -17em;
+      width: 3.4em;
+      height: 3.4em;
+  }
+
+
+
+
+  .icon.close-popup:before {
+      background-position: 0em -20.4em;
+      width: 1.5em;
+      height: 1.5em;
+  }
+
+
+
+
+  .icon.glossary-underline:before {
+      background-position: 0em -21.9em;
+      width: 9.1737em;
+      height: 0.8768em;
+  }
+
+
+
+
+  .icon.info:before {
+      background-position: 0em -22.8em;
+      width: 3.4em;
+      height: 3.4em;
+  }
+
+
+
+
+  .icon.info-close:before {
+      background-position: 0em -26.2em;
+      width: 3.4em;
+      height: 3.4em;
+  }
+
+
+
+
+  .icon.logo:before {
+      background-position: 0em -29.6em;
+      width: 16.8em;
+      height: 6.4em;
+  }
+
+
+
+
+  .icon.next:before {
+      background-position: 0em -36em;
+      width: 4.1em;
+      height: 5.2em;
+  }
+
+
+
+
+  .icon.pdf:before {
+      background-position: 0em -41.2em;
+      width: 2.1em;
+      height: 2.9em;
+  }
+
+
+
+
+  .icon.pin:before {
+      background-position: 0em -44.1em;
+      width: 3.2em;
+      height: 3.2em;
+  }
+
+
+
+
+  .icon.reset:before {
+      background-position: 0em -47.3em;
+      width: 3.4000999999999997em;
+      height: 3.4000999999999997em;
+  }
+
+
+
+
+  .icon.sprite:before {
+      background-position: 0em -50.8em;
+      width: 12.509307520476545em;
+      height: 100em;
+  }
+
+
+
+
+  .icon.student:before {
+      background-position: 0em -150.8em;
+      width: 2.6em;
+      height: 3.3em;
+  }
+
+
+
+
+  .icon.symbol-activity-duration:before {
+      background-position: 0em -154.1em;
+      width: 7em;
+      height: 8.5em;
+  }
+
+
+
+
+  .icon.symbol-age-group:before {
+      background-position: 0em -162.6em;
+      width: 3.5em;
+      height: 7.2em;
+  }
+
+
+
+
+  .icon.symbol-feedback:before {
+      background-position: 0em -169.8em;
+      width: 5.1em;
+      height: 5.3em;
+  }
+
+
+
+
+  .icon.symbol-going-forward:before {
+      background-position: 0em -175.1em;
+      width: 3.2em;
+      height: 8em;
+  }
+
+
+
+
+  .icon.symbol-group-activity:before {
+      background-position: 0em -183.1em;
+      width: 6.2em;
+      height: 7.2em;
+  }
+
+
+
+
+  .icon.symbol-indoor:before {
+      background-position: 0em -190.3em;
+      width: 8.9em;
+      height: 7.6em;
+  }
+
+
+
+
+  .icon.symbol-intro:before {
+      background-position: 0em -197.9em;
+      width: 6.4em;
+      height: 6.6em;
+  }
+
+
+
+
+  .icon.symbol-outdoor:before {
+      background-position: 0em -204.5em;
+      width: 6.8em;
+      height: 7.6em;
+  }
+
+
+
+
+  .icon.symbol-play-learn:before {
+      background-position: 0em -212.1em;
+      width: 6.1em;
+      height: 5.4992em;
+  }
+
+
+
+
+  .icon.symbol-single-activity:before {
+      background-position: 0em -217.6em;
+      width: 2.3em;
+      height: 3.7em;
+  }
+
+
+
+
+  .icon.symbol-study:before {
+      background-position: 0em -221.3em;
+      width: 4.9em;
+      height: 6.1em;
+  }
+
+
+
+
+  .icon.zoom-in:before {
+      background-position: 0em -227.4em;
+      width: 3.4em;
+      height: 3.4000999999999997em;
+  }
+
+
+
+
+  .icon.zoom-out:before {
+      background-position: 0em -230.9em;
+      width: 3.4em;
+      height: 3.4em;
+  }
+
+
+
+
+

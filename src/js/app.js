@@ -1,15 +1,16 @@
-// //service worker registration
-// if ('serviceWorker' in navigator) {
-//   window.addEventListener('load', function() {
-//     navigator.serviceWorker.register('/sw.js').then(function(registration) {
-//       // Registration was successful
-//       console.log('ServiceWorker registration successful with scope: ', registration.scope);
-//     }, function(err) {
-//       // registration failed :(
-//       console.log('ServiceWorker registration failed: ', err);
-//     });
-//   });
-// }
+//service worker registration
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('sw.js').then(function(registration) {
+      // Registration was successful
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }, function(err) {
+      // registration failed :(
+      console.log('ServiceWorker registration failed: ', err);
+    });
+  });
+}
+
 
 var cw = document.documentElement.clientWidth;
 var ch = document.documentElement.clientHeight;
@@ -184,33 +185,33 @@ MapView.prototype._init_map_elements = function() {
 
  // console.log(this, info_content, info_post_id);
 
-  nunjucks.configure('src/js/templates', { 
-    autoescape: false
-   });
+  // nunjucks.configure('src/js/templates', { 
+  //   autoescape: false
+  //  });
 
-  this.info_panel.html(
-      nunjucks.render('info-shell.html',{
-         // check err and handle result
-      })
-  );
+  // this.info_panel.html(
+  //     nunjucks.render('info-shell.html',{
+  //        // check err and handle result
+  //     })
+  // );
 
-  this.info_panel.find('.info-header').html(
-    nunjucks.render('info-header.html', { 
-      // title: this.content,
-      text: info_content
-      // quiz:  post,
-      // open: this.open
-    }) 
-  );
+  // this.info_panel.find('.info-header').html(
+  //   nunjucks.render('info-header.html', { 
+  //     // title: this.content,
+  //     text: info_content
+  //     // quiz:  post,
+  //     // open: this.open
+  //   }) 
+  // );
 
-  this.info_panel.find('.info-content').html(
-    nunjucks.render('info-content.html', { 
-      // title: this.content,
-      text: info_content
-      // quiz:  post,
-      // open: this.open
-    }) 
-  );
+  // this.info_panel.find('.info-content').html(
+  //   nunjucks.render('info-content.html', { 
+  //     // title: this.content,
+  //     text: info_content
+  //     // quiz:  post,
+  //     // open: this.open
+  //   }) 
+  // );
 
 (function() {
 
@@ -261,7 +262,7 @@ MapView.prototype._init_map_elements = function() {
       link.addEventListener('click', function(e) {
         e.preventDefault();
         goToTab(index);
-      });
+      }, {passive: true});
     };
 
     /**
@@ -528,38 +529,38 @@ MapViewItem.prototype.page_open = function () {
   //   }
   // }).responseText);
 
-  nunjucks.configure('src/js/templates', { 
-    autoescape: false
-  });
-  //console.log('this.content',this.content);
-  this.page.modal.find('.page-content').html(
+  // nunjucks.configure('src/js/templates', { 
+  //   autoescape: false
+  // });
+  // //console.log('this.content',this.content);
+  // this.page.modal.find('.page-content').html(
 
-    nunjucks.render('page.html', { 
-      title: this.content,
-      text: this.content,
-      quiz:  parent.posts,
-      open: this.open
-    }) 
-  );
+  //   nunjucks.render('page.html', { 
+  //     title: this.content,
+  //     text: this.content,
+  //     quiz:  parent.posts,
+  //     open: this.open
+  //   }) 
+  // );
 
 
-  this.page.modal.find('.page-header').html(
-    nunjucks.render('page-header.html', { 
-      title: this.content,
-      text: this.content,
-      quiz:  parent.posts,
-      open: this.open
-    }) 
-  );
+  // this.page.modal.find('.page-header').html(
+  //   nunjucks.render('page-header.html', { 
+  //     title: this.content,
+  //     text: this.content,
+  //     quiz:  parent.posts,
+  //     open: this.open
+  //   }) 
+  // );
 
-  this.page.modal.find('.page-footer').html(
-    nunjucks.render('page-footer.html', { 
-      title: this.content,
-      text: this.content,
-      quiz:  parent.posts,
-      open: this.open
-    }) 
-  );
+  // this.page.modal.find('.page-footer').html(
+  //   nunjucks.render('page-footer.html', { 
+  //     title: this.content,
+  //     text: this.content,
+  //     quiz:  parent.posts,
+  //     open: this.open
+  //   }) 
+  // );
 
   //handle card content
   var cards = this.page.modal.find('#cards');
@@ -1111,7 +1112,7 @@ MapViewItem.prototype.glossary = function () {
   // 2. add a click event
   for (var i=0;i<glossary_term.length;i++) {
     create_glossary_popups(glossary_term[i]); /*1*/
-    glossary_term[i].addEventListener('mouseover', open_glossary_popup, true); /*2*/
+    glossary_term[i].addEventListener('mouseover', open_glossary_popup, {passive: true}); /*2*/
   }
 
 }
@@ -1160,23 +1161,23 @@ MapViewItem.prototype.pop_close = function () {
 
 MapViewItem.prototype._init_points = function(points){
  
-var parent = this;
+  var parent = this;
 
-this.point_x = this.rect.left;
-this.point_y = this.rect.top;
-this.point_width = this.rect.width;
-this.point_height = this.rect.height; 
+  this.point_x = this.rect.left;
+  this.point_y = this.rect.top;
+  this.point_width = this.rect.width;
+  this.point_height = this.rect.height; 
 
-// this.pin = $("<div />", {
-//   "class": "pin"
-// }).appendTo($(item.point)); 
+  // this.pin = $("<div />", {
+  //   "class": "pin"
+  // }).appendTo($(item.point)); 
 
-//the item pin will be in the map
+  //the item pin will be in the map
 
-//( (item.point_width * zoom_level) / 2.4 ) + 
+  //( (item.point_width * zoom_level) / 2.4 ) + 
 
-/* Select the svg using d3 */
-var $map    = document.getElementById("map"),
+  /* Select the svg using d3 */
+  var $map    = document.getElementById("map"),
     //get the SVG document inside the Object tag
     svgDoc  = $map.contentDocument,
     //access the svg
@@ -1195,49 +1196,49 @@ var $map    = document.getElementById("map"),
     .attr("height", height - 1)
     .style("pointer-events", "all");
  
- function zoomed() {
-     //close both the tooltip and the popup if open
-    //change cursor according to mouse event
-    if (d3.event.sourceEvent !== null) {
-      if (d3.event.sourceEvent.deltaY < 0) {
-        svg.style("cursor", "zoom-in");
-        //if mobile
-        if (cw < 1024) {
-          var duration = 0;
-        } else {
-          var duration = 0;
+   function zoomed() {
+       //close both the tooltip and the popup if open
+      //change cursor according to mouse event
+      if (d3.event.sourceEvent !== null) {
+        if (d3.event.sourceEvent.deltaY < 0) {
+          svg.style("cursor", "zoom-in");
+          //if mobile
+          if (cw < 1024) {
+            var duration = 0;
+          } else {
+            var duration = 0;
+          }
+        } else if (d3.event.sourceEvent.deltaY > 0){
+          svg.style("cursor", "zoom-out");
+          //if mobile
+          if (cw < 1024) {
+            var duration = 0;
+          } else {
+            var duration = 0;
+          }
         }
-      } else if (d3.event.sourceEvent.deltaY > 0){
-        svg.style("cursor", "zoom-out");
-        //if mobile
-        if (cw < 1024) {
+        if (d3.event.sourceEvent.movementX != 0 ||  d3.event.sourceEvent.movementY != 0) {
+          svg.style("cursor", "move");
           var duration = 0;
-        } else {
-          var duration = 0;
+          $('.popup').removeClass('popup-open');
+          $('.tooltip').removeClass('open');
         }
       }
-      if (d3.event.sourceEvent.movementX != 0 ||  d3.event.sourceEvent.movementY != 0) {
-        svg.style("cursor", "move");
-        var duration = 0;
-        $('.popup').removeClass('popup-open');
-        $('.tooltip').removeClass('open');
-      }
+
+      //handle zoom
+      view.transition()
+          .duration(duration)
+          .attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")" + " scale(" + d3.event.transform.k + ")");
+
     }
 
-    //handle zoom
-    view.transition()
-        .duration(duration)
-        .attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")" + " scale(" + d3.event.transform.k + ")");
-
-  }
-
-  //return cursor to default between zoom events
-  function zoomEnd(){
-    svg.transition().delay(1500).style("cursor", "default");
-  }
- 
-  var svgWidth = d3.select(mapSvg).attr("width");
-  var svgHeight = d3.select(mapSvg).attr("height");
+    //return cursor to default between zoom events
+    function zoomEnd(){
+      svg.transition().delay(1500).style("cursor", "default");
+    }
+   
+    var svgWidth = d3.select(mapSvg).attr("width");
+    var svgHeight = d3.select(mapSvg).attr("height");
   // if (cw < ch) {
   //   if (cw < 480) {
   //     var t = -width/3.5, //top
@@ -1257,92 +1258,90 @@ var $map    = document.getElementById("map"),
         r = height;
   // }
 
-for(var p = 0; p < parent.map_items.length;p++) {
-  var map_item = parent.map_items[p]; 
-  map_item.tip.open = false;
-  $(map_item.tip.modal).removeClass('open');
-  map_item.pop.open = false; 
-  $(map_item.pop.modal).removeClass('popup-open');
-}
-
-
-var zoom = d3.zoom()
-    .scaleExtent([1, 10])
-    .translateExtent([ [t, l], [b, r] ])
-    .on("zoom", zoomed)
-    .on("zoom.end", zoomEnd);
- 
-
-svg.call(zoom); 
-
-$(parent.point).css('cursor', 'pointer');
-
-svg.select('#'+parent.point.id)
-.on('mousewheel.zoom', function(d) {
-  parent.tip.open = false;
-  $(parent.tip.modal).removeClass('open');
-  parent.pop.open = false;
-  $(parent.pop.modal).removeClass('popup-open');
-})
-.on('mouseover', function() {
-  var //zoom_level = MapView.prototype._render_map.call(parent),
-      //tooltip height + pin height + margin between pin and tooltip
-      modalWidth = Math.floor( parent.tip.modal[0].clientWidth),
-      modalHeight = Math.floor( parent.tip.modal[0].clientHeight),
-      modalTitle = parent.tip.modal[0].children[1]; 
-
-  //only show the tooltip if popup not open 
-  if(parent.pop.open === false) {
-    parent.tip.open = true;
-    parent.tip.style({
-      //position the tooltip on top and middle of point
-      "left": ( $(this).offset().left + parent.map_bcr.left ) - (parent.point_width) + "px",
-      "top": ( $(this).offset().top + parent.map_bcr.top ) - (modalHeight) + "px"
-    }); 
-    $(parent.tip.modal).addClass('open');
+  for(var p = 0; p < parent.map_items.length;p++) {
+    var map_item = parent.map_items[p]; 
+    map_item.tip.open = false;
+    $(map_item.tip.modal).removeClass('open');
+    map_item.pop.open = false; 
+    $(map_item.pop.modal).removeClass('popup-open');
   }
-})
-.on('mouseout', function(d) {
-  //close the tooltip if open
-  parent.tip.open = false;
-  $(parent.tip.modal).removeClass('open');
-});
 
-svg.select('#'+parent.point.id).on('mousedown', function(d) {
 
-  var zoomLevel = svg.call(zoom)._groups[0][0].__zoom.k; 
+  var zoom = d3.zoom()
+      .scaleExtent([1, 10])
+      .translateExtent([ [t, l], [b, r] ])
+      .on("zoom", zoomed)
+      .on("zoom.end", zoomEnd);
+   
 
-  if (zoomLevel < 10 ) {
-  d3.event.stopPropagation(); 
-  //center and zoom point
-  var t = d3.zoomIdentity.translate(width / 3, height / 3).scale(10).translate(-parent.point_x, -parent.point_y);
-  
-  svg.transition().duration(150).call(zoom.transform, t);
-  } else if (zoomLevel === 10 ) {
-    //if panning
-     // if (d3.event.sourceEvent.movementX != 0 ||  d3.event.sourceEvent.movementY != 0) {
-     //  console.log('panning');
-     // }
+  svg.call(zoom); 
+
+  $(parent.point).css('cursor', 'pointer');
+
+  svg.select('#'+parent.point.id)
+  .on('mousewheel.zoom', function(d) {
+    parent.tip.open = false;
+    $(parent.tip.modal).removeClass('open');
+    parent.pop.open = false;
+    $(parent.pop.modal).removeClass('popup-open');
+  })
+  .on('mouseover', function() {
+    var //zoom_level = MapView.prototype._render_map.call(parent),
+        //tooltip height + pin height + margin between pin and tooltip
+        modalWidth = Math.floor( parent.tip.modal[0].clientWidth),
+        modalHeight = Math.floor( parent.tip.modal[0].clientHeight),
+        modalTitle = parent.tip.modal[0].children[1]; 
+
+    //only show the tooltip if popup not open 
+    if(parent.pop.open === false) {
+      parent.tip.open = true;
+      parent.tip.style({
+        //position the tooltip on top and middle of point
+        "left": ( $(this).offset().left + parent.map_bcr.left ) - (parent.point_width) + "px",
+        "top": ( $(this).offset().top + parent.map_bcr.top ) - (modalHeight) + "px"
+      }); 
+      $(parent.tip.modal).addClass('open');
+    }
+  })
+  .on('mouseout', function(d) {
+    //close the tooltip if open
+    parent.tip.open = false;
+    $(parent.tip.modal).removeClass('open');
+  });
+
+  svg.select('#'+parent.point.id).on('mousedown', function(d) {
+
+    var zoomLevel = svg.call(zoom)._groups[0][0].__zoom.k; 
+
+    if (zoomLevel < 10 ) {
+    d3.event.stopPropagation(); 
+    //center and zoom point
+    var t = d3.zoomIdentity.translate(width / 3, height / 3).scale(10).translate(-parent.point_x, -parent.point_y);
+    
+    svg.transition().duration(150).call(zoom.transform, t);
+    } else if (zoomLevel === 10 ) {
+      //if panning
+       // if (d3.event.sourceEvent.movementX != 0 ||  d3.event.sourceEvent.movementY != 0) {
+       //  console.log('panning');
+       // }
+      //show the popup
+      parent.pop.open = true;
+      $(parent.pop.modal).addClass('popup-open');
+    }
+    //close the tooltip if it's open
+    parent.tip.open = false;
+    $(parent.tip.modal).removeClass('open');
     //show the popup
     parent.pop.open = true;
     $(parent.pop.modal).addClass('popup-open');
-  }
-  //close the tooltip if it's open
-  parent.tip.open = false;
-  $(parent.tip.modal).removeClass('open');
-  //show the popup
-  parent.pop.open = true;
-  $(parent.pop.modal).addClass('popup-open');
- 
-}, {passive: true});
+   
+  }, {passive: true});
 
-svg.select('#'+parent.point.id).on('dblclick', $.proxy(this.page_open, parent));
+  svg.select('#'+parent.point.id).on('dblclick', $.proxy(this.page_open, parent));
 
-$('#'+parent.point.id +'-popup'+' .open_page').on('mousedown', $.proxy(this.page_open, parent));
+  $('#'+parent.point.id +'-popup'+' .open_page').on('mousedown', $.proxy(this.page_open, parent));
 
 }
-
-
 
 /* ========================================================================
 ======= EVENT LISTENERS ===================================================
@@ -1369,16 +1368,14 @@ MapViewItem.prototype._addListeners = function(){
 MapViewItem.prototype._render = function(){
     var _this = this;   
     //load static parts of the page, tools, next
-    nunjucks.configure('src/js/templates', { 
-      autoescape: false
-    });
+    // nunjucks.configure('src/js/templates', { 
+    //   autoescape: false
+    // });
     
-    _this.page.modal.html(
-      nunjucks.render('page-container.html', { 
-      }) 
-    );
-
-   // console.log(_this.page.modal);
+    // _this.page.modal.html(
+    //   nunjucks.render('page-container.html', { 
+    //   }) 
+    // );
 
 }
 
@@ -1393,35 +1390,50 @@ var Modal = function(type, point, title, summary){
   this.title = title;
   this.summary = summary;
   this.init();
-  this.render_modal();
+  // this.render_modal();
 }
 
 Modal.prototype.init = function(){
-  nunjucks.configure('src/js/templates', { 
-    autoescape: true, 
-    web: {
-      async: true 
-    }
-});
+
+  var parent = this;
+
+  console.log(this);
 
   if(this.type == "popup") {
-    this.modal = $("<div />", {
-      "class": "map-popover popup right",
-      "id": this.point + "-popup" 
-    }).appendTo('body');
+    this.modal = $('.map-popover.popup#' + this.point + '-popup');
   } else if(this.type == "tooltip"){
     this.open = true;
-    this.modal = $("<div />", {
-      "class": "map-popover tooltip top",
-      "id": this.point + "-tooltip"
-    }).appendTo('body');
+    this.modal = $('.map-popover.tooltip#' + this.point + '-tooltip');
   } else if(this.type == "page") {
     this.open = false;
-    this.modal = $("<div />", {
-      "class": "overlay",
-      "id": this.point + "-page"
-    }).appendTo('body');
+    this.modal = $('.overlay#' + this.point + '-page');
   }
+
+  //   this.page.modal.find('.page-content').html(
+
+  //   nunjucks.render('page.html', { 
+  //     content: this.content
+  //   }) 
+  // );
+
+  // if(this.type == "popup") {
+  //   this.modal = $("<div />", {
+  //     "class": "map-popover popup right",
+  //     "id": this.point + "-popup" 
+  //   }).appendTo('body');
+  // } else if(this.type == "tooltip"){
+  //   this.open = true;
+  //   this.modal = $("<div />", {
+  //     "class": "map-popover tooltip top",
+  //     "id": this.point + "-tooltip"
+  //   }).appendTo('body');
+  // } else if(this.type == "page") {
+  //   this.open = false;
+  //   this.modal = $("<div />", {
+  //     "class": "overlay",
+  //     "id": this.point + "-page"
+  //   }).appendTo('body');
+  // }
 }
 
 Modal.prototype.style = function(styles){
@@ -1439,42 +1451,51 @@ Modal.prototype.style = function(styles){
   }
 } 
 
-Modal.prototype.render_modal = function(){
-  nunjucks.configure('src/js/templates', { 
-    autoescape: true, 
-    web: {
-      async: true 
-    }
-  });
+// Modal.prototype.render_modal = function(){
+//   nunjucks.configure('src/js/templates', { 
+//     autoescape: true
+//   });
  
-  if(this.type == "tooltip") {
-    this.modal.html("<h3 class='map-popover-title'>"+this.title+"</h3>");
-  } else if(this.type == "popup"){
-    this.modal.html("<div class='arrow'></div>  <button class='close'></button><h3 class='map-popover-title'>"+this.title+"</h3><p class='map-popover-content'>" + nunjucks.renderString('{{ username }}', { username: this.summary }) + "<button class='open_page'>Συνέχισε!</button></p>");
-  } 
+//   if(this.type == "tooltip") {
+//     this.modal.html("<h3 class='map-popover-title'>"+this.title+"</h3>");
+//   } else if(this.type == "popup"){
+//     this.modal.html("<div class='arrow'></div>  <button class='close'></button><h3 class='map-popover-title'>"+this.title+"</h3><p class='map-popover-content'>" + nunjucks.renderString('{{ username }}', { username: this.summary }) + "<button class='open_page'>Συνέχισε!</button></p>");
+//   } 
 
-}
+// }
 
 
 //-------------------------PROMISES-----------------------------//
 
-  var url = 'dist/proxy/data.json';
 
-  fetch(url) // Call the fetch function passing the url of the API as a parameter
-  .then(function(response){
-    return response.json();
-  })
-  .then(function(data) {
-      // code for handling the data from the API
-      window.onload = function() {
+window.onload = function() {
+
+    var url = 'dist/proxy/data.json';
+
+    if (!('fetch' in window)) {
+      console.log('Fetch API not found, try including the polyfill');
+      return;
+    }
+
+    fetch(url) // Call the fetch function passing the url of the API as a parameter
+    .then(function(response){
+      if (!response.ok) {
+        throw Error(response.statusText); //if the objects ok property is false it triggers the catch block
+      } 
+      console.log('Got a response');
+      return response.json();
+    })
+    .then(function(data) {
+        console.log('Getting ready');
+        // code for handling the data from the API
         var mapView = new MapView(data);
         console.log(mapView);
-      }
-  })
-  .catch(function(error) {
-      // run code if the server returns any errors
-      console.log(error);
-  });
+    })
+    .catch(function(error) {
+        // run code if the server returns any errors
+        console.log('Looks like there was a problem: \n', error);
+    });
+} //end window on load
 
   //nunjucks templates configuration
   // var env = new nunjucks.Environment(new nunjucks.FileSystemLoader('templates'));
@@ -1489,7 +1510,9 @@ Modal.prototype.render_modal = function(){
     
 //-------------------------PROMISES-----------------------------//
 
-
+$(function(){ 
+  var map = new MapObject();
+});
 
 
 
