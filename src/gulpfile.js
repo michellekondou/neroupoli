@@ -202,14 +202,14 @@ gulp.task('minify', function() {
 
 gulp.task('build', function(callback) {
   runSequence(
-    'sass',
-    'scripts',
-     'revreplace',
-    'json:minify',
-    'revreplace-dev',
-    'nunjucks',
-    'sprites',
-    'minify',
+    // 'sass',
+    // 'scripts',
+    //  'revreplace',
+    // 'json:minify',
+    // 'revreplace-dev',
+    // 'nunjucks',
+    // 'sprites',
+     'minify',
     //'critical',
 
     callback
