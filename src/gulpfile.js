@@ -21,6 +21,7 @@ var svgSprite = require("gulp-svg-sprites"); //generate sprites for svg
 var gutil = require('gulp-util'); //needed for critical
 var critical = require('critical').stream; //inline critical css
 var gzip = require('gulp-gzip');//gzip assets
+var htmlmin = require('gulp-htmlmin'); //minify html
 
 
 //script paths
@@ -182,27 +183,34 @@ gulp.task('renew', function(callback) {
 // Generate & Inline Critical-path CSS
 gulp.task('critical', function () {
   return gulp.src('../index.html')
-      .pipe(critical({base: './', inline: true, minify: true, css: ['../dist/assets/app-9863269920.css']}))
-      .on('error', function(err) { gutil.log(gutil.colors.red(err.message)); })
-      .pipe(gulp.dest('../'));
-});
+    .pipe(critical({base: './', inline: true, minify: true, css: ['../dist/assets/app-9863269920.css']}))
+    .on('error', function(err) { gutil.log(gutil.colors.red(err.message)); })
+    .pipe(gulp.dest('../'));
+})
 
 gulp.task('compress', function() {
     gulp.src('../dist/assets/*.css')
   .pipe(gzip(config))
   .pipe(gulp.dest('../dist/assets/'));
+})
+
+gulp.task('minify', function() {
+  return gulp.src('../index.html')
+    .pipe(htmlmin({collapseWhitespace: true}))
+    .pipe(gulp.dest('../'));
 });
 
 gulp.task('build', function(callback) {
   runSequence(
-    // 'sass',
-    //'scripts',
-     //'revreplace',
-    //'json:minify',
-    //'revreplace-dev',
-    //'nunjucks',
-    //'sprites',
-    'critical',
+    'sass',
+    'scripts',
+     'revreplace',
+    'json:minify',
+    'revreplace-dev',
+    'nunjucks',
+    'sprites',
+    'minify',
+    //'critical',
 
     callback
   )
