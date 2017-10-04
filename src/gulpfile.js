@@ -197,12 +197,12 @@ gulp.task('build', function(callback) {
   runSequence(
     // 'sass',
     //'scripts',
-     'revreplace',
+     //'revreplace',
     //'json:minify',
     //'revreplace-dev',
     //'nunjucks',
     //'sprites',
-    //'critical',
+    'critical',
 
     callback
   )
