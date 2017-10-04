@@ -193,14 +193,14 @@ gulp.task('compress', function() {
 
 gulp.task('build', function(callback) {
   runSequence(
-    'sass',
-    'scripts',
-    'revreplace',
-    'json:minify',
-    'revreplace-dev',
+    // 'sass',
+    // 'scripts',
+    // 'revreplace',
+    //'json:minify',
+    //'revreplace-dev',
     'nunjucks',
-    'sprites',
-    'critical',
+    //'sprites',
+    //'critical',
 
     callback
   )

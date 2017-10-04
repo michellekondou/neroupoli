@@ -46,7 +46,7 @@ self.addEventListener('fetch', function(event) {
             // as well as the cache consuming the response, we need
             // to clone it so we have two streams.
             var responseToCache = response.clone();
-
+            var CACHE_NAME = 'waterpolis-cache-v1';
             caches.open(CACHE_NAME)
               .then(function(cache) {
                 cache.put(event.request, responseToCache);

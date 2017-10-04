@@ -1114,7 +1114,6 @@ MapViewItem.prototype.glossary = function () {
     create_glossary_popups(glossary_term[i]); /*1*/
     glossary_term[i].addEventListener('mouseover', open_glossary_popup, {passive: true}); /*2*/
   }
-
 }
 
 
