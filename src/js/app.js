@@ -1068,8 +1068,8 @@ MapViewItem.prototype.glossary = function () {
       'class': 'glossary-popup',
       'html': this.popup_text
     }).insertAfter(element);
-    this.popup_close = $('<span />', {
-      'class': 'close glossary-close'
+    this.popup_close = $('<i />', {
+      'class': 'icon close-popup glossary-close'
     }).appendTo(popup);
 
     $('.glossary-close').on('click', function(e){

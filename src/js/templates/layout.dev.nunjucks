@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="preload" as="font" type="font/woff2" href="dist/fonts/cfastystd-book-webfont.woff2">
-    <link rel="stylesheet" type="text/css" href="dist/graphics/dist/css/sprite.css">
     <link rel="stylesheet" type="text/css" href="src/compiled/css/app.css">
     <link rel="manifest" href="/manifest.json"> 
     <meta name="theme-color" content="#00b9f2"/>
+    <title>To νερό στην πόλη</title>
 </head>
 <body>
   {% block content %} 

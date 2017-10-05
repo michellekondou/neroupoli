@@ -135,7 +135,7 @@ gulp.task("html", function(){
 })
 
 gulp.task('json:minify', function() {
-  return gulp.src(['compiled/proxy/*.json'])
+  return gulp.src(['../dist/proxy/data.json'])
     .pipe(jsonmin())
     .pipe(gulp.dest('../dist/proxy/'));
     //.on('error', util.log);
@@ -184,7 +184,7 @@ gulp.task('renew', function(callback) {
 // Generate & Inline Critical-path CSS
 gulp.task('critical', function () {
   return gulp.src('../index.html')
-    .pipe(critical({base: './', inline: true, minify: true, css: ['../dist/assets/app-9863269920.css']}))
+    .pipe(critical({base: './', inline: true, minify: true, css: ['../dist/assets/app-324995aaa4.css']}))
     .on('error', function(err) { gutil.log(gutil.colors.red(err.message)); })
     .pipe(gulp.dest('../'));
 })
@@ -203,14 +203,14 @@ gulp.task('minify', function() {
 
 gulp.task('build', function(callback) {
   runSequence(
-    // 'sass',
-    // 'scripts',
-    // 'revreplace',
-    // 'json:minify',
-    // 'revreplace-dev',
-    // 'nunjucks',
-    // 'sprites',
-    //'critical',
+    'sass',
+    'scripts',
+    'revreplace',
+    'json:minify',
+    //'revreplace-dev',
+    'nunjucks',
+    'sprites',
+    'critical',
     'minify',
     callback
   )
