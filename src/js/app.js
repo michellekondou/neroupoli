@@ -12,6 +12,8 @@ if ('serviceWorker' in navigator) {
 }
 
 
+
+
 var cw = document.documentElement.clientWidth;
 var ch = document.documentElement.clientHeight;
 
@@ -51,9 +53,10 @@ MapObject.prototype._init_map_object = function() {
   }).appendTo('#container');
 }
 
-var MapView = function(posts) {
+var MapView = function(posts, info) {
   this.map = map;
   this.posts = posts;
+  this.info = info;
   this.map_items = [];
   this._init_map_elements();
 }
@@ -79,6 +82,8 @@ MapView.prototype._init_map_elements = function() {
     post_data.push(post); 
   }
 
+  console.log(parent.posts);
+
   //create the map points
   for(var i = 0;i<points.length;i++) {
     var point = points[i];
@@ -97,7 +102,7 @@ MapView.prototype._init_map_elements = function() {
     this.map_items.push(point_item); 
   }
   //setup all map events, zoom, pan etc  
-
+console.log(this.map_items);
   this._render_map();
 
   /**
@@ -331,8 +336,14 @@ MapView.prototype._render_map = function() {
     .attr("width", width - 1)
     .attr("height", height - 1)
     .style("pointer-events", "all");
- 
+
+
+
  function zoomed() {
+      if(d3.event.sourceEvent.ctrlKey) {9*
+        console.log('Pressed CTRL', d3.event.sourceEvent);
+        return;
+      }
      //close both the tooltip and the popup if open
     for(var p = 0; p < _this.map_items.length;p++) {
       var map_item = _this.map_items[p]; 
@@ -344,6 +355,9 @@ MapView.prototype._render_map = function() {
 
     //change cursor according to mouse event
     if (d3.event.sourceEvent !== null) {
+      if(d3.event.sourceEvent.ctrlKey) {
+        return;
+      }
       //detects zoom-in
       if (d3.event.sourceEvent.deltaY < 0) {
         svg.style("cursor", "zoom-in");
@@ -369,18 +383,22 @@ MapView.prototype._render_map = function() {
         var duration = 0;
         $('.popup').removeClass('popup-open');
         $('.tooltip').removeClass('open');
-      }
+        console.log('MOOOOOVE', d3.event.sourceEvent);
+      } 
     }
 
     //handle zoom
     view.transition()
         .duration(duration)
         .attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")" + " scale(" + d3.event.transform.k + ")");
+
   }
 
 
+
   svg.select('#view')
-  .on('mousewheel.zoom', function(d) {
+  .on('mousewheel.zoom', function(event) {
+
     for(var p = 0; p < _this.map_items.length;p++) {
       var map_item = _this.map_items[p]; 
       map_item.tip.open = false;
@@ -388,6 +406,7 @@ MapView.prototype._render_map = function() {
       map_item.pop.open = false; 
       $(map_item.pop.modal).removeClass('popup-open');
     }
+
   });
 
   //return cursor to default between zoom events
@@ -419,12 +438,11 @@ MapView.prototype._render_map = function() {
   // }
 
   var zoom = d3.zoom()
-      .scaleExtent([1, 10])
-      .translateExtent([ [t, l], [b, r] ])
-      .on("zoom", zoomed)
-      .on("zoom.end", zoomEnd);
- 
-
+  .scaleExtent([1, 15])
+  .translateExtent([ [t, l], [b, r] ])
+  .on("zoom", zoomed)
+  .on("zoom.end", zoomEnd);
+  
   svg.call(zoom); 
 
   //controls
@@ -953,7 +971,6 @@ var draggable_list_item = $('.quiz-hotspot li .text');
 for (var i = 0;i<draggable_list_item.length;i++) {
   var item = draggable_list_item[i];
   $(item).width();
-  console.log($(item), $(item).width());
 }
 
 $(this.page.modal).find('.quiz-hotspot').addClass(this.page.point+'-quiz-hotspot');
@@ -1265,6 +1282,9 @@ MapViewItem.prototype._init_points = function(points){
     $(map_item.pop.modal).removeClass('popup-open');
   }
 
+  // Check if ctrl is pressed : the target here is to disable 
+  // ctrl + / ctrl - because it breaks the zooming interface
+  // I know I shouldn't but this app is a special case
 
   var zoom = d3.zoom()
       .scaleExtent([1, 10])
@@ -1277,6 +1297,8 @@ MapViewItem.prototype._init_points = function(points){
 
   $(parent.point).css('cursor', 'pointer');
 
+  console.log(parent.tip, parent);
+
   svg.select('#'+parent.point.id)
   .on('mousewheel.zoom', function(d) {
     parent.tip.open = false;
@@ -1285,6 +1307,7 @@ MapViewItem.prototype._init_points = function(points){
     $(parent.pop.modal).removeClass('popup-open');
   })
   .on('mouseover', function() {
+    console.log(this, parent.tip.modal[0]);
     var //zoom_level = MapView.prototype._render_map.call(parent),
         //tooltip height + pin height + margin between pin and tooltip
         modalWidth = Math.floor( parent.tip.modal[0].clientWidth),
@@ -1396,8 +1419,6 @@ Modal.prototype.init = function(){
 
   var parent = this;
 
-  console.log(this);
-
   if(this.type == "popup") {
     this.modal = $('.map-popover.popup#' + this.point + '-popup');
   } else if(this.type == "tooltip"){
@@ -1464,9 +1485,7 @@ Modal.prototype.style = function(styles){
 // }
 
 
-//-------------------------PROMISES-----------------------------//
-
-
+//-------------------------PROMISE-----------------------------//
 window.onload = function() {
 
     var url = 'dist/proxy/data.json';
@@ -1485,9 +1504,23 @@ window.onload = function() {
       return response.json();
     })
     .then(function(data) {
-        console.log('Getting ready');
-        // code for handling the data from the API
-        var mapView = new MapView(data);
+        //get all the posts excluding the intro post
+        var posts = [];
+        for(var i = 0;i<data.length;i++) {
+          var post = data[i];
+          if(post.id !==321) {
+             posts.push(post);
+          }
+        }  
+        var info = [];
+        for(var i = 0;i<data.length;i++) {
+          var post = data[i];
+          if(post.id ===321) {
+             info.push(post);
+          }
+        }
+
+        var mapView = new MapView(posts, info);
         console.log(mapView);
     })
     .catch(function(error) {
@@ -1495,23 +1528,36 @@ window.onload = function() {
         console.log('Looks like there was a problem: \n', error);
     });
 } //end window on load
-
-  //nunjucks templates configuration
-  // var env = new nunjucks.Environment(new nunjucks.FileSystemLoader('templates'));
-
-  // // async filters must be known at compile-time
-  // env.addFilter('asyncFilter', function(templates, opts) {
-  //   // do something
-  //     nunjucks.precompile('/templates', { env: env });
-  // }, true);
-
-
-    
-//-------------------------PROMISES-----------------------------//
-
+  
+//-------------------------END PROMISES-----------------------------//
+//create the map
 $(function(){ 
-  var map = new MapObject();
+  var map = new MapObject(); 
 });
+
+// I am disabling user controlled zoom-in and zoom-out
+// because mousewheel zoom is a central feature of this app
+$(window).bind('keydown', function(event) {
+  console.log("keydown", event);
+  if (event.ctrlKey == true) {
+    console.log("pressed");
+    $('.ctrlZoom').addClass('overlay-open');
+  }
+});
+
+$(window).bind('keyup', function(event) {
+    console.log("NOT pressed");
+    $('.ctrlZoom').removeClass('overlay-open');
+});
+
+$(window).bind('mousewheel', function(event) {
+  if (event.ctrlKey == true) {
+    event.preventDefault();
+  }
+});
+
+
+
 
 
 

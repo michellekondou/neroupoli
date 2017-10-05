@@ -6,13 +6,13 @@
     content:' ';
     vertical-align:middle;
     display: inline-block;
-    background-image: url("../graphics/sprite.svg");
+    background-image: url("../svg/sprite.svg");
     background-repeat: no-repeat;
-    background-size: 16.8em 134.3em;
+    background-size: 16.8em 247.5em;
 }
 
 .no-svg .icon:before {
-    background-image: url("../graphics/sprite.png");
+    background-image: url("../svg/sprite.png");
 }
 
 
@@ -89,8 +89,26 @@
 
 
 
-  .icon.glossary-underline:before {
+  .icon.download-pdf:before {
       background-position: 0em -21.9em;
+      width: 5.1em;
+      height: 6.8em;
+  }
+
+
+
+
+  .icon.download-pdf-pressed:before {
+      background-position: 0em -28.7em;
+      width: 4.7em;
+      height: 6.4em;
+  }
+
+
+
+
+  .icon.glossary-underline:before {
+      background-position: 0em -35.1em;
       width: 9.1737em;
       height: 0.8768em;
   }
@@ -99,7 +117,7 @@
 
 
   .icon.info:before {
-      background-position: 0em -22.8em;
+      background-position: 0em -36em;
       width: 3.4em;
       height: 3.4em;
   }
@@ -108,7 +126,7 @@
 
 
   .icon.info-close:before {
-      background-position: 0em -26.2em;
+      background-position: 0em -39.4em;
       width: 3.4em;
       height: 3.4em;
   }
@@ -117,7 +135,7 @@
 
 
   .icon.logo:before {
-      background-position: 0em -29.6em;
+      background-position: 0em -42.8em;
       width: 16.8em;
       height: 6.4em;
   }
@@ -126,7 +144,7 @@
 
 
   .icon.next:before {
-      background-position: 0em -36em;
+      background-position: 0em -49.2em;
       width: 4.1em;
       height: 5.2em;
   }
@@ -135,7 +153,7 @@
 
 
   .icon.pdf:before {
-      background-position: 0em -41.2em;
+      background-position: 0em -54.4em;
       width: 2.1em;
       height: 2.9em;
   }
@@ -144,7 +162,7 @@
 
 
   .icon.pin:before {
-      background-position: 0em -44.1em;
+      background-position: 0em -57.3em;
       width: 3.2em;
       height: 3.2em;
   }
@@ -153,7 +171,7 @@
 
 
   .icon.reset:before {
-      background-position: 0em -47.3em;
+      background-position: 0em -60.5em;
       width: 3.4000999999999997em;
       height: 3.4000999999999997em;
   }
@@ -161,8 +179,17 @@
 
 
 
+  .icon.sprite:before {
+      background-position: 0em -64em;
+      width: 12.509307520476545em;
+      height: 100em;
+  }
+
+
+
+
   .icon.student:before {
-      background-position: 0em -50.8em;
+      background-position: 0em -164em;
       width: 2.6em;
       height: 3.3em;
   }
@@ -171,7 +198,7 @@
 
 
   .icon.symbol-activity-duration:before {
-      background-position: 0em -54.1em;
+      background-position: 0em -167.3em;
       width: 7em;
       height: 8.5em;
   }
@@ -180,7 +207,7 @@
 
 
   .icon.symbol-age-group:before {
-      background-position: 0em -62.6em;
+      background-position: 0em -175.8em;
       width: 3.5em;
       height: 7.2em;
   }
@@ -189,7 +216,7 @@
 
 
   .icon.symbol-feedback:before {
-      background-position: 0em -69.8em;
+      background-position: 0em -183em;
       width: 5.1em;
       height: 5.3em;
   }
@@ -198,7 +225,7 @@
 
 
   .icon.symbol-going-forward:before {
-      background-position: 0em -75.1em;
+      background-position: 0em -188.3em;
       width: 3.2em;
       height: 8em;
   }
@@ -207,7 +234,7 @@
 
 
   .icon.symbol-group-activity:before {
-      background-position: 0em -83.1em;
+      background-position: 0em -196.3em;
       width: 6.2em;
       height: 7.2em;
   }
@@ -216,7 +243,7 @@
 
 
   .icon.symbol-indoor:before {
-      background-position: 0em -90.3em;
+      background-position: 0em -203.5em;
       width: 8.9em;
       height: 7.6em;
   }
@@ -225,7 +252,7 @@
 
 
   .icon.symbol-intro:before {
-      background-position: 0em -97.9em;
+      background-position: 0em -211.1em;
       width: 6.4em;
       height: 6.6em;
   }
@@ -234,7 +261,7 @@
 
 
   .icon.symbol-outdoor:before {
-      background-position: 0em -104.5em;
+      background-position: 0em -217.7em;
       width: 6.8em;
       height: 7.6em;
   }
@@ -243,7 +270,7 @@
 
 
   .icon.symbol-play-learn:before {
-      background-position: 0em -112.1em;
+      background-position: 0em -225.3em;
       width: 6.1em;
       height: 5.4992em;
   }
@@ -252,7 +279,7 @@
 
 
   .icon.symbol-single-activity:before {
-      background-position: 0em -117.6em;
+      background-position: 0em -230.8em;
       width: 2.3em;
       height: 3.7em;
   }
@@ -261,7 +288,7 @@
 
 
   .icon.symbol-study:before {
-      background-position: 0em -121.3em;
+      background-position: 0em -234.5em;
       width: 4.9em;
       height: 6.1em;
   }
@@ -270,7 +297,7 @@
 
 
   .icon.zoom-in:before {
-      background-position: 0em -127.4em;
+      background-position: 0em -240.6em;
       width: 3.4em;
       height: 3.4000999999999997em;
   }
@@ -279,7 +306,7 @@
 
 
   .icon.zoom-out:before {
-      background-position: 0em -130.9em;
+      background-position: 0em -244.1em;
       width: 3.4em;
       height: 3.4em;
   }

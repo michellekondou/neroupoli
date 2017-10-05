@@ -111,12 +111,10 @@ return gulp.src("../dist/dev.html")
       var parent = this;
       for(var i=0;i<imgEl.length;i++){
         var item = imgEl[i];
-        console.log(item);
         item.classList.add("js-lazy-image");
       }
     return this;
   }))
-  .pipe(replace('src="http:', 'data-src="https:'))
   .pipe(gulp.dest("../"));
 })
 
@@ -127,7 +125,6 @@ gulp.task("html", function(){
       var parent = this;
       for(var i=0;i<imgEl.length;i++){
         var item = imgEl[i];
-        console.log(item);
         item.classList.add("js-lazy-image");
       }
       return this;
@@ -141,11 +138,6 @@ gulp.task('json:minify', function() {
     .pipe(gulp.dest('../dist/proxy/'));
     //.on('error', util.log);
 });
-
-gulp.task('watch', ['sass', 'scripts', 'nunjucks'], function(){
-  gulp.watch('scss/**/*.scss', ['sass']);
-  //gulp.watch('js/**/*.js', ['scripts']);   
-})
 
 gulp.task('nunjucks', function() {
 
@@ -167,25 +159,31 @@ gulp.task('nunjucks', function() {
   .pipe(gulp.dest('../dist/'))
 });
 
+//Manage svg files:
+// 1. Gathers the files in the src/svg directory and creates
+// a sprite.svg and a _sprite.scss
 gulp.task('sprites', function () {
-  return gulp.src('../dist/graphics/*.svg')
-    .pipe(svgSprite())
-    .pipe(gulp.dest("../dist/graphics/dist"));
-});
+  return gulp.src('../src/svg/*.svg')
+    .pipe(svgSprite({
+      cssFile: "_sprite.scss"
+    }))
+    .pipe(gulp.dest("../src/scss/common/"));
+})
 
-gulp.task('renew', function(callback) {
-  runSequence(
-    'revreplace',
-    'revreplace-dev',
-    'nunjucks',
-    callback
-  )
+// 2. The sprite.svg gets copied first in the compiled (for development) and then in the dist/svg folder (for production) (the scss get compiled into app.css)
+gulp.task('copy-svg', ['sprites'], function() {
+  return gulp.src(['scss/common/svg/*.svg'])
+    .pipe(revReplace())
+    .pipe(gulp.dest('compiled/svg'))
+    .pipe(revReplace())
+    .pipe(gulp.dest('../dist/svg'))
+    ;
 })
 
 // Generate & Inline Critical-path CSS
-gulp.task('critical', function () {
+gulp.task('critical-css', function () {
   return gulp.src('../index.html')
-    .pipe(critical({base: './', inline: true, minify: true, css: ['../dist/assets/app-324995aaa4.css']}))
+    .pipe(critical({base: './', inline: true, minify: true, css: ['../dist/assets/app-5d190f0605.css']}))
     .on('error', function(err) { gutil.log(gutil.colors.red(err.message)); })
     .pipe(gulp.dest('../'));
 })
@@ -202,6 +200,15 @@ gulp.task('minify', function() {
     .pipe(gulp.dest('../'));
 });
 
+
+gulp.task('watch', ['sass', 'scripts', 'nunjucks', 'revreplace-dev', 'sprites'], function(){
+  gulp.watch('scss/**/*.scss', ['sass']);
+  //gulp.watch('js/**/*.js', ['scripts']); 
+  gulp.watch('js/**/*.+(html|nunjucks)', ['nunjucks']); 
+  gulp.watch('../dist/dev.html', ['revreplace-dev']);
+  gulp.watch('../src/svg/*.svg', ['sprites', 'copy-svg']);
+})
+
 gulp.task('build', function(callback) {
   runSequence(
     'sass',
@@ -210,9 +217,10 @@ gulp.task('build', function(callback) {
     'json:minify',
     'nunjucks',
     'sprites',
-    'critical',
+    'copy-svg',
+    'critical-css',
     'minify',
-    // //'revreplace-dev',
+    //'revreplace-dev',
     callback
   )
 })

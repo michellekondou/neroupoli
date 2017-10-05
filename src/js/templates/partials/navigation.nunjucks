@@ -27,4 +27,5 @@
     <!-- panzoom -->
     <div id="container">
     </div>
+    <div class="overlay ctrlZoom"></div>
   </div>
