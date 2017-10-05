@@ -97,6 +97,7 @@ return gulp.src("../dist/index.html")
     return this;
   }))
   .pipe(replace('src="http:', 'data-src="https:'))
+  .pipe(replace('src="https:', 'data-src="https:'))
   .pipe(replace('target="_blank"', 'target="_blank" rel="noopener"'))
   //target="_blank"
   .pipe(gulp.dest("../"));
@@ -207,11 +208,11 @@ gulp.task('build', function(callback) {
     'scripts',
     'revreplace',
     'json:minify',
-    //'revreplace-dev',
     'nunjucks',
     'sprites',
     'critical',
     'minify',
+    // //'revreplace-dev',
     callback
   )
 })
