@@ -11,9 +11,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-
-
-
 var cw = document.documentElement.clientWidth;
 var ch = document.documentElement.clientHeight;
 
