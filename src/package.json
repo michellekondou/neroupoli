@@ -18,6 +18,7 @@
     "critical": "^0.9.1",
     "d3-tip": "^0.7.1",
     "gulp-gzip": "^1.4.0",
+    "gulp-htmlmin": "^3.0.0",
     "gulp-json-minify": "^1.2.0",
     "gulp-rev-del-redundant": "^1.1.5",
     "gulp-save": "^1.2.1",

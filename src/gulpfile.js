@@ -51,6 +51,7 @@ var jsFiles = [
       'node_modules/gsap/src/minified/utils/Draggable.min.js',
       'js/lib/ThrowPropsPlugin.js',
       'js/lib/DirectionalRotationPlugin.min.js',
+      'js/lib/lazy-load.js',
       'node_modules/gsap/src/minified/plugins/CSSPlugin.min.js',
       'node_modules/gsap/src/minified/TimelineLite.min.js',
       'node_modules/gsap/src/minified/TimelineMax.min.js',
@@ -204,14 +205,13 @@ gulp.task('build', function(callback) {
   runSequence(
     // 'sass',
     // 'scripts',
-    //  'revreplace',
+    // 'revreplace',
     // 'json:minify',
     // 'revreplace-dev',
     // 'nunjucks',
     // 'sprites',
-     'minify',
     //'critical',
-
+    'minify',
     callback
   )
 })
