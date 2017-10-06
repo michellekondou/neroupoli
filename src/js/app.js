@@ -152,13 +152,13 @@ MapView.prototype._init_map_elements = function() {
   });
  
   //info nav
-  this.info_panel =  $("<div />", {
-    "class": "info-panel" 
-  }).appendTo('body');
+  // this.info_panel =  $("<div />", {
+  //   "class": "info-panel" 
+  // }).appendTo('body');
 
-  this.info_content =  $("<div />", {
-    "class": "info-content" 
-  }).prependTo(this.info_panel);
+  // this.info_content =  $("<div />", {
+  //   "class": "info-content" 
+  // }).prependTo(this.info_panel);
 
   $("#info-icon").on('mousedown', function(){
     $(this).toggleClass('open');
@@ -175,13 +175,13 @@ MapView.prototype._init_map_elements = function() {
 
   });
 
-  //get the info post content
-  for(var post in post_data) {
-    if(post_data[post].title.rendered == 'info') { 
-      var info_content = post_data[post];
-      var info_post_id = post_data[post].id;
-    }
-  }
+  // //get the info post content
+  // for(var post in post_data) {
+  //   if(post_data[post].title.rendered == 'info') { 
+  //     var info_content = post_data[post];
+  //     var info_post_id = post_data[post].id;
+  //   }
+  // }
 
  // console.log(this, info_content, info_post_id);
 
@@ -1209,9 +1209,9 @@ MapViewItem.prototype._init_points = function(points){
     .style("pointer-events", "all");
  
    function zoomed() {
-       //close both the tooltip and the popup if open
-      //change cursor according to mouse event
-      var duration;
+    //close both the tooltip and the popup if open
+    //change cursor according to mouse event
+    var duration;
     //change cursor according to mouse event
       if (d3.event.sourceEvent !== null) {
            
@@ -1308,7 +1308,6 @@ MapViewItem.prototype._init_points = function(points){
     $(parent.pop.modal).removeClass('popup-open');
   })
   .on('mouseover', function() {
-    console.log(this, parent.tip.modal[0]);
     var //zoom_level = MapView.prototype._render_map.call(parent),
         //tooltip height + pin height + margin between pin and tooltip
         modalWidth = Math.floor( parent.tip.modal[0].clientWidth),

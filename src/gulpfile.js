@@ -143,12 +143,30 @@ gulp.task('nunjucks', function() {
 
   var path = '../dist/proxy/data.json';
   var jsondata = JSON.parse(fs.readFileSync(path, 'utf8'));
-  console.log(jsondata);
+  var posts = [];
+  var info = [];
+  var i;
+  var k;
+  for(i = 0;i<jsondata.length;i++) {
+    var post = jsondata[i];
+    if(post.id !==321) {
+       posts.push(post);
+    }
+  }  
+
+  for(k = 0;k<jsondata.length;k++) {
+    var info_post = jsondata[k];
+    if(info_post.id === 321) {
+       info.push(info_post);
+    }
+  }
+
   // Gets .html and .nunjucks files in pages
   return gulp.src('js/pages/**/*.+(html|nunjucks)')
   .pipe(nunjucksRender({
       data: {
-        content: jsondata
+        post_content: posts,
+        info_content: info
       },
       envOptions: {
         autoescape: false
@@ -209,7 +227,7 @@ gulp.task('lint', function() {
 
 gulp.task('watch', ['sass', 'scripts', 'nunjucks', 'revreplace-dev', 'sprites'], function(){
   gulp.watch('scss/**/*.scss', ['sass']);
-  //gulp.watch('js/**/*.js', ['scripts']); 
+  gulp.watch('js/**/*.js', ['scripts']); 
   gulp.watch('js/**/*.+(html|nunjucks)', ['nunjucks']); 
   gulp.watch('../dist/dev.html', ['revreplace-dev']);
   gulp.watch('../src/svg/*.svg', ['sprites', 'copy-svg']);
@@ -226,7 +244,6 @@ gulp.task('build', function(callback) {
     'copy-svg',
     'critical-css',
     'minify',
-    //'revreplace-dev',
     callback
   )
 })
