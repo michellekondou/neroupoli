@@ -97,9 +97,9 @@ return gulp.src("../dist/index.html")
     return this;
   }))
   .pipe(replace('src="http', 'data-src="http'))
-  .pipe(replace('src="http:', 'src="https:'))
+  .pipe(replace('srcset="http', 'data-srcset="http'))
+  .pipe(replace('src="http', 'src="https'))
   .pipe(replace('target="_blank"', 'target="_blank" rel="noopener"'))
-  //target="_blank"
   .pipe(gulp.dest("../"));
 })
 

@@ -46,6 +46,7 @@ MapObject.prototype._init_map_object = function() {
     type: "image/svg+xml",
     'Data': mapSrc,
     id: 'map',
+    alt: 'χάρτης με διαδραστικά παιχνίδια για το νερό'
     style: "position:absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);width:"+vw+"px;height:"+vh+"px"
   }).appendTo('#container');
 }
