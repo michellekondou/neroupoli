@@ -46,7 +46,7 @@ MapObject.prototype._init_map_object = function() {
     type: "image/svg+xml",
     'Data': mapSrc,
     id: 'map',
-    alt: 'Xάρτης με διαδραστικά παιχνίδια και πληροφορίες για την εξοικονόμηση του νερού στην πόλη',
+    'aria-label': 'Xάρτης με διαδραστικά παιχνίδια και πληροφορίες για την εξοικονόμηση του νερού στην πόλη | Water in the city map',
     style: "position:absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);width:"+vw+"px;height:"+vh+"px"
   }).appendTo('#container');
 };
@@ -147,18 +147,9 @@ MapView.prototype._init_map_elements = function() {
       if ( $(this).attr('id') == item.content.id ) {
         item.page_open();
       }
-
     }
   });
- 
-  //info nav
-  // this.info_panel =  $("<div />", {
-  //   "class": "info-panel" 
-  // }).appendTo('body');
 
-  // this.info_content =  $("<div />", {
-  //   "class": "info-content" 
-  // }).prependTo(this.info_panel);
 
   $("#info-icon").on('mousedown', function(){
     $(this).toggleClass('open');
@@ -174,44 +165,6 @@ MapView.prototype._init_map_elements = function() {
     }
 
   });
-
-  // //get the info post content
-  // for(var post in post_data) {
-  //   if(post_data[post].title.rendered == 'info') { 
-  //     var info_content = post_data[post];
-  //     var info_post_id = post_data[post].id;
-  //   }
-  // }
-
- // console.log(this, info_content, info_post_id);
-
-  // nunjucks.configure('src/js/templates', { 
-  //   autoescape: false
-  //  });
-
-  // this.info_panel.html(
-  //     nunjucks.render('info-shell.html',{
-  //        // check err and handle result
-  //     })
-  // );
-
-  // this.info_panel.find('.info-header').html(
-  //   nunjucks.render('info-header.html', { 
-  //     // title: this.content,
-  //     text: info_content
-  //     // quiz:  post,
-  //     // open: this.open
-  //   }) 
-  // );
-
-  // this.info_panel.find('.info-content').html(
-  //   nunjucks.render('info-content.html', { 
-  //     // title: this.content,
-  //     text: info_content
-  //     // quiz:  post,
-  //     // open: this.open
-  //   }) 
-  // );
 
 (function() {
 
@@ -577,7 +530,7 @@ MapViewItem.prototype.page_open = function () {
   // );
 
   //handle card content
-  var cards = this.page.modal.find('#cards');
+  var cards = this.page.modal.find('.cards');
   var cards_navigation = this.page.modal.find('.progress-bar');
   console.log(this, this.page.modal[0].id, cards_navigation);
   $(cards)

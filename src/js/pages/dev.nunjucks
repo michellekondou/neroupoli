@@ -1,4 +1,4 @@
-<!-- dev.nunjucks -->
+<!-- index.nunjucks -->
 {% extends "layout.dev.nunjucks" %}
 
 <!--target is to create pages here instead of app.js and precompile in index-->
@@ -44,7 +44,7 @@
 
     <!--main-->
     <section class="page-content">
-      <main id="cards">
+      <main class="cards">
       {% for card in point.acf.cards %} 
         {% if card.acf_fc_layout === 'intro' %}
         <div class="card">
@@ -352,6 +352,7 @@
 </div><!--end overlay-->
 
 {% endfor %}
+
 {% for info in info_content %}
 <div class="info-panel">
   <div class="info-content">
@@ -381,6 +382,7 @@
   </div>
 </div>
 {% endfor %}
+
 <div class="svg-templates">
   <svg version="1.1" id="icon-download-pdf" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
    width="51px" height="68px" viewBox="0 0 51 68" enable-background="new 0 0 51 68" xml:space="preserve">

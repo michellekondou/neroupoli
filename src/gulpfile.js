@@ -118,20 +118,6 @@ return gulp.src("../dist/dev.html")
   .pipe(gulp.dest("../"));
 })
 
-gulp.task("html", function(){
-  return gulp.src("../dev.html")
-    .pipe(dom(function(){
-      var imgEl = this.getElementsByTagName('img');
-      var parent = this;
-      for(var i=0;i<imgEl.length;i++){
-        var item = imgEl[i];
-        item.classList.add("js-lazy-image");
-      }
-      return this;
-    }))
-    .pipe(gulp.dest("../"));
-})
-
 gulp.task('json:minify', function() {
   return gulp.src(['../dist/proxy/data.json'])
     .pipe(jsonmin())
