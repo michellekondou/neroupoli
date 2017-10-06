@@ -22,6 +22,7 @@ var gutil = require('gulp-util'); //needed for critical
 var critical = require('critical').stream; //inline critical css
 var gzip = require('gulp-gzip');//gzip assets
 var htmlmin = require('gulp-htmlmin'); //minify html
+var jshint = require('gulp-jshint');
 
 
 //script paths
@@ -68,7 +69,6 @@ gulp.task('scripts', function() {
     return gulp.src(jsFiles)
         .pipe(concat('app.js'))
         .pipe(gulp.dest(jsDest))
-        //.pipe(rename('app.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest(jsDest))
 })
@@ -98,7 +98,7 @@ return gulp.src("../dist/index.html")
   }))
   .pipe(replace('src="http', 'data-src="http'))
   .pipe(replace('srcset="http', 'data-srcset="http'))
-  .pipe(replace('src="http', 'src="https'))
+  .pipe(replace('src="http:', 'src="https:'))
   .pipe(replace('target="_blank"', 'target="_blank" rel="noopener"'))
   .pipe(gulp.dest("../"));
 })
@@ -143,7 +143,7 @@ gulp.task('nunjucks', function() {
 
   var path = '../dist/proxy/data.json';
   var jsondata = JSON.parse(fs.readFileSync(path, 'utf8'));
-
+  console.log(jsondata);
   // Gets .html and .nunjucks files in pages
   return gulp.src('js/pages/**/*.+(html|nunjucks)')
   .pipe(nunjucksRender({
@@ -198,6 +198,12 @@ gulp.task('minify', function() {
   return gulp.src('../index.html')
     .pipe(htmlmin({collapseWhitespace: true}))
     .pipe(gulp.dest('../'));
+});
+
+gulp.task('lint', function() {
+  return gulp.src('js/app.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'));
 });
 
 

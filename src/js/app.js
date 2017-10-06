@@ -39,17 +39,17 @@ if (cw < ch) {
 
 var MapObject = function() {
   this._init_map_object();
-}
+};
 
 MapObject.prototype._init_map_object = function() {
   this.svgObject = $("<object />", {
     type: "image/svg+xml",
     'Data': mapSrc,
     id: 'map',
-    alt: 'χάρτης με διαδραστικά παιχνίδια για το νερό'
+    alt: 'Xάρτης με διαδραστικά παιχνίδια και πληροφορίες για την εξοικονόμηση του νερού στην πόλη',
     style: "position:absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);width:"+vw+"px;height:"+vh+"px"
   }).appendTo('#container');
-}
+};
 
 var MapView = function(posts, info) {
   this.map = map;
@@ -57,7 +57,7 @@ var MapView = function(posts, info) {
   this.info = info;
   this.map_items = [];
   this._init_map_elements();
-}
+};
 
 MapView.prototype._init_map_elements = function() {
   var _this = this;
@@ -80,19 +80,17 @@ MapView.prototype._init_map_elements = function() {
     post_data.push(post); 
   }
 
-  console.log(parent.posts);
-
   //create the map points
-  for(var i = 0;i<points.length;i++) {
-    var point = points[i];
-    for(var post in post_data) {
-      if(post_data[post].title.rendered === point.id) { 
-        var content = post_data[post];
-        var post_id = post_data[post].id;
+  for(var j = 0;j<points.length;j++) {
+    var point = points[j];
+    for(var item in post_data) {
+      if(post_data[item].title.rendered === point.id) { 
+        var content = post_data[item];
+        var post_id = post_data[item].id;
       }
     }  
 
-    var rect = points[i].getBoundingClientRect();
+    var rect = points[j].getBoundingClientRect();
     var tip = new Modal('tooltip', point.id, content.acf.card_title);
     var pop = new Modal('popup', point.id, content.acf.card_title, content.acf.card_summary);
     var page = new Modal('page', point.id);
@@ -100,7 +98,6 @@ MapView.prototype._init_map_elements = function() {
     this.map_items.push(point_item); 
   }
   //setup all map events, zoom, pan etc  
-console.log(this.map_items);
   this._render_map();
 
   /**
@@ -309,7 +306,7 @@ var myTabs = tabs({
 
 myTabs.init();
 
-}
+};
 
 MapView.prototype._render_map = function() {
   var _this = this; 
@@ -338,10 +335,8 @@ MapView.prototype._render_map = function() {
 
 
  function zoomed() {
-      if(d3.event.sourceEvent.ctrlKey) {9*
-        console.log('Pressed CTRL', d3.event.sourceEvent);
-        return;
-      }
+    var duration;
+
      //close both the tooltip and the popup if open
     for(var p = 0; p < _this.map_items.length;p++) {
       var map_item = _this.map_items[p]; 
@@ -353,32 +348,35 @@ MapView.prototype._render_map = function() {
 
     //change cursor according to mouse event
     if (d3.event.sourceEvent !== null) {
+         
       if(d3.event.sourceEvent.ctrlKey) {
+        console.log('Pressed CTRL', d3.event.sourceEvent);
         return;
       }
       //detects zoom-in
+      
       if (d3.event.sourceEvent.deltaY < 0) {
         svg.style("cursor", "zoom-in");
         //if mobile
         if (cw < 1024) {
-          var duration = 0;
+          duration = 0;
         } else {
-          var duration = 0;
+          duration = 0;
         }
       //detects zoom-out
       } else if (d3.event.sourceEvent.deltaY > 0){
         svg.style("cursor", "zoom-out");
         //if mobile
         if (cw < 1024) {
-          var duration = 0;
+          duration = 0;
         } else {
-          var duration = 0;
+          duration = 0;
         }
       } 
       //detects panning
       if (d3.event.sourceEvent.movementX != 0 ||  d3.event.sourceEvent.movementY != 0) {
         svg.style("cursor", "move");
-        var duration = 0;
+        duration = 0;
         $('.popup').removeClass('popup-open');
         $('.tooltip').removeClass('open');
         console.log('MOOOOOVE', d3.event.sourceEvent);
@@ -485,7 +483,7 @@ MapView.prototype._render_map = function() {
   //console.log(zoomLevel._groups[0][0].__zoom.k); 
   return zoomLevel._groups[0][0].__zoom.k;
   
-}
+};
 
 
 function MapViewItem(point, rect, map, map_bcr, pop, tip, page, content, post_id){
@@ -513,7 +511,7 @@ MapViewItem.prototype.constructor = MapViewItem;
 
 MapViewItem.prototype._init_map_elements = function(){
   return;
-}
+};
 
 /* ========================================================================
 ======= PUBLIC FUNCTIONS ==================================================
@@ -618,7 +616,7 @@ MapViewItem.prototype.page_open = function () {
 //form handler TODO put this stuff in its own function
 // get all data in form and return object
 function getFormData(form) {
-  var form_id = form.attr('id')
+  var form_id = form.attr('id');
   var elements = document.getElementById(form_id).elements; // all form elements
   var fields = Object.keys(elements).map(function(k) {
     if(elements[k].name !== undefined) {
@@ -683,7 +681,7 @@ $(function() {
       var this_option = option[j];
       //console.log(this_option);
       if ( $(this_option).is(':checked') ) {
-        $('#' + submit_id + '.form-error').html('')
+        $('#' + submit_id + '.form-error').html('');
     
         $('#' + submit_id + ' .loader.quiz').css('display','inline-block');
         for(var i=0;i<forms.length;i++){
@@ -708,17 +706,17 @@ $(function() {
                 $('#' + submit_id + " .checkbox-prompt").addClass('visible');
                 selectedOption.siblings('label').addClass('selected');
                 if ( selectedOption.attr('data-type') == "correct" ) {
-                  $('.check-answer').html('Σωστά!')
+                  $('.check-answer').html('Σωστά!');
                   if ( $(this_option).is(':radio') ) {
-                    $('.check-answer').html('Σωστά!')
+                    $('.check-answer').html('Σωστά!');
                   } else if ($(this_option).is(':checkbox') ) {
-                    $('.check-answer').html('Όλα σωστά! Μπράβο!')
+                    $('.check-answer').html('Όλα σωστά! Μπράβο!');
                   }
                 } else if ( selectedOption.attr('data-type') == 'wrong') {
                   if ( $(this_option).is(':radio') ) {
-                    $('.check-answer').html('Λάθος!')
+                    $('.check-answer').html('Λάθος!');
                   } else if ($(this_option).is(':checkbox') ) {
-                    $('.check-answer').html('Υπήρχαν κάποιες λάθος απαντήσεις!')
+                    $('.check-answer').html('Υπήρχαν κάποιες λάθος απαντήσεις!');
                   }
                 }
               }
@@ -793,7 +791,7 @@ function changeIndex(item, to) {
   //sortables.forEach((sortable, index) => sortable.setIndex(index));
   sortables.forEach(function(sortable, index){
     sortable.setIndex(index);
-  })
+  });
 }
 
 
@@ -1091,8 +1089,8 @@ MapViewItem.prototype.glossary = function () {
       $(this).parent().removeClass('open');
       
       console.log($(this).parent());
-    }) 
-  }
+    });
+  };
 
   var open_glossary_popup = function (element) {
     if (element.target !== this) {
@@ -1121,7 +1119,7 @@ MapViewItem.prototype.glossary = function () {
       
     //toggle the open class on click
     this_popup.addClass('open');
-  }
+  };
   //for each glossary term in the content 
   // 1. create a popup
   // 2. add a click event
@@ -1129,7 +1127,7 @@ MapViewItem.prototype.glossary = function () {
     create_glossary_popups(glossary_term[i]); /*1*/
     glossary_term[i].addEventListener('mouseover', open_glossary_popup, {passive: true}); /*2*/
   }
-}
+};
 
 
 MapViewItem.prototype.page_close = function () {
@@ -1147,7 +1145,7 @@ MapViewItem.prototype.page_close = function () {
 
   var closeOverlay = function() {
     $(parent.page.modal).removeClass('overlay-open');
-  } 
+  };
 
   var tl = new TimelineLite();
  
@@ -1213,27 +1211,34 @@ MapViewItem.prototype._init_points = function(points){
    function zoomed() {
        //close both the tooltip and the popup if open
       //change cursor according to mouse event
+      var duration;
+    //change cursor according to mouse event
       if (d3.event.sourceEvent !== null) {
+           
+        if(d3.event.sourceEvent.ctrlKey) {
+          console.log('Pressed CTRL', d3.event.sourceEvent);
+          return;
+        }
         if (d3.event.sourceEvent.deltaY < 0) {
           svg.style("cursor", "zoom-in");
           //if mobile
           if (cw < 1024) {
-            var duration = 0;
+            duration = 0;
           } else {
-            var duration = 0;
+            duration = 0;
           }
         } else if (d3.event.sourceEvent.deltaY > 0){
           svg.style("cursor", "zoom-out");
           //if mobile
           if (cw < 1024) {
-            var duration = 0;
+            duration = 0;
           } else {
-            var duration = 0;
+            duration = 0;
           }
         }
         if (d3.event.sourceEvent.movementX != 0 ||  d3.event.sourceEvent.movementY != 0) {
           svg.style("cursor", "move");
-          var duration = 0;
+          duration = 0;
           $('.popup').removeClass('popup-open');
           $('.tooltip').removeClass('open');
         }
@@ -1294,8 +1299,6 @@ MapViewItem.prototype._init_points = function(points){
   svg.call(zoom); 
 
   $(parent.point).css('cursor', 'pointer');
-
-  console.log(parent.tip, parent);
 
   svg.select('#'+parent.point.id)
   .on('mousewheel.zoom', function(d) {
@@ -1361,7 +1364,7 @@ MapViewItem.prototype._init_points = function(points){
 
   $('#'+parent.point.id +'-popup'+' .open_page').on('mousedown', $.proxy(this.page_open, parent));
 
-}
+};
 
 /* ========================================================================
 ======= EVENT LISTENERS ===================================================
@@ -1380,7 +1383,7 @@ MapViewItem.prototype._addListeners = function(){
   //close popup by clicking on close button
   $(this.pop.modal).find('.close').on("mousedown", $.proxy(this.pop_close, _this));
 
-}
+};
 
 /* ========================================================================
 ======= RENDERING FUNCTIONS ===============================================
@@ -1397,7 +1400,7 @@ MapViewItem.prototype._render = function(){
     //   }) 
     // );
 
-}
+};
 
 
 /**
@@ -1411,7 +1414,7 @@ var Modal = function(type, point, title, summary){
   this.summary = summary;
   this.init();
   // this.render_modal();
-}
+};
 
 Modal.prototype.init = function(){
 
@@ -1452,7 +1455,7 @@ Modal.prototype.init = function(){
   //     "id": this.point + "-page"
   //   }).appendTo('body');
   // }
-}
+};
 
 Modal.prototype.style = function(styles){
  
@@ -1467,7 +1470,7 @@ Modal.prototype.style = function(styles){
       return this.modal.attr("style", styles);
     }
   }
-} 
+}; 
 
 // Modal.prototype.render_modal = function(){
 //   nunjucks.configure('src/js/templates', { 
@@ -1525,7 +1528,7 @@ window.onload = function() {
         // run code if the server returns any errors
         console.log('Looks like there was a problem: \n', error);
     });
-} //end window on load
+}; //end window on load
   
 //-------------------------END PROMISES-----------------------------//
 //create the map
@@ -1536,7 +1539,6 @@ $(function(){
 // I am disabling user controlled zoom-in and zoom-out
 // because mousewheel zoom is a central feature of this app
 $(window).bind('keydown', function(event) {
-  console.log("keydown", event);
   if (event.ctrlKey == true) {
     console.log("pressed");
     $('.ctrlZoom').addClass('overlay-open');
