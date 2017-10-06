@@ -44,11 +44,9 @@ gulp.task('sass', function() {
 //script paths
 var jsFiles = [
       'js/jquery.min.js',
-      'node_modules/jquery-mousewheel/jquery.mousewheel.js',
       'node_modules/jquery-cycle/index.js',
-      'node_modules/bootstrap/dist/js/bootstrap.min.js',
       'node_modules/nunjucks/browser/nunjucks.js',
-      'bower_components/d3/d3.js',
+      'node_modules/d3/build/d3.js',
       'node_modules/gsap/src/minified/utils/Draggable.min.js',
       'js/lib/ThrowPropsPlugin.js',
       'js/lib/DirectionalRotationPlugin.min.js',
@@ -58,10 +56,8 @@ var jsFiles = [
       'node_modules/gsap/src/minified/TimelineMax.min.js',
       'node_modules/gsap/src/minified/TweenMax.min.js',
       'node_modules/gsap/src/minified/TweenLite.min.js',
-      'node_modules/gsap/src/minified/TweenLite.min.js',
       'js/helper-functions.js',
-      'js/app.js',
-      'js/output/*.js'
+      'js/app.js'
     ],  
     jsDest = 'compiled/js';
 
@@ -187,7 +183,7 @@ gulp.task('copy-svg', ['sprites'], function() {
 // Generate & Inline Critical-path CSS
 gulp.task('critical-css', function () {
   return gulp.src('../index.html')
-    .pipe(critical({base: './', inline: true, minify: true, css: ['../dist/assets/app-5d190f0605.css']}))
+    .pipe(critical({base: './', inline: true, minify: true, css: ['../dist/assets/app-92ebeb9a15.css']}))
     .on('error', function(err) { gutil.log(gutil.colors.red(err.message)); })
     .pipe(gulp.dest('../'));
 })

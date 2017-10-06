@@ -16,6 +16,7 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "critical": "^0.9.1",
+    "d3": "^4.11.0",
     "d3-tip": "^0.7.1",
     "gulp-gzip": "^1.4.0",
     "gulp-htmlmin": "^3.0.0",

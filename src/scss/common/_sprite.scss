@@ -8,7 +8,7 @@
     display: inline-block;
     background-image: url("../svg/sprite.svg");
     background-repeat: no-repeat;
-    background-size: 16.8em 247.5em;
+    background-size: 16.8em 269.9em;
 }
 
 .no-svg .icon:before {
@@ -152,8 +152,17 @@
 
 
 
-  .icon.pdf:before {
+  .icon.next-arrow:before {
       background-position: 0em -54.4em;
+      width: 4.1em;
+      height: 5.2em;
+  }
+
+
+
+
+  .icon.pdf:before {
+      background-position: 0em -59.6em;
       width: 2.1em;
       height: 2.9em;
   }
@@ -162,7 +171,7 @@
 
 
   .icon.pin:before {
-      background-position: 0em -57.3em;
+      background-position: 0em -62.5em;
       width: 3.2em;
       height: 3.2em;
   }
@@ -170,8 +179,17 @@
 
 
 
+  .icon.previous-arrow:before {
+      background-position: 0em -65.7em;
+      width: 4.1em;
+      height: 5.2em;
+  }
+
+
+
+
   .icon.reset:before {
-      background-position: 0em -60.5em;
+      background-position: 0em -70.9em;
       width: 3.4000999999999997em;
       height: 3.4000999999999997em;
   }
@@ -180,7 +198,7 @@
 
 
   .icon.sprite:before {
-      background-position: 0em -64em;
+      background-position: 0em -74.4em;
       width: 12.509307520476545em;
       height: 100em;
   }
@@ -189,7 +207,7 @@
 
 
   .icon.student:before {
-      background-position: 0em -164em;
+      background-position: 0em -174.4em;
       width: 2.6em;
       height: 3.3em;
   }
@@ -197,8 +215,17 @@
 
 
 
+  .icon.submit-loader:before {
+      background-position: 0em -177.7em;
+      width: 12em;
+      height: 12em;
+  }
+
+
+
+
   .icon.symbol-activity-duration:before {
-      background-position: 0em -167.3em;
+      background-position: 0em -189.7em;
       width: 7em;
       height: 8.5em;
   }
@@ -207,7 +234,7 @@
 
 
   .icon.symbol-age-group:before {
-      background-position: 0em -175.8em;
+      background-position: 0em -198.2em;
       width: 3.5em;
       height: 7.2em;
   }
@@ -216,7 +243,7 @@
 
 
   .icon.symbol-feedback:before {
-      background-position: 0em -183em;
+      background-position: 0em -205.4em;
       width: 5.1em;
       height: 5.3em;
   }
@@ -225,7 +252,7 @@
 
 
   .icon.symbol-going-forward:before {
-      background-position: 0em -188.3em;
+      background-position: 0em -210.7em;
       width: 3.2em;
       height: 8em;
   }
@@ -234,7 +261,7 @@
 
 
   .icon.symbol-group-activity:before {
-      background-position: 0em -196.3em;
+      background-position: 0em -218.7em;
       width: 6.2em;
       height: 7.2em;
   }
@@ -243,7 +270,7 @@
 
 
   .icon.symbol-indoor:before {
-      background-position: 0em -203.5em;
+      background-position: 0em -225.9em;
       width: 8.9em;
       height: 7.6em;
   }
@@ -252,7 +279,7 @@
 
 
   .icon.symbol-intro:before {
-      background-position: 0em -211.1em;
+      background-position: 0em -233.5em;
       width: 6.4em;
       height: 6.6em;
   }
@@ -261,7 +288,7 @@
 
 
   .icon.symbol-outdoor:before {
-      background-position: 0em -217.7em;
+      background-position: 0em -240.1em;
       width: 6.8em;
       height: 7.6em;
   }
@@ -270,7 +297,7 @@
 
 
   .icon.symbol-play-learn:before {
-      background-position: 0em -225.3em;
+      background-position: 0em -247.7em;
       width: 6.1em;
       height: 5.4992em;
   }
@@ -279,7 +306,7 @@
 
 
   .icon.symbol-single-activity:before {
-      background-position: 0em -230.8em;
+      background-position: 0em -253.2em;
       width: 2.3em;
       height: 3.7em;
   }
@@ -288,7 +315,7 @@
 
 
   .icon.symbol-study:before {
-      background-position: 0em -234.5em;
+      background-position: 0em -256.9em;
       width: 4.9em;
       height: 6.1em;
   }
@@ -297,7 +324,7 @@
 
 
   .icon.zoom-in:before {
-      background-position: 0em -240.6em;
+      background-position: 0em -263em;
       width: 3.4em;
       height: 3.4000999999999997em;
   }
@@ -306,7 +333,7 @@
 
 
   .icon.zoom-out:before {
-      background-position: 0em -244.1em;
+      background-position: 0em -266.5em;
       width: 3.4em;
       height: 3.4em;
   }

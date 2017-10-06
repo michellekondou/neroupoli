@@ -13,6 +13,7 @@
 <div class="map-popover popup right popup" id="{{ point.title.rendered }}-popup">
   <div class="arrow"></div>  
   <button class="close">
+    <span class="visually-hidden">Close</span>
     <i class="icon close-popup"></i>
   </button>
   <h3 class="map-popover-title">{{ point.acf.card_title }}</h3>
@@ -25,6 +26,7 @@
 <div class="overlay overlay" id="{{ point.title.rendered }}-page">
   <div class="page slide page">
     <button class="close">
+      <span class="visually-hidden">Close</span>
       <i class="icon close-page-color"></i>
     </button>
 
@@ -145,7 +147,7 @@
         {{ card.quiz_description }}
         {% for option in card.quiz %}
         {% set options_counter  = ( options_counter | default(0) ) + 1 %}
-        <form id="gform-{{ text.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}" class="multiple-choice" action="{{  option.quiz_form_url }}" method="POST">
+        <form id="gform-{{ point.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}" class="multiple-choice" action="{{  option.quiz_form_url }}" method="POST">
           <fieldset>
             <legend 
               for="{{  option.quiz_field_name }}" 
@@ -156,13 +158,13 @@
             {% set sub_options_counter  = ( sub_options_counter | default(0) ) + 1 %}
             <p class="radio">
               <input 
-                id="{{  option.quiz_field_name }}-{{ text.title.rendered }}-{{ sub_options_counter }}" 
+                id="{{  option.quiz_field_name }}-{{ point.title.rendered }}-{{ sub_options_counter }}" 
                 name="{{  option.quiz_field_name }}" 
                 type="radio" 
                 value="{{  sub_option.quiz_input_value }}"
                 data-type="{% if sub_option.quiz_input_type === 'Σωστό' %}correct{% else %}wrong{% endif %}" 
               />
-              <label for="{{  option.quiz_field_name }}-{{ text.title.rendered }}-{{ sub_options_counter }}">
+              <label for="{{  option.quiz_field_name }}-{{ point.title.rendered }}-{{ sub_options_counter }}">
                 <span></span>
                 {{  sub_option.quiz_input_value }}
               </label>
@@ -170,16 +172,19 @@
             {% endfor %}
           </fieldset>
       </form>
-      <button id="gform-{{ text.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}" class="button submit submit-button">Δες τη σωστή απάντηση!<svg class="loader quiz" width='120px' height='120px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-default"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(0 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(30 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.08333333333333333s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(60 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.16666666666666666s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(90 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.25s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(120 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.3333333333333333s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(150 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.4166666666666667s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(180 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(210 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5833333333333334s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(240 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.6666666666666666s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(270 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.75s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(300 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.8333333333333334s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(330 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.9166666666666666s' repeatCount='indefinite'/></rect></svg></button>
-      <small id="gform-{{ text.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}" class="form-error"></small>
-      <article id="gform-{{ text.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}" class="thankyou_message" style="display: none;">
+      <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}" class="button submit submit-button">
+        Δες τη σωστή απάντηση!
+        <svg class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
+      </button>
+      <small id="gform-{{ point.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}" class="form-error"></small>
+      <article id="gform-{{ point.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}" class="thankyou_message" style="display: none;">
         <p><span class="check-answer"></span><br> {{  option.quiz_thank_you_message }}</p>
         <small>Ευχαριστούμε για την απάντηση σου!</small>
-        <small id="gform-{{ text.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}" class="form-error"></small>
+        <small id="gform-{{ point.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}" class="form-error"></small>
       </article>
       {% endfor %}
       {% elif card.acf_fc_layout === 'multiple_choice' or card.acf_fc_layout === 'checkbox' or card.acf_fc_layout === 'likert' %}
-      <form id="gform-{{ text.title.rendered }}-{{ quiz_counter }}" class="{% if card.acf_fc_layout === 'multiple_choice' %}multiple-choice{% elif card.acf_fc_layout === 'checkbox' %}checkbox-quiz{% elif card.acf_fc_layout === 'likert' %}likert{% endif %}" action="{{  card.quiz_form_url }}" method="POST">
+      <form id="gform-{{ point.title.rendered }}-{{ quiz_counter }}" class="{% if card.acf_fc_layout === 'multiple_choice' %}multiple-choice{% elif card.acf_fc_layout === 'checkbox' %}checkbox-quiz{% elif card.acf_fc_layout === 'likert' %}likert{% endif %}" action="{{  card.quiz_form_url }}" method="POST">
         <fieldset>
           <legend for="{{  card.quiz_field_name }}{{ options_counter }}" 
           name="{% if card.acf_fc_layout === 'multiple_choice' or card.acf_fc_layout === 'likert' %}{{ card.quiz_field_name }}{% elif card.acf_fc_layout === 'checkbox' %}{{  card.quiz_field_name }}{{ options_counter }}{% endif %}">{{  card.quiz_title }}{{ card.quiz_extended_text }}</legend>
@@ -188,13 +193,13 @@
           {% set options_counter  = ( options_counter | default(0) ) + 1 %}
           <p class="{% if card.acf_fc_layout === 'multiple_choice' %}radio{% elif card.acf_fc_layout === 'checkbox' %}checkbox{% elif card.acf_fc_layout === 'likert' %}likert{% endif %}">
             <input 
-            id="{{  card.quiz_field_name }}-{{ text.title.rendered }}-{{ options_counter }}" 
+            id="{{  card.quiz_field_name }}-{{ point.title.rendered }}-{{ options_counter }}" 
             name="{% if card.acf_fc_layout === 'multiple_choice' %}{{  card.quiz_field_name }}{% elif card.acf_fc_layout === 'checkbox' %}{{  option.quiz_input_value  }}{% endif %}" 
             type="{% if card.acf_fc_layout === 'multiple_choice' %}radio{% elif card.acf_fc_layout === 'likert' %}radio{% elif card.acf_fc_layout === 'checkbox' %}checkbox{% endif %}" 
             value="{{  option.quiz_input_value }}"
             data-type="{% if option.quiz_input_type === 'Σωστό' %}correct{% else %}wrong{% endif %}" 
             />
-            <label for="{{  card.quiz_field_name }}-{{ text.title.rendered }}-{{ options_counter }}">
+            <label for="{{  card.quiz_field_name }}-{{ point.title.rendered }}-{{ options_counter }}">
             <span></span>
             {{  option.quiz_input_value }}
             </label>
@@ -211,59 +216,59 @@
           <div class="likert-container">
             <p class="likert">
               <input 
-              id="{{  card.quiz_field_name }}-{{ text.title.rendered }}-{{ options_counter }}"
+              id="{{  card.quiz_field_name }}-{{ point.title.rendered }}-{{ options_counter }}"
               type="radio"
               name="{{  card.quiz_field_name }}"
               value="καθόλου"
               >
-              <label for="{{  card.quiz_field_name }}-{{ text.title.rendered }}-{{ options_counter }}">
+              <label for="{{  card.quiz_field_name }}-{{ point.title.rendered }}-{{ options_counter }}">
                 <span></span>
                 <mark>καθόλου</mark>
             </p>
             <p class="likert">
               <input 
-                id="{{  card.quiz_field_name }}-{{ text.title.rendered }}-{{ options_counter }}"
+                id="{{  card.quiz_field_name }}-{{ point.title.rendered }}-{{ options_counter }}"
                 type="radio"
                 name="{{  card.quiz_field_name }}"
                 value="λίγο"
               />
-              <label for="{{  card.quiz_field_name }}-{{ text.title.rendered }}-{{ options_counter }}">
+              <label for="{{  card.quiz_field_name }}-{{ point.title.rendered }}-{{ options_counter }}">
                 <span></span>
                 <mark>λίγο</mark>
               </label>
             </p>
           <p class="likert">
           <input 
-          id="{{  card.quiz_field_name }}-{{ text.title.rendered }}-{{ options_counter }}"
+          id="{{  card.quiz_field_name }}-{{ point.title.rendered }}-{{ options_counter }}"
           type="radio"
           name="{{  card.quiz_field_name }}"
           value="μέτρια"
           />
-          <label for="{{  card.quiz_field_name }}-{{ text.title.rendered }}-{{ options_counter }}">
+          <label for="{{  card.quiz_field_name }}-{{ point.title.rendered }}-{{ options_counter }}">
           <span></span>
           <mark>μέτρια</mark>
           </label>
           </p>
           <p class="likert">
           <input 
-          id="{{  card.quiz_field_name }}-{{ text.title.rendered }}-{{ options_counter }}"
+          id="{{  card.quiz_field_name }}-{{ point.title.rendered }}-{{ options_counter }}"
           type="radio"
           name="{{  card.quiz_field_name }}"
           value="αρκετά"
           />
-          <label for="{{  card.quiz_field_name }}-{{ text.title.rendered }}-{{ options_counter }}">
+          <label for="{{  card.quiz_field_name }}-{{ point.title.rendered }}-{{ options_counter }}">
           <span></span>
           <mark>αρκετά</mark>
           </label>
           </p>
           <p class="likert">
           <input 
-          id="{{  card.quiz_field_name }}-{{ text.title.rendered }}-{{ options_counter }}"
+          id="{{  card.quiz_field_name }}-{{ point.title.rendered }}-{{ options_counter }}"
           type="radio"
           name="{{  card.quiz_field_name }}"
           value="πάρα πολύ"
           />
-          <label for="{{  card.quiz_field_name }}-{{ text.title.rendered }}-{{ options_counter }}">
+          <label for="{{  card.quiz_field_name }}-{{ point.title.rendered }}-{{ options_counter }}">
           <span></span>
           <mark>πάρα πολύ</mark>
           </label>
@@ -275,28 +280,36 @@
 
       {% endif %}
       {% if card.acf_fc_layout === 'multiple_choice' %}
-      <button id="gform-{{ text.title.rendered }}-{{ quiz_counter }}" class="button submit submit-button">Δες τη σωστή απάντηση!<svg class="loader quiz" width='120px' height='120px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-default"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(0 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(30 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.08333333333333333s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(60 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.16666666666666666s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(90 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.25s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(120 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.3333333333333333s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(150 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.4166666666666667s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(180 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(210 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5833333333333334s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(240 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.6666666666666666s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(270 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.75s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(300 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.8333333333333334s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(330 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.9166666666666666s' repeatCount='indefinite'/></rect></svg></button>
+      <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}" class="button submit submit-button">
+        Δες τη σωστή απάντηση!
+        <svg class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
+      </button>
       {% endif %}
       {% if card.acf_fc_layout === 'checkbox' %}
-      <button id="gform-{{ text.title.rendered }}-{{ quiz_counter }}" class="button submit submit-button">Δες τις σωστές απαντήσεις!<svg class="loader quiz" width='120px' height='120px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-default"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(0 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(30 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.08333333333333333s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(60 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.16666666666666666s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(90 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.25s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(120 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.3333333333333333s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(150 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.4166666666666667s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(180 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(210 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5833333333333334s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(240 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.6666666666666666s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(270 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.75s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(300 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.8333333333333334s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(330 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.9166666666666666s' repeatCount='indefinite'/></rect></svg></button>
+      <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}" class="button submit submit-button">
+        Δες τις σωστές απαντήσεις!
+        <svg class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
+      </button>
       {% endif %}
       {% if card.acf_fc_layout === 'sortable' %}
-      <button id="gform-{{ text.title.rendered }}-{{ quiz_counter }}" class="button submit-button" id="resort">Δες τη σωστή σειρά!<svg class="loader quiz" width='120px' height='120px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-default"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(0 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(30 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.08333333333333333s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(60 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.16666666666666666s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(90 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.25s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(120 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.3333333333333333s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(150 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.4166666666666667s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(180 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(210 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5833333333333334s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(240 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.6666666666666666s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(270 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.75s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(300 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.8333333333333334s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(330 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.9166666666666666s' repeatCount='indefinite'/></rect></svg></button>
+      <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}" class="button submit-button" id="resort">Δες τη σωστή σειρά!
+        <svg class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
+      </button>
       {% endif %}
       {% if card.acf_fc_layout === 'likert' %}
       <div class="loader-container">
-      <svg class="loader quiz" width='120px' height='120px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-default"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#00B9F2' transform='rotate(0 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#00B9F2' transform='rotate(30 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.08333333333333333s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#00B9F2' transform='rotate(60 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.16666666666666666s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#00B9F2' transform='rotate(90 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.25s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#00B9F2' transform='rotate(120 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.3333333333333333s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#00B9F2' transform='rotate(150 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.4166666666666667s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#00B9F2' transform='rotate(180 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#00B9F2' transform='rotate(210 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5833333333333334s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#00B9F2' transform='rotate(240 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.6666666666666666s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#00B9F2' transform='rotate(270 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.75s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#00B9F2' transform='rotate(300 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.8333333333333334s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#00B9F2' transform='rotate(330 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.9166666666666666s' repeatCount='indefinite'/></rect></svg>
+        <svg class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
       </div>
       {% endif %}
       {% if card.acf_fc_layout === 'checkbox' or card.acf_fc_layout === 'multiple_choice' %}
-      <small id="gform-{{ text.title.rendered }}-{{ quiz_counter }}" class="form-error"></small>
-      <article id="gform-{{ text.title.rendered }}-{{ quiz_counter }}" class="thankyou_message" style="display: none;">
+      <small id="gform-{{ point.title.rendered }}-{{ quiz_counter }}" class="form-error"></small>
+      <article id="gform-{{ point.title.rendered }}-{{ quiz_counter }}" class="thankyou_message" style="display: none;">
       <p><span class="check-answer"></span><br> {{  card.quiz_thank_you_msg }}</p>
       <small>Ευχαριστούμε για την απάντηση σου!</small>
-      <small id="gform-{{ text.title.rendered }}-{{ quiz_counter }}" class="form-error"></small>
+      <small id="gform-{{ point.title.rendered }}-{{ quiz_counter }}" class="form-error"></small>
       </article>
       {% elif card.acf_fc_layout === 'likert' %}
-      <article id="gform-{{ text.title.rendered }}-{{ quiz_counter }}" class="thankyou_message" style="display: none;">
+      <article id="gform-{{ point.title.rendered }}-{{ quiz_counter }}" class="thankyou_message" style="display: none;">
       <small>Ευχαριστούμε για την απάντηση σου!</small>
       </article>
       {% endif %} 
@@ -325,20 +338,22 @@
       </div>
       <nav class="card-nav">
         <button class='previous'>
+          <span class="visually-hidden">Προηγούμενο</span>
           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="41px" height="52px" viewBox="0 0 41 52" enable-background="new 0 0 41 52" xml:space="preserve">
-            <g id="Layer_1">
+            <g id="previous-Layer_1">
             </g>
-            <g id="activity_context">
+            <g id="previous-activity_context">
             <path d="M0,51.06c1.245,1.253,3.262,1.253,4.506,0l35.561-22.797c1.244-1.251,1.244-3.28,0-4.529L4.507,0.938
             c-1.245-1.252-3.262-1.25-4.507,0V51.06z"/>
             </g>
           </svg>
         </button>
         <button class='next'>
+          <span class="visually-hidden">Επόμενο</span>
           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="41px" height="52px" viewBox="0 0 41 52" enable-background="new 0 0 41 52" xml:space="preserve">
-            <g id="Layer_1">
+            <g id="next-Layer_1">
             </g>
-            <g id="activity_context">
+            <g id="next-activity_context">
             <path d="M0,51.06c1.245,1.253,3.262,1.253,4.506,0l35.561-22.797c1.244-1.251,1.244-3.28,0-4.529L4.507,0.938
             c-1.245-1.252-3.262-1.25-4.507,0V51.06z"/>
             </g>
@@ -417,6 +432,8 @@
 <path fill-rule="evenodd" clip-rule="evenodd" fill="#CCCCCC" d="M1.175,16.412v-6.028L9.55,1.575c0,0,1.485-0.75,1.485,0.875v4.023
   L1.175,16.412z"/>
 </svg>
+
+<svg id="submit-loader" width='120px' height='120px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-default"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(0 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(30 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.08333333333333333s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(60 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.16666666666666666s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(90 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.25s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(120 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.3333333333333333s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(150 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.4166666666666667s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(180 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(210 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5833333333333334s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(240 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.6666666666666666s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(270 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.75s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(300 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.8333333333333334s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(330 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.9166666666666666s' repeatCount='indefinite'/></rect></svg>
 
 </div>
 {% endblock %}

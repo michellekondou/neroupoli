@@ -150,7 +150,6 @@ MapView.prototype._init_map_elements = function() {
     }
   });
 
-
   $("#info-icon").on('mousedown', function(){
     $(this).toggleClass('open');
     //$('.info-panel').toggleClass('info-panel--visible');
@@ -340,14 +339,10 @@ MapView.prototype._render_map = function() {
     view.transition()
         .duration(duration)
         .attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")" + " scale(" + d3.event.transform.k + ")");
-
   }
-
-
 
   svg.select('#view')
   .on('mousewheel.zoom', function(event) {
-
     for(var p = 0; p < _this.map_items.length;p++) {
       var map_item = _this.map_items[p]; 
       map_item.tip.open = false;
