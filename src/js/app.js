@@ -1453,6 +1453,7 @@ window.onload = function() {
     })
     .then(function(data) {
         //get all the posts excluding the intro post
+        console.log(data);
         var posts = [];
         for(var i = 0;i<data.length;i++) {
           var post = data[i];
