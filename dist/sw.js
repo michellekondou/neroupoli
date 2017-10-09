@@ -6,7 +6,7 @@ var urlsToCache = [
   'src/graphics/map-768x1024-v42.svg',
   'dist/proxy/data-52256a609b.json',
   'dist/assets/app.css',
-  'dist/assets/app-3e40eb79ff.js',
+  'dist/assets/app-974aba1d89.js',
   'dist/fonts/cfastystd-bold-webfont.woff2',
   'dist/fonts/cfastystd-book-webfont.woff2',
   'dist/svg/sprite.svg'
