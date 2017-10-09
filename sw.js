@@ -1,4 +1,4 @@
-var CACHE_NAME = 'waterpolis-cache-v5';
+var CACHE_NAME = 'waterpolis-cache-v6';
 var urlsToCache = [
   '/index.html',
   'src/graphics/map-1920x1080-v42.svg',
@@ -72,7 +72,8 @@ self.addEventListener('activate', function(event) {
           // the whole origin
         }).map(function(cacheName) {
           return caches.delete([
-            'waterpolis-cache-v4']);
+            'waterpolis-cache-v4',
+            'waterpolis-cache-v5']);
         })
       );
     })
