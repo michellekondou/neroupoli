@@ -1,4 +1,4 @@
-var CACHE_NAME = 'waterpolis-cache-v3';
+var CACHE_NAME = 'waterpolis-cache-v4';
 var urlsToCache = [
   '/index.html',
   'src/graphics/map-1920x1080-v42.svg',
@@ -45,7 +45,8 @@ self.addEventListener('activate', function(event) {
           // but remember that caches are shared across
           // the whole origin
         }).map(function(cacheName) {
-          return caches.delete(['waterpolis-cache-v2', 'waterpolis-cache-v1']);
+          return caches.delete([
+            'waterpolis-cache-v3']);
         })
       );
     })
