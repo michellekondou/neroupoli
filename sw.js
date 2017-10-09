@@ -1,4 +1,4 @@
-var CACHE_NAME = 'v1';
+var CACHE_NAME = 'v2';
 var urlsToCache = [
   '/index.html',
   'src/graphics/map-1920x1080-v42.svg',
@@ -50,6 +50,7 @@ self.addEventListener('fetch', function(event) {
             // as well as the cache consuming the response, we need
             // to clone it so we have two streams.
             var responseToCache = response.clone();
+
             caches.open(CACHE_NAME)
               .then(function(cache) {
                 cache.put(event.request, responseToCache);
@@ -64,7 +65,7 @@ self.addEventListener('fetch', function(event) {
 
 self.addEventListener('activate', function(event) {
 
-  var cacheWhitelist = ['waterpolis-cache-v6', 'waterpolis-cache-v5', 'waterpolis-cache-v4', 'waterpolis-cache-v3', 'waterpolis-cache-v2'];
+  var cacheWhitelist = ['waterpolis-cache-v6', 'waterpolis-cache-v5', 'waterpolis-cache-v4', 'waterpolis-cache-v3', 'waterpolis-cache-v2', 'v1'];
 
   event.waitUntil(
     caches.keys().then(function(cacheNames) {
