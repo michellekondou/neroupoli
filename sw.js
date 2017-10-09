@@ -1,4 +1,4 @@
-var CACHE_NAME = 'waterpolis-cache-v6';
+var CACHE_NAME = 'v1';
 var urlsToCache = [
   '/index.html',
   'src/graphics/map-1920x1080-v42.svg',
@@ -63,17 +63,16 @@ self.addEventListener('fetch', function(event) {
 });
 
 self.addEventListener('activate', function(event) {
+
+  var cacheWhitelist = ['waterpolis-cache-v6', 'waterpolis-cache-v5', 'waterpolis-cache-v4', 'waterpolis-cache-v3', 'waterpolis-cache-v2'];
+
   event.waitUntil(
     caches.keys().then(function(cacheNames) {
       return Promise.all(
-        cacheNames.filter(function(cacheName) {
-          // Return true if you want to remove this cache,
-          // but remember that caches are shared across
-          // the whole origin
-        }).map(function(cacheName) {
-          return caches.delete([
-            'waterpolis-cache-v4',
-            'waterpolis-cache-v5']);
+        cacheNames.map(function(cacheName) {
+          if (cacheWhitelist.indexOf(cacheName) === -1) {
+            return caches.delete(cacheName);
+          }
         })
       );
     })
