@@ -1,6 +1,6 @@
 var CACHE_NAME = 'v2';
 var urlsToCache = [
-  '/index.html',
+  'index.html',
   'src/graphics/map-1920x1080-v42.svg',
   'src/graphics/map-1366x768-v42.svg',
   'src/graphics/map-768x1024-v42.svg',
