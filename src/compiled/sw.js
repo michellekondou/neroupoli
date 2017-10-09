@@ -1,15 +1,13 @@
-var CACHE_NAME = 'v3';
+var CACHE_NAME = 'v4';
 var urlsToCache = [
-  'index.html',
-  'src/graphics/map-1920x1080-v42.svg',
-  'src/graphics/map-1366x768-v42.svg',
-  'src/graphics/map-768x1024-v42.svg',
-  'dist/proxy/data.json',
-  'dist/assets/app.css',
-  'dist/assets/app.js',
-  'dist/fonts/cfastystd-bold-webfont.woff2',
-  'dist/fonts/cfastystd-book-webfont.woff2',
-  'dist/svg/sprite.svg'
+  'graphics/map-1920x1080-v42.svg',
+  'graphics/map-1366x768-v42.svg',
+  'graphics/map-768x1024-v42.svg',
+  'assets/app.css',
+  'assets/app.js',
+  'fonts/cfastystd-bold-webfont.woff2',
+  'fonts/cfastystd-book-webfont.woff2',
+  'svg/sprite.svg'
 ];
 
 self.addEventListener('install', function(event) {
@@ -65,7 +63,7 @@ self.addEventListener('fetch', function(event) {
 
 self.addEventListener('activate', function(event) {
 
-  var cacheWhitelist = ['waterpolis-cache-v6', 'waterpolis-cache-v5', 'waterpolis-cache-v4', 'waterpolis-cache-v3', 'waterpolis-cache-v2', 'v1', 'v2'];
+  var cacheWhitelist = ['waterpolis-cache-v6', 'waterpolis-cache-v5', 'waterpolis-cache-v4', 'waterpolis-cache-v3', 'waterpolis-cache-v2', 'v1', 'v2', 'v3'];
 
   event.waitUntil(
     caches.keys().then(function(cacheNames) {

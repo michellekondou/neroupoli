@@ -1,15 +1,13 @@
-
 var CACHE_NAME = 'v4';
 var urlsToCache = [
-  'src/graphics/map-1920x1080-v42.svg',
-  'src/graphics/map-1366x768-v42.svg',
-  'src/graphics/map-768x1024-v42.svg',
-  'dist/proxy/data-791ee027fc.json',
-  'dist/assets/app.css',
-  'dist/assets/app-75ea1e24cd.js',
-  'dist/fonts/cfastystd-bold-webfont.woff2',
-  'dist/fonts/cfastystd-book-webfont.woff2',
-  'dist/svg/sprite.svg'
+  'graphics/map-1920x1080-v42.svg',
+  'graphics/map-1366x768-v42.svg',
+  'graphics/map-768x1024-v42.svg',
+  'assets/app.css',
+  'assets/app-75ea1e24cd.js',
+  'fonts/cfastystd-bold-webfont.woff2',
+  'fonts/cfastystd-book-webfont.woff2',
+  'svg/sprite.svg'
 ];
 
 self.addEventListener('install', function(event) {
