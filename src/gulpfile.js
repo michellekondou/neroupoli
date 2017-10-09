@@ -69,20 +69,26 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest(jsDest))
 })
 
-gulp.task('rev', ['sass', 'scripts'], function() {
+// gulp.task('rev', ['sass', 'scripts'], function() {
+//   return gulp.src(['compiled/css/**/*.css', 'compiled/js/**/*.js'])
+//     .pipe(rev())
+//     .pipe(gulp.dest('../dist/assets'))
+//     .pipe(rev.manifest()) 
+//     .pipe(gulp.dest('../dist'))    
+//     .pipe(revDel({ dest: '../dist/assets', force: true }));
+// })
+
+gulp.task('copy-assets', ['sass', 'scripts'], function() {
   return gulp.src(['compiled/css/**/*.css', 'compiled/js/**/*.js'])
-    .pipe(rev())
+    .pipe(revReplace())
     .pipe(gulp.dest('../dist/assets'))
-    .pipe(rev.manifest()) 
-    .pipe(gulp.dest('../dist'))    
-    .pipe(revDel({ dest: '../dist/assets', force: true }));
 })
 
-gulp.task("revreplace", ["rev"], function(){
-  var manifest = gulp.src("../dist/rev-manifest.json");
+gulp.task("revreplace", ["copy-assets"], function(){
+  //var manifest = gulp.src("../dist/rev-manifest.json");
 
 return gulp.src("../dist/index.html")
-  .pipe(revReplace({manifest: manifest}))
+  //.pipe(revReplace({manifest: manifest}))
   .pipe(dom(function(){
       var imgEl = this.getElementsByTagName('img');
       var parent = this;
@@ -183,7 +189,7 @@ gulp.task('copy-svg', ['sprites'], function() {
 // Generate & Inline Critical-path CSS
 gulp.task('critical-css', function () {
   return gulp.src('../index.html')
-    .pipe(critical({base: './', inline: true, minify: true, css: ['../dist/assets/app-92ebeb9a15.css']}))
+    .pipe(critical({base: './', inline: true, minify: true, css: ['../dist/assets/app.css']}))
     .on('error', function(err) { gutil.log(gutil.colors.red(err.message)); })
     .pipe(gulp.dest('../'));
 })
@@ -219,6 +225,7 @@ gulp.task('build', function(callback) {
   runSequence(
     'sass',
     'scripts',
+    'copy-assets',
     'revreplace',
     'json:minify',
     'nunjucks',
