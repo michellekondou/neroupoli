@@ -5,10 +5,6 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('dist/sw.js').then(function(registration) {
       // Registration was successful
       console.log('ServiceWorker registration successful with scope: ', registration.scope);
-       registration.unregister().then(function(boolean) {
-        // if boolean = true, unregister is successful
-        console.log(boolean);
-      });
     }, function(err) {
       // registration failed :(
       console.log('ServiceWorker registration failed: ', err);
