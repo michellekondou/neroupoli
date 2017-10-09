@@ -21,20 +21,20 @@ var cw = document.documentElement.clientWidth;
 var ch = document.documentElement.clientHeight;
 
 if (cw < ch) {  
-  var mapSrc = 'src/graphics/map-768x1024-v42.svg';
+  var mapSrc = 'dist/graphics/map-768x1024-v42.svg';
   var vw = 768;
   var vh = 1024;
   var lpw = vw; //stands for limit pan
   var lph = vh;
 } else {
   if (cw <= 1366) {
-    var mapSrc = 'src/graphics/map-1366x768-v42.svg';
+    var mapSrc = 'dist/graphics/map-1366x768-v42.svg';
     var vw = 1366;
     var vh = 768;
     var lpw = vw;
     var lph = vh;
   } else if (cw > 1366) {
-    var mapSrc = 'src/graphics/map-1920x1080-v42.svg';
+    var mapSrc = 'dist/graphics/map-1920x1080-v42.svg';
     var vw = 1920;
     var vh = 1080;
     var lpw = cw;

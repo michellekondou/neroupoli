@@ -1,9 +1,8 @@
 var CACHE_NAME = 'v3';
 var urlsToCache = [
-  '../index.html'
-  '../src/graphics/map-1920x1080-v42.svg',
-  '../src/graphics/map-1366x768-v42.svg',
-  '../src/graphics/map-768x1024-v42.svg',
+  'graphics/map-1920x1080-v42.svg',
+  'graphics/map-1366x768-v42.svg',
+  'graphics/map-768x1024-v42.svg',
   'proxy/data-52256a609b.json',
   'assets/app.css',
   'assets/app-974aba1d89.js',
