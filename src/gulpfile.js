@@ -83,7 +83,7 @@ var manifest = gulp.src("../dist/rev-manifest.json");
 
 return gulp.src("compiled/sw.js")
   .pipe(revReplace({manifest: manifest}))
-  .pipe(gulp.dest("../dist"));
+  .pipe(gulp.dest("../"));
 })
 
 gulp.task("revreplaceAppjs", function(){  
