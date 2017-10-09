@@ -69,26 +69,42 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest(jsDest))
 })
 
-// gulp.task('rev', ['sass', 'scripts'], function() {
-//   return gulp.src(['compiled/css/**/*.css', 'compiled/js/**/*.js'])
-//     .pipe(rev())
-//     .pipe(gulp.dest('../dist/assets'))
-//     .pipe(rev.manifest()) 
-//     .pipe(gulp.dest('../dist'))    
-//     .pipe(revDel({ dest: '../dist/assets', force: true }));
-// })
+gulp.task('rev', function() {
+  return gulp.src(['compiled/js/**/*.js', '../dist/proxy/data.json'])
+    .pipe(rev())
+    .pipe(gulp.dest('../dist/assets'))
+    .pipe(rev.manifest()) 
+    .pipe(gulp.dest('../dist'))    
+    .pipe(revDel({ dest: '../dist/assets', force: true }));
+})
 
-gulp.task('copy-assets', ['sass', 'scripts'], function() {
-  return gulp.src(['compiled/css/**/*.css', 'compiled/js/**/*.js'])
+gulp.task("revreplaceSW", ['rev'], function(){  
+var manifest = gulp.src("../dist/rev-manifest.json");
+
+return gulp.src("compiled/sw.js")
+  .pipe(revReplace({manifest: manifest}))
+  .pipe(gulp.dest("../dist"));
+})
+
+gulp.task("revreplaceAppjs", function(){  
+var manifest = gulp.src("../dist/rev-manifest.json");
+
+return gulp.src("compiled/js/**/*.js")
+  .pipe(revReplace({manifest: manifest}))
+  .pipe(gulp.dest("compiled/js/"));
+})
+
+gulp.task('copy-assets', ['sass'], function() {
+  return gulp.src(['compiled/css/**/*.css'])
     .pipe(revReplace())
     .pipe(gulp.dest('../dist/assets'))
 })
 
 gulp.task("revreplace", ["copy-assets"], function(){
-  //var manifest = gulp.src("../dist/rev-manifest.json");
+  var manifest = gulp.src("../dist/rev-manifest.json");
 
 return gulp.src("../dist/index.html")
-  //.pipe(revReplace({manifest: manifest}))
+  .pipe(revReplace({manifest: manifest}))
   .pipe(dom(function(){
       var imgEl = this.getElementsByTagName('img');
       var parent = this;
@@ -225,6 +241,8 @@ gulp.task('build', function(callback) {
   runSequence(
     'sass',
     'scripts',
+    'revreplaceSW',
+    'revreplaceAppjs',
     'copy-assets',
     'revreplace',
     'json:minify',

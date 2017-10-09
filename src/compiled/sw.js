@@ -1,4 +1,4 @@
-var CACHE_NAME = 'v2';
+var CACHE_NAME = 'v3';
 var urlsToCache = [
   'index.html',
   'src/graphics/map-1920x1080-v42.svg',
@@ -65,7 +65,7 @@ self.addEventListener('fetch', function(event) {
 
 self.addEventListener('activate', function(event) {
 
-  var cacheWhitelist = ['waterpolis-cache-v6', 'waterpolis-cache-v5', 'waterpolis-cache-v4', 'waterpolis-cache-v3', 'waterpolis-cache-v2', 'v1'];
+  var cacheWhitelist = ['waterpolis-cache-v6', 'waterpolis-cache-v5', 'waterpolis-cache-v4', 'waterpolis-cache-v3', 'waterpolis-cache-v2', 'v1', 'v2'];
 
   event.waitUntil(
     caches.keys().then(function(cacheNames) {
