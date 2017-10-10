@@ -231,7 +231,7 @@ gulp.task('lint', function() {
 
 gulp.task('watch', ['sass', 'scripts', 'nunjucks', 'revreplace-dev', 'sprites'], function(){
   gulp.watch('scss/**/*.scss', ['sass']);
-  gulp.watch('js/**/*.js', ['scripts']); 
+  //gulp.watch('js/**/*.js', ['scripts']); 
   gulp.watch('js/**/*.+(html|nunjucks)', ['nunjucks']); 
   gulp.watch('../dist/dev.html', ['revreplace-dev']);
   gulp.watch('../src/svg/*.svg', ['sprites', 'copy-svg']);

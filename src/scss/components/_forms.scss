@@ -267,7 +267,7 @@ input:checked + label span {
 }
 
 .submitted input[data-type="correct"] + label.selected span {
-    background-color: green;
+    background-color: $green;
 }
 
 .submitted input[data-type="wrong"] + label.selected span {
@@ -328,6 +328,12 @@ option {
   color: #fff;
 }
 
+.reset {
+  display: block;
+  margin: 0;
+  @include rem-fallback(margin-top, 20);
+}
+
 form mark {
   background-color: transparent;
   font-family: $bold;
@@ -340,11 +346,9 @@ form mark {
 }
 
 .thankyou_message {
-  @include rem-fallback(margin-bottom, 20);
+  @include rem-fallback(margin-bottom, 60);
 }
 
 .form-error {
   color: black;
 }
-
-

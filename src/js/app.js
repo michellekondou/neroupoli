@@ -1,15 +1,25 @@
-//service worker registration
+// //service worker registration
+// if ('serviceWorker' in navigator) {
+//   window.addEventListener('load', function() {
+
+//     navigator.serviceWorker.register('sw.js').then(function(registration) {
+//       // Registration was successful
+//       console.log('ServiceWorker registration successful with scope: ', registration.scope);
+//     }, function(err) {
+//       // registration failed :(
+//       console.log('ServiceWorker registration failed: ', err);
+//     });
+
+//   });
+// }
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
-
-    navigator.serviceWorker.register('sw.js').then(function(registration) {
-      // Registration was successful
-      console.log('ServiceWorker registration successful with scope: ', registration.scope);
-    }, function(err) {
-      // registration failed :(
-      console.log('ServiceWorker registration failed: ', err);
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+      for(var registration in registrations) {
+        registration.unregister()
+      } 
     });
-
   });
 }
 
@@ -605,7 +615,7 @@ var current_page = $(this.page.modal);
 
 var likert_input = current_page.find('.likert input');
 var submit = current_page.find('.submit');
-var reset = current_page.find('.reset');
+
 
 console.log(likert_input);
 
@@ -633,78 +643,116 @@ $(submit).on('click', function() {
     var submit_id = $(this).attr("id");   
     var form_id = submit_id.substring(0, submit_id.indexOf('--'));
     var forms = $('form#' + form_id);
-    var option = $('#' + form_id + " input:radio" + ',#' + form_id + " input:checkbox");
+    var option = $('#' + form_id + " input:radio, #" + form_id + " input:checkbox");
+    var radio = $('#' + form_id + " input:radio");
+    var checkbox = $('#' + form_id + " input:checkbox");
     var reset_btn = $('#' + form_id + "--reset");
-    console.log(reset_btn);
     var selectedOption = $('#' + form_id + " input:checked");
-    if (!selectedOption) {
-      console.log('nothing selected');
-    }
-     //console.log(selectedOption);
-    for (var j=0;j<option.length;j++) {
-      var this_option = option[j];
-      //console.log(this_option);
-      if ( $(this_option).is(':checked') ) {
-        $('#' + form_id + '.form-error').html('');
-        $(reset_btn).removeClass('visually-hidden'); 
-        $('#' + form_id + ' .loader.quiz').css('display','inline-block');
-        for(var i=0;i<forms.length;i++){
-          var this_form = forms[i];
-          if ( $(this_form).attr("id") === form_id ) {     
-            var form = $(this_form);
-            console.log(form, form_id);
-            var data = getFormData(form);
-            var url = form.attr('action');
-            $.ajax({
-              type: "POST",
-              url: url,
-              data: data,
-              success: function(data){
-                $('.form-error').html('');
-                $('.submit').removeClass('disabled');
-                $('#' + form_id + ' .loader').css('display','none'); 
-                $(form).find('input').attr("disabled", true);
-                $('#' + submit_id).addClass('none');  
-                $(form).addClass('submitted');
-                $('#' + form_id + "--thankyou_message").css('display','block');
-                console.log(selectedOption);
-                $('#' + form_id + " .checkbox-prompt").addClass('visible');
-                selectedOption.siblings('label').addClass('selected');
-                if ( selectedOption.attr('data-type') == "correct" ) {
-                  $('.check-answer').html('Σωστά!');
-                  if ( $(this_option).is(':radio') ) {
-                    $('.check-answer').html('Σωστά!');
-                  } else if ($(this_option).is(':checkbox') ) {
-                    $('.check-answer').html('Όλα σωστά! Μπράβο!');
-                  }
-                } else if ( selectedOption.attr('data-type') == 'wrong') {
-                  if ( $(this_option).is(':radio') ) {
-                    $('.check-answer').html('Λάθος!');
-                  } else if ($(this_option).is(':checkbox') ) {
-                    $('.check-answer').html('Υπήρχαν κάποιες λάθος απαντήσεις!');
-                  }
+
+   console.log(selectedOption);
+    if (selectedOption.length >= 1) {
+      //for all inputs
+      for (var j=0;j<option.length;j++) {
+        var this_option = option[j];
+        //console.log(this_option);
+        if ( $(this_option).prop('checked') == true ) {
+          console.log($(this_option));
+          $('#' + form_id + '--submit .loader').css('display','block');
+          $('#' + form_id + '--form-error').html(''); 
+          for(var i=0;i<forms.length;i++){
+            var this_form = forms[i];
+            if ( $(this_form).attr("id") === form_id ) {     
+              var form = $(this_form);
+              var data = getFormData(form);
+              var url = form.attr('action');
+              $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                success: function(data){
+                  //clear the error message
+                  $('#' + form_id + '--form-error').html(''); 
+                  //enable the button for when it is used again
+                  $('.submit').removeClass('disabled');
+                  //hide the loader
+                  $('#' + form_id + '--submit .loader').css('display','none'); 
+                  //disable input to prevent resubmit
+                  $(form).find('input').attr("disabled", true);
+                  //hide the submit button
+                  $('#' + submit_id).addClass('none');  
+                  //mark the form as submitted
+                  $(form).addClass('submitted');
+                  //display a thank you message
+                  $('#' + form_id + "--thankyou_message").css('display','block');
+                  console.log(selectedOption);
+                  //display an input message?
+                  $('#' + form_id + " .checkbox-prompt").addClass('visible');
+                  //add class to checked input
+                  selectedOption.siblings('label').addClass('selected');
+                  //radio input: check correct answers to display appropriate msg
+                },
+                error: function(error){
+                  console.log(error);
                 }
-              }
-            });//end ajax  
-          }//end if
-        }//end for loop
-      } else if ( !($(this_option).is(':checked')) ) {
-        //if ( $(this_option).is(':radio') ) {
-          $('#' + form_id + '--form-error').html('Παρακαλούμε διάλεξε πρώτα μια απάντηση!');
-          $('#' + form_id + '--submit').addClass('disabled');
-          console.log('please choose an option to submit the form');
-        // }
+              });//end ajax  
+            }//end if
+          }//end for loop
+        }
       }
+    } else if ( selectedOption.length == 0 ) {
+        $('#' + form_id + '--form-error').html('Παρακαλούμε διάλεξε πρώτα μια απάντηση!');
+        $('#' + form_id + '--submit').addClass('disabled');
+        console.log('please choose an option to submit the form');
     }//end outer for loop   
+
+    var correct_answers = [];
+    var selected_answers = [];
+    //checkbox inputs
+    for(var c=0;c<checkbox.length;c++){
+      var this_checkbox = checkbox[c];
+      if ( $(this_checkbox).attr('data-type') == "correct"  ) {
+        correct_answers.push(this_checkbox);
+      } 
+      if ( $(this_checkbox).is(':checked') ) {
+        selected_answers.push(this_checkbox);
+      } 
+    }
+
+    var is_same = (correct_answers.length == selected_answers.length) && correct_answers.every(function(element, index) {
+        return element === selected_answers[index]; 
+    });
+
+    if(is_same){
+      $('#' + form_id + "--thankyou_message").find('.check-answer').html('Όλα σωστά! Μπράβο!');
+    } else {
+      $('#' + form_id + "--thankyou_message").find('.check-answer').html('Δεν έχεις επιλέξει όλες τις σωστές απαντήσεις!');
+      setTimeout(function(){
+        $(reset_btn).removeClass('visually-hidden'); 
+      }, 500);
+      
+    }
+
+    //multiple choice inputs
+    for(var r=0;r<radio.length;r++){
+      var this_radio = radio[r];
+      if ( selectedOption.attr('data-type') == "correct" ) {
+        $('#' + form_id + "--thankyou_message").find('.check-answer').html('Σωστά!');
+      } else if ( selectedOption.attr('data-type') == 'wrong') {
+        $('#' + form_id + "--thankyou_message").find('.check-answer').html('Λάθος!');
+        $(reset_btn).removeClass('visually-hidden'); 
+      }
+    }
 });//submit function
 
-console.log(this);
-
-$(reset).on('click', function(){
+function resetForm(){
+  var current_page = $(parent.page.modal);
+  var reset = current_page.find('.reset');
+  $(reset).on('click', function(){
     var reset_id = $(this).attr("id");
     var form_id = reset_id.substring(0, reset_id.indexOf('--'));
     var form = $('#'+form_id);
     var url = form.attr('action');
+    $('#' + form_id + '--reset .loader').css('display','block');
     $.ajax({
       type: "POST",
       url: url,
@@ -714,14 +762,19 @@ $(reset).on('click', function(){
         form.removeClass('submitted');
         form.find('input:text, input:password, input:file, select, textarea').val('');
         form.find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected').removeAttr('disabled');
+        form.find('.checkbox-prompt').removeClass('visible');
         form.find('label').removeClass('selected');
         $('#'+reset_id).addClass('visually-hidden');
         $('#'+form_id+'--submit').removeClass('none');
         $('#'+form_id+'--thankyou_message').css('display','none');
+        $('#' + form_id + '--reset .loader').css('display','none'); 
         console.log('#'+form_id+'--submit');
       }  
     });
 });
+}
+
+resetForm();
 
 $('input').on('change', function(){
     console.log('input selected');
@@ -729,11 +782,6 @@ $('input').on('change', function(){
     $('.form-error').html('');
     $('.submit').removeClass('disabled');
 });
-
-  // $('form').on('submit', function(){
-  //    console.log('form submitted');
-  // });
-
 
 /*------------------------------------*\
   #Sortable Quiz
@@ -1141,7 +1189,30 @@ MapViewItem.prototype.page_close = function () {
   tl.addLabel("hide-overlay", 0.8);
   tl.add(closeOverlay, "hide-overlay");
 
-  //return tl;
+
+  function resetForm(){
+    var form = $('form');
+    var url = form.attr('action');
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: form.serialize(),
+      success: function(event) {
+        console.log('success');
+        form.removeClass('submitted');
+        form.find('input:text, input:password, input:file, select, textarea').val('');
+        form.find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected').removeAttr('disabled');
+        form.find('.checkbox-prompt').removeClass('visible');
+        form.find('label').removeClass('selected');
+        $('.reset').addClass('visually-hidden');
+        $('.submit').removeClass('none');
+        $('.thankyou_message').css('display','none');
+        $('.reset .loader').css('display','none'); 
+      }  
+    });
+  }
+
+  resetForm();
 };
 
 MapViewItem.prototype.pop_open = function () {
