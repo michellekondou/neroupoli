@@ -340,7 +340,7 @@ form mark {
 }
 
 .thankyou_message {
-  @include rem-fallback(margin-bottom, 60);
+  @include rem-fallback(margin-bottom, 20);
 }
 
 .form-error {

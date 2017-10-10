@@ -529,7 +529,6 @@ MapViewItem.prototype.page_open = function () {
   //handle card content
   var cards = this.page.modal.find('.cards');
   var cards_navigation = this.page.modal.find('.progress-bar');
-  console.log(this, this.page.modal[0].id, cards_navigation);
   $(cards)
   .cycle({ 
     fx:     'fade', 
@@ -561,8 +560,11 @@ MapViewItem.prototype.page_open = function () {
     $('#' + parent.page.modal[0].id + ' .next')[index == opts.slideCount - 1 ? 'addClass' : 'removeClass']('last');
   }
 
+console.log(this);
 
-
+/*------------------------------------*\
+  #FORMS GENERAL
+\*------------------------------------*/
 //form handler TODO put this stuff in its own function
 // get all data in form and return object
 function getFormData(form) {
@@ -597,8 +599,17 @@ function getFormData(form) {
  
 $(".checkbox-prompt").removeClass('visible');
 
-$(function() {
-  $('.likert input').on('change', function(){
+console.log(this, this.page.modal[0]);
+
+var current_page = $(this.page.modal);
+
+var likert_input = current_page.find('.likert input');
+var submit = current_page.find('.submit');
+var reset = current_page.find('.reset');
+
+console.log(likert_input);
+
+$(likert_input).on('change', function(){
     $('.loader.quiz').css('display','block');        
     var form = $(this).closest("form");
     var data = getFormData(form);
@@ -616,13 +627,16 @@ $(function() {
         return; 
       }
     });            
-  });
+});
 
-  $('.submit').on('click', function() {
-    var submit_id = $(this).attr("id");  
-    var forms = $('form');  
-    var option = $('#' + submit_id + " input:radio" + ',#' + submit_id + " input:checkbox");
-    var selectedOption = $('#' + submit_id + " input:checked");
+$(submit).on('click', function() {
+    var submit_id = $(this).attr("id");   
+    var form_id = submit_id.substring(0, submit_id.indexOf('--'));
+    var forms = $('form#' + form_id);
+    var option = $('#' + form_id + " input:radio" + ',#' + form_id + " input:checkbox");
+    var reset_btn = $('#' + form_id + "--reset");
+    console.log(reset_btn);
+    var selectedOption = $('#' + form_id + " input:checked");
     if (!selectedOption) {
       console.log('nothing selected');
     }
@@ -631,13 +645,14 @@ $(function() {
       var this_option = option[j];
       //console.log(this_option);
       if ( $(this_option).is(':checked') ) {
-        $('#' + submit_id + '.form-error').html('');
-    
-        $('#' + submit_id + ' .loader.quiz').css('display','inline-block');
+        $('#' + form_id + '.form-error').html('');
+        $(reset_btn).removeClass('visually-hidden'); 
+        $('#' + form_id + ' .loader.quiz').css('display','inline-block');
         for(var i=0;i<forms.length;i++){
           var this_form = forms[i];
-          if ( $(this_form).attr("id") === submit_id ) {     
+          if ( $(this_form).attr("id") === form_id ) {     
             var form = $(this_form);
+            console.log(form, form_id);
             var data = getFormData(form);
             var url = form.attr('action');
             $.ajax({
@@ -647,13 +662,13 @@ $(function() {
               success: function(data){
                 $('.form-error').html('');
                 $('.submit').removeClass('disabled');
-                $('#' + submit_id + ' .loader').css('display','none'); 
+                $('#' + form_id + ' .loader').css('display','none'); 
                 $(form).find('input').attr("disabled", true);
-                $('#' + submit_id + '.submit').addClass('none');  
+                $('#' + submit_id).addClass('none');  
                 $(form).addClass('submitted');
-                $('#' + submit_id + ".thankyou_message").css('display','block');
+                $('#' + form_id + "--thankyou_message").css('display','block');
                 console.log(selectedOption);
-                $('#' + submit_id + " .checkbox-prompt").addClass('visible');
+                $('#' + form_id + " .checkbox-prompt").addClass('visible');
                 selectedOption.siblings('label').addClass('selected');
                 if ( selectedOption.attr('data-type') == "correct" ) {
                   $('.check-answer').html('Σωστά!');
@@ -675,26 +690,50 @@ $(function() {
         }//end for loop
       } else if ( !($(this_option).is(':checked')) ) {
         //if ( $(this_option).is(':radio') ) {
-          $('#' + submit_id + '.form-error').html('Παρακαλούμε διάλεξε πρώτα μια απάντηση!');
-          $('#' + submit_id + '.submit').addClass('disabled');
+          $('#' + form_id + '--form-error').html('Παρακαλούμε διάλεξε πρώτα μια απάντηση!');
+          $('#' + form_id + '--submit').addClass('disabled');
           console.log('please choose an option to submit the form');
         // }
       }
-    }//end outer for loop      
-  });//submit function
+    }//end outer for loop   
+});//submit function
 
-  $('input').on('change', function(){
+console.log(this);
+
+$(reset).on('click', function(){
+    var reset_id = $(this).attr("id");
+    var form_id = reset_id.substring(0, reset_id.indexOf('--'));
+    var form = $('#'+form_id);
+    var url = form.attr('action');
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: form.serialize(),
+      success: function(event) {
+        console.log('success');
+        form.removeClass('submitted');
+        form.find('input:text, input:password, input:file, select, textarea').val('');
+        form.find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected').removeAttr('disabled');
+        form.find('label').removeClass('selected');
+        $('#'+reset_id).addClass('visually-hidden');
+        $('#'+form_id+'--submit').removeClass('none');
+        $('#'+form_id+'--thankyou_message').css('display','none');
+        console.log('#'+form_id+'--submit');
+      }  
+    });
+});
+
+$('input').on('change', function(){
     console.log('input selected');
     var submit_id = $(this).attr("id");
     $('.form-error').html('');
     $('.submit').removeClass('disabled');
-  });
-
-  $('form').on('submit', function(){
-     console.log('form submitted');
-  });
-
 });
+
+  // $('form').on('submit', function(){
+  //    console.log('form submitted');
+  // });
+
 
 /*------------------------------------*\
   #Sortable Quiz
