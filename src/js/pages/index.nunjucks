@@ -172,16 +172,16 @@
             {% endfor %}
           </fieldset>
       </form>
-      <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}" class="button submit submit-button">
+      <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}--submit" class="button submit submit-button">
         Δες τη σωστή απάντηση!
         <svg class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
       </button>
-      <small id="gform-{{ point.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}" class="form-error"></small>
-      <article id="gform-{{ point.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}" class="thankyou_message" style="display: none;">
+      <small id="gform-{{ point.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}--form-error" class="form-error"></small>
+      <article id="gform-{{ point.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}--thankyou_message" class="thankyou_message" style="display: none;">
         <p><span class="check-answer"></span><br> {{  option.quiz_thank_you_message }}</p>
         <small>Ευχαριστούμε για την απάντηση σου!</small>
-        <small id="gform-{{ point.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}" class="form-error"></small>
       </article>
+      <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}--reset" class="button reset submit-button visually-hidden">Προσπάθησε ξανά!</button>
       {% endfor %}
       {% elif card.acf_fc_layout === 'multiple_choice' or card.acf_fc_layout === 'checkbox' or card.acf_fc_layout === 'likert' %}
       <form id="gform-{{ point.title.rendered }}-{{ quiz_counter }}" class="{% if card.acf_fc_layout === 'multiple_choice' %}multiple-choice{% elif card.acf_fc_layout === 'checkbox' %}checkbox-quiz{% elif card.acf_fc_layout === 'likert' %}likert{% endif %}" action="{{  card.quiz_form_url }}" method="POST">
@@ -280,19 +280,19 @@
 
       {% endif %}
       {% if card.acf_fc_layout === 'multiple_choice' %}
-      <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}" class="button submit submit-button">
+      <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}--submit" class="button submit submit-button">
         Δες τη σωστή απάντηση!
         <svg class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
       </button>
       {% endif %}
       {% if card.acf_fc_layout === 'checkbox' %}
-      <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}" class="button submit submit-button">
+      <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}--submit" class="button submit submit-button">
         Δες τις σωστές απαντήσεις!
         <svg class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
       </button>
       {% endif %}
       {% if card.acf_fc_layout === 'sortable' %}
-      <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}" class="button submit-button" id="resort">Δες τη σωστή σειρά!
+      <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}--submit" class="button submit-button" id="resort">Δες τη σωστή σειρά!
         <svg class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
       </button>
       {% endif %}
@@ -302,16 +302,17 @@
       </div>
       {% endif %}
       {% if card.acf_fc_layout === 'checkbox' or card.acf_fc_layout === 'multiple_choice' %}
-      <small id="gform-{{ point.title.rendered }}-{{ quiz_counter }}" class="form-error"></small>
-      <article id="gform-{{ point.title.rendered }}-{{ quiz_counter }}" class="thankyou_message" style="display: none;">
+      <small id="gform-{{ point.title.rendered }}-{{ quiz_counter }}--form-error" class="form-error"></small>
+      <article id="gform-{{ point.title.rendered }}-{{ quiz_counter }}--thankyou_message" class="thankyou_message" style="display: none;">
       <p><span class="check-answer"></span><br> {{  card.quiz_thank_you_msg }}</p>
       <small>Ευχαριστούμε για την απάντηση σου!</small>
-      <small id="gform-{{ point.title.rendered }}-{{ quiz_counter }}" class="form-error"></small>
       </article>
+      <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}--reset" class="button reset submit-button visually-hidden">Προσπάθησε ξανά!</button>
       {% elif card.acf_fc_layout === 'likert' %}
-      <article id="gform-{{ point.title.rendered }}-{{ quiz_counter }}" class="thankyou_message" style="display: none;">
+      <article id="gform-{{ point.title.rendered }}-{{ quiz_counter }}--thankyou_message" class="thankyou_message" style="display: none;">
       <small>Ευχαριστούμε για την απάντηση σου!</small>
       </article>
+      <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}--reset" class="button reset submit-button visually-hidden">Προσπάθησε ξανά!</button>
       {% endif %} 
       </div>
 
