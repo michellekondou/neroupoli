@@ -343,6 +343,7 @@ form mark {
 
 .check-answer {
   line-height: 1;
+
 }
 
 .thankyou_message {
@@ -351,4 +352,16 @@ form mark {
 
 .form-error {
   color: black;
+}
+
+.checkbox-photo {
+  @include rem-fallback(margin-top, 20);
+}
+
+.correct {
+  color: $green;
+}
+
+.wrong {
+  color: red;
 }

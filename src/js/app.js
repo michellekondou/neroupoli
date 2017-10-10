@@ -723,9 +723,9 @@ $(submit).on('click', function() {
     });
 
     if(is_same){
-      $('#' + form_id + "--thankyou_message").find('.check-answer').html('Όλα σωστά! Μπράβο!');
+      $('#' + form_id + "--thankyou_message").find('.check-answer').addClass('correct').html('Όλα σωστά! Μπράβο!');
     } else {
-      $('#' + form_id + "--thankyou_message").find('.check-answer').html('Δεν έχεις επιλέξει όλες τις σωστές απαντήσεις!');
+      $('#' + form_id + "--thankyou_message").find('.check-answer').addClass('wrong').html('Υπήρχαν κάποια λάθη!');
       setTimeout(function(){
         $(reset_btn).removeClass('visually-hidden'); 
       }, 500);
@@ -736,9 +736,9 @@ $(submit).on('click', function() {
     for(var r=0;r<radio.length;r++){
       var this_radio = radio[r];
       if ( selectedOption.attr('data-type') == "correct" ) {
-        $('#' + form_id + "--thankyou_message").find('.check-answer').html('Σωστά!');
+        $('#' + form_id + "--thankyou_message").find('.check-answer').addClass('correct').html('Σωστά!');
       } else if ( selectedOption.attr('data-type') == 'wrong') {
-        $('#' + form_id + "--thankyou_message").find('.check-answer').html('Λάθος!');
+        $('#' + form_id + "--thankyou_message").find('.check-answer').addClass('wrong').html('Λάθος!');
         $(reset_btn).removeClass('visually-hidden'); 
       }
     }
@@ -767,6 +767,7 @@ function resetForm(){
         $('#'+reset_id).addClass('visually-hidden');
         $('#'+form_id+'--submit').removeClass('none');
         $('#'+form_id+'--thankyou_message').css('display','none');
+        $('#'+form_id+'--thankyou_message .check-answer').removeClass('correct wrong');
         $('#' + form_id + '--reset .loader').css('display','none'); 
         console.log('#'+form_id+'--submit');
       }  

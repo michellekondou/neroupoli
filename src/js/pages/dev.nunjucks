@@ -207,6 +207,9 @@
             {{  option.quiz_input_value }}
             </label>
             {% if card.acf_fc_layout === 'checkbox' %}
+            {% if option.photo %}
+            <br><img src="{{ option.photo.url }}" alt="{{ option.quiz_input_value }}" class="checkbox-photo">
+            {% endif %}
             {% if option.quiz_prompt %}
             <span class="checkbox-prompt">{{ option.quiz_prompt }}</span>
             {% endif %}
