@@ -119,12 +119,13 @@
             <ul class="">
               {% for hotspot in card.hotspots %}
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">{{ hotspot.hotspot_title }}</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">{{ hotspot.hotspot_title }}</span></div>
               </li>
               {% endfor %}
             </ul>
           </div>
-          <button class="reset-hotspot submit-button">Δες τη σωστή σειρά!</button>
+          <button class="reset-hotspot submit-button">Δες τις σωστές θέσεις!</button>
+          <button class="clear-hotspot submit-button visually-hidden">Παίξε ξανά!</button>
         </section>
       {% elif card.acf_fc_layout === 'sortable' %}
       <section class="text quiz-sortable">

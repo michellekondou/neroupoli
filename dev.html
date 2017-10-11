@@ -1,5 +1,7 @@
 <!DOCTYPE html><html lang="en"><head>
     <meta charset="utf-8">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
     <meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5">
     <link rel="preload" as="font" type="font/woff2" href="dist/fonts/cfastystd-book-webfont.woff2">
     <link rel="stylesheet" type="text/css" href="src/compiled/css/app.css">
@@ -59,7 +61,7 @@
   </button>
   <h3 class="map-popover-title">Γνωρίζουμε τις … λεκάνες της φύσης</h3>
   <p class="map-popover-content">
-    Τι είναι η 'λεκάνη απορροής', πώς αυτή σχετίζεται με τη ζωή μας, και γιατί τη μελετούν οι ειδικοί; 
+    Τι είναι η 'λεκάνη απορροής', πώς αυτή σχετίζεται με τη ζωή μας, και γιατί τη μελετούν οι ειδικοί;  
     <button class="open_page">Συνέχισε!</button>
   </p>
 </div>
@@ -693,7 +695,7 @@
           
           <h2>ΑΠΟ ΕΔΩ ΚΑΙ ΠΕΡΑ</h2>
           
-          <p><strong>Στον ωκεανό του διαδικτύου </strong></p>
+          <p><strong>Στον ωκεανό του διαδικτύου</strong></p>
 <p>Δες <a href="http://www.meteo-news.gr/2013/09/ta-ipsi-vroxis-stin-ellada.html" target="_blank">εδώ</a> τη μέση ετήσια βροχόπτωση σε χιλιοστά (mm)<br>
 Ή&nbsp;επισκέψου την ιστοσελίδα της Εθνικής Μετεωρολογικής Υπηρεσίας (<a href="http://www.hnms.gr/" target="_blank">ΕΜΥ</a>):</p>
 <p><strong>Τι άλλο μπορείς να κάνεις;</strong></p>
@@ -1107,9 +1109,18 @@
             </figure>
             <ul class="">
               
+              <li>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">κατακρήμνιση</span></div>
+              </li>
+              
+              <li>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">μονάδα επεξεργασίας νερού (ΜΕΝ)</span></div>
+              </li>
+              
             </ul>
           </div>
-          <button class="reset-hotspot submit-button">Δες τη σωστή σειρά!</button>
+          <button class="reset-hotspot submit-button">Δες τις σωστές θέσεις!</button>
+          <button class="clear-hotspot submit-button visually-hidden">Παίξε ξανά!</button>
         </section>
       
       
@@ -1763,32 +1774,33 @@
             <ul class="">
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">καθίζηση</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">καθίζηση</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">φιλτράρισμα</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">φιλτράρισμα</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">προς δίκτυο</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">προς δίκτυο</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">μεταχλωρίωση</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">μεταχλωρίωση</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">προχλωρίωση</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">προχλωρίωση</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">μαιανδρική διαδρομή</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">μαιανδρική διαδρομή</span></div>
               </li>
               
             </ul>
           </div>
-          <button class="reset-hotspot submit-button">Δες τη σωστή σειρά!</button>
+          <button class="reset-hotspot submit-button">Δες τις σωστές θέσεις!</button>
+          <button class="clear-hotspot submit-button visually-hidden">Παίξε ξανά!</button>
         </section>
       
       
@@ -2392,32 +2404,33 @@
             <ul class="">
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">φίλτρο</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">φίλτρο</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">απολύμανση</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">απολύμανση</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">κέντρο ελέγχου</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">κέντρο ελέγχου</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">δεξαμενή αποθήκευσης</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">δεξαμενή αποθήκευσης</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">αντλία αερισμού</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">αντλία αερισμού</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">αποχέτευση</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">αποχέτευση</span></div>
               </li>
               
             </ul>
           </div>
-          <button class="reset-hotspot submit-button">Δες τη σωστή σειρά!</button>
+          <button class="reset-hotspot submit-button">Δες τις σωστές θέσεις!</button>
+          <button class="clear-hotspot submit-button visually-hidden">Παίξε ξανά!</button>
         </section>
       
       
@@ -2761,44 +2774,45 @@
             <ul class="">
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">επιφάνεια συλλογής</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">επιφάνεια συλλογής</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">σήτα (φίλτρο)</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">σήτα (φίλτρο)</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">υδρορροή</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">υδρορροή</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">βάνα ελέγχου</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">βάνα ελέγχου</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">φίλτρο άμμου</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">φίλτρο άμμου</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">αντλία</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">αντλία</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">δεξαμενή</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">δεξαμενή</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">σιφώνι υπερχείλισης</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">σιφώνι υπερχείλισης</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">καπάκι δεξαμενής</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">καπάκι δεξαμενής</span></div>
               </li>
               
             </ul>
           </div>
-          <button class="reset-hotspot submit-button">Δες τη σωστή σειρά!</button>
+          <button class="reset-hotspot submit-button">Δες τις σωστές θέσεις!</button>
+          <button class="clear-hotspot submit-button visually-hidden">Παίξε ξανά!</button>
         </section>
       
       
@@ -3972,40 +3986,41 @@
             <ul class="">
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">Πρωτοβάθμια καθίζηση</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">Πρωτοβάθμια καθίζηση</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">Αερισμός</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">Αερισμός</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">Κοσκίνισμα/Σχάρισμα</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">Κοσκίνισμα/Σχάρισμα</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">Επεξεργασία λάσπης</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">Επεξεργασία λάσπης</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">Τελική καθίζηση</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">Τελική καθίζηση</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">Χλωρίωση</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">Χλωρίωση</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">Άρδευση με το ανακτημένο νερό</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">Άρδευση με το ανακτημένο νερό</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">Ανακτημένο νερό στη θάλασσα</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">Ανακτημένο νερό στη θάλασσα</span></div>
               </li>
               
             </ul>
           </div>
-          <button class="reset-hotspot submit-button">Δες τη σωστή σειρά!</button>
+          <button class="reset-hotspot submit-button">Δες τις σωστές θέσεις!</button>
+          <button class="clear-hotspot submit-button visually-hidden">Παίξε ξανά!</button>
         </section>
       
       
@@ -5926,40 +5941,41 @@
             <ul class="">
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">Αγελάδα: Τα ζώα που εκτρέφουμε όπως οι αγελάδες και τα πρόβατα συνεισφέρουν στο φαινόμενο του θερμοκηπίου. Καθώς τα ζώα χωνεύουν το χορτάρι και το σιτάρι που έχουν φάει, με την πέψη παράγουν αέριο μεθάνιο, το οποίο αποβάλλουν από το εντερικό τους σύστημα στην ατμόσφαιρα (Πφφφφ!!!).</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">Αγελάδα: Τα ζώα που εκτρέφουμε όπως οι αγελάδες και τα πρόβατα συνεισφέρουν στο φαινόμενο του θερμοκηπίου. Καθώς τα ζώα χωνεύουν το χορτάρι και το σιτάρι που έχουν φάει, με την πέψη παράγουν αέριο μεθάνιο, το οποίο αποβάλλουν από το εντερικό τους σύστημα στην ατμόσφαιρα (Πφφφφ!!!).</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">Φυτά: Τα λουλούδια, οι θάμνοι, και κυρίως τα δέντρα κάνουν μια σημαντική δουλειά: απομακρύνουν το διοξείδιο του άνθρακα από την ατμόσφαιρα.  Γνωρίζεις ότι τα φυτά φτιάχνουν τα ίδια την τροφή τους; Με τη φωτοσύνθεση παίρνουν ενέργεια από τον ήλιο, νερό με τις ρίζες τους και διοξείδιο του άνθρακα από την ατμόσφαιρα και συνθέτουν ό,τι τους χρειάζεται για να αναπτυχθούν. Έτσι μας δίνουν και το πολύτιμο οξυγόνο!</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">Φυτά: Τα λουλούδια, οι θάμνοι, και κυρίως τα δέντρα κάνουν μια σημαντική δουλειά: απομακρύνουν το διοξείδιο του άνθρακα από την ατμόσφαιρα.  Γνωρίζεις ότι τα φυτά φτιάχνουν τα ίδια την τροφή τους; Με τη φωτοσύνθεση παίρνουν ενέργεια από τον ήλιο, νερό με τις ρίζες τους και διοξείδιο του άνθρακα από την ατμόσφαιρα και συνθέτουν ό,τι τους χρειάζεται για να αναπτυχθούν. Έτσι μας δίνουν και το πολύτιμο οξυγόνο!</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">Τροπικά Δάση: Τα δάση αυτά λέγονται και «πνεύμονας της Γης»: Πρώτα-πρώτα δεσμεύουν διοξείδιο του άνθρακα και παράγουν οξυγόνο. Επιπλέον, τα τροπικά δάση είναι τόσο μεγάλα που ρυθμίζουν την ποσότητα υδρατμών στην ατμόσφαιρα όχι μόνο στις περιοχές που εκτείνονται, αλλά σε ολόκληρο τον πλανήτη.</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">Τροπικά Δάση: Τα δάση αυτά λέγονται και «πνεύμονας της Γης»: Πρώτα-πρώτα δεσμεύουν διοξείδιο του άνθρακα και παράγουν οξυγόνο. Επιπλέον, τα τροπικά δάση είναι τόσο μεγάλα που ρυθμίζουν την ποσότητα υδρατμών στην ατμόσφαιρα όχι μόνο στις περιοχές που εκτείνονται, αλλά σε ολόκληρο τον πλανήτη.</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">Σύννεφα: Από τη μια πλευρά, τα σύννεφα λειτουργούν σαν φυσικά σκίαστρα που δροσίζουν τη γη. Όμως οι υδρατμοί, δηλαδή το νερό από το οποίο αποτελούνται είναι κι αυτό ένα από τα αέρια του θερμοκηπίου.  Οι επιστήμονες δεν έχουν καταλήξει εάν τα σύννεφα τελικά κάνουν περισσότερο καλό ή κακό, αλλά ένα είναι σίγουρο: Όσο συνεχίζεται η κλιματική αλλαγή θα έχουμε όλο και περισσότερα σύννεφα στον ουρανό, και πιο πολλά ακραία καιρικά φαινόμενα και πλημμύρες.</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">Σύννεφα: Από τη μια πλευρά, τα σύννεφα λειτουργούν σαν φυσικά σκίαστρα που δροσίζουν τη γη. Όμως οι υδρατμοί, δηλαδή το νερό από το οποίο αποτελούνται είναι κι αυτό ένα από τα αέρια του θερμοκηπίου.  Οι επιστήμονες δεν έχουν καταλήξει εάν τα σύννεφα τελικά κάνουν περισσότερο καλό ή κακό, αλλά ένα είναι σίγουρο: Όσο συνεχίζεται η κλιματική αλλαγή θα έχουμε όλο και περισσότερα σύννεφα στον ουρανό, και πιο πολλά ακραία καιρικά φαινόμενα και πλημμύρες.</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">Σταθμοί παραγωγής ενέργειας: Στους σταθμούς της ΔΕΗ καίγονται ορυκτά καύσιμα, όπως λιγνίτης. πετρέλαιο, κ.ά. και παράγεται ηλεκτρική ενέργεια. Από εκεί φτάνει στα σπίτια μας, έτσι ώστε να λειτουργούν τα φώτα, οι υπολογιστές, και οι υπόλοιπες ηλεκτρικές συσκευές.  Δυστυχώς, με τις καύσεις αυτές απελευθερώνονται τεράστιες ποσότητες αερίων του θερμοκηπίου. Ευτυχώς, κάποιες χώρες επιλέγουν να κλείνουν τους σταθμούς καύσης και στρέφονται προς την ενέργεια που προέρχεται από τον ήλιο και τον άνεμο</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">Σταθμοί παραγωγής ενέργειας: Στους σταθμούς της ΔΕΗ καίγονται ορυκτά καύσιμα, όπως λιγνίτης. πετρέλαιο, κ.ά. και παράγεται ηλεκτρική ενέργεια. Από εκεί φτάνει στα σπίτια μας, έτσι ώστε να λειτουργούν τα φώτα, οι υπολογιστές, και οι υπόλοιπες ηλεκτρικές συσκευές.  Δυστυχώς, με τις καύσεις αυτές απελευθερώνονται τεράστιες ποσότητες αερίων του θερμοκηπίου. Ευτυχώς, κάποιες χώρες επιλέγουν να κλείνουν τους σταθμούς καύσης και στρέφονται προς την ενέργεια που προέρχεται από τον ήλιο και τον άνεμο</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">Πυρκαγιές: Κάθε φορά που καίγεται ένα δέντρο ελευθερώνεται διοξείδιο του άνθρακα και δυστυχώς  αφαιρείται από το περιβάλλον ένας οργανισμός που θα μπορούσε να το «αποθηκεύσει». Είναι σημαντικό να προστατεύουμε τα δάση και μετά από κάθε πυρκαγιά να φροντίζουμε να μεγαλώνει το δάσος στο αρχικό του μέγεθος.</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">Πυρκαγιές: Κάθε φορά που καίγεται ένα δέντρο ελευθερώνεται διοξείδιο του άνθρακα και δυστυχώς  αφαιρείται από το περιβάλλον ένας οργανισμός που θα μπορούσε να το «αποθηκεύσει». Είναι σημαντικό να προστατεύουμε τα δάση και μετά από κάθε πυρκαγιά να φροντίζουμε να μεγαλώνει το δάσος στο αρχικό του μέγεθος.</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">Θάλασσες &amp; Ωκεανοί: Οι θάλασσες θεωρούνται "αποθήκες" διοξειδίου του άνθρακα, όπως ακριβώς και τα δάση. Χάρη στα μικροσκοπικά φυτά που περιέχουν (φυτοπλαγκτόν) με τη φωτοσύνθεση, απορροφούν το διοξείδιο του άνθρακα και μας χαρίζουν πολύτιμο οξυγόνο.</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">Θάλασσες &amp; Ωκεανοί: Οι θάλασσες θεωρούνται "αποθήκες" διοξειδίου του άνθρακα, όπως ακριβώς και τα δάση. Χάρη στα μικροσκοπικά φυτά που περιέχουν (φυτοπλαγκτόν) με τη φωτοσύνθεση, απορροφούν το διοξείδιο του άνθρακα και μας χαρίζουν πολύτιμο οξυγόνο.</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">Μεταφορές: Τα αεροπλάνα, τα αυτοκίνητα, τα φορτηγά, όπως και τα πλοία χρειάζονται κάποιο καύσιμο για να κινηθούν, συνήθως βενζίνη ή πετρέλαιο. Καθώς καίγονται τα καύσιμα αυτά στον κινητήρα, απελευθερώνονται αέρια του θερμοκηπίου από την εξάτμιση. Πες όχι στο αυτοκίνητο και επέλεξε φιλικούς προς το περιβάλλον τρόπους μετακίνησης.</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">Μεταφορές: Τα αεροπλάνα, τα αυτοκίνητα, τα φορτηγά, όπως και τα πλοία χρειάζονται κάποιο καύσιμο για να κινηθούν, συνήθως βενζίνη ή πετρέλαιο. Καθώς καίγονται τα καύσιμα αυτά στον κινητήρα, απελευθερώνονται αέρια του θερμοκηπίου από την εξάτμιση. Πες όχι στο αυτοκίνητο και επέλεξε φιλικούς προς το περιβάλλον τρόπους μετακίνησης.</span></div>
               </li>
               
             </ul>
           </div>
-          <button class="reset-hotspot submit-button">Δες τη σωστή σειρά!</button>
+          <button class="reset-hotspot submit-button">Δες τις σωστές θέσεις!</button>
+          <button class="clear-hotspot submit-button visually-hidden">Παίξε ξανά!</button>
         </section>
       
       
@@ -6323,24 +6339,25 @@
             <ul class="">
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">Ορεινό κλίμα με ψυχρούς χειμώνες, δροσερά καλοκαίρια και βροχές όλες τις εποχές.</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">Ορεινό κλίμα με ψυχρούς χειμώνες, δροσερά καλοκαίρια και βροχές όλες τις εποχές.</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">Χειμώνες πιο ψυχροί απ’ ότι στις ακτές και ξηρά καλοκαίρια.</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">Χειμώνες πιο ψυχροί απ’ ότι στις ακτές και ξηρά καλοκαίρια.</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">Υγρό κλίμα με ήπιους χειμώνες με πολλές βροχές και δροσερά καλοκαίρια.</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">Υγρό κλίμα με ήπιους χειμώνες με πολλές βροχές και δροσερά καλοκαίρια.</span></div>
               </li>
               
               <li>
-              <div class="draggable-item"><span class="circle"></span><span class="text">Μέτριες βροχές, ήπιοι χειμώνες και ξηρά καλοκαίρια.</span></div>
+              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">Μέτριες βροχές, ήπιοι χειμώνες και ξηρά καλοκαίρια.</span></div>
               </li>
               
             </ul>
           </div>
-          <button class="reset-hotspot submit-button">Δες τη σωστή σειρά!</button>
+          <button class="reset-hotspot submit-button">Δες τις σωστές θέσεις!</button>
+          <button class="clear-hotspot submit-button visually-hidden">Παίξε ξανά!</button>
         </section>
       
       

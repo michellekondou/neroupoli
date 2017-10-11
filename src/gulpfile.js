@@ -44,6 +44,7 @@ gulp.task('sass', function() {
 //script paths
 var jsFiles = [
       'js/jquery.min.js',
+      'js/lib/polyfills.js',
       'node_modules/jquery-cycle/index.js',
       'node_modules/nunjucks/browser/nunjucks.js',
       'node_modules/d3/build/d3.js',

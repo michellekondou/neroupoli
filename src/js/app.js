@@ -539,6 +539,7 @@ MapViewItem.prototype.page_open = function () {
   //handle card content
   var cards = this.page.modal.find('.cards');
   var cards_navigation = this.page.modal.find('.progress-bar');
+  var card_content = this.content.acf.cards;
   $(cards)
   .cycle({ 
     fx:     'fade', 
@@ -934,30 +935,30 @@ $('#resort').on('click', function(){
   # Hotspot Quiz
 \*------------------------------------*/
 
-this.hotspot_image = $(this.page.modal).find('.hotspot-image img');
-var hotspot_container = $(this.page.modal).find('.hotspot-image');
-
-var card_content = this.content.acf.cards;
+//get hotspot data - i.e. points with coordinates
 var hotspot_data;
-
 for(var card in card_content) {
   if (card_content[card].acf_fc_layout === 'hotspot') {
-    //console.log('for loop',card_content[card].hotspots);
     hotspot_data = card_content[card].hotspots;
   }
 }
 
-//console.log('hotspot_data', hotspot_data, this.content.acf.cards);
+//set some vars
+var hotspot_quiz = $(this.page.modal).find('.quiz-hotspot').attr('id',this.page.point+'-quiz-hotspot');
+this.hotspot_image = hotspot_quiz.find('.hotspot-image img');
+var hotspot_container = hotspot_quiz.find('.hotspot-image');
 
-var hotspot_starting_container = $('.quiz-hotspot ul');
-var hotspot_starting_pos = null; //draggable item position
-var hotspot_target_container = $(this.hotspot_image);
-var hotspot_target = $(this.hotspot);
-var drag_right_offset = $('.hotspot-image img').width() + 50;
 
-var initial_x = 0;
-var initial_y = 0;
+// var hotspot_starting_container = $('.quiz-hotspot ul');
+// var hotspot_starting_pos = null; //draggable item position
+// var hotspot_target_container = $(this.hotspot_image);
+// var hotspot_target = $(this.hotspot);
+// var drag_right_offset = $('.hotspot-image img').width() + 50;
 
+// var initial_x = 0;
+// var initial_y = 0;
+
+//set array with snap points for drag end
 var snapX = [],
     snapY = [];
 //put the hotspot on the image
@@ -973,7 +974,7 @@ for(var hotspot in hotspot_data) {
   var pixels_x = $(this.hotspot_image).width()*(newX/100);
   var pixels_y = $(this.hotspot_image).height()*(newY/100);
 
-  this.hotspot = $("<span />", {
+  this.hotspot = $("<div />", {
     "class": "hotspot",
     "style": "left: " + Math.round( parseFloat(hotspot_coordinates_x) - 3) + "%;" + "top: " + Math.round(parseFloat(hotspot_coordinates_y) - 4) + "%;",
     "title": hotspot_title,
@@ -981,6 +982,19 @@ for(var hotspot in hotspot_data) {
     'data_y': pixels_y,
 
   }).appendTo($(hotspot_container));
+
+  var hotspot_label_container = $("<div />", {
+    "class": "hotspot-labels visually-hidden",
+  }).appendTo($(this.hotspot));
+
+  var hotspot_label_circle = $("<span />", {
+    "class": "circle",
+  }).appendTo($(hotspot_label_container));
+
+  var hotspot_label_text = $("<span />", {
+    "class": "text",
+    "html": hotspot_title
+  }).appendTo($(hotspot_label_container));
 
   // this.hotspot_tooltip = $("<div />", {
   //     "class": "map-popover tooltip top"
@@ -991,22 +1005,83 @@ for(var hotspot in hotspot_data) {
 
 }
 
-var targets = $('.hotspot');
+var targets = hotspot_quiz.find('.hotspot');
 var overlapThreshold = "90%"; 
 
 var draggable;
-var draggable_list_item = $('.quiz-hotspot li .text');
+var draggable_item = hotspot_quiz.find('.hotspot-labels');
+var draggable_item_clone = draggable_item.clone().addClass('clone').removeClass('draggable-item');
 
-for (var i = 0;i<draggable_list_item.length;i++) {
-  var item = draggable_list_item[i];
-  $(item).width();
-}
+console.log(draggable_item, draggable_item_clone, targets);
 
-$(this.page.modal).find('.quiz-hotspot').attr('id',this.page.point+'-quiz-hotspot');
-var hotspot_reset = $(this.page.modal).find('.reset-hotspot');
-hotspot_reset.attr('id',this.page.point+'-quiz-hotspot--reset');
-// var minX = ;
-// var minY = ;
+// for(var i=0;i<draggable_item.length;i++) {
+//   var item = draggable_item[i];
+//   $(item).width();
+// }
+
+//remove any clones before making new ones
+//$(draggable_item_clone).remove();
+var _targets = hotspot_quiz.find('.hotspot');
+//append clones to image
+// for(var q=0;q<draggable_item_clone.length;q++){
+//   var clone = draggable_item_clone[q];
+//   $(clone).prependTo('.hotspot-image');
+//   var clone_value = $(clone).find('.text').html();
+//   console.log(clone, clone_value, $(clone));
+
+//   for(var o=0;o<targets.length;o++) {
+//     var target = targets[o];
+//     console.log(target);
+//     if(clone_value == $(target).attr('title')){
+//       console.log(clone_value);
+//       $(clone).attr('data_x', $(target).attr('data_x'));
+//       $(clone).attr('data_y', $(target).attr('data_y'));
+//       console.log('BBBBBBBBBBBBB', $(clone).attr('data_x'));
+//       TweenLite.set($(clone), {
+//         x: $(target).attr('data_x'),
+//         y: $(target).attr('data_y')
+//       })
+//     }
+
+//   }
+// }
+
+// console.log('AAAAAAAAAAAAA', $(clone).attr('data_x'));
+
+
+
+
+
+
+
+// //match clones to hotspots and give them x and y coords
+// for(var i=0;i<hotspot_container.children().length;i++){
+//   var child = hotspot_container.children()[i];
+//   var child_clone;
+//   var child_hotspot;
+//   if($(child).hasClass('clone')) {
+//     var child_clone = child;
+//   }
+//   if($(child).hasClass('hotspot')) {
+//     var child_hotspot = child;
+//   }
+
+//   console.log( $(child_clone).find('.text').html(), $(child_hotspot).attr('title') );
+
+//   if( $(child_clone).find('.text').html() == $(child_hotspot).attr('title') ){ 
+//       $(child_clone).attr('data_x', $(child_hotspot).attr('data_x'));
+//       $(child_clone).attr('data_y', $(child_hotspot).attr('data_y'));
+//   }
+
+//   // var child_clone = $(child).hasClass('.clone');
+//   // var child_hotspot = $(child).hasClass('.hostspot');
+
+//   // console.log(child, child_clone, child_hotspot);
+//   // if(child_clone_text === child_hotspot_title) {
+//   //   console.log(child);
+//   // }
+// }
+
 draggable = Draggable.create('.draggable-item', {
         type: "x,y",
         //bounds: { target: ".quiz-hotspot", minX: "+=1", maxX: "+=1", maxY: "+=1", minY: "+=1" },
@@ -1096,45 +1171,44 @@ draggable = Draggable.create('.draggable-item', {
         }
     });
 
+var hotspot_reset = $(this.page.modal).find('.reset-hotspot');
+hotspot_reset.attr('id',this.page.point+'-quiz-hotspot--reset');
+
 hotspot_reset.on('click', function(){
   var hotspot_reset_id = $(this).attr('id');
   var hotspot_id = hotspot_reset_id.substring(0, hotspot_reset_id.indexOf('--'));
+  var hotspot_labels = $('#'+hotspot_id+' .hotspot .hotspot-labels');
   var draggable_item = $('#'+hotspot_id+' .draggable-item');
-  var draggable_container_width = $('#'+hotspot_id+' ul').width();
-
-  console.log(hotspot_id, draggable_item);
   var tl = new TimelineLite();
-  for(var i =0;i<draggable_item.length;i++){
-    var item = draggable_item[i];
+  tl
+  .to('.draggable-item', 0.1,{
+    x: 0,
+    y: 0
+  });
+  
+  hotspot_labels.addClass('visible').removeClass('visually-hidden');
 
-    var item_value = $(item).find('.text').html()
+  setTimeout(function(){
+    hotspot_reset.addClass('visually-hidden');
+    hotspot_clear.removeClass('visually-hidden');
+  }, 100);
 
-    for(var k =0;k<targets.length;k++){
-      var target_item = targets[k];
-      //console.log($(target_item).attr('title') );
-      if ( item_value === $(target_item).attr('title') ) {
-        console.log($(target_item).attr('data_x'),'matches', $(item));
-        $(item).attr('data_x', $(target_item).attr('data_x'));
-        $(item).attr('data_y', $(target_item).attr('data_y'));
-      }
-    }
+});
 
-    var item_x = $(item).attr('data_x');
-    var item_y = $(item).attr('data_y');
+var hotspot_clear = $(this.page.modal).find('.clear-hotspot');
+hotspot_clear.attr('id',this.page.point+'-quiz-hotspot--clear');
 
-    console.log(item, item_value, item_x, item_y, $(item).width(), draggable_container_width);
+hotspot_clear.on('click', function(){
+  var hotspot_clear_id = $(this).attr('id');
+  var hotspot_id = hotspot_clear_id.substring(0, hotspot_clear_id.indexOf('--'));
+  var hotspot_labels = $('#'+hotspot_id+' .hotspot .hotspot-labels');
 
+  hotspot_labels.addClass('visually-hidden');
 
-    TweenLite
-    .fromTo(item, 0.3, {
-      x: 0
-    }, {x: -parseInt(item_x)});
-    // .to(item, 0.1, {
-    //   x: parseInt(item_x),
-    //   y: parseInt(item_y)
-    // });
-
-  }
+  setTimeout(function(){
+    hotspot_clear.addClass('visually-hidden');
+    hotspot_reset.removeClass('visually-hidden');
+  }, 100);
 
 });
 
@@ -1253,6 +1327,8 @@ MapViewItem.prototype.page_close = function () {
   }
 
   resetForm();
+  //remove all game clones
+  $('.clone').remove();
 };
 
 MapViewItem.prototype.pop_open = function () {
