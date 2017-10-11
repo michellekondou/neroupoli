@@ -124,6 +124,7 @@
               {% endfor %}
             </ul>
           </div>
+          <button class="reset-hotspot submit-button">Δες τη σωστή σειρά!</button>
         </section>
       {% elif card.acf_fc_layout === 'sortable' %}
       <section class="text quiz-sortable">
@@ -298,10 +299,11 @@
       </button>
       {% endif %}
       {% if card.acf_fc_layout === 'sortable' %}
-      <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}--submit" class="button submit-button" id="resort">Δες τη σωστή σειρά!
+      <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}--resort" class="button submit-button" id="resort">Δες τη σωστή σειρά!
         <svg class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
       </button>
       {% endif %}
+
       {% if card.acf_fc_layout === 'likert' %}
       <div class="loader-container">
         <svg class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>

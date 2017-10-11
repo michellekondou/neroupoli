@@ -609,15 +609,10 @@ function getFormData(form) {
  
 $(".checkbox-prompt").removeClass('visible');
 
-console.log(this, this.page.modal[0]);
-
 var current_page = $(this.page.modal);
-
 var likert_input = current_page.find('.likert input');
 var submit = current_page.find('.submit');
 
-
-console.log(likert_input);
 
 $(likert_input).on('change', function(){
     $('.loader.quiz').css('display','block');        
@@ -925,6 +920,8 @@ function reOrder() {
 
   }
 
+  console.log('should reOrder');
+
 }
 
 $('#resort').on('click', function(){
@@ -994,8 +991,6 @@ for(var hotspot in hotspot_data) {
 
 }
 
-
-//console.log( $('.quiz-hotspot ul').position() );
 var targets = $('.hotspot');
 var overlapThreshold = "90%"; 
 
@@ -1007,13 +1002,15 @@ for (var i = 0;i<draggable_list_item.length;i++) {
   $(item).width();
 }
 
-$(this.page.modal).find('.quiz-hotspot').addClass(this.page.point+'-quiz-hotspot');
+$(this.page.modal).find('.quiz-hotspot').attr('id',this.page.point+'-quiz-hotspot');
+var hotspot_reset = $(this.page.modal).find('.reset-hotspot');
+hotspot_reset.attr('id',this.page.point+'-quiz-hotspot--reset');
 // var minX = ;
 // var minY = ;
 draggable = Draggable.create('.draggable-item', {
         type: "x,y",
         //bounds: { target: ".quiz-hotspot", minX: "+=1", maxX: "+=1", maxY: "+=1", minY: "+=1" },
-        bounds: "."+this.page.point+'-quiz-hotspot',
+        bounds: "#"+this.page.point+'-quiz-hotspot',
         allowNativeTouchScrolling:false,
        // throwProps: true,
         onPress:function() {
@@ -1022,10 +1019,9 @@ draggable = Draggable.create('.draggable-item', {
         },
         onDragStart:function(e) {
           this_target = this;
-          console.log('this_target', this_target);
+          // console.log('this_target', this_target);
           $(this.target).removeClass("positioned");
           $(this.target).addClass("being_dragged");
-         
         },
         onDrag:function(e) {
           $(this.target).addClass("being_dragged");
@@ -1037,36 +1033,37 @@ draggable = Draggable.create('.draggable-item', {
                 
              } else {
                $(targets[i]).removeClass("showOver");
-               // $(this.target).removeClass("hit");
-               //$(this.target).removeClass("being_dragged");
              }
           }
         },
         onDragEnd:function(e) {
           console.log(this.pointerEvent);
           var snapMade = false;
-          console.log('GGGGGG',this_target.minX);
           for(var i=0; i<targets.length;i++){
             
             if(this.hitTest(targets[i], overlapThreshold)){
               //connect source and target via an identifier
               var identifier = $(targets[i]).attr('title');
               console.log('identifier', identifier);
-              $(this.target).addClass(identifier);
+              $(this.target).attr('data-target', identifier);
               var p = $(targets[i]).position();
               $(this.target).addClass("positioned");
-              $(targets[i]).addClass("match");
-              console.log(
-                this,
-                this_target.minX,
-                this_target.minX - parseInt($(targets[i]).attr('data_x')),
-                drag_right_offset, 
-                $(targets[i]).attr('data_x'), 
-                -(drag_right_offset - $(targets[i]).attr('data_x')),
-                this.minY,
-                $(targets[i]).attr('data_y'),
-                 parseInt( $(targets[i]).attr('data_y') ) + this.minY - 5
-              );
+              // if ($(targets[i]).attr('title') === $(this.target).attr('data-target')) {
+              //    $(targets[i]).addClass("match");
+              //    console.log("Math");
+              // }
+             
+              // console.log(
+              //   this,
+              //   this_target.minX,
+              //   this_target.minX - parseInt($(targets[i]).attr('data_x')),
+              //   drag_right_offset, 
+              //   $(targets[i]).attr('data_x'), 
+              //   -(drag_right_offset - $(targets[i]).attr('data_x')),
+              //   this.minY,
+              //   $(targets[i]).attr('data_y'),
+              //    parseInt( $(targets[i]).attr('data_y') ) + this.minY - 5
+              // );
               var tl = new TimelineLite();
               tl
               .to(this.target, 0.1, { 
@@ -1087,6 +1084,7 @@ draggable = Draggable.create('.draggable-item', {
           if(!snapMade){
             $(this.target).removeClass("being_dragged");
             $(this.target).removeClass("hit");
+            $(this.target).attr("data-target",'');
               TweenLite.to(this.target, 0.2, {
                 css: {
                   backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -1098,6 +1096,47 @@ draggable = Draggable.create('.draggable-item', {
         }
     });
 
+hotspot_reset.on('click', function(){
+  var hotspot_reset_id = $(this).attr('id');
+  var hotspot_id = hotspot_reset_id.substring(0, hotspot_reset_id.indexOf('--'));
+  var draggable_item = $('#'+hotspot_id+' .draggable-item');
+  var draggable_container_width = $('#'+hotspot_id+' ul').width();
+
+  console.log(hotspot_id, draggable_item);
+  var tl = new TimelineLite();
+  for(var i =0;i<draggable_item.length;i++){
+    var item = draggable_item[i];
+
+    var item_value = $(item).find('.text').html()
+
+    for(var k =0;k<targets.length;k++){
+      var target_item = targets[k];
+      //console.log($(target_item).attr('title') );
+      if ( item_value === $(target_item).attr('title') ) {
+        console.log($(target_item).attr('data_x'),'matches', $(item));
+        $(item).attr('data_x', $(target_item).attr('data_x'));
+        $(item).attr('data_y', $(target_item).attr('data_y'));
+      }
+    }
+
+    var item_x = $(item).attr('data_x');
+    var item_y = $(item).attr('data_y');
+
+    console.log(item, item_value, item_x, item_y, $(item).width(), draggable_container_width);
+
+
+    TweenLite
+    .fromTo(item, 0.3, {
+      x: 0
+    }, {x: -parseInt(item_x)});
+    // .to(item, 0.1, {
+    //   x: parseInt(item_x),
+    //   y: parseInt(item_y)
+    // });
+
+  }
+
+});
 
 /*------------------------------------*\
   # Glossary function
