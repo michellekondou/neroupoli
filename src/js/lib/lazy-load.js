@@ -45,7 +45,7 @@ function detectIE() {
 var IEversion = detectIE();
 console.log(IEversion);
 
-if (IEversion > 10) {
+if (!IEversion || IEversion > 10) {
 'use strict';
 var images = document.querySelectorAll('.js-lazy-image'),
     config = {
@@ -93,7 +93,7 @@ function applyImage(a, b) {
     a.classList.add('js-lazy-image--handled'), a.src = b, a.classList.add('fade-in')
 }
 
-} else if (IEversion <= 10) {
+} else if (IEversion && IEversion <= 10) {
 
     console.log(IEversion);
     var img = $('img');

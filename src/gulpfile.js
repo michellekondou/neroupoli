@@ -31,7 +31,6 @@ var babelify = require('babelify');
 //script paths
 var cssFiles = [
   'scss/**/*.scss'
-
 ],  
 cssDest = 'compiled/css';
 
@@ -245,9 +244,9 @@ gulp.task('lint', function() {
 });
 
 
-gulp.task('watch', ['sass', 'scripts', 'nunjucks', 'revreplace-dev', 'sprites'], function(){
+gulp.task('watch', ['sass', 'scripts', 'nunjucks', 'revreplace-dev', 'sprites', 'copy-assets'], function(){
   gulp.watch('scss/**/*.scss', ['sass']);
-  //gulp.watch('js/**/*.js', ['scripts']); 
+  gulp.watch('js/**/*.js', ['scripts']); 
   gulp.watch('js/**/*.+(html|nunjucks)', ['nunjucks']); 
   gulp.watch('../dist/dev.html', ['revreplace-dev']);
   gulp.watch('../src/svg/*.svg', ['sprites', 'copy-svg']);
@@ -256,7 +255,7 @@ gulp.task('watch', ['sass', 'scripts', 'nunjucks', 'revreplace-dev', 'sprites'],
 gulp.task('build', function(callback) {
   runSequence(
     'sass',
-    //'scripts',
+    'scripts',
     'revreplaceSW',
     'revreplaceAppjs',
     'copy-assets',
