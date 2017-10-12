@@ -1684,11 +1684,15 @@ window.onload = function() {
         throw Error(response.statusText); //if the objects ok property is false it triggers the catch block
       } 
       console.log('Got a response');
-      $('#preloader').addClass('visually-hidden');
-      $('.logo, .floating-element--button, .map-controls').removeClass('visually-hidden');
+
+      
       return response.json();
     })
     .then(function(data) {
+            setTimeout(function(){
+        $('#preloader').addClass('visually-hidden');
+        $('.logo, .floating-element--button, .map-controls').removeClass('visually-hidden');
+      }, 2500);
         //get all the posts excluding the intro post
         console.log(data);
         var posts = [];
