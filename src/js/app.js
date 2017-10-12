@@ -911,10 +911,10 @@ function Sortable(element, index) {
 
 function reOrder() { 
   
-  var item = $(".list-item");
+  var sort_item = $(".list-item");
 
-  for (var i = 0; i < item.length; i++) {
-    var rightOrder = $(item[i]).find('.right-order');
+  for (var i = 0; i < sort_item.length; i++) {
+    var rightOrder = $(sort_item[i]).find('.right-order');
     TweenLite.to(item[i], 0.5, {
       y: rightOrder[0].textContent * rowSize
     });

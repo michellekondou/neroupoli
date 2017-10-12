@@ -7,7 +7,8 @@ var images = document.querySelectorAll('.js-lazy-image'),
         threshold: 0.01
     },
     imageCount = images.length,
-    observer;
+    observer,
+    dataset;
 if (!('IntersectionObserver' in window)) loadImagesImmediately(images);
 else {
     observer = new IntersectionObserver(onIntersection, config);
@@ -22,7 +23,11 @@ function fetchImage(a) {
 }
 
 function preloadImage(a) {
-    var b = a.dataset.src;
+  
+        var b = a.dataset.src; 
+   
+    
+
     return b ? fetchImage(b).then(function() {
         applyImage(a, b)
     }) : void 0

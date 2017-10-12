@@ -32,6 +32,7 @@ var babelify = require('babelify');
 //script paths
 var cssFiles = [
   'scss/**/*.scss'
+
 ],  
 cssDest = 'compiled/css';
 
@@ -47,6 +48,7 @@ gulp.task('sass', function() {
 
 //script paths
 var jsFiles = [
+      'js/lib/intersection-observer-polyfill.js',
       'js/lib/polyfills.bundle.js',
       'node_modules/babel-polyfill/dist/polyfill.min.js',
       'node_modules/promise-polyfill/promise.min.js',
