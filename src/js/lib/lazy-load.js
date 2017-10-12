@@ -1,3 +1,5 @@
+
+
 'use strict';
 var images = document.querySelectorAll('.js-lazy-image'),
     config = {

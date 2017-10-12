@@ -23,6 +23,7 @@ var critical = require('critical').stream; //inline critical css
 var gzip = require('gulp-gzip');//gzip assets
 var htmlmin = require('gulp-htmlmin'); //minify html
 var jshint = require('gulp-jshint');
+var babel = require("gulp-babel");
 
 
 //script paths
@@ -66,6 +67,7 @@ var jsFiles = [
 
 gulp.task('scripts', function() {  
     return gulp.src(jsFiles)
+        .pipe(babel())
         .pipe(concat('app.js'))
         .pipe(gulp.dest(jsDest))
         .pipe(uglify())

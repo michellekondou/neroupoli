@@ -1,4 +1,9 @@
+import Promise from 'promise-polyfill'; 
 
+// To add to window
+if (!window.Promise) {
+  window.Promise = Promise;
+}
 
 // Production steps of ECMA-262, Edition 6, 22.1.2.1
 //array from polyfill
