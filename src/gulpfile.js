@@ -23,6 +23,7 @@ var critical = require('critical').stream; //inline critical css
 var gzip = require('gulp-gzip');//gzip assets
 var htmlmin = require('gulp-htmlmin'); //minify html
 var jshint = require('gulp-jshint');
+var babelPolyfill = require("babel-polyfill");
 var babel = require("gulp-babel");
 
 
@@ -44,7 +45,8 @@ gulp.task('sass', function() {
 
 //script paths
 var jsFiles = [
-      'node_modules/promise-pollyfill/promise.min.js',
+      'node_modules/babel-pollyfill/dist/polyfill.min.js',
+      //'node_modules/promise-pollyfill/promise.min.js',
       'js/jquery.min.js',
       'js/lib/polyfills.js',
       'node_modules/jquery-cycle/index.js',
