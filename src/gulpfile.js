@@ -220,7 +220,7 @@ gulp.task('copy-svg', ['sprites'], function() {
 // Generate & Inline Critical-path CSS
 gulp.task('critical-css', function () {
   return gulp.src('../index.html')
-    .pipe(critical({base: './', inline: true, minify: true, css: ['../dist/assets/app.css'], include: ['#preloader', '#preloader h2', '.visually-hidden', '.donut', '.wave', '#ocean']}))
+    .pipe(critical({base: './', inline: true, minify: true, css: ['../dist/assets/app.css'], include: ['#preloader', '#preloader svg', '.visually-hidden', '.donut', '.wave', '#ocean']}))
     .on('error', function(err) { gutil.log(gutil.colors.red(err.message)); })
     .pipe(gulp.dest('../'));
 })
