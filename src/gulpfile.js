@@ -25,7 +25,9 @@ var htmlmin = require('gulp-htmlmin'); //minify html
 var jshint = require('gulp-jshint');
 var babelPolyfill = require("babel-polyfill");
 var babel = require("gulp-babel");
-
+var webpack = require('gulp-webpack');
+var browserify = require('gulp-browserify');
+var babelify = require('babelify');
 
 //script paths
 var cssFiles = [
@@ -45,11 +47,10 @@ gulp.task('sass', function() {
 
 //script paths
 var jsFiles = [
-      'js/lib/require.js',
-      'node_modules/babel-pollyfill/dist/polyfill.min.js',
-      'node_modules/promise-pollyfill/promise.min.js',
+      'js/lib/polyfills.bundle.js',
+      'node_modules/babel-polyfill/dist/polyfill.min.js',
+      'node_modules/promise-polyfill/promise.min.js',
       'js/jquery.min.js',
-      'js/lib/polyfills.js',
       'node_modules/jquery-cycle/index.js',
       'node_modules/nunjucks/browser/nunjucks.js',
       'node_modules/d3/build/d3.js',
@@ -67,9 +68,16 @@ var jsFiles = [
     ],  
     jsDest = 'compiled/js';
 
-gulp.task('scripts', function() {  
+gulp.task('bundle', function() {
+  return gulp.src('js/lib/polyfills.js')
+  .pipe(browserify({ transform: ['babelify'] }))
+        .pipe(rename('polyfills.bundle.js'))
+        //.pipe(uglify())
+        .pipe(gulp.dest('js/lib/'));
+})
+
+gulp.task('scripts', ['bundle'], function() {  
     return gulp.src(jsFiles)
-        //.pipe(babel())
         .pipe(concat('app.js'))
         .pipe(gulp.dest(jsDest))
         .pipe(uglify())
@@ -247,7 +255,7 @@ gulp.task('watch', ['sass', 'scripts', 'nunjucks', 'revreplace-dev', 'sprites'],
 gulp.task('build', function(callback) {
   runSequence(
     'sass',
-    'scripts',
+    //'scripts',
     'revreplaceSW',
     'revreplaceAppjs',
     'copy-assets',

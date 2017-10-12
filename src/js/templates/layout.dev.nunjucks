@@ -15,11 +15,12 @@
   {% block content %} 
   {% endblock %}
     
-      <script src="'lib/require.js'"></script>
-       <script src="'node_modules/babel-pollyfill/dist/polyfill.min.js'"></script>
-        <script src="'node_modules/promise-pollyfill/promise.min.js'"></script>
+       <script src="src/node_modules/babel-polyfill/dist/polyfill.min.js"></script>
+        <script src="src/node_modules/promise-polyfill/promise.min.js"></script>
+        <script src="src/js/lib/polyfills.bundle.js"></script>
 <script src="src/js/lazy-load.js"></script> 
 <script src="src/js/jquery.min.js"></script>
+
 <!-- <script src="src/node_modules/jquery-mousewheel/jquery.mousewheel.js"></script> -->
 <script src="src/node_modules/jquery-cycle/index.js"></script> 
 <script src="src/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
