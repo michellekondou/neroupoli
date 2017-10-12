@@ -18,6 +18,8 @@
     "critical": "^0.9.1",
     "d3": "^4.11.0",
     "d3-tip": "^0.7.1",
+    "fetch-ie8": "^1.5.0",
+    "fetch-polyfill": "^0.8.2",
     "gulp-gzip": "^1.4.0",
     "gulp-htmlmin": "^3.0.0",
     "gulp-json-minify": "^1.2.0",
@@ -25,7 +27,8 @@
     "gulp-save": "^1.2.1",
     "gulp-util": "^3.0.8",
     "jquery-mousewheel": "^3.1.13",
-    "nunjucks": "^3.0.0"
+    "nunjucks": "^3.0.0",
+    "promise-polyfill": "6.0.2"
   },
   "devDependencies": {
     "browser-sync": "^2.18.2",

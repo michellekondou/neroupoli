@@ -36,7 +36,8 @@
       <div class="progress-bar">
       <!--   <div class="progress-bar-line"></div> -->
         {% for card in point.acf.cards %} 
-        <div class="symbol-container symbol{% if card.acf_fc_layout === 'intro' %}-intro{% elif card.acf_fc_layout === 'text' %}{% if card.type == 'ΝΕΡΟΔΙΑΒΑΣΜΑΤΑ' %}-study{% elif card.type == 'ΔΡΑΣΤΗΡΙΟΤΗΤΑ ΣΕ ΟΜΑΔΕΣ' %}-group-activity{% elif card.type == 'ΑΤΟΜΙΚΗ ΔΡΑΣΤΗΡΙΟΤΗΤΑ' %}-single-activity{% elif card.type == 'ΕΡΩΤΗΣΗ' %}-question{% elif card.type == 'ΑΠΟ ΕΔΩ ΚΑΙ ΠΕΡΑ' %}-going-forward{% endif %}{% elif card.acf_fc_layout === 'likert' %}-feedback{% else %}-play-learn{% endif %}">
+        <div class="symbol-container symbol
+        {% if card.acf_fc_layout === 'intro' %}-intro{% elif card.acf_fc_layout === 'text' %}{% if card.type == 'ΝΕΡΟΔΙΑΒΑΣΜΑΤΑ' %}-study{% elif card.type == 'ΔΡΑΣΤΗΡΙΟΤΗΤΑ ΣΕ ΟΜΑΔΕΣ' %}-group-activity{% elif card.type == 'ΑΤΟΜΙΚΗ ΔΡΑΣΤΗΡΙΟΤΗΤΑ' %}-single-activity{% elif card.type == 'ΕΡΩΤΗΣΗ' %}-question{% elif card.type == 'ΑΠΟ ΕΔΩ ΚΑΙ ΠΕΡΑ' %}-going-forward{% endif %}{% elif card.acf_fc_layout === 'likert' %}-feedback{% else %}-play-learn{% endif %}">
           <i class="symbol-icon icon symbol{% if card.acf_fc_layout === 'intro' %}-intro{% elif card.acf_fc_layout === 'text' %}{% if card.type == 'ΝΕΡΟΔΙΑΒΑΣΜΑΤΑ' %}-study{% elif card.type == 'ΔΡΑΣΤΗΡΙΟΤΗΤΑ ΣΕ ΟΜΑΔΕΣ' %}-group-activity{% elif card.type == 'ΑΤΟΜΙΚΗ ΔΡΑΣΤΗΡΙΟΤΗΤΑ' %}-single-activity{% elif card.type == 'ΕΡΩΤΗΣΗ' %}-question{% elif card.type == 'ΑΠΟ ΕΔΩ ΚΑΙ ΠΕΡΑ' %}-going-forward{% endif %}{% elif card.acf_fc_layout === 'likert' %}-feedback{% else %}-play-learn{% endif %}"></i>
         </div>
         {% endfor %}
