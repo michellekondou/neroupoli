@@ -45,8 +45,9 @@ gulp.task('sass', function() {
 
 //script paths
 var jsFiles = [
+      'js/lib/require.js',
       'node_modules/babel-pollyfill/dist/polyfill.min.js',
-      //'node_modules/promise-pollyfill/promise.min.js',
+      'node_modules/promise-pollyfill/promise.min.js',
       'js/jquery.min.js',
       'js/lib/polyfills.js',
       'node_modules/jquery-cycle/index.js',
