@@ -25,7 +25,6 @@ var htmlmin = require('gulp-htmlmin'); //minify html
 var jshint = require('gulp-jshint');
 var babelPolyfill = require("babel-polyfill");
 var babel = require("gulp-babel");
-var webpack = require('gulp-webpack');
 var browserify = require('gulp-browserify');
 var babelify = require('babelify');
 
