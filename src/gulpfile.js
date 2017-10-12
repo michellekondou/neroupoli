@@ -68,7 +68,7 @@ var jsFiles = [
 
 gulp.task('scripts', function() {  
     return gulp.src(jsFiles)
-        .pipe(babel())
+        //.pipe(babel())
         .pipe(concat('app.js'))
         .pipe(gulp.dest(jsDest))
         .pipe(uglify())
