@@ -240,7 +240,7 @@ gulp.task('minify', function() {
 });
 
 gulp.task('lint', function() {
-  return gulp.src('js/app.js')
+  return gulp.src('js/lib/polyfills.js')
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
 });

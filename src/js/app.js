@@ -13,6 +13,10 @@
 //   });
 // }
 
+
+// add details to debug result
+// document.getElementById('details').innerHTML = window.navigator.userAgent;
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
     navigator.serviceWorker.getRegistrations().then(function(registrations) {
@@ -910,23 +914,26 @@ function Sortable(element, index) {
 
 
 function reOrder() { 
-  
   var sort_item = $(".list-item");
-
-  for (var i = 0; i < sort_item.length; i++) {
-    var rightOrder = $(sort_item[i]).find('.right-order');
-    TweenLite.to(item[i], 0.5, {
-      y: rightOrder[0].textContent * rowSize
+  for (var m = 0; m < sort_item.length; m++) {
+    var rightOrder = $(sort_item[m]).find('.right-order');
+    // TweenLite.set(
+    // );
+    TweenLite.to(sort_item[m], 0.5, {
+      y: (rightOrder[0].textContent * rowSize) - rowSize 
     });
-
+    console.log( (rightOrder[0].textContent * rowSize) - rowSize );
   }
-
-  console.log('should reOrder');
-
+  console.log(sort_item);
 }
 
-$('#resort').on('click', function(){
-    reOrder();
+var sortable_quiz = $(this.page.modal).find('.quiz-sortable').attr('id',this.page.point+'-quiz-sortable');
+var sortable_reset = $(this.page.modal).find('.resort');
+
+sortable_reset.on('click', function(){
+  var sortable_reset_id = $(this).attr('id');
+  var sortable_id = sortable_reset_id.substring(0, sortable_reset_id.indexOf('--'));
+  reOrder();
 });
 
 //END Sortable Quiz
