@@ -1,4 +1,5 @@
 import Promise from 'promise-polyfill'; 
+import 'whatwg-fetch';
 
 // To add to window
 if (!window.Promise) {

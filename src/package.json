@@ -33,7 +33,8 @@
     "jquery-mousewheel": "^3.1.13",
     "nunjucks": "^3.0.0",
     "promise-polyfill": "6.0.2",
-    "systemjs": "^0.20.19"
+    "systemjs": "^0.20.19",
+    "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
