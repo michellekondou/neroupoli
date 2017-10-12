@@ -382,7 +382,7 @@
 {% endfor %}
 
 {% for info in info_content %}
-<div class="info-panel">
+<div class="info-panel visually-hidden">
   <div class="info-content">
       <div id="tabs" class="c-tabs no-js">
         <div class="c-tabs-nav">

@@ -26,7 +26,7 @@ body {
   padding: 0;
   background: #E9F7FE;
   background: #fff;
-  font-family: $regular;
+  font-family: $regular, sans-serif;
   color: $text;
 }
 
@@ -114,5 +114,81 @@ svg {
   top: 0;
   left: 0;
   background-color: $accent;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h2 {
+    color: #fff;
+    font-size: 64px;
+  }
 }
+
+.donut {
+  position: relative;
+  width: 240px;
+  height: 240px;
+}
+
+
+
+// NOTE FOR SELF - Get better at maths
+// =========
+// The stroke-dasharray is the circumfrence of the circle.
+// which can be worked out using 2πr.
+//
+// To animate this, you need to work out the percentage of this value. So for example,
+// to show 84%, we would need 84% of 628.32 which is 527.7888. This would show 26%, so
+// we then take this away from the original value, which would leave 100.5312
+
+// The radius of the circle
+$radius: 90;
+
+// This is the percentage that we want to show
+$percent: 100;
+
+$circumference: (3.14159265358979 * (2 * $radius));
+$stroke_percentage: $circumference - (($percent / 100) * $circumference);
+
+.donut .donut__svg {
+  transform: rotate(-90deg);
+}
+
+.donut .donut__svg__circle--one {
+  stroke-dasharray: $circumference;
+  stroke-dashoffset: $circumference;
+}
+
+.donut .donut__svg__circle--one {
+    animation: donut-show-one 4000ms cubic-bezier(.99,.01,.62,.94) .5s forwards;
+    transition: stroke-dasharray 400ms ease-in-out;
+}
+
+@keyframes donut-show-one {
+  to {
+    stroke-dashoffset: $stroke_percentage;
+  }
+}
+
+
+
+
+//
+//
+.info {
+  font-size: 14px;
+  color: #999;
+  position: absolute;
+  flex: 1;
+  bottom: 40px;
+  width: 100%;
+  left: 0;
+  text-align: center;
+  
+  a {
+    color: #999;
+  }
+}
+
 

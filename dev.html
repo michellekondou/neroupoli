@@ -11,24 +11,38 @@
 </head>
 <body>
   
-  <div id="preloader"></div>
+  <div id="preloader">
+    <h2>To Νερό στην πόλη</h2>
+    <div class="donut">
+      <svg width="240" height="240" xmlns="http://www.w3.org/2000/svg" class="donut__svg">
+        <circle id="donut-graph-x" class="donut__svg__scrim" r="90" cy="120" cx="120" stroke-width="3" stroke="#fff" fill="none"></circle>
+        <circle id="donut-graph" class="donut__svg__circle--one" r="90" cy="120" cx="120" stroke-width="4" stroke="url(#purple)" stroke-linejoin="round" stroke-linecap="round" fill="none"></circle>
+        <defs>
+          <lineargradient id="purple" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#00B9F2"></stop>
+            <stop offset="100%" stop-color="#00B9F2"></stop>
+          </lineargradient>
+        </defs>
+      </svg>
+    </div>
+  </div>
   <div id="app">
-    <h1 class="logo floating-element top left">
+    <h1 class="logo floating-element top left visually-hidden">
     <span class="visually-hidden">To Νερό στην πόλη</span>
     <i class="icon logo"></i>
     </h1>
-    <button class="points-nav floating-element floating-element--button top right" id="nav-icon">
+    <button class="points-nav floating-element floating-element--button top right visually-hidden" id="nav-icon">
       <span class="visually-hidden">Λίστα σημείων στον χάρτη</span>
       <span></span>
       <span></span>
       <span></span>
       <span></span>
     </button>
-    <button class="info floating-element floating-element--button bottom left" id="info-icon">
+    <button class="info floating-element floating-element--button bottom left visually-hidden" id="info-icon">
       <i class="icon info"></i>
       <span class="visually-hidden">Πληροφορίες για τη νερούπολη</span>
     </button>
-    <div class="map-controls floating-element bottom right">
+    <div class="map-controls floating-element bottom right visually-hidden">
       <button id="zoom-in" class="floating-element--button">
         <i class="icon zoom-in"></i>
         <span class="visually-hidden">Zoom in</span>
