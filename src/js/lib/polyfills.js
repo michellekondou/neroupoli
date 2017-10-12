@@ -1,4 +1,8 @@
-
+var promise = new Promise(function(resolve) {
+    setTimeout(function() {
+        resolve("result");
+    }, 1000);
+});
 
 // Production steps of ECMA-262, Edition 6, 22.1.2.1
 //array from polyfill
