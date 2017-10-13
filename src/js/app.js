@@ -1689,6 +1689,10 @@ window.onload = function() {
     .then(function(data) {
       
       var tl = new TimelineLite({
+        onStart: function(){
+          $('#preloader h2').removeClass('visually-hidden');
+          $('.logo.floating-element').removeClass('visually-hidden');
+        },
         onComplete: function(){
           $('#preloader').addClass('visually-hidden');
           $('.logo, .floating-element--button, .map-controls, .info-panel').removeClass('visually-hidden');
@@ -1696,12 +1700,13 @@ window.onload = function() {
         }
       });
 
-      tl.to('#preloader .welcome', 1, {
+      tl
+      .to('#preloader .welcome', 1, {
         opacity: 1
       })
       .to(['#preloader .to-waterpolis'], 1, {
         opacity: 1
-      }, "+=1.5")
+      }, "+=0.1")
       .to('#preloader', 0.5, {
         opacity: 0
       }, "+=1.5");
