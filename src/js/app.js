@@ -1691,7 +1691,7 @@ window.onload = function() {
       var tl = new TimelineLite({
         onStart: function(){
           $('#preloader h2').removeClass('visually-hidden');
-          $('.logo.floating-element').removeClass('visually-hidden');
+          $('.logo, .floating-element--button, .map-controls').removeClass('visually-hidden');
         },
         onComplete: function(){
           $('#preloader').addClass('visually-hidden');
