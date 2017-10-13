@@ -1667,7 +1667,10 @@ Modal.prototype.style = function(styles){
 
 // }
 
-
+//create the map
+$(function(){ 
+  var map = new MapObject(); 
+});
 //-------------------------PROMISE-----------------------------//
 window.onload = function() {
 
@@ -1738,10 +1741,7 @@ window.onload = function() {
 }; //end window on load
   
 //-------------------------END PROMISES-----------------------------//
-//create the map
-$(function(){ 
-  var map = new MapObject(); 
-});
+
 
 // I am disabling user controlled zoom-in and zoom-out
 // because mousewheel zoom is a central feature of this app
