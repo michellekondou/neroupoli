@@ -177,7 +177,7 @@
       </form>
       <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}--submit" class="button submit submit-button">
         Δες τη σωστή απάντηση!
-        <svg class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
       </button>
       <small id="gform-{{ point.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}--form-error" class="form-error"></small>
       <article id="gform-{{ point.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}--thankyou_message" class="thankyou_message" style="display: none;">
@@ -185,7 +185,7 @@
         <small>Ευχαριστούμε για την απάντηση σου!</small>
         <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}--reset" class="button reset submit-button visually-hidden">
           Προσπάθησε ξανά!
-          <svg class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
         </button>
       </article>
       {% endfor %}
@@ -291,24 +291,24 @@
       {% if card.acf_fc_layout === 'multiple_choice' %}
       <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}--submit" class="button submit submit-button">
         Δες τη σωστή απάντηση!
-        <svg class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
       </button>
       {% endif %}
       {% if card.acf_fc_layout === 'checkbox' %}
       <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}--submit" class="button submit submit-button">
         Δες τις σωστές απαντήσεις!
-        <svg class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
       </button>
       {% endif %}
       {% if card.acf_fc_layout === 'sortable' %}
       <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}--resort" class="button resort submit-button">Δες τη σωστή σειρά!
-        <svg class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
       </button>
       {% endif %}
 
       {% if card.acf_fc_layout === 'likert' %}
       <div class="loader-container">
-        <svg class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
       </div>
       {% endif %}
       {% if card.acf_fc_layout === 'checkbox' or card.acf_fc_layout === 'multiple_choice' %}
@@ -318,7 +318,7 @@
         <small>Ευχαριστούμε για την απάντηση σου!</small>
         <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}--reset" class="button reset submit-button visually-hidden">
           Προσπάθησε ξανά!
-          <svg class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
         </button>
       </article>
       {% elif card.acf_fc_layout === 'likert' %}
@@ -342,8 +342,8 @@
       {% if point.acf.fact_sheet %}
         <a href="{{ point.acf.fact_sheet.url }}" download="Water-Polis-Fyllo-Ergasias-{{ point.acf.fact_sheet.name }}.doc" class="download-pdf">
         <i class="pdf-icon">
-        <svg class="is-default" viewBox="0 0 51 68"><use xlink:href="#icon-download-pdf"></use></svg>
-        <svg class="is-pressed" viewBox="0 0 47 64"><use xlink:href="#icon-download-pdf-pressed"></use></svg>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="is-default" viewBox="0 0 51 68"><use xlink:href="#icon-download-pdf"></use></svg>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="is-pressed" viewBox="0 0 47 64"><use xlink:href="#icon-download-pdf-pressed"></use></svg>
         </i>
         <span>ΦΥΛΛΟ ΕΡΓΑΣΙΑΣ</span>
         </a>
@@ -446,7 +446,7 @@
   L1.175,16.412z"/>
 </svg>
 
-<svg id="submit-loader" width='120px' height='120px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-default"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(0 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(30 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.08333333333333333s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(60 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.16666666666666666s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(90 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.25s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(120 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.3333333333333333s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(150 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.4166666666666667s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(180 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(210 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5833333333333334s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(240 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.6666666666666666s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(270 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.75s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(300 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.8333333333333334s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(330 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.9166666666666666s' repeatCount='indefinite'/></rect></svg>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="submit-loader" width='120px' height='120px' viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-default"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(0 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(30 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.08333333333333333s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(60 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.16666666666666666s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(90 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.25s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(120 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.3333333333333333s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(150 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.4166666666666667s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(180 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(210 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5833333333333334s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(240 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.6666666666666666s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(270 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.75s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(300 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.8333333333333334s' repeatCount='indefinite'/></rect><rect  x='48' y='40' width='4' height='20' rx='2' ry='2' fill='#ffffff' transform='rotate(330 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.9166666666666666s' repeatCount='indefinite'/></rect></svg>
 
 </div>
 {% endblock %}

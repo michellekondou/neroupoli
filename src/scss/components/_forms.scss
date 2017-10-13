@@ -313,7 +313,6 @@ option {
 /**
  * Buttons
  */
-
 .submit, 
 .submit-button {
   position: relative;
@@ -328,7 +327,7 @@ option {
   color: #fff;
 }
 
-.reset {
+.reset.submit-button {
   display: block;
   margin: 0;
   @include rem-fallback(margin-top, 20);

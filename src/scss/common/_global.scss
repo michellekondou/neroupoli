@@ -133,7 +133,7 @@ svg {
   }
   svg {
     position: absolute;
-    top:2.5%;
+    top: 5%;
     left: 2.5%;
   }
 }
@@ -183,7 +183,6 @@ $stroke_percentage: $circumference - (($percent / 100) * $circumference);
   color: #999;
   position: absolute;
   flex: 1;
-  bottom: 40px;
   width: 100%;
   left: 0;
   text-align: center;

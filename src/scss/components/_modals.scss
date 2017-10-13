@@ -727,9 +727,9 @@
   text-align: center;
   span {
       display: block; 
-      margin-top: 8px;
+      margin-top: 45px;
       //text-transform: uppercase;
-      vertical-align: top;
+      vertical-align: bottom;
   }
   i {
     display: inline-block;
@@ -740,20 +740,20 @@
   }
 }
 
-.duration-icon {
-  background-image: url('../graphics/clock.svg');
-  @include rem-fallback(width, 28);
-}
+// .duration-icon {
+//   background-image: url('../graphics/clock.svg');
+//   @include rem-fallback(width, 28);
+// }
 
-.level-icon {
-  background-image: url('../graphics/student.svg');
-  @include rem-fallback(width, 26);
-}
+// .level-icon {
+//   background-image: url('../graphics/student.svg');
+//   @include rem-fallback(width, 26);
+// }
 
-.classroom-icon {
-  background-image: url('../graphics/classroom.svg');
-  @include rem-fallback(width, 36);
-}
+// .classroom-icon {
+//   background-image: url('../graphics/classroom.svg');
+//   @include rem-fallback(width, 36);
+// }
 
 .text h3:first-of-type {
   margin-top: 0;

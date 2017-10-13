@@ -61,15 +61,25 @@
               {% if card.level %}
               <article class="symbols">
                 {% if card.duration %}
-                <p class="symbol"><i class="duration-icon"></i><span>{{  card.duration }}</span></p>
+                <p class="symbol">
+                  <i class="icon symbol-activity-duration"></i>
+                  <span>{{  card.duration }}</span>
+                </p>
                 {% endif %}
                 {% if card.level %}
-                <p class="symbol"><i class="level-icon"></i><span>{{  card.level }}</span></p>
+                <p class="symbol">
+                  <i class="icon symbol-age-group"></i>
+                  <span>{{  card.level }}</span>
+                </p>
                 {% endif %}
                 {% if card.classroom === true %}
-                <p class="symbol"><i class="classroom-icon"></i><span>ΕΝΤΟΣ ΤΑΞΗΣ</span></p>
+                <p class="symbol">
+                  <i class="icon symbol-indoor"></i>
+                  <span>ΕΝΤΟΣ ΤΑΞΗΣ</span></p>
                 {% elif card.classroom === false %}
-                <p class="symbol"><i class="outdoor-icon"></i><span>ΕΚΤΟΣ ΤΑΞΗΣ</span></p>
+                <p class="symbol">
+                  <i class="icon symbol-outdoor"></i>
+                  <span>ΕΚΤΟΣ ΤΑΞΗΣ</span></p>
                 {% endif %}
               </article>
               {% endif %}
