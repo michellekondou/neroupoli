@@ -1656,7 +1656,7 @@ window.onload = function() {
         opacity: 1
       }, "+=0.1")
       .to('#preloader', 0.5, {
-        //opacity: 0
+        opacity: 0
       }, "+=1.5");
     
         //get all the posts excluding the intro post
