@@ -971,6 +971,7 @@ var snapX = [],
 //put the hotspot on the image
 for(var hotspot in hotspot_data) { 
   var hotspot_title = hotspot_data[hotspot].hotspot_title;
+  var hotspot_description = hotspot_data[hotspot].hotspot_description;
   var hotspot_coordinates = hotspot_data[hotspot].hotspot_coordinates;
   var hotspot_coordinates_x = hotspot_coordinates.substring(0, hotspot_coordinates.indexOf(','));
   var hotspot_coordinates_y = hotspot_coordinates.split(',')[1];
@@ -984,7 +985,8 @@ for(var hotspot in hotspot_data) {
   this.hotspot = $("<div />", {
     "class": "hotspot",
     "style": "left: " + Math.round( parseFloat(hotspot_coordinates_x) - 3) + "%;" + "top: " + Math.round(parseFloat(hotspot_coordinates_y) - 4) + "%;",
-    "title": hotspot_title,
+    "data-title": hotspot_title,
+    "data-description": hotspot_description,
     'data_x': pixels_x,
     'data_y': pixels_y,
 
@@ -1012,6 +1014,10 @@ for(var hotspot in hotspot_data) {
 
 }
 
+if (hotspot_quiz.hasClass('mouseover')) {
+  parent.term_popup('.hotspot', 'title');
+}
+
 var targets = hotspot_quiz.find('.hotspot');
 var overlapThreshold = "90%"; 
 
@@ -1019,79 +1025,10 @@ var draggable;
 var draggable_item = hotspot_quiz.find('.hotspot-labels');
 var draggable_item_clone = draggable_item.clone().addClass('clone').removeClass('draggable-item');
 
-console.log(draggable_item, draggable_item_clone, targets);
-
-// for(var i=0;i<draggable_item.length;i++) {
-//   var item = draggable_item[i];
-//   $(item).width();
-// }
-
-//remove any clones before making new ones
-//$(draggable_item_clone).remove();
 var _targets = hotspot_quiz.find('.hotspot');
-//append clones to image
-// for(var q=0;q<draggable_item_clone.length;q++){
-//   var clone = draggable_item_clone[q];
-//   $(clone).prependTo('.hotspot-image');
-//   var clone_value = $(clone).find('.text').html();
-//   console.log(clone, clone_value, $(clone));
-
-//   for(var o=0;o<targets.length;o++) {
-//     var target = targets[o];
-//     console.log(target);
-//     if(clone_value == $(target).attr('title')){
-//       console.log(clone_value);
-//       $(clone).attr('data_x', $(target).attr('data_x'));
-//       $(clone).attr('data_y', $(target).attr('data_y'));
-//       console.log('BBBBBBBBBBBBB', $(clone).attr('data_x'));
-//       TweenLite.set($(clone), {
-//         x: $(target).attr('data_x'),
-//         y: $(target).attr('data_y')
-//       })
-//     }
-
-//   }
-// }
-
-// console.log('AAAAAAAAAAAAA', $(clone).attr('data_x'));
-
-
-
-
-
-
-
-// //match clones to hotspots and give them x and y coords
-// for(var i=0;i<hotspot_container.children().length;i++){
-//   var child = hotspot_container.children()[i];
-//   var child_clone;
-//   var child_hotspot;
-//   if($(child).hasClass('clone')) {
-//     var child_clone = child;
-//   }
-//   if($(child).hasClass('hotspot')) {
-//     var child_hotspot = child;
-//   }
-
-//   console.log( $(child_clone).find('.text').html(), $(child_hotspot).attr('title') );
-
-//   if( $(child_clone).find('.text').html() == $(child_hotspot).attr('title') ){ 
-//       $(child_clone).attr('data_x', $(child_hotspot).attr('data_x'));
-//       $(child_clone).attr('data_y', $(child_hotspot).attr('data_y'));
-//   }
-
-//   // var child_clone = $(child).hasClass('.clone');
-//   // var child_hotspot = $(child).hasClass('.hostspot');
-
-//   // console.log(child, child_clone, child_hotspot);
-//   // if(child_clone_text === child_hotspot_title) {
-//   //   console.log(child);
-//   // }
-// }
 
 draggable = Draggable.create('.draggable-item', {
         type: "x,y",
-        //bounds: { target: ".quiz-hotspot", minX: "+=1", maxX: "+=1", maxY: "+=1", minY: "+=1" },
         bounds: "#"+this.page.point+'-quiz-hotspot',
         allowNativeTouchScrolling:false,
        // throwProps: true,
@@ -1219,6 +1156,8 @@ hotspot_clear.on('click', function(){
 
 });
 
+
+
 /*------------------------------------*\
   # Glossary function
 \*------------------------------------*/
@@ -1245,8 +1184,6 @@ MapViewItem.prototype.glossary = function () {
 
     $('.glossary-close').on('click', function(e){
       $(this).parent().removeClass('open');
-      
-      console.log($(this).parent());
     });
   };
 
@@ -1287,6 +1224,75 @@ MapViewItem.prototype.glossary = function () {
   }
 };
 
+MapViewItem.prototype.term_popup = function (term_class, text_attribute) {
+  var parent = this;
+  var term = document.querySelectorAll(term_class);
+  var create_term_popup = function (element) {
+    console.log('SHOW POPUP AFTER THIS',element);
+    var parent = this;
+    this.term_title = element.getAttribute('data-title'); 
+    this.term_description = element.getAttribute('data-description'); 
+    this.term_popup = $('<article />', {
+      'class': 'term-popup',
+      'html': '<h2>'+this.term_title+'</h2><p>'+this.term_description+'</p>'
+    }).appendTo(element);
+
+    this.close_popup = $('<i />', {
+      'class': 'icon close-popup term-close'
+    }).appendTo(term_popup);
+
+    $('.term-close').on('click', function(e){
+      $(this).parent().removeClass('open');
+    });
+
+  };
+
+  var open_term_popup = function (element) {
+    if (element.target !== this) {
+      return;
+    }
+    //$(element.target).addClass('current');
+    //get the target's popup
+    var this_term_popup = $(element.target).find('.term-popup');
+    var this_term_popup_open = $(element.target).find('.term-popup.open');
+    //get all open popups except for our target
+    var all_open_term_popups = $(term_class).not(element.target).find('.term-popup.open');
+    //remove all open popups before opening a new one
+    for (var i=0;i<all_open_term_popups.length;i++) {
+     $(all_open_term_popups[i]).removeClass('open');
+    }
+
+    $(element.target).parent().width();
+    //position the popup relative to trigger
+
+    var trigger_position = $(element.target).position();
+    console.log('Trigger position',trigger_position);
+    var parent_offset = $(element.target).parent().position();
+    var parent_width = $('.page-content').width();
+    console.log(parent_width, this_term_popup_open.width());
+    var term_popup_width = 460;
+
+    this_term_popup.css('top', '32px');
+    if( term_popup_width > parseInt(parent_width - trigger_position.left) ) {
+      this_term_popup.css('right', '32px');
+    } else if ( parseInt(trigger_position.left) < term_popup_width/2 ) {
+      this_term_popup.css('left', '0px');
+    } else {
+      this_term_popup.css('left', -term_popup_width/2);
+    }
+      
+    //toggle the open class on click
+    this_term_popup.addClass('open');
+    
+  };
+  //for each glossary term in the content 
+  // 1. create a popup
+  // 2. add a click event
+  for (var i=0;i<term.length;i++) {
+    create_term_popup(term[i]); /*1*/
+    term[i].addEventListener('mouseover', open_term_popup, {passive: true}); /*2*/
+  }
+};
 
 MapViewItem.prototype.page_close = function () {
   var parent = this;
@@ -1441,24 +1447,11 @@ MapViewItem.prototype._init_points = function(points){
    
     var svgWidth = d3.select(mapSvg).attr("width");
     var svgHeight = d3.select(mapSvg).attr("height");
-  // if (cw < ch) {
-  //   if (cw < 480) {
-  //     var t = -width/3.5, //top
-  //         l = -height/12, //left
-  //         b = width+width/3.5, //bottom
-  //         r = height+height/12; //right
-  //   } else {
-  //     var t = -width/5.5, //top
-  //         l = -height/12, //left
-  //         b = width+width/5.5, //bottom
-  //         r = height+height/12; //rights
-  //   }
-  // } else {
+
     var t = 0,
         l = 0,
         b = width,
         r = height;
-  // }
 
   for(var p = 0; p < parent.map_items.length;p++) {
     var map_item = parent.map_items[p]; 
@@ -1571,17 +1564,7 @@ MapViewItem.prototype._addListeners = function(){
 ======= RENDERING FUNCTIONS ===============================================
 ======================================================================== */
 MapViewItem.prototype._render = function(){
-    var _this = this;   
-    //load static parts of the page, tools, next
-    // nunjucks.configure('src/js/templates', { 
-    //   autoescape: false
-    // });
-    
-    // _this.page.modal.html(
-    //   nunjucks.render('page-container.html', { 
-    //   }) 
-    // );
-
+  var _this = this;   
 };
 
 
@@ -1611,32 +1594,6 @@ Modal.prototype.init = function(){
     this.open = false;
     this.modal = $('.overlay#' + this.point + '-page');
   }
-
-  //   this.page.modal.find('.page-content').html(
-
-  //   nunjucks.render('page.html', { 
-  //     content: this.content
-  //   }) 
-  // );
-
-  // if(this.type == "popup") {
-  //   this.modal = $("<div />", {
-  //     "class": "map-popover popup right",
-  //     "id": this.point + "-popup" 
-  //   }).appendTo('body');
-  // } else if(this.type == "tooltip"){
-  //   this.open = true;
-  //   this.modal = $("<div />", {
-  //     "class": "map-popover tooltip top",
-  //     "id": this.point + "-tooltip"
-  //   }).appendTo('body');
-  // } else if(this.type == "page") {
-  //   this.open = false;
-  //   this.modal = $("<div />", {
-  //     "class": "overlay",
-  //     "id": this.point + "-page"
-  //   }).appendTo('body');
-  // }
 };
 
 Modal.prototype.style = function(styles){
@@ -1654,18 +1611,6 @@ Modal.prototype.style = function(styles){
   }
 }; 
 
-// Modal.prototype.render_modal = function(){
-//   nunjucks.configure('src/js/templates', { 
-//     autoescape: true
-//   });
- 
-//   if(this.type == "tooltip") {
-//     this.modal.html("<h3 class='map-popover-title'>"+this.title+"</h3>");
-//   } else if(this.type == "popup"){
-//     this.modal.html("<div class='arrow'></div>  <button class='close'></button><h3 class='map-popover-title'>"+this.title+"</h3><p class='map-popover-content'>" + nunjucks.renderString('{{ username }}', { username: this.summary }) + "<button class='open_page'>Συνέχισε!</button></p>");
-//   } 
-
-// }
 
 //create the map
 $(function(){ 
@@ -1711,7 +1656,7 @@ window.onload = function() {
         opacity: 1
       }, "+=0.1")
       .to('#preloader', 0.5, {
-        opacity: 0
+        //opacity: 0
       }, "+=1.5");
     
         //get all the posts excluding the intro post
@@ -1763,8 +1708,20 @@ $(window).bind('mousewheel', function(event) {
   }
 });
 
+var didScroll = false;
 
+window.onscroll = doThisStuffOnScroll;
 
+function doThisStuffOnScroll() {
+    didScroll = true;
+}
+
+setInterval(function() {
+    if(didScroll) {
+        didScroll = false;
+        console.log('You scrolled');
+    }
+}, 100);
 
 
 

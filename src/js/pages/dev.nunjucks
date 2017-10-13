@@ -61,15 +61,25 @@
               {% if card.level %}
               <article class="symbols">
                 {% if card.duration %}
-                <p class="symbol"><i class="duration-icon"></i><span>{{  card.duration }}</span></p>
+                <p class="symbol">
+                  <i class="icon symbol-activity-duration"></i>
+                  <span>{{  card.duration }}</span>
+                </p>
                 {% endif %}
                 {% if card.level %}
-                <p class="symbol"><i class="level-icon"></i><span>{{  card.level }}</span></p>
+                <p class="symbol">
+                  <i class="icon symbol-age-group"></i>
+                  <span>{{  card.level }}</span>
+                </p>
                 {% endif %}
                 {% if card.classroom === true %}
-                <p class="symbol"><i class="classroom-icon"></i><span>ΕΝΤΟΣ ΤΑΞΗΣ</span></p>
+                <p class="symbol">
+                  <i class="icon symbol-indoor"></i>
+                  <span>ΕΝΤΟΣ ΤΑΞΗΣ</span></p>
                 {% elif card.classroom === false %}
-                <p class="symbol"><i class="outdoor-icon"></i><span>ΕΚΤΟΣ ΤΑΞΗΣ</span></p>
+                <p class="symbol">
+                  <i class="icon symbol-outdoor"></i>
+                  <span>ΕΚΤΟΣ ΤΑΞΗΣ</span></p>
                 {% endif %}
               </article>
               {% endif %}
@@ -113,20 +123,24 @@
         {% if card.acf_fc_layout === 'hotspot' %}
         <section class="text">
           {{ card.hotspot_description }}
-          <div class="quiz-hotspot">
+          <div class="quiz-hotspot {{ card.hotspot_type }}">
             <figure class="hotspot-image" style="width:{{ card.hotspot_file.width }}px;height:{{ card.hotspot_file.height }}px;">
               <img src="{{ card.hotspot_file.url }}" width="{{ card.hotspot_file.width }}" height="{{ card.hotspot_file.height }}">
             </figure>
-            <ul class="">
+            {% if card.hotspot_type === 'drag-and-drop' %}
+            <ul>
               {% for hotspot in card.hotspots %}
               <li>
               <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">{{ hotspot.hotspot_title }}</span></div>
               </li>
               {% endfor %}
             </ul>
+            {% endif %}
           </div>
+          {% if card.hotspot_type === 'drag-and-drop' %}
           <button class="reset-hotspot submit-button">Δες τις σωστές θέσεις!</button>
           <button class="clear-hotspot submit-button visually-hidden">Παίξε ξανά!</button>
+          {% endif %}
         </section>
       {% elif card.acf_fc_layout === 'sortable' %}
       <section class="text quiz-sortable">

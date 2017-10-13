@@ -123,16 +123,19 @@ svg {
   overflow: hidden;
   h2 {
     color: $text;
-    @include rem-fallback(font-size, 64);
-    font-weight: bold;
-    font-family: $bold, sans-serif;
+    color: #666;
+    @include rem-fallback(font-size, 52);
+    letter-spacing: -1px;
+    font-family: $regular, sans-serif;
     position: absolute;
-    top: 35%;
+    top: 42%;
     left: 50%;
-    transform: translate(-50%, -35%);
+    transform: translate(-50%, -42%);
   }
   svg {
     position: absolute;
+    width: 168px;
+    height: 64px;
     top: 5%;
     left: 2.5%;
   }
