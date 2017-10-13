@@ -1684,15 +1684,28 @@ window.onload = function() {
         throw Error(response.statusText); //if the objects ok property is false it triggers the catch block
       } 
       console.log('Got a response');
-
-      
       return response.json();
     })
     .then(function(data) {
-            setTimeout(function(){
-        $('#preloader').addClass('visually-hidden');
-        $('.logo, .floating-element--button, .map-controls').removeClass('visually-hidden');
-      }, 2500);
+      
+      var tl = new TimelineLite({
+        onComplete: function(){
+          $('#preloader').addClass('visually-hidden');
+          $('.logo, .floating-element--button, .map-controls, .info-panel').removeClass('visually-hidden');
+          console.log('complete');
+        }
+      });
+
+      tl.to('#preloader .welcome', 1, {
+        opacity: 1
+      })
+      .to(['#preloader .to-waterpolis'], 1, {
+        opacity: 1
+      }, "+=1.5")
+      .to('#preloader', 0.5, {
+        opacity: 0
+      }, "+=1.5");
+    
         //get all the posts excluding the intro post
         console.log(data);
         var posts = [];

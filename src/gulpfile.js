@@ -202,7 +202,10 @@ gulp.task('nunjucks', function() {
 gulp.task('sprites', function () {
   return gulp.src('../src/svg/*.svg')
     .pipe(svgSprite({
-      cssFile: "_sprite.scss"
+      cssFile: "_sprite.scss",
+      svg: {
+        sprite: "svg/sprite-v1.svg"
+      }
     }))
     .pipe(gulp.dest("../src/scss/common/"));
 })
