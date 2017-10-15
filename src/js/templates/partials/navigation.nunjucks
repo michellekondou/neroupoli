@@ -15,7 +15,7 @@
         points = [],
         tick = 0,
         opt = {
-          count: 12,
+          count: 5,
           range: {
             x: 20,
             y: 80

@@ -497,48 +497,7 @@ MapViewItem.prototype.page_open = function () {
   // $(this.pop.modal).removeClass('popup-open');
   $('.map-loader').css('display','block'); 
   //load content on page open to be able to refresh forms
-  // var post = $.parseJSON($.ajax({
-  //   //url: 'http://water-polis.gr/admin/index.php/wp-json/wp/v2/posts/'+this.post_id,
-  //   url:' dist/proxy/data.json',
-  //   dataType: "json", 
-  //   async: false,
-  //   success: function(data){
-  //     $('.map-loader').css('display','none'); 
-  //   }
-  // }).responseText);
 
-  // nunjucks.configure('src/js/templates', { 
-  //   autoescape: false
-  // });
-  // //console.log('this.content',this.content);
-  // this.page.modal.find('.page-content').html(
-
-  //   nunjucks.render('page.html', { 
-  //     title: this.content,
-  //     text: this.content,
-  //     quiz:  parent.posts,
-  //     open: this.open
-  //   }) 
-  // );
-
-
-  // this.page.modal.find('.page-header').html(
-  //   nunjucks.render('page-header.html', { 
-  //     title: this.content,
-  //     text: this.content,
-  //     quiz:  parent.posts,
-  //     open: this.open
-  //   }) 
-  // );
-
-  // this.page.modal.find('.page-footer').html(
-  //   nunjucks.render('page-footer.html', { 
-  //     title: this.content,
-  //     text: this.content,
-  //     quiz:  parent.posts,
-  //     open: this.open
-  //   }) 
-  // );
 
   //handle card content
   var cards = this.page.modal.find('.cards');
@@ -573,6 +532,8 @@ MapViewItem.prototype.page_open = function () {
     var index = opts.currSlide;
     $('#' + parent.page.modal[0].id + ' .previous')[index == 0 ? 'addClass' : 'removeClass']('last');
     $('#' + parent.page.modal[0].id + ' .next')[index == opts.slideCount - 1 ? 'addClass' : 'removeClass']('last');
+    //close the modal: click anywhere to close it, or hit any key
+    $(".term-popup.open, .glossary-popup.open").removeClass('open');
   }
 
 console.log(this);
@@ -1156,12 +1117,11 @@ hotspot_clear.on('click', function(){
 
 });
 
-
-
 /*------------------------------------*\
   # Glossary function
 \*------------------------------------*/
-  parent.glossary();
+  //parent.glossary();
+parent.term_popup('.glossary-term', 'data-html')
 
 //end open_page function
 };
@@ -1228,10 +1188,9 @@ MapViewItem.prototype.term_popup = function (term_class, text_attribute) {
   var parent = this;
   var term = document.querySelectorAll(term_class);
   var create_term_popup = function (element) {
-    console.log('SHOW POPUP AFTER THIS',element);
     var parent = this;
     this.term_title = element.getAttribute('data-title'); 
-    this.term_description = element.getAttribute('data-description'); 
+    this.term_description = element.getAttribute('data-description') || element.getAttribute('data-html'); 
     this.term_popup = $('<article />', {
       'class': 'term-popup',
       'html': '<h2>'+this.term_title+'</h2><p>'+this.term_description+'</p>'
@@ -1262,19 +1221,14 @@ MapViewItem.prototype.term_popup = function (term_class, text_attribute) {
      $(all_open_term_popups[i]).removeClass('open');
     }
 
-    $(element.target).parent().width();
     //position the popup relative to trigger
-
     var trigger_position = $(element.target).position();
-    console.log('Trigger position',trigger_position);
-    var parent_offset = $(element.target).parent().position();
     var parent_width = $('.page-content').width();
-    console.log(parent_width, this_term_popup_open.width());
     var term_popup_width = 460;
 
     this_term_popup.css('top', '32px');
     if( term_popup_width > parseInt(parent_width - trigger_position.left) ) {
-      this_term_popup.css('right', '32px');
+      this_term_popup.css('right', '0px');
     } else if ( parseInt(trigger_position.left) < term_popup_width/2 ) {
       this_term_popup.css('left', '0px');
     } else {
@@ -1292,6 +1246,12 @@ MapViewItem.prototype.term_popup = function (term_class, text_attribute) {
     create_term_popup(term[i]); /*1*/
     term[i].addEventListener('mouseover', open_term_popup, {passive: true}); /*2*/
   }
+
+  //close the modal: click anywhere to close it, or hit any key
+  $(document).on('keyup click touchstart', function(){ //
+    $(".term-popup.open, .glossary-popup.open").removeClass('open');
+  });
+
 };
 
 MapViewItem.prototype.page_close = function () {
@@ -1630,8 +1590,9 @@ window.onload = function() {
     .then(function(response){
       if (!response.ok) {
         throw Error(response.statusText); //if the objects ok property is false it triggers the catch block
-      } 
-      console.log('Got a response');
+      } else {
+        console.log('Got a response');
+      }
       return response.json();
     })
     .then(function(data) {
@@ -1660,7 +1621,6 @@ window.onload = function() {
       }, "+=1.5");
     
         //get all the posts excluding the intro post
-        console.log(data);
         var posts = [];
         for(var i = 0;i<data.length;i++) {
           var post = data[i];
@@ -1681,7 +1641,11 @@ window.onload = function() {
     })
     .catch(function(error) {
         // run code if the server returns any errors
-        console.log('Looks like there was a problem: \n', error);
+      console.log('Looks like there was a problem: \n', error);
+      this.errorMsg = $('<div/>', {
+        'class': 'error-message',
+        'html': '<h2>Λυπούμαστε υπήρξε κάποιο σφάλμα!</h2> <p>Δοκιμάστε να επαναφορτώσετε την εφαρμογή ή προσπαθήστε ξανά αργότερα.</p>'
+      }).appendTo('body')
     });
 }; //end window on load
   
