@@ -148,6 +148,8 @@ return gulp.src("../dist/dev.html")
       }
     return this;
   }))
+  .pipe(replace('src="http', 'data-src="http'))
+  .pipe(replace('srcset="http', 'data-srcset="http'))
   .pipe(gulp.dest("../"));
 })
 
@@ -241,7 +243,7 @@ gulp.task('minify', function() {
 });
 
 gulp.task('lint', function() {
-  return gulp.src('js/lib/polyfills.js')
+  return gulp.src('js/app.js')
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
 });

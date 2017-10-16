@@ -53,50 +53,66 @@
   align-items: center;
   float: left;
   text-align: left;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 5px 12px 5px 40px;
+  background: transparent;
+  padding: 5px 12px 5px 12px;
   line-height: 1.2;
   color: #666;
   min-height: 45px;
-
-  .circle {
-    position: absolute;
-    left: 11px;
-    //top: 0;
-    background: rgba(255, 255, 255, 0);
-    border: 2px solid $accent;
-    width: 18px;
-    height: 18px;
+  z-index: -1;
+  .hotspot-handle {
+    background: $accent;
+    width: 36px;
+    height: 36px;
+    min-height: 36px;
     border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    font-family: $bold;
   }
   .text {
     position: relative;
     display: block;
     margin: 0 auto;
     font-size: 16px;
-     //font-family: $bold;
+    margin-left: 10px;
   }
 }
 
-.hotspot .hotspot-labels {
-   display: block;
-  position: relative;
-  // margin-top: -8px;
-  margin-left: -6px;
-      background: rgba(255, 255, 255, 0.6);
+.right-positions {
+  background: $accent;
+  width: 36px;
+  height: 36px;
+  min-height: 36px;
+  margin-top: -2px;
+  margin-left: -2px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  font-family: $bold;
+  font-size: 21px;
+  opacity: 0;
 }
 
-.hotspot-labels.clone {
+.hotspot-labels .clone {
   position: absolute;
-  top: 0;
-  left: 0;
-  //visibility: hidden;
-  &.visible {
-    visibility: visible;
-  }
-  .text {
-    color: #111;
-  }
+  left: 29px;
+  color: #333;
+  font-family: cf_asty_stdbold;
+  z-index: -1;
+}
+
+.highlight-correct, 
+.highlight-correct .circle {
+  background-color: rgba($green, 0.8)!important;
+}
+
+.highlight-wrong, 
+.highlight-wrong .circle {
+  background-color: rgba(red, 0.8)!important;
 }
 
 @media (max-width: 500px) {
@@ -109,22 +125,25 @@
 }
 
 .hotspot-labels .circle {
-  background: $accent;
-  border: 2px solid #fff;
+  // background: $accent;
+  // border: 2px solid #fff;
 }
 
-.hotspot-labels.hit,
-.match {
-   background: rgba(255, 255, 255, 0.7);
+.hotspot-labels .hit {
+
+  //margin-top: 7px;
+  // margin-left: 4px;
+  // background: rgba(255, 255, 255, 1);
+  // box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  // width: 26px;
+  // height: 26px;
+  // margin-top: 12px;
+  // margin-left: 9px;
+  // min-height: 26px;
 }
 
 .being_dragged  {
-  font-size: 16px;
-  color: #444;
- 
-  min-height: 45px;
-
-  //max-width: 150px;
+  z-index: 1;
 }
 
 .hotspot-image {
@@ -136,12 +155,14 @@
   .hotspot {
     display: block;
     position: absolute;
-    background: rgba(255, 255, 255, 0.2);
-    border: 2px solid $accent;
-    width: 32px;
-    height: 32px;
+    background: rgba($accent, 0.7);
+    border: 2px solid #fff;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     transition: all .2s ease-in-out; 
+    &.match {
+    }
   }
   .showOver {
     background: $accent;
@@ -149,6 +170,10 @@
     //transform: scale(1.4);
     //border: 2px solid black;
   }
+}
+
+.check-hotspot {
+  margin-bottom: 0px;
 }
 
 

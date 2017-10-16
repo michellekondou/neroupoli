@@ -121,26 +121,34 @@
           <div class="card quiz quiz-{{ quiz_counter}}">
           {% if card.acf_fc_layout === 'likert' %}<h2>ΠΕΣ ΜΑΣ ΤΗ ΓΝΩΜΗ ΣΟΥ</h2>{% else %}<h2>ΠΑΙΖΩ ΚΑΙ ΜΑΘΑΙΝΩ</h2>{% endif %}
         {% if card.acf_fc_layout === 'hotspot' %}
+        {% set hotspot_counter  = ( hotspot_counter | default(0) ) + 1 %}
         <section class="text">
           {{ card.hotspot_description }}
-          <div class="quiz-hotspot {{ card.hotspot_type }}">
+          <div id="{{ point.title.rendered }}-quiz-hotspot-{{ quiz_counter }}" class="quiz-hotspot {{ card.hotspot_type }}">
             <figure class="hotspot-image" style="width:{{ card.hotspot_file.width }}px;height:{{ card.hotspot_file.height }}px;">
               <img src="{{ card.hotspot_file.url }}" width="{{ card.hotspot_file.width }}" height="{{ card.hotspot_file.height }}">
+              {% if card.hotspot_type === 'drag-and-drop' %}
+
+          {% endif %}
             </figure>
             {% if card.hotspot_type === 'drag-and-drop' %}
-            <ul>
+            <ul class="hotspot-label-list">
               {% for hotspot in card.hotspots %}
+              {% set hotspot_label_counter  = ( hotspot_label_counter | default(0) ) + 1 %}
               <li>
-              <div class="hotspot-labels draggable-item"><span class="circle"></span><span class="text">{{ hotspot.hotspot_title }}</span></div>
+              <div class="hotspot-labels">
+                <div class="draggable-item hotspot-handle" data-identifier="{{ point.title.rendered }}-quiz-hotspot-{{ quiz_counter }}-point--{{ hotspot_label_counter }}">{{ hotspot_label_counter }}</div>
+                <p class="text">{{ hotspot.hotspot_title }} </p>
+              </div>
               </li>
               {% endfor %}
             </ul>
             {% endif %}
+         
           </div>
-          {% if card.hotspot_type === 'drag-and-drop' %}
-          <button class="reset-hotspot submit-button">Δες τις σωστές θέσεις!</button>
+           <button class="check-hotspot submit-button">Ελεγξέ το!</button>
+          <button class="reset-hotspot submit-button visually-hidden">Δες τις σωστές θέσεις!</button>
           <button class="clear-hotspot submit-button visually-hidden">Παίξε ξανά!</button>
-          {% endif %}
         </section>
       {% elif card.acf_fc_layout === 'sortable' %}
       <section class="text quiz-sortable">

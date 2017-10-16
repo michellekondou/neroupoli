@@ -534,6 +534,8 @@ MapViewItem.prototype.page_open = function () {
     $('#' + parent.page.modal[0].id + ' .next')[index == opts.slideCount - 1 ? 'addClass' : 'removeClass']('last');
     //close the modal: click anywhere to close it, or hit any key
     $(".term-popup.open, .glossary-popup.open").removeClass('open');
+    //reset drag n drop gam
+
   }
 
 console.log(this);
@@ -911,26 +913,23 @@ for(var card in card_content) {
   }
 }
 
+//add an id 
+
+console.log(hotspot_data, this.point.id);
 //set some vars
-var hotspot_quiz = $(this.page.modal).find('.quiz-hotspot').attr('id',this.page.point+'-quiz-hotspot');
+var hotspot_quiz = $(this.page.modal).find('.quiz-hotspot');
 this.hotspot_image = hotspot_quiz.find('.hotspot-image img');
 var hotspot_container = hotspot_quiz.find('.hotspot-image');
 
-
-// var hotspot_starting_container = $('.quiz-hotspot ul');
-// var hotspot_starting_pos = null; //draggable item position
-// var hotspot_target_container = $(this.hotspot_image);
-// var hotspot_target = $(this.hotspot);
-// var drag_right_offset = $('.hotspot-image img').width() + 50;
-
-// var initial_x = 0;
-// var initial_y = 0;
+console.log(hotspot_quiz);
 
 //set array with snap points for drag end
 var snapX = [],
     snapY = [];
+var index = 1;
 //put the hotspot on the image
-for(var hotspot in hotspot_data) { 
+for(var hotspot in hotspot_data) {
+  hotspot_data[hotspot].id = index++;
   var hotspot_title = hotspot_data[hotspot].hotspot_title;
   var hotspot_description = hotspot_data[hotspot].hotspot_description;
   var hotspot_coordinates = hotspot_data[hotspot].hotspot_coordinates;
@@ -948,27 +947,19 @@ for(var hotspot in hotspot_data) {
     "style": "left: " + Math.round( parseFloat(hotspot_coordinates_x) - 3) + "%;" + "top: " + Math.round(parseFloat(hotspot_coordinates_y) - 4) + "%;",
     "data-title": hotspot_title,
     "data-description": hotspot_description,
-    'data_x': pixels_x,
-    'data_y': pixels_y,
+    "data-identifier": hotspot_quiz.attr('id')+'-point--'+hotspot_data[hotspot].id,
+    'data_x': Math.round( parseFloat(pixels_x) ),
+    'data_y': Math.round( parseFloat(pixels_y) ),
 
   }).appendTo($(hotspot_container));
 
-  var hotspot_label_container = $("<div />", {
-    "class": "hotspot-labels visually-hidden",
-  }).appendTo($(this.hotspot));
-
-  var hotspot_label_circle = $("<span />", {
-    "class": "circle",
-  }).appendTo($(hotspot_label_container));
-
-  var hotspot_label_text = $("<span />", {
-    "class": "text",
-    "html": hotspot_title
-  }).appendTo($(hotspot_label_container));
-
-  // this.hotspot_tooltip = $("<div />", {
-  //     "class": "map-popover tooltip top"
-  // }).text(hotspot_title).appendTo($(hotspot_container));
+  if (hotspot_quiz.hasClass('drag-and-drop')) {
+    var hotspot_label_circle = $("<span />", {
+      "class": "right-positions",
+      "html": hotspot_data[hotspot].id,
+      "id": hotspot_quiz.attr('id')+'-point--'+hotspot_data[hotspot].id
+    }).appendTo($(this.hotspot));
+  }
 
   snapX.push(pixels_x);
   snapY.push(pixels_y);
@@ -977,20 +968,27 @@ for(var hotspot in hotspot_data) {
 
 if (hotspot_quiz.hasClass('mouseover')) {
   parent.term_popup('.hotspot', 'title');
-}
+} 
+//else {
 
 var targets = hotspot_quiz.find('.hotspot');
-var overlapThreshold = "90%"; 
+
+
+var overlapThreshold = "70%"; 
 
 var draggable;
-var draggable_item = hotspot_quiz.find('.hotspot-labels');
-var draggable_item_clone = draggable_item.clone().addClass('clone').removeClass('draggable-item');
+var draggable_item = hotspot_quiz.find('.draggable-item');
 
-var _targets = hotspot_quiz.find('.hotspot');
+for(var b = 0;b<draggable_item.length;b++){
+  var d_item = draggable_item[b];
+  var d_clone = $(d_item).clone().addClass('clone').removeClass('draggable-item hotspot-handle');
+  $(d_clone).insertAfter(d_item);
+  //console.log(draggable_item[b],$(draggable_item[b]).find('.text').outerWidth());
+}
 
-draggable = Draggable.create('.draggable-item', {
+draggable = Draggable.create('#'+hotspot_quiz[0].id+' .draggable-item', {
         type: "x,y",
-        bounds: "#"+this.page.point+'-quiz-hotspot',
+        bounds: "#"+hotspot_quiz.attr('id'),
         allowNativeTouchScrolling:false,
        // throwProps: true,
         onPress:function() {
@@ -1000,8 +998,9 @@ draggable = Draggable.create('.draggable-item', {
         onDragStart:function(e) {
           this_target = this;
           // console.log('this_target', this_target);
-          $(this.target).removeClass("positioned");
+          $(this.target).removeClass("positioned correct wrong highlight-correct highlight-wrong");
           $(this.target).addClass("being_dragged");
+          $(this.target).next('.clone').addClass('visible');
         },
         onDrag:function(e) {
           $(this.target).addClass("being_dragged");
@@ -1010,55 +1009,47 @@ draggable = Draggable.create('.draggable-item', {
             if (this.hitTest(targets[i], overlapThreshold)) {
                $(targets[i]).addClass("showOver");
                $(this.target).addClass("hit");
-                
+              
              } else {
                $(targets[i]).removeClass("showOver");
              }
           }
         },
-        onDragEnd:function(e) {
-          console.log(this.pointerEvent);
+        onDragEnd:function(e) { 
           var snapMade = false;
+          $(this.target).removeClass("being_dragged");
+          $('.hotspot').removeClass("showOver");
           for(var i=0; i<targets.length;i++){
-            
+
+            var identifier = $(targets[i]).find('.right-positions').attr('id');
+            console.log('identifier', identifier);
             if(this.hitTest(targets[i], overlapThreshold)){
               //connect source and target via an identifier
-              var identifier = $(targets[i]).attr('title');
-              console.log('identifier', identifier);
+              $(targets[i]).addClass('match');
               $(this.target).attr('data-target', identifier);
-              var p = $(targets[i]).position();
               $(this.target).addClass("positioned");
-              // if ($(targets[i]).attr('title') === $(this.target).attr('data-target')) {
-              //    $(targets[i]).addClass("match");
-              //    console.log("Math");
-              // }
-             
-              // console.log(
-              //   this,
-              //   this_target.minX,
-              //   this_target.minX - parseInt($(targets[i]).attr('data_x')),
-              //   drag_right_offset, 
-              //   $(targets[i]).attr('data_x'), 
-              //   -(drag_right_offset - $(targets[i]).attr('data_x')),
-              //   this.minY,
-              //   $(targets[i]).attr('data_y'),
-              //    parseInt( $(targets[i]).attr('data_y') ) + this.minY - 5
-              // );
+              console.log('identifier', identifier);
+              if ( $(this.target).attr('data-target') === $(this.target).attr('data-identifier') ) {
+                $(this.target).removeClass("wrong");
+                $(this.target).addClass("correct");
+              } else if ($(this.target).attr('data-target') !== $(this.target).attr('data-identifier') ) {
+                $(this.target).removeClass("correct");
+                $(this.target).addClass("wrong");
+              }
+
               var tl = new TimelineLite();
               tl
               .to(this.target, 0.1, { 
-                top: $(targets[i]).attr('data_x'), 
-                left: $(targets[i]).attr('data_y'),
-                backgroundColor: 'rgba(255, 255, 255, 0.7)'
+                top: $(targets[i]).attr('data_y'), 
+                left: $(targets[i]).attr('data_x')
               })
               .to(this.target, 0.1, {
-                x: this.minX + parseInt($(targets[i]).attr('data_x')) - 4,
-                y: parseInt( $(targets[i]).attr('data_y') ) + this.minY - 5
+                x: this.minX + parseInt($(targets[i]).attr('data_x')),
+                y: parseInt( $(targets[i]).attr('data_y') ) + this.minY
 
               });
               snapMade = true;
             } else {
-              $(targets[i]).removeClass("match");
             }
           }
           if(!snapMade){
@@ -1067,7 +1058,6 @@ draggable = Draggable.create('.draggable-item', {
             $(this.target).attr("data-target",'');
               TweenLite.to(this.target, 0.2, {
                 css: {
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
                   x: 0, 
                   y: 0
                 }
@@ -1077,43 +1067,90 @@ draggable = Draggable.create('.draggable-item', {
     });
 
 var hotspot_reset = $(this.page.modal).find('.reset-hotspot');
-hotspot_reset.attr('id',this.page.point+'-quiz-hotspot--reset');
+hotspot_reset.attr('id',hotspot_quiz.attr('id')+'--reset');
 
+var hotspot_check = $(this.page.modal).find('.check-hotspot');
+hotspot_check.attr('id',hotspot_quiz.attr('id')+'--check');
+
+var hotspot_clear = $(this.page.modal).find('.clear-hotspot');
+hotspot_clear.attr('id',hotspot_quiz.attr('id')+'--clear');
+
+hotspot_check.on('click', function(){
+  var hotspot_check_id = $(this).attr('id');
+  var hotspot_id = hotspot_check_id.substring(0, hotspot_check_id.indexOf('--'));
+  var hotspot_labels = $('#'+hotspot_id+' .right-positions');
+  var draggable_item = $('#'+hotspot_id+' .draggable-item');
+  var correct = $('#'+hotspot_id+' .draggable-item.correct');
+  var wrong = $('#'+hotspot_id+' .draggable-item.wrong');
+
+  correct.addClass('highlight-correct');
+  wrong.addClass('highlight-wrong');
+
+  setTimeout(function(){
+    //hotspot_check.addClass('visually-hidden');
+    hotspot_reset.removeClass('visually-hidden');
+  }, 100);
+});
+//see the right positions
 hotspot_reset.on('click', function(){
   var hotspot_reset_id = $(this).attr('id');
   var hotspot_id = hotspot_reset_id.substring(0, hotspot_reset_id.indexOf('--'));
-  var hotspot_labels = $('#'+hotspot_id+' .hotspot .hotspot-labels');
+  var right_positions = $('#'+hotspot_id+' .right-positions');
   var draggable_item = $('#'+hotspot_id+' .draggable-item');
+
   var tl = new TimelineLite();
   tl
-  .to('.draggable-item', 0.1,{
+  .set(draggable_item,{
+    opacity: 0,
     x: 0,
     y: 0
-  });
+  })
+
+
+  draggable_item.removeClass('being_dragged hit positioned correct wrong highlight-wrong highlight-correct');
+
+  $('#'+hotspot_id+' .hotspot').removeClass('showOver');
+
+  var hotspot_texts = [];
+  for(var t=0;t<right_positions.length;t++){
+    var ht = right_positions[t];
+    $(ht).removeClass('no-opacity');
+    hotspot_texts.push(ht);
+  }
+
+  tl.staggerFromTo(hotspot_texts, 1, {opacity:0}, {opacity:1}, 1);
   
-  hotspot_labels.addClass('visible').removeClass('visually-hidden');
+ // hotspot_labels.addClass('visible').removeClass('visually-hidden');
 
   setTimeout(function(){
     hotspot_reset.addClass('visually-hidden');
+    hotspot_check.addClass('visually-hidden');
     hotspot_clear.removeClass('visually-hidden');
   }, 100);
 
+
 });
-
-var hotspot_clear = $(this.page.modal).find('.clear-hotspot');
-hotspot_clear.attr('id',this.page.point+'-quiz-hotspot--clear');
-
+//play again
 hotspot_clear.on('click', function(){
   var hotspot_clear_id = $(this).attr('id');
   var hotspot_id = hotspot_clear_id.substring(0, hotspot_clear_id.indexOf('--'));
-  var hotspot_labels = $('#'+hotspot_id+' .hotspot .hotspot-labels');
+  var right_positions = $('#'+hotspot_id+' .right-positions');
+  var draggable_item = $('#'+hotspot_id+' .draggable-item');
 
-  hotspot_labels.addClass('visually-hidden');
+  right_positions.removeAttr('style').addClass('no-opacity');
 
   setTimeout(function(){
     hotspot_clear.addClass('visually-hidden');
-    hotspot_reset.removeClass('visually-hidden');
+    hotspot_reset.addClass('visually-hidden');
+    hotspot_check.removeClass('visually-hidden');
   }, 100);
+
+  //kill everything
+  TweenMax.killAll();
+
+  TweenLite.to(draggable_item, 0.5,{
+    opacity: 1
+  });
 
 });
 
