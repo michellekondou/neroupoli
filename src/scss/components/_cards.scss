@@ -49,8 +49,6 @@
 }
 
 .hotspot-labels {
-  display: flex;
-  align-items: center;
   float: left;
   text-align: left;
   background: transparent;
@@ -60,6 +58,7 @@
   min-height: 45px;
   z-index: -1;
   .hotspot-handle {
+    float: left;
     background: $accent;
     width: 36px;
     height: 36px;
@@ -70,15 +69,22 @@
     justify-content: center;
     color: #333;
     font-family: $bold;
+    margin-right: 12px;
+  }
+  .hotspot-handle.ripple {
+    
   }
   .text {
     position: relative;
-    display: block;
+    display: inline;
     margin: 0 auto;
     font-size: 16px;
-    margin-left: 10px;
+    margin-left: 0;
   }
 }
+
+
+
 
 .right-positions {
   background: $accent;
@@ -100,6 +106,7 @@
 .hotspot-labels .clone {
   position: absolute;
   left: 29px;
+  top: 13px;
   color: #333;
   font-family: cf_asty_stdbold;
   z-index: -1;
@@ -130,7 +137,7 @@
 }
 
 .hotspot-labels .hit {
-
+  
   //margin-top: 7px;
   // margin-left: 4px;
   // background: rgba(255, 255, 255, 1);
@@ -160,20 +167,39 @@
     width: 34px;
     height: 34px;
     border-radius: 50%;
-    transition: all .2s ease-in-out; 
-    &.match {
+    transition: all .2s ease-in-out;
+
+    &.hit {
+      animation: ripple .4s ease-out; 
     }
   }
   .showOver {
     background: $accent;
-
+    animation: ripple .4s ease-out;
     //transform: scale(1.4);
     //border: 2px solid black;
   }
 }
 
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+  }
+  20% {
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+
 .check-hotspot {
   margin-bottom: 0px;
+}
+
+.clear-hotspot {
+  margin-right: 15px;
 }
 
 

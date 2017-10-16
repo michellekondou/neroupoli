@@ -943,7 +943,7 @@ for(var hotspot in hotspot_data) {
   var pixels_y = $(this.hotspot_image).height()*(newY/100);
 
   this.hotspot = $("<div />", {
-    "class": "hotspot",
+    "class": "hotspot available",
     "style": "left: " + Math.round( parseFloat(hotspot_coordinates_x) - 3) + "%;" + "top: " + Math.round(parseFloat(hotspot_coordinates_y) - 4) + "%;",
     "data-title": hotspot_title,
     "data-description": hotspot_description,
@@ -971,10 +971,10 @@ if (hotspot_quiz.hasClass('mouseover')) {
 } 
 //else {
 
-var targets = hotspot_quiz.find('.hotspot');
+var targets = hotspot_quiz.find('.available');
 
 
-var overlapThreshold = "70%"; 
+var overlapThreshold = "50%"; 
 
 var draggable;
 var draggable_item = hotspot_quiz.find('.draggable-item');
@@ -1004,6 +1004,7 @@ draggable = Draggable.create('#'+hotspot_quiz[0].id+' .draggable-item', {
         },
         onDrag:function(e) {
           $(this.target).addClass("being_dragged");
+          $(parent.page.modal).find('.reset-hotspot').addClass('visually-hidden');
           for(var i=0; i<targets.length;i++){
             //console.log(targets[i]);
             if (this.hitTest(targets[i], overlapThreshold)) {
@@ -1027,7 +1028,8 @@ draggable = Draggable.create('#'+hotspot_quiz[0].id+' .draggable-item', {
               //connect source and target via an identifier
               $(targets[i]).addClass('match');
               $(this.target).attr('data-target', identifier);
-              $(this.target).addClass("positioned");
+              $(this.target).addClass("positioned ripple");
+              $(parent.page.modal).find('.check-hotspot').removeClass('visually-hidden');
               console.log('identifier', identifier);
               if ( $(this.target).attr('data-target') === $(this.target).attr('data-identifier') ) {
                 $(this.target).removeClass("wrong");
@@ -1036,20 +1038,23 @@ draggable = Draggable.create('#'+hotspot_quiz[0].id+' .draggable-item', {
                 $(this.target).removeClass("correct");
                 $(this.target).addClass("wrong");
               }
+              if ( $(targets[i]).hasClass("available")) { //if there isn't one there already
+                var tl = new TimelineLite();
+                tl
+                .to(this.target, 0.1, { 
+                  top: $(targets[i]).attr('data_y'), 
+                  left: $(targets[i]).attr('data_x')
+                })
+                .to(this.target, 0.1, {
+                  x: this.minX + parseInt($(targets[i]).attr('data_x')),
+                  y: parseInt( $(targets[i]).attr('data_y') ) + this.minY
 
-              var tl = new TimelineLite();
-              tl
-              .to(this.target, 0.1, { 
-                top: $(targets[i]).attr('data_y'), 
-                left: $(targets[i]).attr('data_x')
-              })
-              .to(this.target, 0.1, {
-                x: this.minX + parseInt($(targets[i]).attr('data_x')),
-                y: parseInt( $(targets[i]).attr('data_y') ) + this.minY
-
-              });
-              snapMade = true;
+                });
+                snapMade = true;
+                $(targets[i]).removeClass("available");
+              }
             } else {
+              $(targets[i]).addClass("available");
             }
           }
           if(!snapMade){
@@ -1066,6 +1071,8 @@ draggable = Draggable.create('#'+hotspot_quiz[0].id+' .draggable-item', {
         }
     });
 
+
+
 var hotspot_reset = $(this.page.modal).find('.reset-hotspot');
 hotspot_reset.attr('id',hotspot_quiz.attr('id')+'--reset');
 
@@ -1075,6 +1082,9 @@ hotspot_check.attr('id',hotspot_quiz.attr('id')+'--check');
 var hotspot_clear = $(this.page.modal).find('.clear-hotspot');
 hotspot_clear.attr('id',hotspot_quiz.attr('id')+'--clear');
 
+var hotspot_prompt = $(this.page.modal).find('.check-answer');
+hotspot_prompt.attr('id',hotspot_quiz.attr('id')+'--check-answer');
+//check right answers
 hotspot_check.on('click', function(){
   var hotspot_check_id = $(this).attr('id');
   var hotspot_id = hotspot_check_id.substring(0, hotspot_check_id.indexOf('--'));
@@ -1086,10 +1096,18 @@ hotspot_check.on('click', function(){
   correct.addClass('highlight-correct');
   wrong.addClass('highlight-wrong');
 
-  setTimeout(function(){
-    //hotspot_check.addClass('visually-hidden');
-    hotspot_reset.removeClass('visually-hidden');
-  }, 100);
+  var positioned = hotspot_quiz.find('.positioned');
+  var correct_positioned = $('.positioned.correct');
+  if (draggable_item.length === correct_positioned.length) {
+    hotspot_clear.removeClass('visually-hidden');
+    hotspot_check.addClass('visually-hidden');
+    hotspot_prompt.addClass('correct').html('Όλα σωστά! Μπράβο!');
+    console.log('all right');
+  } else if (draggable_item.length === positioned.length && positioned.length !== correct_positioned.length) {
+      setTimeout(function(){
+        hotspot_reset.removeClass('visually-hidden');
+      }, 100);
+  } 
 });
 //see the right positions
 hotspot_reset.on('click', function(){
@@ -1136,13 +1154,21 @@ hotspot_clear.on('click', function(){
   var hotspot_id = hotspot_clear_id.substring(0, hotspot_clear_id.indexOf('--'));
   var right_positions = $('#'+hotspot_id+' .right-positions');
   var draggable_item = $('#'+hotspot_id+' .draggable-item');
-
+  hotspot_prompt.removeClass('correct').html('')
   right_positions.removeAttr('style').addClass('no-opacity');
-
+  draggable_item.removeClass('being_dragged hit positioned correct wrong highlight-wrong highlight-correct');
+  hotspot_quiz.find('.hotspot').removeClass('match').addClass('available');
+  var tl = new TimelineLite();
+  tl
+  .set(draggable_item,{
+    opacity: 0,
+    x: 0,
+    y: 0
+  })
   setTimeout(function(){
     hotspot_clear.addClass('visually-hidden');
     hotspot_reset.addClass('visually-hidden');
-    hotspot_check.removeClass('visually-hidden');
+    hotspot_check.addClass('visually-hidden');
   }, 100);
 
   //kill everything

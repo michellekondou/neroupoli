@@ -127,9 +127,6 @@
           <div id="{{ point.title.rendered }}-quiz-hotspot-{{ quiz_counter }}" class="quiz-hotspot {{ card.hotspot_type }}">
             <figure class="hotspot-image" style="width:{{ card.hotspot_file.width }}px;height:{{ card.hotspot_file.height }}px;">
               <img src="{{ card.hotspot_file.url }}" width="{{ card.hotspot_file.width }}" height="{{ card.hotspot_file.height }}">
-              {% if card.hotspot_type === 'drag-and-drop' %}
-
-          {% endif %}
             </figure>
             {% if card.hotspot_type === 'drag-and-drop' %}
             <ul class="hotspot-label-list">
@@ -144,11 +141,13 @@
               {% endfor %}
             </ul>
             {% endif %}
-         
+          
           </div>
-           <button class="check-hotspot submit-button">Ελεγξέ το!</button>
+          
+          <button class="check-hotspot submit-button visually-hidden">Ελεγξέ το!</button>
           <button class="reset-hotspot submit-button visually-hidden">Δες τις σωστές θέσεις!</button>
-          <button class="clear-hotspot submit-button visually-hidden">Παίξε ξανά!</button>
+          <button class="clear-hotspot submit-button visually-hidden">Παίξε ξανά!</button><span class="check-answer"></span>
+
         </section>
       {% elif card.acf_fc_layout === 'sortable' %}
       <section class="text quiz-sortable">
