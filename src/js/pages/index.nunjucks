@@ -131,10 +131,11 @@
             {% if card.hotspot_type === 'drag-and-drop' %}
             <ul class="hotspot-label-list">
               {% for hotspot in card.hotspots %}
-              {% set hotspot_label_counter  = ( hotspot_label_counter | default(0) ) + 1 %}
+              {% set hotspot_label_counter_inner  = ( hotspot_label_counter_inner | default(-1) ) + 1 %}
+              {% set hotspot_label_counter_outer  = ( hotspot_label_counter_outer | default(0) ) + 1 %}
               <li>
               <div class="hotspot-labels">
-                <div class="draggable-item hotspot-handle" data-identifier="{{ point.title.rendered }}-quiz-hotspot-{{ quiz_counter }}-point--{{ hotspot_label_counter }}">{{ hotspot_label_counter }}</div>
+                <div class="draggable-item hotspot-handle" data-identifier="{{ point.title.rendered }}-quiz-hotspot-{{ quiz_counter }}-point--{{ hotspot_label_counter_inner }}">{{ hotspot_label_counter_outer }}</div>
                 <p class="text">{{ hotspot.hotspot_title }} </p>
               </div>
               </li>
