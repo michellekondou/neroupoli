@@ -1122,7 +1122,6 @@ if (hotspot_quiz.length > 0) {
       hotspot_clear.removeClass('visually-hidden');
       hotspot_check.addClass('visually-hidden');
       hotspot_prompt.addClass('correct').html('Όλα σωστά! Μπράβο!');
-      console.log('all right');
     } else if (draggable_item.length === positioned.length && positioned.length !== correct_positioned.length) {
         setTimeout(function(){
           hotspot_reset.removeClass('visually-hidden');
@@ -1773,13 +1772,11 @@ window.onload = function() {
 // because mousewheel zoom is a central feature of this app
 $(window).bind('keydown', function(event) {
   if (event.ctrlKey == true) {
-    console.log("pressed");
     $('.ctrlZoom').addClass('overlay-open');
   }
 });
 
 $(window).bind('keyup', function(event) {
-    console.log("NOT pressed");
     $('.ctrlZoom').removeClass('overlay-open');
 });
 
@@ -1788,22 +1785,6 @@ $(window).bind('mousewheel', function(event) {
     event.preventDefault();
   }
 });
-
-var didScroll = false;
-
-window.onscroll = doThisStuffOnScroll;
-
-function doThisStuffOnScroll() {
-    didScroll = true;
-}
-
-setInterval(function() {
-    if(didScroll) {
-        didScroll = false;
-        console.log('You scrolled');
-    }
-}, 100);
-
 
 
 
