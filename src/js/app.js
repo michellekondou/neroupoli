@@ -1053,10 +1053,8 @@ draggable = Draggable.create('#'+hotspot_quiz[0].id+' .draggable-item', {
                 snapMade = true;
                 $(targets[i]).removeClass("available");
               }
-              console.log(snapMade);
             } else {
-              console.log(snapMade);
-              //$(targets[i]).addClass("available");
+              $(targets[i]).addClass("available");
             }
           }
           if(!snapMade){
