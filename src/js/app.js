@@ -1081,6 +1081,7 @@ if (hotspot_quiz.length > 0) {
               if (positioned.length === 0) {
                 $(parent.page.modal).find('.check-hotspot').addClass('visually-hidden');
               }
+              $(parent.page.modal).find('.clear-hotspot').addClass('visually-hidden');
               $(this.target).attr("data-target",'');
               TweenLite.to(this.target, 0.2, {
                 css: {
@@ -1091,8 +1092,6 @@ if (hotspot_quiz.length > 0) {
             }
           }
       });
-
-
 
   var hotspot_reset = $(this.page.modal).find('.reset-hotspot');
   hotspot_reset.attr('id',hotspot_quiz.attr('id')+'--reset');
@@ -1145,7 +1144,6 @@ if (hotspot_quiz.length > 0) {
       y: 0
     })
 
-
     draggable_item.removeClass('being_dragged hit positioned correct wrong highlight-wrong highlight-correct');
 
     $('#'+hotspot_id+' .hotspot').removeClass('showOver');
@@ -1158,8 +1156,6 @@ if (hotspot_quiz.length > 0) {
     }
 
     tl.staggerFromTo(hotspot_texts, 1, {opacity:0}, {opacity:1}, 1);
-    
-   // hotspot_labels.addClass('visible').removeClass('visually-hidden');
 
     setTimeout(function(){
       hotspot_reset.addClass('visually-hidden');
