@@ -48,7 +48,7 @@ button {
   text-align: start;
   margin: 0em 0em 0em 0em;
   font-family: $regular;
-  @include rem-fallback(font-size, 20);
+  // @include rem-fallback(font-size, 20);
 }
 
 input, 

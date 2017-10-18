@@ -28,10 +28,14 @@ body {
   background: #fff;
   font-family: $regular, sans-serif;
   color: $text;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased !important;
 }
 
 html {
   font-size: 16px;
+  -ms-overflow-style: scrollbar;
+-webkit-tap-highlight-color: transparent //webfont flicker bug in safari
 }
 
 @media (max-width: 1023px) {
@@ -48,7 +52,7 @@ html {
 
 @media (min-width: 1140px) {
   html {
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 
@@ -65,6 +69,15 @@ h4,
 h5,
 h6 {
   font-weight: normal;
+}
+
+p {
+  // -webkit-backface-visibility: hidden;
+  // -webkit-font-smoothing: antialiased!important;
+  // font-smoothing: antialiased!important;
+  // -webkit-transform: translateZ(0) scale(1);
+  // transform: translateZ(0);
+  // z-index:  10;
 }
 
 .visually-hidden { 

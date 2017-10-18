@@ -5,7 +5,7 @@ var urlsToCache = [
   'dist/graphics/map-1366x768-v42.svg',
   'dist/graphics/map-768x1024-v42.svg',
   'dist/assets/app.css',
-  'dist/assets/app-67ba3161cf.js',
+  'dist/assets/app-36b050326d.js',
   'dist/fonts/cfastystd-bold-webfont.woff2',
   'dist/fonts/cfastystd-book-webfont.woff2',
   'dist/svg/sprite.svg'

@@ -38,7 +38,7 @@
         {% for card in point.acf.cards %} 
         <div class="symbol-container symbol
         {% if card.acf_fc_layout === 'intro' %}-intro{% elif card.acf_fc_layout === 'text' %}{% if card.type == 'ΝΕΡΟΔΙΑΒΑΣΜΑΤΑ' %}-study{% elif card.type == 'ΔΡΑΣΤΗΡΙΟΤΗΤΑ ΣΕ ΟΜΑΔΕΣ' %}-group-activity{% elif card.type == 'ΑΤΟΜΙΚΗ ΔΡΑΣΤΗΡΙΟΤΗΤΑ' %}-single-activity{% elif card.type == 'ΕΡΩΤΗΣΗ' %}-question{% elif card.type == 'ΑΠΟ ΕΔΩ ΚΑΙ ΠΕΡΑ' %}-going-forward{% endif %}{% elif card.acf_fc_layout === 'likert' %}-feedback{% else %}-play-learn{% endif %}">
-          <i class="symbol-icon icon symbol{% if card.acf_fc_layout === 'intro' %}-intro{% elif card.acf_fc_layout === 'text' %}{% if card.type == 'ΝΕΡΟΔΙΑΒΑΣΜΑΤΑ' %}-study{% elif card.type == 'ΔΡΑΣΤΗΡΙΟΤΗΤΑ ΣΕ ΟΜΑΔΕΣ' %}-group-activity{% elif card.type == 'ΑΤΟΜΙΚΗ ΔΡΑΣΤΗΡΙΟΤΗΤΑ' %}-single-activity{% elif card.type == 'ΕΡΩΤΗΣΗ' %}-question{% elif card.type == 'ΑΠΟ ΕΔΩ ΚΑΙ ΠΕΡΑ' %}-going-forward{% endif %}{% elif card.acf_fc_layout === 'likert' %}-feedback{% else %}-play-learn{% endif %}"></i>
+          <i class="icon symbol{% if card.acf_fc_layout === 'intro' %}-intro{% elif card.acf_fc_layout === 'text' %}{% if card.type == 'ΝΕΡΟΔΙΑΒΑΣΜΑΤΑ' %}-study{% elif card.type == 'ΔΡΑΣΤΗΡΙΟΤΗΤΑ ΣΕ ΟΜΑΔΕΣ' %}-group-activity{% elif card.type == 'ΑΤΟΜΙΚΗ ΔΡΑΣΤΗΡΙΟΤΗΤΑ' %}-single-activity{% elif card.type == 'ΕΡΩΤΗΣΗ' %}-question{% elif card.type == 'ΑΠΟ ΕΔΩ ΚΑΙ ΠΕΡΑ' %}-going-forward{% endif %}{% elif card.acf_fc_layout === 'likert' %}-feedback{% else %}-play-learn{% endif %}"></i>
         </div>
         {% endfor %}
       </div>
@@ -362,11 +362,8 @@
     <footer class="page-footer">
       <div class="left-col">
       {% if point.acf.fact_sheet %}
-        <a href="{{ point.acf.fact_sheet.url }}" download="Water-Polis-Fyllo-Ergasias-{{ point.acf.fact_sheet.name }}.doc" class="download-pdf">
-        <i class="pdf-icon">
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="is-default" viewBox="0 0 51 68"><use xlink:href="#icon-download-pdf"></use></svg>
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="is-pressed" viewBox="0 0 47 64"><use xlink:href="#icon-download-pdf-pressed"></use></svg>
-        </i>
+        <a href="{{ point.acf.fact_sheet.url }}" download="Water-Polis-Fyllo-Ergasias-{{ point.acf.fact_sheet.name }}.doc" class="pdf-download">
+          <i class="icon download-pdf"></i>
         <span>ΦΥΛΛΟ ΕΡΓΑΣΙΑΣ</span>
         </a>
       {% endif %}
@@ -374,7 +371,7 @@
       <nav class="card-nav">
         <button class='previous'>
           <span class="visually-hidden">Προηγούμενο</span>
-          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="41px" height="52px" viewBox="0 0 41 52" enable-background="new 0 0 41 52" xml:space="preserve">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 41 52" enable-background="new 0 0 41 52" xml:space="preserve">
             <g id="previous-Layer_1">
             </g>
             <g id="previous-activity_context">
@@ -385,7 +382,7 @@
         </button>
         <button class='next'>
           <span class="visually-hidden">Επόμενο</span>
-          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="41px" height="52px" viewBox="0 0 41 52" enable-background="new 0 0 41 52" xml:space="preserve">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 41 52" enable-background="new 0 0 41 52" xml:space="preserve">
             <g id="next-Layer_1">
             </g>
             <g id="next-activity_context">

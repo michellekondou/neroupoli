@@ -52,7 +52,6 @@ if (cw < ch) {
   }
 }
 
-
 var MapObject = function() {
   this._init_map_object();
 };
@@ -180,6 +179,60 @@ MapView.prototype._init_map_elements = function() {
     }
 
   });
+
+/*------------------------------------*\
+  #TAB NAVIGATION SYMBOLS
+\*------------------------------------*/
+/**
+ * Switch symbol size via classname depending on viewport size
+ */
+function switchIconSize(){
+  var icon = $('.symbol-container .icon');
+  var icon_class = icon.attr('class');
+  var re = / *\bsymbol\b/g;
+  var reNot = / *\bsymbol-small\b/g;
+  //look for the class prefix symbol-small in icon class-names
+  var testRe = reNot.exec(icon_class);
+  console.log(icon, testRe);
+  for(var is = 0; is<icon.length;is++){
+    var _is = icon[is];
+    if (document.documentElement.clientHeight <= 768 && testRe === null) {
+      _is.className = _is.className.replace(/ *\bsymbol\b/g, " symbol-small");
+    } else if (document.documentElement.clientHeight > 768 && testRe !== null) {
+      _is.className = _is.className.replace(/ *\bsymbol-small\b/g, " symbol");
+    }
+  }
+}
+
+switchIconSize();
+
+$(window).resize(function() {
+  var icon = $('.symbol-container .icon');
+  var icon_class = icon.attr('class');
+  var re = / *\bsymbol\b/g;
+  var reNot = / *\bsymbol-small\b/g;
+  //look for the class prefix symbol-small in icon class-names
+  var testRe = reNot.exec(icon_class);
+  if (document.documentElement.clientHeight <= 768 && testRe === null) {
+    console.log(testRe);
+    for(var is = 0; is<icon.length;is++) {
+      var _is = icon[is];
+      _is.className = _is.className.replace(/ *\bsymbol\b/g, " symbol-small");
+      console.log('run replace ' + ch + " <= 768");
+    }
+  }
+  if (document.documentElement.clientHeight > 768) {
+    console.log(testRe);
+    for(var is = 0; is<icon.length;is++) {
+      var _is = icon[is];
+      _is.className = _is.className.replace(/ *\bsymbol-small\b/g, " symbol");
+      console.log('run replace ' + ch + " > 768");
+    }
+  }
+
+  console.log('window resized', document.documentElement.clientHeight);
+
+});
 
 (function() {
 
@@ -347,7 +400,6 @@ MapView.prototype._render_map = function() {
         duration = 0;
         $('.popup').removeClass('popup-open');
         $('.tooltip').removeClass('open');
-        console.log('MOOOOOVE', d3.event.sourceEvent);
       } 
     }
 
@@ -372,30 +424,15 @@ MapView.prototype._render_map = function() {
   //return cursor to default between zoom events
   function zoomEnd(){
     svg.transition().delay(1500).style("cursor", "default");
-    //svg.style("cursor", "default");
-
   }
  
   var svgWidth = d3.select(mapSvg).attr("width");
   var svgHeight = d3.select(mapSvg).attr("height");
-  // if (cw < ch) {
-  //   if (cw < 480) {
-  //     var t = -width/3.5, //top
-  //         l = -height/12, //left
-  //         b = width+width/3.5, //bottom
-  //         r = height+height/12; //right
-  //   } else {
-  //     var t = -width/5.5, //top
-  //         l = -height/12, //left
-  //         b = width+width/5.5, //bottom
-  //         r = height+height/12; //rights
-  //   }
-  // } else {
-    var t = 0,
-        l = 0,
-        b = width,
-        r = height;
-  // }
+
+  var t = 0,
+      l = 0,
+      b = width,
+      r = height;
 
   var zoom = d3.zoom()
   .scaleExtent([1, 15])
@@ -1416,6 +1453,7 @@ MapViewItem.prototype.page_close = function () {
   }
 
   resetForm();
+  $('.symbol-container').removeClass('visited');
   //remove all game clones
   //$('.clone').remove();
 };
@@ -1569,6 +1607,7 @@ MapViewItem.prototype._init_points = function(points){
     //only show the tooltip if popup not open 
     if(parent.pop.open === false) {
       parent.tip.open = true;
+      var pos_top = 
       parent.tip.style({
         //position the tooltip on top and middle of point
         "left": ( $(this).offset().left + parent.map_bcr.left ) - (parent.point_width) + "px",
@@ -1712,7 +1751,7 @@ window.onload = function() {
       return response.json();
     })
     .then(function(data) {
-      
+      $('#preloader h2').removeClass('visually-hidden');
       var tl = new TimelineLite({
         onStart: function(){
           $('#preloader h2').removeClass('visually-hidden');

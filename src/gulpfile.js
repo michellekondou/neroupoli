@@ -137,8 +137,7 @@ return gulp.src("../dist/index.html")
 })
 
 gulp.task("revreplace-dev", ["rev"], function(){
-
-return gulp.src("../dist/dev.html")
+  return gulp.src("../dist/dev.html")
   .pipe(dom(function(){
       var imgEl = this.getElementsByTagName('img');
       var parent = this;
