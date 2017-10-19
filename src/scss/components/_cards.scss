@@ -25,20 +25,19 @@
 .quiz-hotspot ul {
   list-style-type: none;
   margin-top: 0;
+  flex: 1; //IE11 - otherwise flex children do not respect the width
 }
 
 .quiz-hotspot li {
   position: relative;
   float: left;
-  // width: 100%;
   border: 1px solid #ccc;
   padding: 5px;
   text-align: left;
   margin-top: 0;
   line-height: 1;
   margin-right: 10px;
-  //min-width: 300px;
-  //min-height: 50px;
+  list-style-type: outside; //otherwise IE11 shows bullets
 }
 
 @media (max-width: 500px) {
@@ -167,9 +166,9 @@
     width: 34px;
     height: 34px;
     border-radius: 50%;
-    transition: all .2s ease-in-out;
-    will-change: transform;
-
+    &:hover {
+      cursor: pointer;
+    }
     &.hit {
       animation: ripple .4s ease-out; 
     }
@@ -177,8 +176,6 @@
   .showOver {
     background: $accent;
     animation: ripple .4s ease-out;
-    //transform: scale(1.4);
-    //border: 2px solid black;
   }
 }
 

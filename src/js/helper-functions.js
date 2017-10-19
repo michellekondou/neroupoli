@@ -29,3 +29,7 @@ function isObject(obj) {
   return obj === Object(obj);
 }
 
+function addListeners(el, s, fn) {
+  s.split(' ').forEach(function(e){ el.addEventListener(e, fn, true)});
+}
+

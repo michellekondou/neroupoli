@@ -937,50 +937,57 @@ sortable_reset.on('click', function(){
 //END Sortable Quiz
 
 /*------------------------------------*\
-  # Hotspot Quiz
+  # Hotspot Quiz - START
 \*------------------------------------*/
+//select elements with .quiz-hotspot class
 var hotspot_quiz = $(this.page.modal).find('.quiz-hotspot');
+//if the page contains a hotspot quiz
 if (hotspot_quiz.length > 0) {
   //get hotspot data - i.e. points with coordinates
   var hotspot_data;
   for(var card in card_content) {
     if (card_content[card].acf_fc_layout === 'hotspot') {
-      hotspot_data = card_content[card].hotspots;
+      hotspot_data = card_content[card].hotspots; //or targets for correlation game
     }
   }
 
-  //set some vars
+  //set some vars - select the hotspot image and container
   this.hotspot_image = hotspot_quiz.find('.hotspot-image img');
   var hotspot_container = hotspot_quiz.find('.hotspot-image');
 
   //set array with snap points for drag end
   var snapX = [],
       snapY = [];
+
+  //get the object member's id
   var index = 0;
-  //put the hotspot on the image
+  //put the hotspot on the image and save it's data to use
   for(var hotspot in hotspot_data) {
+    //give each object member an id property and increment it
     hotspot_data[hotspot].id = index++;
+    //save the hotspot data
     var hotspot_title = hotspot_data[hotspot].hotspot_title;
     var hotspot_description = hotspot_data[hotspot].hotspot_description;
     var hotspot_coordinates = hotspot_data[hotspot].hotspot_coordinates;
+    //get image coordinates separately to assign as custom attributes (data_x) and (data_y)
     var hotspot_coordinates_x = hotspot_coordinates.substring(0, hotspot_coordinates.indexOf(','));
     var hotspot_coordinates_y = hotspot_coordinates.split(',')[1];
-    //console.log(hotspot_coordinates_x);
-
+    //image coordinates are in percentages, convert them to pixels to 
+    //assign as custom attributes to the draggable element
     var newX = Math.round( parseFloat(hotspot_coordinates_x) - 3);
     var newY = Math.round( parseFloat(hotspot_coordinates_y) - 4);
     var pixels_x = $(this.hotspot_image).width()*(newX/100);
     var pixels_y = $(this.hotspot_image).height()*(newY/100);
-
+    //create the hotspot elements and append to the image
     this.hotspot = $("<div />", {
+      //add an available class to the hotspots if they have no draggable element on them, this is // to prevent double positioning i.e. two draggables on one target
       "class": "hotspot available",
-      "style": "left: " + Math.round( parseFloat(hotspot_coordinates_x) - 3) + "%;" + "top: " + Math.round(parseFloat(hotspot_coordinates_y) - 4) + "%;",
       "data-title": hotspot_title,
       "data-description": hotspot_description,
       "data-identifier": hotspot_quiz.attr('id')+'-point--'+hotspot_data[hotspot].id,
+      "style": "left: " + Math.round( parseFloat(hotspot_coordinates_x) - 3) + "%;" + "top: " + Math.round(parseFloat(hotspot_coordinates_y) - 4) + "%;",
       'data_x': Math.round( parseFloat(pixels_x) ),
       'data_y': Math.round( parseFloat(pixels_y) ),
-
     }).appendTo($(hotspot_container));
 
     if (hotspot_quiz.hasClass('drag-and-drop')) {
@@ -990,145 +997,146 @@ if (hotspot_quiz.length > 0) {
         "id": hotspot_quiz.attr('id')+'-point--'+hotspot_data[hotspot].id
       }).appendTo($(this.hotspot));
     }
-
+    //add drag snap points to arrays - for draggable elements
     snapX.push(pixels_x);
     snapY.push(pixels_y);
-
   }
 
   if (hotspot_quiz.hasClass('mouseover')) {
     parent.term_popup('.hotspot', 'title');
   }
 
+  //set some variables
   var targets = hotspot_quiz.find('.available');
   var overlapThreshold = "50%"; 
   var draggable_item = hotspot_quiz.find('.draggable-item');
-
+  //create a clone to leave a number trace where the draggable instance comes from
   for(var b = 0;b<draggable_item.length;b++){
     var d_item = draggable_item[b];
+    //make sure the clone is not draggable
     var d_clone = $(d_item).clone().addClass('clone').removeClass('draggable-item hotspot-handle').removeAttr('style');
     $(d_clone).insertAfter(d_item);
-    //console.log(draggable_item[b],$(draggable_item[b]).find('.text').outerWidth());
   }
+
   var draggable;
   draggable = Draggable.create('#'+hotspot_quiz[0].id+' .draggable-item', {
-          type: "x,y",
-          bounds: "#"+hotspot_quiz.attr('id'),
-          allowNativeTouchScrolling:false,
-         // throwProps: true,
-          onPress:function() {
-            //record the starting values so we can compare them later...
-            startY = this.y;
-          },
-          onDragStart:function(e) {
-            $(parent.page.modal).find('.reset-hotspot').addClass('visually-hidden');
-            for(var i=0; i<targets.length;i++){
-              //on drag start check data-hit if any hotspot has been assigned the this.target identifier
-              //if it has it means this.target was there before
-              //remove the data-hit attribute value and make it available again
-              if ( $(targets[i]).attr('data-hit') === $(this.target).attr('data-identifier') ) {
-                $(targets[i]).attr('data-hit','').addClass('available');
-              }
-            }
-            hotspot_prompt.html('');
-            $(this.target).addClass("being_dragged");
-            $(this.target).next('.clone').addClass('visible');
-          },
-          onDrag:function(e) {
-            $(this.target).addClass("being_dragged");
-            //save previous target we were on
-          
-            for(var i=0; i<targets.length;i++){
-
-              if (this.hitTest(targets[i], overlapThreshold)) {
-                 $(targets[i]).addClass("showOver");
-               } else {
-                 $(targets[i]).removeClass("showOver");
-               }
-            }
-          },
-          onDragEnd:function(e) {
-            var snapMade = false;
-            var current_target = 0;
-            $(this.target).removeClass("being_dragged");
-            for(var i=0; i<targets.length;i++){
-              current_target = targets[i];
-              var identifier = $(targets[i]).find('.right-positions').attr('id');
-              if(this.hitTest(current_target, overlapThreshold)){
-                snapMade = true; 
-                //connect source and target via an identifier
-                //give the draggable item an attr of data-target with a value of the hit id
-                //also give it a couple of styling classes
-                $(this.target).attr('data-target', identifier).addClass("positioned ripple");
-                //after a hit has been made reveal the check hotspot button
-                $(parent.page.modal).find('.check-hotspot').removeClass('visually-hidden');
-                //if the item has been assigned correctly assign styling classes
-                if ( $(this.target).attr('data-target') === $(this.target).attr('data-identifier') ) {
-                  $(this.target).removeClass("wrong highlight-wrong correct highlight-correct");
-                  $(this.target).addClass("correct");
-                } else if ($(this.target).attr('data-target') !== $(this.target).attr('data-identifier') ) {
-                  $(this.target).removeClass("wrong highlight-wrong correct highlight-correct");
-                  $(this.target).addClass("wrong");
-                }
-                var tl = new TimelineLite();
-                if ( $(targets[i]).hasClass("available") ) { 
-                  //if there isn't one there already
-                  //give the target an attribute of data-hit to mark that there has been a match
-                  $(current_target).attr('data-hit',$(this.target).attr('data-identifier'));
-                  //move item to position if position available and overlapThreshold condition is met
-                  tl
-                  .to(this.target, 0.1, { 
-                    top: $(current_target).attr('data_y'), 
-                    left: $(current_target).attr('data_x')
-                  })
-                  .to(this.target, 0.1, {
-                    x: this.minX + parseInt($(current_target).attr('data_x')),
-                    y: parseInt( $(current_target).attr('data_y') ) + this.minY
-
-                  });
-                } else {
-                  //if the position isn't available (does not have an available class) send it back to its starting position)
-                  $(this.target).removeClass("being_dragged hit showOver correct wrong highlight-correct highlight-wrong positioned ripple");
-                  var tl_return = new TimelineLite({
-                    onStart: function(){
-                      hotspot_prompt.addClass('wrong').html('Υπάρχει κάτι εκεί, δοκίμασε να το βάλεις σε άλλη θέση!')
-                    },
-                    onComplete: function(){
-                      setTimeout(function(){
-                        hotspot_prompt.removeClass('wrong').html('')
-                      },1000);
-                      
-                    }
-                  });
-                  tl_return
-                  .to(this.target, 0.1, { 
-                    x: 0, 
-                    y: 0
-                  });
-                }
-                //if there is a current target (i.e. a match has been made, don't allow it to be a target for as long as its populated with a draggable item)
-                $(current_target).removeClass('available'); 
-
-              } 
-            }
-            if(!snapMade){
-              $(parent.page.modal).find('.check-hotspot').removeClass('visually-hidden');
-              $(this.target).removeClass("being_dragged hit showOver correct wrong highlight-correct highlight-wrong positioned ripple");
-              var positioned = hotspot_quiz.find('.positioned');
-              if (positioned.length === 0) {
-                $(parent.page.modal).find('.check-hotspot').addClass('visually-hidden');
-              }
-              $(parent.page.modal).find('.clear-hotspot').addClass('visually-hidden');
-              $(this.target).attr("data-target",'');
-              TweenLite.to(this.target, 0.2, {
-                css: {
-                   x: 0, 
-                  y: 0
-                }
-              });
-            }
+    type: "x,y",
+    bounds: "#"+hotspot_quiz.attr('id'),
+    allowNativeTouchScrolling:false,
+    onPress:function() {
+      //record the starting values so we can compare them later...
+      startY = this.y;
+    },
+    onDragStart:function(e) {
+      $(parent.page.modal).find('.reset-hotspot').addClass('visually-hidden');
+      for(var i=0; i<targets.length;i++){
+        //on drag start check the data-hit attribut - if it has a value it is because a draggable instance has been assigned to it and passed it its data-identifier attribute
+        //if it has a value it means draggable was there
+        //remove the data-hit attribute value and signify that it is available again
+        if ( $(targets[i]).attr('data-hit') === $(this.target).attr('data-identifier') ) {
+          $(targets[i]).attr('data-hit','').addClass('available');
+        }
+      }
+      //clear the prompt message box
+      hotspot_prompt.html('');
+      //give it a class
+      $(this.target).addClass("being_dragged");
+      //we probably do not need this any more
+      $(this.target).next('.clone').addClass('visible');
+    },
+    onDrag:function(e) {
+      for(var i=0; i<targets.length;i++){
+        if (this.hitTest(targets[i], overlapThreshold)) {
+          //if draggable in target range highlight it and animate it
+          $(targets[i]).addClass("showOver ripple");
+         } else {
+           $(targets[i]).removeClass("showOver ripple");
+         }
+      }
+    },
+    onDragEnd:function(e) {
+      var snapMade = false;
+      var current_target;
+      $(this.target).removeClass("being_dragged");
+      for(var i=0; i<targets.length;i++){
+        current_target = targets[i];
+        var identifier = $(targets[i]).find('.right-positions').attr('id');
+        if(this.hitTest(current_target, overlapThreshold)){
+          snapMade = true; 
+          //connect source and target via an identifier
+          //give the draggable item an attr of data-target with a value of the hit id
+          //also give it a couple of styling classes
+          $(this.target).attr('data-target', identifier).addClass("positioned");
+          //after a hit has been made reveal the check hotspot button
+          $(parent.page.modal).find('.check-hotspot').removeClass('visually-hidden');
+          //if the item has been assigned correctly assign styling classes
+          if ( $(this.target).attr('data-target') === $(this.target).attr('data-identifier') ) {
+            $(this.target).removeClass("wrong highlight-wrong correct highlight-correct");
+            $(this.target).addClass("correct");
+          } else if ($(this.target).attr('data-target') !== $(this.target).attr('data-identifier') ) {
+            $(this.target).removeClass("wrong highlight-wrong correct highlight-correct");
+            $(this.target).addClass("wrong");
           }
-      });
+          var tl = new TimelineLite();
+          if ( $(targets[i]).hasClass("available") ) { 
+            //if there isn't one there already
+            //give the target an attribute of data-hit to mark that there has been a match
+            $(current_target).attr('data-hit',$(this.target).attr('data-identifier'));
+            //move item to position if position available and overlapThreshold condition is met
+            tl
+            .to(this.target, 0.1, { 
+              top: $(current_target).attr('data_y'), 
+              left: $(current_target).attr('data_x')
+            })
+            .to(this.target, 0.1, {
+              x: this.minX + parseInt($(current_target).attr('data_x')),
+              y: parseInt( $(current_target).attr('data_y') ) + this.minY
+
+            });
+          } else {
+            //if the position isn't available (does not have an available class) send it back to its starting position)
+            $(this.target).removeClass("being_dragged hit showOver correct wrong highlight-correct highlight-wrong positioned ripple");
+            //show a message that an item has already been placed there
+            var tl_return = new TimelineLite({
+              onStart: function(){
+                hotspot_prompt.addClass('wrong').html('Υπάρχει κάτι εκεί, δοκίμασε να το βάλεις σε άλλη θέση!')
+              },
+              onComplete: function(){
+                setTimeout(function(){
+                  hotspot_prompt.removeClass('wrong').html('')
+                },1000);
+                
+              }
+            });
+            tl_return
+            .to(this.target, 0.1, { 
+              x: 0, 
+              y: 0
+            });
+          }
+          //if there is a current target (i.e. a match has been made, don't allow it to be a target as long as its populated with another draggable item)
+          $(current_target).removeClass('available'); 
+        } 
+      }//end for loop
+      if(!snapMade){
+        $(parent.page.modal).find('.check-hotspot').removeClass('visually-hidden');
+        $(this.target).removeClass("being_dragged hit showOver correct wrong highlight-correct highlight-wrong positioned ripple");
+        var positioned = hotspot_quiz.find('.positioned');
+        if (positioned.length === 0) {
+          //only show the check hotspot button if at least an item has been dragged
+          $(parent.page.modal).find('.check-hotspot').addClass('visually-hidden');
+        }
+        $(parent.page.modal).find('.clear-hotspot').addClass('visually-hidden');
+        $(this.target).attr("data-target",'');
+        TweenLite.to(this.target, 0.2, {
+          css: {
+             x: 0, 
+            y: 0
+          }
+        });
+      }
+    }
+  });
 
   var hotspot_reset = $(this.page.modal).find('.reset-hotspot');
   hotspot_reset.attr('id',hotspot_quiz.attr('id')+'--reset');
@@ -1233,7 +1241,10 @@ if (hotspot_quiz.length > 0) {
 
   });
 
-} //end if this hotspot quiz
+}
+/*------------------------------------*\
+  # Hotspot Quiz - END
+\*------------------------------------*/
 
 function reset_hotspot() {
   var all_hotspots = $(parent.page.modal).find('.quiz-hotspot');
@@ -1340,70 +1351,74 @@ MapViewItem.prototype.glossary = function () {
 MapViewItem.prototype.term_popup = function (term_class, text_attribute) {
   var parent = this;
   var term = document.querySelectorAll(term_class);
+
   var create_term_popup = function (element) {
-    var parent = this;
-    this.term_title = element.getAttribute('data-title'); 
-    this.term_description = element.getAttribute('data-description') || element.getAttribute('data-html'); 
-    this.term_popup = $('<article />', {
-      'class': 'term-popup',
-      'html': '<h2>'+this.term_title+'</h2><p>'+this.term_description+'</p>'
-    }).appendTo(element);
+      if (element.getAttribute('data-title') === null) { return }
+      var parent = this;
+      this.term_title = element.getAttribute('data-title');
+      this.term_description = element.getAttribute('data-description') || element.getAttribute('data-html'); 
+      this.term_popup = $('<article />', {
+        'class': 'term-popup',
+        'html': '<h2>'+this.term_title+'</h2><p>'+this.term_description+'</p>'
+      }).appendTo(element);
 
-    this.close_popup = $('<i />', {
-      'class': 'icon close-popup term-close'
-    }).appendTo(term_popup);
+      this.close_popup = $('<i />', {
+        'class': 'icon close-popup term-close'
+      }).appendTo(term_popup);
 
-    $('.term-close').on('click', function(e){
-      $(this).parent().removeClass('open');
-    });
+      $('.term-close').on('click', function(e){
+        $(this).parent().removeClass('open');
+      });
+    };
 
-  };
+    var open_term_popup = function (element) {
+      if (element.target !== this) {
+        return;
+      }
+      //$(element.target).addClass('current');
+      //get the target's popup
+      var this_term_popup = $(element.target).find('.term-popup');
+      var this_term_popup_open = $(element.target).find('.term-popup.open');
+      //get all open popups except for our target
+      var all_open_term_popups = $(term_class).not(element.target).find('.term-popup.open');
+      //remove all open popups before opening a new one
+      for (var i=0;i<all_open_term_popups.length;i++) {
+       $(all_open_term_popups[i]).removeClass('open');
+      }
 
-  var open_term_popup = function (element) {
-    if (element.target !== this) {
-      return;
-    }
-    //$(element.target).addClass('current');
-    //get the target's popup
-    var this_term_popup = $(element.target).find('.term-popup');
-    var this_term_popup_open = $(element.target).find('.term-popup.open');
-    //get all open popups except for our target
-    var all_open_term_popups = $(term_class).not(element.target).find('.term-popup.open');
-    //remove all open popups before opening a new one
-    for (var i=0;i<all_open_term_popups.length;i++) {
-     $(all_open_term_popups[i]).removeClass('open');
-    }
+      //position the popup relative to trigger
+      var trigger_position = $(element.target).position();
+      var parent_width = $('.page-content').width();
+      var term_popup_width = 460;
 
-    //position the popup relative to trigger
-    var trigger_position = $(element.target).position();
-    var parent_width = $('.page-content').width();
-    var term_popup_width = 460;
-
-    this_term_popup.css('top', '32px');
-    if( term_popup_width > parseInt(parent_width - trigger_position.left) ) {
-      this_term_popup.css('right', '0px');
-    } else if ( parseInt(trigger_position.left) < term_popup_width/2 ) {
-      this_term_popup.css('left', '0px');
-    } else {
-      this_term_popup.css('left', -term_popup_width/2);
-    }
+      this_term_popup.css('top', '32px');
+      if( term_popup_width > parseInt(parent_width - trigger_position.left) ) {
+        this_term_popup.css('right', '0px');
+      } else if ( parseInt(trigger_position.left) < term_popup_width/2 ) {
+        this_term_popup.css('left', '0px');
+      } else {
+        this_term_popup.css('left', -term_popup_width/2);
+      }
+        
+      //toggle the open class on click
+      this_term_popup.addClass('open');
       
-    //toggle the open class on click
-    this_term_popup.addClass('open');
-    
-  };
-  //for each glossary term in the content 
-  // 1. create a popup
-  // 2. add a click event
-  for (var i=0;i<term.length;i++) {
-    create_term_popup(term[i]); /*1*/
-    term[i].addEventListener('mouseover', open_term_popup, {passive: true}); /*2*/
-  }
+    };
 
-  //close the modal: click anywhere to close it, or hit any key
-  $(document).on('keyup click touchstart', function(){ //
-    $(".term-popup.open, .glossary-popup.open").removeClass('open');
-  });
+    //for each glossary term in the content 
+    // 1. create a popup
+    // 2. add a click event
+    for (var i=0;i<term.length;i++) {
+      var _term = term[i];
+      create_term_popup(_term); /*1*/
+      _term.addEventListener('mouseover', open_term_popup, {passive: true}); /*2*/
+      _term.addEventListener('touchstart', open_term_popup, {passive: true}); /*2*/
+    }
+
+    //close the modal: click anywhere to close it, or hit any key
+    $(document).on('keyup click touchstart', function(){ //
+      $(".term-popup.open, .glossary-popup.open").removeClass('open');
+    });
 
 };
 
