@@ -145,8 +145,6 @@
   @include rem-fallback(font-size, 16);
 }
 
-
-
 .popup.popup-open .map-popover-title {
   margin-top: 20px;
   font-family: $bold;
@@ -527,7 +525,7 @@
 }
 @media screen and (min-height: 624px) and (max-height: 679px) {
   .progress-bar {
-    margin-top: 2%;
+    margin-top: 1.6%;
   }
 }
 @media screen and (min-height: 680px) and (max-height: 767px) {
@@ -694,26 +692,9 @@
   @include rem-fallback(padding-bottom, 40);
 }
 
-
-
 .card.text, 
 .card.quiz {
   //width: 70%;
-}
-
-
-@media (max-width: 959px) {
-  .card.text, 
-  .card.quiz {
-    width: 95%;
-  }
-}
-
-@media (min-width: 960px) {
-  .card.text, 
-  .card.quiz {
-   // width: 70%;
-  }
 }
 
 .card iframe {

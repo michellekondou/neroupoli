@@ -1242,9 +1242,6 @@ if (hotspot_quiz.length > 0) {
   });
 
 }
-/*------------------------------------*\
-  # Hotspot Quiz - END
-\*------------------------------------*/
 
 function reset_hotspot() {
   var all_hotspots = $(parent.page.modal).find('.quiz-hotspot');
@@ -1281,6 +1278,317 @@ function reset_hotspot() {
       });
   }
 }
+/*------------------------------------*\
+  # Hotspot Quiz - END
+\*------------------------------------*/
+/*------------------------------------*\
+  # Drag and Drop Quiz - START
+  * draganddrop = dnd
+\*------------------------------------*/
+//select elements with .quiz-dnd class
+var dnd_quiz = $(this.page.modal).find('.quiz-dnd');
+//if the page contains a hotspot quiz
+if (dnd_quiz.length > 0) {
+  //get dnd data - title
+  var dnd_data;
+  for(var card in card_content) {
+    if (card_content[card].acf_fc_layout === 'dragndrop') {
+      dnd_data = card_content[card].items; //or targets for correlation game
+    }
+  }
+
+  var dnd_origin_container = dnd_quiz.find('.dnd-origin-container');
+  var dnd_target_container = dnd_quiz.find('.dnd-target-container');
+  //get the object member's id
+  var index = 0;
+  //put the hotspot on the image and save it's data to use
+  for(var dnd in dnd_data) {
+    //give each object member an id property and increment it
+    dnd_data[dnd].id = index++;
+    //save the hotspot data
+    var dnd_origin = dnd_data[dnd].option;
+    var dnd_target = dnd_data[dnd].target;
+
+    this.dnd_origin = dnd_quiz.find('.dnd-origin.dnd-label');
+    this.dnd_target = dnd_quiz.find('.dnd-target.dnd-label');
+    this.dnd_origin_handle = this.dnd_origin.find('.drag-handle');
+    this.dnd_target_handle = this.dnd_target.find('.drag-handle-target');
+
+    this.dnd_target_handle.addClass('available');
+  } //end for loop
+
+  //shuffle the origin and target arrays 
+  var origin_items = [];
+  var target_items = [];
+  for(var o=0;o<this.dnd_origin.length;o++) {
+    var o_item = this.dnd_origin[o];
+    origin_items.push(o_item);
+  }
+  for(var j=0;j<this.dnd_target.length;j++) {
+    var j_item = this.dnd_target[j];
+    target_items.push(j_item);
+  }
+  shuffle(origin_items);
+  shuffle(target_items);
+  $(dnd_origin_container).html(origin_items);
+  $(dnd_target_container).html(target_items);
+
+  //set some variables
+  var dnd_targets = dnd_quiz.find('.available');
+  var overlapThreshold = "50%"; 
+  var dnd_draggable;
+  dnd_draggable = Draggable.create('#'+dnd_quiz[0].id+' .drag-handle', {
+    type: "x,y",
+    bounds: "#"+dnd_quiz.attr('id'),
+    allowNativeTouchScrolling:false,
+    onPress:function() {
+      //record the starting values so we can compare them later...
+    },
+    onDragStart: function() {
+      //for each target find its position in the bounds container and assign it to the 
+      //origin, doing this here because hidden elements do not have offsets, needs to be
+      // retriggered
+      for(var lp = 0;lp<parent.dnd_target.length;lp++){
+        var _parent = parent.dnd_target[lp];
+        var _target = $(_parent).find('.drag-handle-target');
+        //get the target handle position relative to its parent li element
+        var dnd_target_handle_x = _target.position().left;
+        var dnd_target_handle_y = _target.position().top;
+        //get the parent li element position relative to its ul
+        var dnd_parent_x = $(_parent).position().left;
+        var dnd_parent_y = $(_parent).position().top;
+        //subtract target handle position from li to find exact handle target position in bounds container
+        var data_x = dnd_parent_x - dnd_target_handle_x;
+        var data_y = dnd_parent_y - dnd_target_handle_y;
+        //assign the position as attributes to grab later on dragEnd
+        _target.attr('data_x', data_x);
+        _target.attr('data_y', data_y);
+
+        //on drag start check the data-hit attribute - if it has a value it is because a draggable instance has been assigned to it and passed it its data-identifier attribute
+        //if it has a value it means draggable was there
+        //remove the data-hit attribute value and signify that it is available again
+        if ( $(_target).attr('data-hit') === $(this.target).attr('data-identifier') ) {
+          $(_target).attr('data-hit','').addClass('available');
+        }
+      }
+      $(parent.page.modal).find('.reset-dnd').addClass('visually-hidden');
+      $(parent.page.modal).find('.check-dnd').removeClass('visually-hidden');
+      //clear the prompt message box
+      dnd_prompt.html('');
+    },
+    onDrag:function(e) {
+      
+      for(var i=0; i<dnd_targets.length;i++){
+        var _target = dnd_targets[i];
+        if (this.hitTest(_target, overlapThreshold)) {
+          console.log('dragging');
+          //if draggable in target range highlight it and animate it
+          $(_target).addClass("showOver ripple");
+         } else {
+           $(_target).removeClass("showOver ripple");
+         }
+      }
+    },
+    onDragEnd:function(e) {
+      var snapMade = false;
+      var current_dnd_target;
+      for(var i=0; i<dnd_targets.length;i++){
+        current_dnd_target = dnd_targets[i];
+        var identifier = $(current_dnd_target).attr('data-identifier');
+        if(this.hitTest(current_dnd_target, overlapThreshold)){
+          snapMade = true; 
+          //connect source and target via an identifier
+          //give the draggable item an attr of data-target with a value of the hit id
+          //also give it a couple of styling classes
+          $(this.target).attr('data-target', identifier).addClass("positioned ripple");
+          //after a hit has been made reveal the check hotspot button
+          $(parent.page.modal).find('.check-dnd').removeClass('visually-hidden');
+          //if the item has been assigned correctly assign styling classes
+          if ( $(this.target).attr('data-target') === $(this.target).attr('data-identifier') ) {
+            $(this.target).removeClass("wrong highlight-wrong correct highlight-correct");
+            $(this.target).addClass("correct");
+          } else if ($(this.target).attr('data-target') !== $(this.target).attr('data-identifier') ) {
+            $(this.target).removeClass("wrong highlight-wrong correct highlight-correct");
+            $(this.target).addClass("wrong");
+          }
+          console.log(this, this.target);
+
+          if ( $(dnd_targets[i]).hasClass("available") ) { 
+            //if there isn't one there already
+            //give the target an attribute of data-hit to mark that there has been a match
+            $(dnd_targets[i]).attr('data-hit',$(this.target).attr('data-identifier'));
+            //move item to position if position available and overlapThreshold condition is met
+            var tl = new TimelineLite();
+            if(cw <=1680){
+              var distance_top = parseInt( $(current_dnd_target).attr('data_y')) + this.minY + 39;
+            } else {
+              var distance_top = parseInt( $(current_dnd_target).attr('data_y')) + this.minY + 43;
+            }
+            tl
+            .set(this.target, { 
+              left: parseInt( $(current_dnd_target).attr('data_x') ),
+              top: parseInt( $(current_dnd_target).attr('data_y') )
+            })
+            .to(this.target, 0.1, {
+              x: -( this.maxX + parseInt( $(current_dnd_target).attr('data_x')) + 46 ),//
+              y: distance_top // 36 + (- 6) data_y
+            });
+            //distance top + 6px 
+          } else {
+            //if the position isn't available (does not have an available class) send it back to its starting position)
+            $(this.target).removeClass("showOver correct wrong highlight-correct highlight-wrong positioned ripple");
+            //show a message that an item has already been placed there and return item to starting position
+            var tl_return = new TimelineLite({
+              onStart: function(){
+                dnd_prompt.addClass('wrong').html('Υπάρχει κάτι εκεί, δοκίμασε να το βάλεις σε άλλη θέση!')
+              },
+              onComplete: function(){
+                setTimeout(function(){
+                  dnd_prompt.removeClass('wrong').html('')
+                },1000);
+                
+              }
+            });
+            tl_return
+            .to(this.target, 0.1, { 
+              x: 0, 
+              y: 0
+            });
+          }
+          //if there is a current target (i.e. a match has been made, don't allow it to be a target as long as its populated with another draggable item)
+          $(current_dnd_target).removeClass('available'); 
+        } 
+      }//end for loop
+      if(!snapMade){
+        $(parent.page.modal).find('.check-dnd').addClass('visually-hidden');
+        $(this.target).removeClass("showOver correct wrong highlight-correct highlight-wrong positioned ripple");
+        var positioned = dnd_quiz.find('.positioned');
+        if (positioned.length === 0) {
+          //only show the check hotspot button if at least an item has been dragged
+          $(parent.page.modal).find('.check-check').addClass('visually-hidden');
+        }
+        $(parent.page.modal).find('.clear-check').addClass('visually-hidden');
+        $(this.target).attr("data-target",'');
+        TweenLite.to(this.target, 0.2, {
+          css: {
+             x: 0, 
+            y: 0
+          }
+        });
+      }
+    }
+  });
+
+  var dnd_reset = $(this.page.modal).find('.reset-dnd');
+  dnd_reset.attr('id',dnd_quiz.attr('id')+'--reset');
+
+  var dnd_check = $(this.page.modal).find('.check-dnd');
+  dnd_check.attr('id',dnd_quiz.attr('id')+'--check');
+
+  var dnd_clear = $(this.page.modal).find('.clear-dnd');
+  dnd_clear.attr('id',dnd_quiz.attr('id')+'--clear');
+
+  var dnd_prompt = $(this.page.modal).find('.check-answer');
+  dnd_prompt.attr('id',dnd_quiz.attr('id')+'--check-answer');
+  //check right answers
+  dnd_check.on('click', function(){
+    var dnd_check_id = $(this).attr('id');
+    var dnd_id = dnd_check_id.substring(0, dnd_check_id.indexOf('--'));
+    var dnd_labels = $('#'+dnd_id+' .right-positions');
+    var draggable_item = $('#'+dnd_id+' .drag-handle');
+    var correct = $(dnd_quiz).find('.correct');
+    var wrong = $(dnd_quiz).find('.wrong');
+
+    correct.addClass('highlight-correct');
+    wrong.addClass('highlight-wrong');
+
+    var positioned = dnd_quiz.find('.positioned');
+    var correct_positioned = $('.positioned.correct');
+    if (draggable_item.length === correct_positioned.length) {
+      dnd_clear.removeClass('visually-hidden');
+      dnd_check.addClass('visually-hidden');
+      dnd_prompt.addClass('correct').html('Όλα σωστά! Μπράβο!');
+    } else if (draggable_item.length === positioned.length && positioned.length !== correct_positioned.length) {
+        setTimeout(function(){
+          dnd_reset.removeClass('visually-hidden');
+        }, 100);
+    } 
+  });
+  //see the right positions
+  dnd_reset.on('click', function(){
+    var dnd_reset_id = $(this).attr('id');
+    var dnd_id = dnd_reset_id.substring(0, dnd_reset_id.indexOf('--'));
+    var right_positions = $('#'+dnd_id+' .right-positions');
+    var draggable_item = $('#'+dnd_id+' .drag-handle');
+
+    var tl = new TimelineLite();
+    tl
+    .set(draggable_item,{
+      opacity: 0,
+      x: 0,
+      y: 0
+    })
+
+    draggable_item.removeClass('positioned correct wrong highlight-wrong highlight-correct');
+
+    $('#'+dnd_id+' .drag-handle-target').removeClass('showOver');
+
+    var dnd_texts = [];
+    for(var t=0;t<right_positions.length;t++){
+      var ht = right_positions[t];
+      $(ht).removeClass('no-opacity');
+      dnd_texts.push(ht);
+    }
+
+    tl.staggerFromTo(dnd_texts, 1, {opacity:0}, {opacity:1}, 1);
+
+    setTimeout(function(){
+      dnd_reset.addClass('visually-hidden');
+      dnd_check.addClass('visually-hidden');
+      dnd_clear.removeClass('visually-hidden');
+    }, 100);
+
+
+  });
+  //play again / reset game
+  dnd_clear.on('click', function(){
+    var dnd_clear_id = $(this).attr('id');
+    var dnd_id = dnd_clear_id.substring(0, dnd_clear_id.indexOf('--'));
+    var right_positions = $('#'+dnd_id+' .right-positions');
+    var draggable_item = $('#'+dnd_id+' .drag-handle');
+    dnd_prompt.removeClass('correct').html('');
+    right_positions.removeAttr('style').addClass('no-opacity');
+    draggable_item.removeClass('positioned correct wrong highlight-wrong highlight-correct');
+    dnd_quiz.find('.dnd-label').addClass('available').attr('data-hit','');
+    var tl = new TimelineLite();
+    tl
+    .set(draggable_item,{
+      opacity: 0,
+      x: 0,
+      y: 0
+    })
+    setTimeout(function(){
+      dnd_clear.addClass('visually-hidden');
+      dnd_reset.addClass('visually-hidden');
+      dnd_check.addClass('visually-hidden');
+    }, 100);
+
+    //kill everything
+    TweenMax.killAll();
+
+    TweenLite.to(draggable_item, 0.5,{
+      opacity: 1
+    });
+
+  });
+
+} //end if dnd_quiz
+
+
+
+/*------------------------------------*\
+  # Drag and Drop Quiz - END
+\*------------------------------------*/
 /*------------------------------------*\
   # Glossary function
 \*------------------------------------*/

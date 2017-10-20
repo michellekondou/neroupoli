@@ -1,0 +1,150 @@
+/**
+ * Drag and Drop quiz
+ * drag-and-drop = dnd
+ */
+
+//dnd container
+.quiz-dnd {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+
+@media (max-width: 500px) {
+  .quiz-dnd {
+    flex-direction: column;
+    width: 480px;
+  }
+}
+//dbd lists
+.quiz-dnd ul {
+  position: relative;
+  list-style-type: none;
+  margin-top: 30px;
+  margin-right: 30px;
+  padding: 0;
+  flex: 1; //IE11 - otherwise flex children do not respect the width
+}
+
+.quiz-dnd li {
+  position: relative;
+  min-height: 50px;
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.2;
+  list-style-type: outside; //otherwise IE11 shows bullets
+  border-radius: 36px;
+}
+
+.quiz-dnd li:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 500px) {
+  .quiz-dnd ul {
+    margin-top: 10px;
+    padding: 0;
+  }
+}
+
+.dnd-label {
+  position: relative;
+  text-align: left;
+  background: transparent;
+  padding: 0 12px;
+  line-height: 1.2;
+  color: $text;
+  .drag-handle,
+  .drag-handle-target,
+  .right-positions {
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    min-height: 36px;
+    border-radius: 50%;
+    margin-right: 12px;
+    background: $accent;
+    color: #333;
+    font-family: $bold;
+  }
+  .drag-handle-target {
+    background: $grey_light;
+    border: 2px solid $accent;
+    float: right;
+    margin-right: 0;
+    margin-left: 15px;
+    &.hit {
+      animation: ripple .4s ease-out; 
+    }
+    &:after {
+      content: '+';
+      font-family: $regular;
+      font-size: 21px;
+    }
+  }
+  .right-positions {
+    position: absolute;
+    top: 8px;
+    right: 0px;
+    opacity: 0;
+  }
+  .text {
+    flex: 1;
+    display: inline;
+    margin: 0 auto;
+    font-size: 14px;
+    margin-left: 0;
+  }
+  .clone {
+    position: absolute;
+    left: 26px;
+    top: 13px;
+    z-index: -1;
+    font-family: $bold;
+  }
+  .showOver {
+    background: $accent;
+    animation: ripple .4s ease-out;
+  }
+}
+
+
+.highlight-correct {
+  background-color: rgba($green, 1)!important;
+}
+
+.highlight-wrong {
+  background-color: rgba(red, 1)!important;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+  }
+  20% {
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+
+.check-dnd {
+  margin-bottom: 0px;
+}
+
+.clear-dnd {
+  margin-right: 15px;
+}
+
+
+ 
+
