@@ -129,7 +129,7 @@
               {% for target in card.items %}
               {% set target_counter  = ( target_counter | default(-1) ) + 1 %}
               {% set origin_counter  = ( origin_counter | default(0) ) + 1 %}
-              <li class="dnd-target dnd-label" data-title="{{ target.target }}">
+              <li class="dnd-target dnd-label">
                 <span class="text">{{ target.target }}</span>
                 <span class="drag-handle-target" data-identifier="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}-{{ target_counter }}"></span>
                 <span class="right-positions" data-identifier="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}-{{ target_counter }}">{{ origin_counter }}</span>
@@ -140,7 +140,7 @@
               {% for target in card.items %}
               {% set clone_counter  = ( clone_counter | default(0) ) + 1 %}
               {% set origin_counter  = ( origin_counter | default(-1) ) + 1 %}
-              <li class="dnd-origin dnd-label" data-title="{{ target.option }}">
+              <li class="dnd-origin dnd-label">
                 <span class="drag-handle" data-identifier="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}-{{ origin_counter }}">{{ clone_counter }}</span>
                 <span class="clone">{{ clone_counter }}</span>
                 <span class="text">{{ target.option }}</span>
