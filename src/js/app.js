@@ -1360,7 +1360,18 @@ if (dnd_quiz.length > 0) {
     this.dnd_target_handle = this.dnd_target.find('.drag-handle-target');
 
     this.dnd_target_handle.addClass('available');
+
+    this.dnd_target_sound_el = this.dnd_target.find('.sound');
+
   } //end for loop
+
+
+  var sound_element = $('<audio/>', {   
+    "preload": "auto",
+    "src": this.dnd_target_sound_el.attr('data-audio'),
+    "controls": true,
+    'class': 'audio-element'
+  }).appendTo( $(parent.dnd_target_sound_el) );
 
   //shuffle the origin and target arrays 
   var origin_items = [];
@@ -1377,6 +1388,21 @@ if (dnd_quiz.length > 0) {
   shuffle(target_items);
   $(dnd_origin_container).html(origin_items);
   $(dnd_target_container).html(target_items);
+
+  console.log(this.dnd_target_sound_el, parent.dnd_target_sound_el[0], $(parent.dnd_target_sound_el).attr('data-audio'));
+  //add sound src
+  // var audio_files = [];
+  // for(var i=0;i<this.dnd_target_sound_el.length;i++){
+  //   var _file = this.dnd_target_sound_el[i];
+  //   audio_files.push(_file);
+  // }
+  // console.log(audio_files);
+  // this.dnd_target_sound_el.on('click touchstart', function(){
+  //   var audio_src = $(this).attr('data-audio');
+  //   console.log(audio_src, this);
+  //   create_audio_element(audio_src);
+  // });
+
 
   //set some variables
   var dnd_targets = dnd_quiz.find('.available');
@@ -1464,11 +1490,9 @@ if (dnd_quiz.length > 0) {
             $(dnd_targets[i]).attr('data-hit',$(this.target).attr('data-identifier'));
             //move item to position if position available and overlapThreshold condition is met
             var tl = new TimelineLite();
-            if(cw <=1680){
-              var distance_top = parseInt( $(current_dnd_target).attr('data_y')) + this.minY + 39;
-            } else {
-              var distance_top = parseInt( $(current_dnd_target).attr('data_y')) + this.minY + 43;
-            }
+            
+            var distance_top = parseInt( $(current_dnd_target).attr('data_y')) + this.minY + 43;
+            
             tl
             .set(this.target, { 
               left: parseInt( $(current_dnd_target).attr('data_x') ),
@@ -1628,8 +1652,6 @@ if (dnd_quiz.length > 0) {
   });
 
 } //end if dnd_quiz
-
-
 
 /*------------------------------------*\
   # Drag and Drop Quiz - END

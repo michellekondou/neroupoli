@@ -95,12 +95,17 @@
     right: 0px;
     opacity: 0;
   }
-  .text {
-    flex: 1;
+  .text, .sound {
+    //flex: 1;
     display: inline;
     margin: 0 auto;
     font-size: 14px;
     margin-left: 0;
+  }
+  .sound {
+    width: 64px;
+    height: 32px;
+    overflow: hidden;
   }
   .clone {
     position: absolute;
@@ -144,7 +149,4 @@
 .clear-dnd {
   margin-right: 15px;
 }
-
-
- 
 

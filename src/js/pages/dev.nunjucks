@@ -125,12 +125,16 @@
         <section class="text quiz">
           {{ card.intro_text }}
           <div id="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}" class="quiz-dnd">
+            sdasdas
             <ul class="dnd-target-container">
               {% for target in card.items %}
               {% set target_counter  = ( target_counter | default(-1) ) + 1 %}
               {% set origin_counter  = ( origin_counter | default(0) ) + 1 %}
               <li class="dnd-target dnd-label">
-                <span class="text">{{ target.target }}</span>
+                {% if target.target_sound_file %}
+                <button class="sound" data-audio="{{ target.target_sound_file }}"></button>
+                {% endif %}
+                <span class="text{% if target.target_sound_file %} visually-hidden{% endif %}">{{ target.target }}</span>
                 <span class="drag-handle-target" data-identifier="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}-{{ target_counter }}"></span>
                 <span class="right-positions" data-identifier="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}-{{ target_counter }}">{{ origin_counter }}</span>
               </li>
