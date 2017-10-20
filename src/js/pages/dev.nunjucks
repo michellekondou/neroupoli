@@ -123,9 +123,8 @@
         {% if card.acf_fc_layout === 'dragndrop' %}
         {% set dnd_counter  = ( dnd_counter | default(0) ) + 1 %}
         <section class="text quiz">
-          {{ card.intro_text }}
+          <p>{{ card.intro_text }}</p>
           <div id="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}" class="quiz-dnd">
-            sdasdas
             <ul class="dnd-target-container">
               {% for target in card.items %}
               {% set target_counter  = ( target_counter | default(-1) ) + 1 %}
