@@ -1809,7 +1809,7 @@ MapViewItem.prototype.page_close = function () {
         console.log('success');
         form.removeClass('submitted');
         form.find('input:text, input:password, input:file, select, textarea').val('');
-        form.find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected').removeAttr('disabled');
+        form.find('input:radio, input:checkbox, textarea').removeAttr('checked').removeAttr('selected').removeAttr('disabled');
         form.find('.checkbox-prompt').removeClass('visible');
         form.find('label').removeClass('selected');
         $('.reset').addClass('visually-hidden');
