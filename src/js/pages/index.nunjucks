@@ -1,5 +1,5 @@
 <!-- index.nunjucks -->
-{% extends "layout.nunjucks" %}
+{% extends "layout.dev.nunjucks" %}
 
 <!--target is to create pages here instead of app.js and precompile in index-->
 {% block content %}
@@ -241,6 +241,25 @@
         </button>
       </article>
       {% endfor %}
+      {% elif card.acf_fc_layout === 'short_text' %}
+      <form id="gform-{{ point.title.rendered }}-short_text-{{ quiz_counter }}" class="short-text feedback" action="{{  card.form_url }}" method="POST">
+        <fieldset>
+          <legend>{{  card.form_title }}</legend>
+          <textarea
+            id="{{  card.form_field_name }}-{{ point.title.rendered }}" 
+            name="{{  card.form_field_name }}"
+            rows="10" cols="50" wrap="physical" placeholder="Γράψε κάτι εδώ!"
+          ></textarea>
+        </fieldset>
+      </form>
+      <button id="gform-{{ point.title.rendered }}-short_text-{{ quiz_counter }}--submit" class="button submit submit-button">
+        Υποβολή!
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
+      </button>
+      <small id="gform-{{ point.title.rendered }}-short_text-{{ quiz_counter }}--form-error" class="form-error"></small>
+      <article id="gform-{{ point.title.rendered }}-short_text-{{ quiz_counter }}--thankyou_message" class="thankyou_message" style="display: none;">
+        <small>Ευχαριστούμε για την απάντηση σου!</small>
+      </article>
       {% elif card.acf_fc_layout === 'multiple_choice' or card.acf_fc_layout === 'checkbox' or card.acf_fc_layout === 'likert' %}
       <form id="gform-{{ point.title.rendered }}-{{ quiz_counter }}" class="{% if card.acf_fc_layout === 'multiple_choice' %}multiple-choice{% elif card.acf_fc_layout === 'checkbox' %}checkbox-quiz{% elif card.acf_fc_layout === 'likert' %}likert{% endif %}" action="{{  card.quiz_form_url }}" method="POST">
         <fieldset>

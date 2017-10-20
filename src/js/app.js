@@ -647,62 +647,107 @@ $(submit).on('click', function() {
     var reset_btn = $('#' + form_id + "--reset");
     var selectedOption = $('#' + form_id + " input:checked");
 
-   console.log(selectedOption);
+   console.log(form_id, selectedOption);
     if (selectedOption.length >= 1) {
-      //for all inputs
-      for (var j=0;j<option.length;j++) {
-        var this_option = option[j];
-        //console.log(this_option);
-        if ( $(this_option).prop('checked') == true ) {
-          console.log($(this_option));
-          $('#' + form_id + '--submit .loader').css('display','block');
-          $('#' + form_id + '--form-error').html(''); 
-          for(var i=0;i<forms.length;i++){
-            var this_form = forms[i];
-            if ( $(this_form).attr("id") === form_id ) {     
-              var form = $(this_form);
-              var data = getFormData(form);
-              var url = form.attr('action');
-              $.ajax({
-                type: "POST",
-                url: url,
-                data: data,
-                success: function(data){
-                  //clear the error message
-                  $('#' + form_id + '--form-error').html(''); 
-                  //enable the button for when it is used again
-                  $('.submit').removeClass('disabled');
-                  //hide the loader
-                  $('#' + form_id + '--submit .loader').css('display','none'); 
-                  //disable input to prevent resubmit
-                  $(form).find('input').attr("disabled", true);
-                  //hide the submit button
-                  $('#' + submit_id).addClass('none');  
-                  //mark the form as submitted
-                  $(form).addClass('submitted');
-                  //display a thank you message
-                  $('#' + form_id + "--thankyou_message").css('display','block');
-                  console.log(selectedOption);
-                  //display an input message?
-                  $('#' + form_id + " .checkbox-prompt").addClass('visible');
-                  //add class to checked input
-                  selectedOption.siblings('label').addClass('selected');
-                  //radio input: check correct answers to display appropriate msg
-                },
-                error: function(error){
-                  console.log(error);
-                }
-              });//end ajax  
-            }//end if
-          }//end for loop
-        }
+    //for all inputs
+    for (var j=0;j<option.length;j++) {
+      var this_option = option[j];
+      //console.log(this_option);
+      if ( $(this_option).prop('checked') == true ) {
+        $('#' + form_id + '--submit .loader').css('display','block');
+        $('#' + form_id + '--form-error').html(''); 
+        for(var i=0;i<forms.length;i++){
+          var this_form = forms[i];
+          if ( $(this_form).attr("id") === form_id ) {     
+            var form = $(this_form);
+            var data = getFormData(form);
+            var url = form.attr('action');
+            $.ajax({
+              type: "POST",
+              url: url,
+              data: data,
+              success: function(data){
+                //clear the error message
+                $('#' + form_id + '--form-error').html(''); 
+                //enable the button for when it is used again
+                $('.submit').removeClass('disabled');
+                //hide the loader
+                $('#' + form_id + '--submit .loader').css('display','none'); 
+                //disable input to prevent resubmit
+                $(form).find('input').attr("disabled", true);
+                //hide the submit button
+                $('#' + submit_id).addClass('none');  
+                //mark the form as submitted
+                $(form).addClass('submitted');
+                //display a thank you message
+                $('#' + form_id + "--thankyou_message").css('display','block');
+                console.log(selectedOption);
+                //display an input message?
+                $('#' + form_id + " .checkbox-prompt").addClass('visible');
+                //add class to checked input
+                selectedOption.siblings('label').addClass('selected');
+                //radio input: check correct answers to display appropriate msg
+              },
+              error: function(error){
+                console.log(error);
+              }
+            });//end ajax  
+          }//end if
+        }//end for loop
       }
-    } else if ( selectedOption.length == 0 ) {
+    }
+    } else if (selectedOption.length == 0 && !forms.hasClass('short-text') ) {
         $('#' + form_id + '--form-error').html('Παρακαλούμε διάλεξε πρώτα μια απάντηση!');
         $('#' + form_id + '--submit').addClass('disabled');
         console.log('please choose an option to submit the form');
-    }//end outer for loop   
+    }
 
+    $('#'+form_id+ '.short-text textarea').bind('input propertychange', function() {
+      $('#' + form_id + '--submit').removeClass('disabled');
+      $('#' + form_id + '--form-error').html('');
+      console.log('writing');
+    });
+    if(forms.hasClass('short-text')){
+      if ( !$.trim( $('#'+form_id+ '.short-text textarea').val()) ) {
+        $('#' + form_id + '--form-error').html('Δεν έγραψες κάτι!');
+        $('#' + form_id + '--submit').addClass('disabled');
+      } else {
+        $('#' + form_id + '--submit .loader').css('display','block');
+        var data = getFormData(forms);
+        var url = forms.attr('action');
+         $.ajax({
+              type: "POST",
+              url: url,
+              data: data,
+              success: function(data){
+                //clear the error message
+                $('#' + form_id + '--form-error').html(''); 
+                //enable the button for when it is used again
+                $('#' + form_id + '--submit').removeClass('disabled');
+                //hide the loader
+                $('#' + form_id + '--submit .loader').css('display','none'); 
+                //disable input to prevent resubmit
+                $(forms).find('textarea').attr("disabled", true);
+                //hide the submit button
+                $('#' + submit_id).addClass('none');  
+                //mark the form as submitted
+                $(forms).addClass('submitted');
+                //display a thank you message
+                $('#' + form_id + "--thankyou_message").css('display','block');
+                console.log(selectedOption);
+                //display an input message?
+                $('#' + form_id + " .checkbox-prompt").addClass('visible');
+                //add class to checked input
+                selectedOption.siblings('label').addClass('selected');
+                //radio input: check correct answers to display appropriate msg
+              },
+              error: function(error){
+                console.log(error);
+              }
+            });//end ajax 
+      }
+    }
+  
     var correct_answers = [];
     var selected_answers = [];
     //checkbox inputs

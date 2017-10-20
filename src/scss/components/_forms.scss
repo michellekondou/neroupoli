@@ -33,7 +33,6 @@ input[type="checkbox"] + label {
 }
 
 input, 
-textarea, 
 keygen, 
 select, 
 button {
@@ -52,7 +51,6 @@ button {
 }
 
 input, 
-textarea, 
 keygen, 
 select, 
 button, 
@@ -86,25 +84,33 @@ input {
 }
 
 textarea {
+  resize: none;
   font-family: monospace;
   border-color: rgb(169, 169, 169);
 }
  
 textarea {
-  -webkit-appearance: textarea;
-  background-color: white;
-  -webkit-rtl-ordering: logical;
-  user-select: text;
-  flex-direction: column;
-  resize: auto;
-  cursor: auto;
-  white-space: pre-wrap;
-  word-wrap: break-word;
+  // -webkit-appearance: textarea;
+  // background-color: white;
+  // -webkit-rtl-ordering: logical;
+  // user-select: text;
+  // flex-direction: column;
+  // resize: auto;
+  // cursor: auto;
+  // white-space: pre-wrap;
+  // word-wrap: break-word;
   border-width: 1px;
   border-style: solid;
   border-color: $text;
   border-image: initial;
-  padding: 2px;
+  padding: 10px;
+  font-size: 16px;
+  line-height: 1.2;
+
+}
+
+::-webkit-input-placeholder {
+  text-align: left;
 }
 
 

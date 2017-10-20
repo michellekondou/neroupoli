@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Cache-control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="Expires" content="-1">
-    <meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, maximum-scale=5">
-    <link rel="stylesheet" type="text/css" href="dist/assets/app.css">
+    <meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5">
+    <link rel="preload" as="font" type="font/woff2" href="dist/fonts/cfastystd-book-webfont.woff2">
+    <link rel="stylesheet" type="text/css" href="src/compiled/css/app.css">
     <link rel="manifest" href="/manifest.json"> 
     <meta name="theme-color" content="#00b9f2"/>
+
     <title>To νερό στην πόλη</title>
 </head>
 <body>
@@ -2605,6 +2605,25 @@
           <h2>ΠΑΙΖΩ ΚΑΙ ΜΑΘΑΙΝΩ</h2>
         
         
+      <form id="gform-city-short_text-5" class="short-text feedback" action="" method="POST">
+        <fieldset>
+          <legend>Γράψε μας  (Α) κάτι που σου φάνηκε ενδιαφέρον, και (Β) κάτι που σου φάνηκε δύσκολο σε αυτή τη δραστηριότητα</legend>
+          <textarea
+            id="-city" 
+            name=""
+            rows="10" cols="50" wrap="physical" placeholder="Γράψε κάτι εδώ!"
+          ></textarea>
+        </fieldset>
+      </form>
+      <button id="gform-city-short_text-5--submit" class="button submit submit-button">
+        Υποβολή!
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
+      </button>
+      <small id="gform-city-short_text-5--form-error" class="form-error"></small>
+      <article id="gform-city-short_text-5--thankyou_message" class="thankyou_message" style="display: none;">
+        <small>Ευχαριστούμε για την απάντηση σου!</small>
+      </article>
+      
       
       
       
@@ -10708,6 +10727,25 @@
           <h2>ΠΑΙΖΩ ΚΑΙ ΜΑΘΑΙΝΩ</h2>
         
         
+      <form id="gform-water-short_text-2" class="short-text feedback" action="" method="POST">
+        <fieldset>
+          <legend>Ποιο ήταν το πιο σημαντικό ζήτημα του νερού για την τάξη σας (στην κορυφή του διαμαντιού); Θα χαρούμε να μας ενημερώσετε για το τι θα μελετήσετε από εδώ και μπρος. </legend>
+          <textarea
+            id="water-diamand-water" 
+            name="water-diamand"
+            rows="10" cols="50" wrap="physical" placeholder="Γράψε κάτι εδώ!"
+          ></textarea>
+        </fieldset>
+      </form>
+      <button id="gform-water-short_text-2--submit" class="button submit submit-button">
+        Υποβολή!
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="loader quiz" viewBox="0 0 100 100"><use xlink:href="#submit-loader"></use></svg>
+      </button>
+      <small id="gform-water-short_text-2--form-error" class="form-error"></small>
+      <article id="gform-water-short_text-2--thankyou_message" class="thankyou_message" style="display: none;">
+        <small>Ευχαριστούμε για την απάντηση σου!</small>
+      </article>
+      
       
       
       
@@ -11028,6 +11066,26 @@
 
 </div>
 
-<script src="dist/assets/app.js"></script>
+       <script src="src/node_modules/babel-polyfill/dist/polyfill.min.js"></script>
+        <script src="src/node_modules/promise-polyfill/promise.min.js"></script>
+        <script src="src/js/lib/polyfills.js"></script>
+<script src="src/js/lazy-load.js"></script> 
+<script src="src/js/jquery.min.js"></script>
+
+<!-- <script src="src/node_modules/jquery-mousewheel/jquery.mousewheel.js"></script> -->
+<script src="src/node_modules/jquery-cycle/index.js"></script> 
+<script src="src/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="src/node_modules/nunjucks/browser/nunjucks.js"></script> 
+<script src="src/node_modules/d3/build/d3.js"></script>
+<script src="src/node_modules/gsap/src/minified/utils/Draggable.min.js"></script> 
+<script src="src/js/lib/ThrowPropsPlugin.js"></script> 
+<script src="src/js/lib/DirectionalRotationPlugin.min.js"></script> 
+<script src="src/node_modules/gsap/src/minified/plugins/CSSPlugin.min.js"></script>
+<script src="src/node_modules/gsap/src/minified/TimelineLite.min.js"></script>
+<script src="src/node_modules/gsap/src/minified/TweenMax.min.js"></script>
+<script src="src/node_modules/gsap/src/minified/TimelineMax.min.js"></script>
+<script src="src/node_modules/gsap/src/minified/TweenLite.min.js"></script>
+<script src="src/js/helper-functions.js"></script>
+<script src="src/js/app.js"></script> 
 </body>
 </html>
