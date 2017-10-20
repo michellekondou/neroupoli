@@ -1,5 +1,5 @@
 <!-- index.nunjucks -->
-{% extends "layout.dev.nunjucks" %}
+{% extends "layout.nunjucks" %}
 
 <!--target is to create pages here instead of app.js and precompile in index-->
 {% block content %}
