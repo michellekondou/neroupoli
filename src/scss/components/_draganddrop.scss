@@ -31,14 +31,12 @@
   min-height: 50px;
   margin-top: 0;
   display: flex;
-  align-items: center;
   border: 1px solid #ccc;
   text-align: left;
   font-size: 14px;
   line-height: 1.2;
   list-style-type: outside; //otherwise IE11 shows bullets
-  border-radius: 36px;
-  padding: 5px 5px;
+  padding: 12px 12px;
 }
 
 .quiz-dnd li:last-child {
@@ -92,15 +90,16 @@
   }
   .right-positions {
     position: absolute;
-    top: 8px;
+    top: 12px;
     right: 0px;
     opacity: 0;
+    font-size: 16px;
   }
   .text, .sound {
     flex: 1;
     display: inline;
     margin: 0 auto;
-    font-size: 14px;
+    font-size: 16px;
     margin-left: 0;
   }
   .sound {
@@ -110,8 +109,8 @@
   }
   .clone {
     position: absolute;
-    left: 26px;
-    top: 13px;
+    left: 21px;
+    top: 26px;
     z-index: -1;
     font-family: $bold;
   }

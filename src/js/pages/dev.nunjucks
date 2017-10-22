@@ -144,16 +144,16 @@
               {% set clone_counter  = ( clone_counter | default(0) ) + 1 %}
               {% set origin_counter  = ( origin_counter | default(-1) ) + 1 %}
               <li class="dnd-origin dnd-label">
-                <span class="drag-handle" data-identifier="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}-{{ origin_counter }}">{{ clone_counter }}</span>
-                <span class="clone">{{ clone_counter }}</span>
+                <span class="drag-handle drag-handle-{{ dnd_counter }}" data-identifier="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}-{{ origin_counter }}">{{ clone_counter }}</span>
+                <span class="clone visually-hidden">{{ clone_counter }}</span>
                 <span class="text">{{ target.option }}</span>
               </li>
               {% endfor %}
             </ul>
           </div>
-          <button class="check-dnd submit-button visually-hidden">Ελεγξέ το!</button>
-          <button class="reset-dnd submit-button visually-hidden">Δες τις σωστές θέσεις!</button>
-          <button class="clear-dnd submit-button visually-hidden">Παίξε ξανά!</button><span class="check-answer"></span>
+          <button class="check-dnd submit-button visually-hidden" id="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}--check">Ελεγξέ το!</button>
+          <button class="reset-dnd submit-button visually-hidden" id="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}--reset">Δες τις σωστές θέσεις!</button>
+          <button class="clear-dnd submit-button visually-hidden" id="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}--clear">Παίξε ξανά!</button><span class="check-answer" id="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}--check-answer"></span>
         </section>
         {% endif %}
         {% if card.acf_fc_layout === 'hotspot' %}
