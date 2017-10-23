@@ -461,7 +461,8 @@ MapView.prototype._render_map = function() {
     .call(zoom.scaleBy, 0.5); 
   }
 
-  $("#reset").on("mousedown", resetted);
+  $("#reset-zoom").on("mousedown", resetted);
+  $(".close-popup").on("mousedown", resetted);
 
   $("#zoom-in").on("mousedown", zoomIn);
 
@@ -573,6 +574,7 @@ MapViewItem.prototype.page_open = function () {
     $(".term-popup.open, .glossary-popup.open").removeClass('open');
     //reset drag n drop game
     reset_hotspot();
+    reset_dnd();
   }
 
 /*------------------------------------*\
@@ -1621,7 +1623,41 @@ for(var d = 0;d<dnd_quiz.length;d++){
   });
 }
 
+function reset_dnd() {
+  var all_dnd = $(parent.page.modal).find('.quiz-dnd');
+  if (all_dnd) {
+      var _right_positions = all_dnd.find('.right-positions');
+      var _draggable_item = all_dnd.find('.drag-handle');
+      var _dnd_prompt = all_dnd.find('.check-answer');
+      var _dnd = all_dnd.find('.drag-handle-target');
+      var _dnd_clear = $('.clear-dnd');
+      var _dnd_reset = $('.reset-dnd');
+      var _dnd_check = $('.check-dnd');
 
+      _dnd_prompt.removeClass('correct').html('');
+      _right_positions.removeAttr('style').addClass('no-opacity');
+      _draggable_item.removeClass('positioned correct wrong highlight-wrong highlight-correct ripple');
+      _dnd.removeClass('showOver ripple').addClass('available').attr('data-hit','');
+      var tl = new TimelineLite();
+      tl
+      .set(_draggable_item,{
+        x: 0,
+        y: 0
+      });
+      setTimeout(function(){
+        _dnd_clear.addClass('visually-hidden');
+        _dnd_reset.addClass('visually-hidden');
+        _dnd_check.addClass('visually-hidden');
+      }, 100);
+
+      //kill everything
+      TweenMax.killAll();
+
+      TweenLite.to(_draggable_item, 0.5,{
+        opacity: 1
+      });
+  }
+}
 /*------------------------------------*\
   # Drag and Drop Quiz - END
 \*------------------------------------*/
@@ -1803,7 +1839,7 @@ MapViewItem.prototype.page_close = function () {
         form.find('input:radio, input:checkbox, textarea').removeAttr('checked').removeAttr('selected').removeAttr('disabled');
         form.find('.checkbox-prompt').removeClass('visible');
         form.find('label').removeClass('selected');
-        $('.reset').addClass('visually-hidden');
+        $('form .reset').addClass('visually-hidden');
         $('.submit').removeClass('none');
         $('.thankyou_message').css('display','none');
         $('.reset .loader').css('display','none'); 
