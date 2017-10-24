@@ -619,25 +619,25 @@ var likert_input = current_page.find('.likert input');
 var submit = current_page.find('.submit');
 
 
-$(likert_input).on('change', function(){
-    $('.loader.quiz').css('display','block');        
-    var form = $(this).closest("form");
-    var data = getFormData(form);
-    console.log(form.attr('id'));
-    var url = form.attr('action');
-    $.ajax({
-      type: "POST",
-      url: url,
-      data: data,
-      success: function(data){
-        $('.loader').css('display','none'); 
-        $(form).find('input').attr("disabled", true);  
-        $(form).addClass('submitted');
-        $(form).siblings(".thankyou_message").css('display','block');
-        return; 
-      }
-    });            
-});
+// $(likert_input).on('change', function(){
+//     $('.loader.quiz').css('display','block');        
+//     var form = $(this).closest("form");
+//     var data = getFormData(form);
+//     console.log(form.attr('id'));
+//     var url = form.attr('action');
+//     $.ajax({
+//       type: "POST",
+//       url: url,
+//       data: data,
+//       success: function(data){
+//         $('.loader').css('display','none'); 
+//         $(form).find('input').attr("disabled", true);  
+//         $(form).addClass('submitted');
+//         $(form).siblings(".thankyou_message").css('display','block');
+//         return; 
+//       }
+//     });            
+// });
 
 $(submit).on('click', function() {
     var submit_id = $(this).attr("id");   
@@ -657,7 +657,8 @@ $(submit).on('click', function() {
       //console.log(this_option);
       if ( $(this_option).prop('checked') == true ) {
         $('#' + form_id + '--submit .loader').css('display','block');
-        $('#' + form_id + '--form-error').html(''); 
+        $('#' + form_id + '--form-error').html('');
+        console.log($('#' + form_id + ' .checkbox-r')); 
         for(var i=0;i<forms.length;i++){
           var this_form = forms[i];
           if ( $(this_form).attr("id") === form_id ) {     
@@ -823,10 +824,12 @@ function resetForm(){
 resetForm();
 
 $('input').on('change', function(){
-    console.log('input selected');
+    console.log('input selected', this);
     var submit_id = $(this).attr("id");
     $('.form-error').html('');
     $('.submit').removeClass('disabled');
+    // $(this).next('label').find('.checkbox-r').removeClass('visually-hidden');
+    // console.log($(this).next('label'));
 });
 
 /*------------------------------------*\
@@ -1194,7 +1197,7 @@ if (hotspot_quiz.length > 0) {
   var hotspot_clear = $(this.page.modal).find('.clear-hotspot');
   hotspot_clear.attr('id',hotspot_quiz.attr('id')+'--clear');
 
-  var hotspot_prompt = $(this.page.modal).find('.check-answer');
+  var hotspot_prompt = $(this.page.modal).find('.check-answer-hotspot');
   hotspot_prompt.attr('id',hotspot_quiz.attr('id')+'--check-answer');
   //check right answers
   hotspot_check.on('click', function(){
@@ -1295,7 +1298,7 @@ function reset_hotspot() {
   if (all_hotspots) {
       var _right_positions = all_hotspots.find('.right-positions');
       var _draggable_item = all_hotspots.find('.draggable-item');
-      var _hotspot_prompt = all_hotspots.find('.check-answer');
+      var _hotspot_prompt = $('.check-answer-hotspot');
       var _hotspot = all_hotspots.find('.hotspot');
       var _hotspot_clear = $('.clear-hotspot');
       var _hotspot_reset = $('.reset-hotspot');
@@ -1382,7 +1385,7 @@ for(var d = 0;d<dnd_quiz.length;d++){
   var dnd_targets;
   var dnd_available_targets;
   var overlapThreshold = "50%";
-  var dnd_prompt = $(quiz).find('.check-answer');
+  var dnd_prompt = $(quiz).find('.check-answer-dnd');
 
   draggables[d] = Draggable.create('#'+$(dnd_quiz[d]).attr('id')+' .drag-handle-'+(d+1), {
     type: "x,y",
@@ -1417,7 +1420,7 @@ for(var d = 0;d<dnd_quiz.length;d++){
         //if it has a value it means draggable was there
         //remove the data-hit attribute value and signify that it is available again
         if ( $(_target).attr('data-hit') === $(this.target).attr('data-identifier') ) {
-          $(_target).attr('data-hit','').addClass('available');
+          $(_target).attr('data-hit','').addClass('available').removeClass('showOver ripple');
         }
       }
       $(parent.page.modal).find('.reset-dnd').addClass('visually-hidden');
@@ -1435,7 +1438,10 @@ for(var d = 0;d<dnd_quiz.length;d++){
           //if draggable in target range highlight it and animate it
           $(_target).addClass("showOver ripple");
          } else {
-           $(_target).removeClass("showOver ripple");
+          if ($(_target).attr('data-hit') === '') {
+            $(_target).removeClass("showOver ripple");
+          }
+          
          }
       }
     },
@@ -1470,7 +1476,7 @@ for(var d = 0;d<dnd_quiz.length;d++){
             //move item to position if position available and overlapThreshold condition is met
             var tl = new TimelineLite();
             
-            var distance_top = parseInt( $(current_dnd_target).attr('data_y')) + this.minY + 55;
+            var distance_top = parseInt( $(current_dnd_target).attr('data_y')) + this.minY + 56;
             console.log(this);
             tl
             .set(this.target, { 
@@ -1483,7 +1489,7 @@ for(var d = 0;d<dnd_quiz.length;d++){
             });
           } else {
             //if the position isn't available (does not have an available class) send it back to its starting position)
-            $(this.target).removeClass("showOver correct wrong highlight-correct highlight-wrong positioned ripple");
+            $(this.target).removeClass("correct wrong highlight-correct highlight-wrong positioned");
             //show a message that an item has already been placed there and return item to starting position
             var tl_return = new TimelineLite({
               onStart: function(){
@@ -1512,9 +1518,9 @@ for(var d = 0;d<dnd_quiz.length;d++){
         var positioned = $(quiz).find('.positioned');
         if (positioned.length === 0) {
           //only show the check hotspot button if at least an item has been dragged
-          $(parent.page.modal).find('.check-check').addClass('visually-hidden');
+          $(parent.page.modal).find('.check-dnd').addClass('visually-hidden');
         }
-        $(parent.page.modal).find('.clear-check').addClass('visually-hidden');
+        $(parent.page.modal).find('.clear-dnd').addClass('visually-hidden');
         $(this.target).attr("data-target",'');
         TweenLite.to(this.target, 0.2, {
           css: {
@@ -1528,7 +1534,7 @@ for(var d = 0;d<dnd_quiz.length;d++){
   var dnd_reset = $(this.page.modal).find('.reset-dnd');
   var dnd_check = $(this.page.modal).find('.check-dnd');
   var dnd_clear = $(this.page.modal).find('.clear-dnd');
-  var dnd_prompt = $(this.page.modal).find('.check-answer');
+  var dnd_prompt = $(this.page.modal).find('.check-answer-dnd');
 
   //check right answers
   dnd_check.on('click', function(){
@@ -1570,8 +1576,6 @@ for(var d = 0;d<dnd_quiz.length;d++){
     })
 
     draggable_item.removeClass('positioned correct wrong highlight-wrong highlight-correct');
-
-    $('#'+dnd_id+' .drag-handle-target').removeClass('showOver');
 
     var dnd_texts = [];
     for(var t=0;t<right_positions.length;t++){
@@ -1628,7 +1632,7 @@ function reset_dnd() {
   if (all_dnd) {
       var _right_positions = all_dnd.find('.right-positions');
       var _draggable_item = all_dnd.find('.drag-handle');
-      var _dnd_prompt = all_dnd.find('.check-answer');
+      var _dnd_prompt = $('.check-answer-dnd');
       var _dnd = all_dnd.find('.drag-handle-target');
       var _dnd_clear = $('.clear-dnd');
       var _dnd_reset = $('.reset-dnd');

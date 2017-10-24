@@ -113,10 +113,22 @@ textarea {
   text-align: left;
 }
 
+input + label span {
+  position: relative;
+  i {
+    position: absolute;
+    top: -2px;
+  }
+}
 
-input[type="radio"], 
-input[type="checkbox"] {
-  // margin: 3px 3px 3px 4px;
+input[type="radio"] + label, 
+input[type="checkbox"] + label {
+  display: flex;
+}
+
+input[type="radio"] + label i, 
+input[type="checkbox"] + label i {
+  opacity: 0;
 }
 /*radio*/ 
 input[type="radio"] {
@@ -125,7 +137,7 @@ input[type="radio"] {
 }
 
 input[type="radio"] {
-    display: none;
+  display: none;
 }
 
 input[type="radio"] + label {
@@ -135,14 +147,16 @@ input[type="radio"] + label {
 }
 
 input[type="radio"] + label span {
-    display:inline-block;
-    vertical-align: top;
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
-    cursor: pointer;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
+  display:inline-block;
+  vertical-align: top;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  cursor: pointer;
+  border-radius: 50%;
 }
 
 input[type="radio"] + label span {
@@ -208,6 +222,9 @@ input[type="checkbox"] + label {
 input[type="checkbox"] + label span {
   display:inline-block;
   vertical-align: top;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 30px;
   height: 30px;
   margin-right: 10px;
@@ -215,7 +232,7 @@ input[type="checkbox"] + label span {
 }
 
 input[type="checkbox"] + label span {
-  background-color: $grey_light;;
+  background-color: $grey_light;
 }
 
 input[type="checkbox"] + label span,
@@ -242,11 +259,12 @@ input[type="checkbox"]:checked + label span {
  * Checked input
  */
 input:checked + label span {
-  // border: 2px solid #333;
-  background-color: $text;
-  // background-image: url('../graphics/checkbox-r.svg');
+  background-color: $accent;
   background-repeat: no-repeat;
   background-position: 3px 5px;
+  .checkbox-r {
+    opacity: 1;
+  }
 }
 
 /**
@@ -254,22 +272,26 @@ input:checked + label span {
  */
 .submitted input[data-type="correct"] + label span {
   vertical-align: top;
-  margin: 0 auto;
   margin-right: 10px;
   background-color: $text;
-  background-image: url('../graphics/checkbox-r.svg');
-  background-repeat: no-repeat;
-  background-position: 4px 6px;
+  .checkbox-r {
+    opacity: 1;
+  }
+  .checkbox-w-thick {
+    opacity: 0;
+  }
 }
 
 .submitted input[data-type="wrong"] + label span {
   vertical-align: top;
-  margin: 0 auto;
   margin-right: 10px;
   background-color: $text;
-  background-image: url('../graphics/checkbox-w-thick.svg');
-  background-repeat: no-repeat;
-  background-position: -2px -1px;
+  .checkbox-w-thick {
+    opacity: 1;
+  }
+  .checkbox-r {
+    opacity: 0;
+  }
 }
 
 .submitted input[data-type="correct"] + label.selected span {

@@ -59,7 +59,8 @@
   color: $text;
   .drag-handle,
   .drag-handle-target,
-  .right-positions {
+  .right-positions, 
+  .clone {
     float: left;
     display: flex;
     align-items: center;
@@ -79,13 +80,13 @@
     float: right;
     margin-right: 0;
     margin-left: 15px;
-    &.hit {
-      animation: ripple .4s ease-out; 
-    }
     &:after {
       content: '+';
       font-family: $regular;
       font-size: 21px;
+    }
+    &.showOver {
+      border: 2px solid $white;
     }
   }
   .right-positions {
@@ -109,10 +110,10 @@
   }
   .clone {
     position: absolute;
-    left: 21px;
-    top: 26px;
+    left: 12px;
+    top: 12px;
     z-index: -1;
-    font-family: $bold;
+    background-color: $grey_light;
   }
   .showOver {
     background: $accent;

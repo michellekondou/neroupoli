@@ -50,9 +50,21 @@ html {
   }
 }
 
+@media (max-height: 560px) {
+  html {
+    font-size: 12px;
+  }
+}
+
 @media (min-width: 1140px) {
   html {
     font-size: 13px;
+  }
+}
+
+@media (min-width: 1280px) {
+  html {
+    font-size: 14px;
   }
 }
 
@@ -77,13 +89,26 @@ h6 {
   font-weight: normal;
 }
 
-p {
-  // -webkit-backface-visibility: hidden;
-  // -webkit-font-smoothing: antialiased!important;
-  // font-smoothing: antialiased!important;
-  // -webkit-transform: translateZ(0) scale(1);
-  // transform: translateZ(0);
-  // z-index:  10;
+img {
+  font-size: 12px;
+  color: $grey_light;
+}
+
+.fade-in {
+  animation-name: fadeIn;
+  animation-duration: 1.3s;
+  animation-timing-function: cubic-bezier(0, 0, 0.4, 1);
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .visually-hidden { 

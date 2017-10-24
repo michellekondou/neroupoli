@@ -1,0 +1,186 @@
+/**
+ * Hotspot quiz
+ */
+.quiz-hotspot {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+
+@media (max-width: 500px) {
+  .quiz-hotspot {
+    flex-direction: column;
+    width: 480px;
+  }
+}
+
+.quiz-hotspot ul {
+  list-style-type: none;
+  margin-top: 0;
+  flex: 1; //IE11 - otherwise flex children do not respect the width
+}
+
+.quiz-hotspot li {
+  position: relative;
+  float: left;
+  border: 1px solid #ccc;
+  text-align: left;
+  margin-top: 0;
+  line-height: 1;
+  margin-right: 10px;
+  list-style-type: outside; //otherwise IE11 shows bullets
+}
+
+@media (max-width: 500px) {
+  .quiz-hotspot ul {
+    margin-top: 10px;
+    padding: 0;
+  }
+}
+
+.hotspot-labels {
+  float: left;
+  text-align: left;
+  background: transparent;
+  padding: 5px 12px 5px 12px;
+  line-height: 1.2;
+  color: #666;
+  min-height: 45px;
+  z-index: -1;
+  .hotspot-handle {
+    float: left;
+    background: $accent;
+    width: 36px;
+    height: 36px;
+    min-height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    font-family: $bold;
+    margin-right: 12px;
+  }
+  .hotspot-handle.ripple {
+    
+  }
+  .text {
+    position: relative;
+    display: inline;
+    margin: 0 auto;
+    font-size: 16px;
+    margin-left: 0;
+  }
+}
+
+
+
+
+.right-positions {
+  background: $accent;
+  width: 36px;
+  height: 36px;
+  min-height: 36px;
+  margin-top: -2px;
+  margin-left: -2px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  font-family: $bold;
+  font-size: 21px;
+  opacity: 0;
+}
+
+.hotspot-labels .clone {
+  position: absolute;
+  left: 29px;
+  top: 13px;
+  color: #333;
+  font-family: cf_asty_stdbold;
+  z-index: -1;
+}
+
+.highlight-correct, 
+.highlight-correct .circle {
+  background-color: rgba($green, 0.8)!important;
+}
+
+.highlight-wrong, 
+.highlight-wrong .circle {
+  background-color: rgba(red, 0.8)!important;
+}
+
+@media (max-width: 500px) {
+ 
+  .hotspot-labels .text {
+    font-size: 12px;
+    //font-family: $bold;
+  }
+
+}
+
+.hotspot-labels .circle {
+  // background: $accent;
+  // border: 2px solid #fff;
+}
+
+.hotspot-labels .hit {
+}
+
+.being_dragged  {
+  z-index: 1;
+}
+
+.hotspot-image {
+  position: relative;
+  margin: 0;
+  img {
+    //max-width: 346px;
+  }
+  .hotspot {
+    display: block;
+    position: absolute;
+    background: rgba($accent, 0.7);
+    border: 2px solid #fff;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    &:hover {
+      cursor: pointer;
+    }
+    &.hit {
+      animation: ripple .4s ease-out; 
+    }
+  }
+  .showOver {
+    background: $accent;
+    animation: ripple .4s ease-out;
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+  }
+  20% {
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+
+.check-hotspot {
+  margin-bottom: 0px;
+}
+
+.clear-hotspot {
+  margin-right: 15px;
+}
+
+
+ 
+
