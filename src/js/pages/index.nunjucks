@@ -151,9 +151,9 @@
               {% endfor %}
             </ul>
           </div>
-          <button class="check-dnd submit-button visually-hidden" id="{{ point.title.rendered }}-quiz-dnd-{{ quiz_counter }}--check">Ελεγξέ το!</button>
-          <button class="reset-dnd submit-button visually-hidden" id="{{ point.title.rendered }}-quiz-dnd-{{ quiz_counter }}--reset">Δες τις σωστές θέσεις!</button>
-          <button class="clear-dnd submit-button visually-hidden" id="{{ point.title.rendered }}-quiz-dnd-{{ quiz_counter }}--clear">Παίξε ξανά!</button><span class="check-answer-dnd" id="{{ point.title.rendered }}-quiz-dnd-{{ quiz_counter }}--check-answer-dnd"></span>
+          <button class="check-dnd submit-button visually-hidden" id="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}--check">Ελεγξέ το!</button>
+          <button class="reset-dnd submit-button visually-hidden" id="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}--reset">Δες τις σωστές θέσεις!</button>
+          <button class="clear-dnd submit-button visually-hidden" id="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}--clear">Παίξε ξανά!</button><span class="check-answer-dnd" id="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}--check-answer-dnd"></span>
         </section>
         {% endif %}
         {% if card.acf_fc_layout === 'hotspot' %}
