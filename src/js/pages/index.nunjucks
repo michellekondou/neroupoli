@@ -151,37 +151,44 @@
               {% endfor %}
             </ul>
           </div>
-          <button class="check-dnd submit-button visually-hidden" id="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}--check">Ελεγξέ το!</button>
-          <button class="reset-dnd submit-button visually-hidden" id="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}--reset">Δες τις σωστές θέσεις!</button>
-          <button class="clear-dnd submit-button visually-hidden" id="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}--clear">Παίξε ξανά!</button><span class="check-answer-dnd" id="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}--check-answer"></span>
+          <button class="check-dnd submit-button visually-hidden" id="{{ point.title.rendered }}-quiz-dnd-{{ quiz_counter }}--check">Ελεγξέ το!</button>
+          <button class="reset-dnd submit-button visually-hidden" id="{{ point.title.rendered }}-quiz-dnd-{{ quiz_counter }}--reset">Δες τις σωστές θέσεις!</button>
+          <button class="clear-dnd submit-button visually-hidden" id="{{ point.title.rendered }}-quiz-dnd-{{ quiz_counter }}--clear">Παίξε ξανά!</button><span class="check-answer-dnd" id="{{ point.title.rendered }}-quiz-dnd-{{ quiz_counter }}--check-answer-dnd"></span>
         </section>
         {% endif %}
         {% if card.acf_fc_layout === 'hotspot' %}
         {% set hotspot_counter  = ( hotspot_counter | default(0) ) + 1 %}
         <section class="text">
-          {{ card.hotspot_description }}
+          <p>{{ card.hotspot_description }}</p>
           <div id="{{ point.title.rendered }}-quiz-hotspot-{{ quiz_counter }}" class="quiz-hotspot {{ card.hotspot_type }}">
-            <figure class="hotspot-image" style="width:{{ card.hotspot_file.width }}px;height:{{ card.hotspot_file.height }}px;">
+            <figure class="hotspot-image hotspot-target-container" style="width:{{ card.hotspot_file.width }}px;height:{{ card.hotspot_file.height }}px;">
               <img src="{{ card.hotspot_file.url }}" width="{{ card.hotspot_file.width }}" height="{{ card.hotspot_file.height }}">
+              {% for hotspot in card.hotspots %}
+              {% set target_counter  = ( target_counter | default(-1) ) + 1 %}
+              {% set origin_counter  = ( origin_counter | default(0) ) + 1 %}
+              <div class="hotspot drag-handle-target" data-identifier="{{ point.title.rendered }}-quiz-hotspot-{{ hotspot_counter }}-{{ target_counter }}" data-coordinates="{{ hotspot.hotspot_coordinates }}" data-title="{{ hotspot.hotspot_title | escape }}" data-description="{{ hotspot.hotspot_description | escape }}">
+                <span class="right-positions" data-identifier="{{ point.title.rendered }}-quiz-hotspot-{{ hotspot_counter }}-{{ target_counter }}">{{ origin_counter }}</span>
+              </div>
+              {% endfor %}
             </figure>
             {% if card.hotspot_type === 'drag-and-drop' %}
-            <ul class="hotspot-label-list">
+            <ul class="hotspot-label-list hotspot-origin-container">
               {% for hotspot in card.hotspots %}
-              {% set hotspot_label_counter_inner  = ( hotspot_label_counter_inner | default(-1) ) + 1 %}
-              {% set hotspot_label_counter_outer  = ( hotspot_label_counter_outer | default(0) ) + 1 %}
-              <li>
-              <div class="hotspot-labels">
-                <div class="draggable-item hotspot-handle" data-identifier="{{ point.title.rendered }}-quiz-hotspot-{{ quiz_counter }}-point--{{ hotspot_label_counter_inner }}">{{ hotspot_label_counter_outer }}</div>
-                <p class="text">{{ hotspot.hotspot_title }} </p>
-              </div>
+              {% set clone_counter  = ( clone_counter | default(0) ) + 1 %}
+              {% set origin_counter  = ( origin_counter | default(-1) ) + 1 %}
+              <li class="hotspot-origin hotspot-label">
+                <span class="drag-handle drag-handle-{{ hotspot_counter }}" data-identifier="{{ point.title.rendered }}-quiz-hotspot-{{ hotspot_counter }}-{{ origin_counter }}">{{ clone_counter }}</span>
+                <span class="clone visually-hidden">{{ clone_counter }}</span>
+                <span class="text">{{ hotspot.hotspot_title }}</span>
               </li>
               {% endfor %}
             </ul>
             {% endif %}
           </div>
-          <button class="check-hotspot submit-button visually-hidden">Ελεγξέ το!</button>
-          <button class="reset-hotspot submit-button visually-hidden">Δες τις σωστές θέσεις!</button>
-          <button class="clear-hotspot submit-button visually-hidden">Παίξε ξανά!</button><span class="check-answer-hotspot"></span>
+          <button class="check-hotspot submit-button visually-hidden" id="{{ point.title.rendered }}-quiz-hotspot-{{ quiz_counter }}--check">Ελεγξέ το!</button>
+          <button class="reset-hotspot submit-button visually-hidden" id="{{ point.title.rendered }}-quiz-hotspot-{{ quiz_counter }}--reset">Δες τις σωστές θέσεις!</button>
+          <button class="clear-hotspot submit-button visually-hidden" id="{{ point.title.rendered }}-quiz-hotspot-{{ quiz_counter }}--clear">Παίξε ξανά!</button>
+          <span class="check-answer-hotspot" id="{{ point.title.rendered }}-quiz-hotspot-{{ quiz_counter }}--check-answer-hotspot"></span>
         </section>
       {% elif card.acf_fc_layout === 'sortable' %}
       <section class="text quiz-sortable">
