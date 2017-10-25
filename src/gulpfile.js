@@ -27,7 +27,7 @@ var babelPolyfill = require("babel-polyfill");
 var babel = require("gulp-babel");
 var browserify = require('gulp-browserify');
 var babelify = require('babelify');
-
+ 
 //script paths
 var cssFiles = [
   'scss/**/*.scss'
@@ -43,6 +43,25 @@ gulp.task('sass', function() {
     .pipe(cleanCSS({compatibility: 'ie8'}))
     .pipe(gulp.dest(cssDest))
 })
+
+gulp.task('autoprefixer', function () {
+  var postcss      = require('gulp-postcss');
+  var autoprefixer = require('autoprefixer');
+
+  return gulp.src(cssDest)
+    .pipe(postcss([ autoprefixer() ]))
+    .pipe(gulp.dest(cssDest));
+});
+// gulp.task('autoprefixer', function() {
+//     gulp.src(cssFiles)
+//         .pipe(postcss(
+//           [autoprefixer({
+//             browsers: ['last 2 versions'],
+//             cascade: false
+//         })]
+//         ))
+//         .pipe(gulp.dest(cssDest))
+// });
 
 //script paths
 var jsFiles = [
@@ -249,7 +268,7 @@ gulp.task('lint', function() {
 
 
 gulp.task('watch', ['sass', 'scripts', 'nunjucks', 'revreplace-dev', 'sprites', 'copy-assets'], function(){
-  gulp.watch('scss/**/*.scss', ['sass']);
+  gulp.watch('scss/**/*.scss', ['sass, autoprefixer']);
   gulp.watch('js/**/*.js', ['scripts']); 
   gulp.watch('js/**/*.+(html|nunjucks)', ['nunjucks']); 
   gulp.watch('../dist/dev.html', ['revreplace-dev']);
@@ -259,6 +278,7 @@ gulp.task('watch', ['sass', 'scripts', 'nunjucks', 'revreplace-dev', 'sprites', 
 gulp.task('build', function(callback) {
   runSequence(
     'sass',
+    'autoprefixer',
     'scripts',
     'revreplaceSW',
     'revreplaceAppjs',

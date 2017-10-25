@@ -1,3 +1,17 @@
+window.USER_IS_TOUCHING = false;
+
+window.addEventListener('touchstart', function onFirstTouch() {
+  // we could use a class
+  document.body.classList.add('user-is-touching');
+
+  // or set some global variable
+  window.USER_IS_TOUCHING = true;
+
+  // we only need to know once that a human touched the screen, so we can stop listening now
+  window.removeEventListener('touchstart', onFirstTouch, false);
+}, false);
+
+
 // //service worker registration
 // if ('serviceWorker' in navigator) {
 //   window.addEventListener('load', function() {
@@ -524,13 +538,15 @@ MapViewItem.prototype.page_open = function () {
   this.page.open = true;
   $(this.page.modal).addClass('overlay-open');
   $(this.page.modal).find('.page').addClass('page-open');
+
   var parent = this;
   //remove transform style generated after closing the page
   $(parent.page.modal).css("transform","");
   // TweenLite.set(parent.page.modal, {
   //   x: 0
   // });
-
+  $(this.page.modal).find('p:empty').remove();
+  $(this.page.modal).find('em:empty').remove();
   // this.pop.modal.open = false;
   // $(this.pop.modal).removeClass('popup-open');
   $('.map-loader').css('display','block'); 
@@ -1329,12 +1345,28 @@ for(var d = 0;d<dnd_quiz.length;d++){
 
   var sound_element = $('<audio/>', {   
     "preload": "auto",
-    "src": this.dnd_target_sound_el.attr('data-audio'),
     "controls": true,
     'class': 'audio-element'
   }).appendTo( $(parent.dnd_target_sound_el) );
 
-    //shuffle the origin and target arrays 
+  //loop through the sound element and grab the src to append to audio
+  for(var se=0;se<parent.dnd_target_sound_el.length;se++) {
+    var sound_src = parent.dnd_target_sound_el[se];
+    var audio_el = $(sound_src).find(sound_element);
+    audio_el.attr('src',$(sound_src).attr('data-audio'));
+  }
+
+  //play only one audio file at a time
+  document.addEventListener('play', function(e){
+    var audios = document.getElementsByTagName('audio');
+    for(var i = 0, len = audios.length; i < len;i++){
+        if(audios[i] != e.target){
+          audios[i].pause();
+        }
+    }
+  }, true);
+
+  //shuffle the origin and target arrays 
   var origin_items = [];
   var target_items = [];
   for(var o=0;o<this.dnd_origin.length;o++) {
@@ -1640,135 +1672,143 @@ parent.term_popup('.glossary-term', 'data-html')
 //end open_page function
 };
 
-MapViewItem.prototype.glossary = function () {
-  var parent = this;
+// MapViewItem.prototype.glossary = function () {
+//   var parent = this;
 
-  var glossary_term = document.querySelectorAll('.glossary-term');
+//   var glossary_term = document.querySelectorAll('.glossary-term');
 
-  var create_glossary_popups = function (element) {
-    var parent = this;
-    this.popup_text = element.getAttribute('data-html');
-    this.popup = $('<div />', {
-      'class': 'glossary-popup',
-      'html': this.popup_text
-    }).insertAfter(element);
-    this.popup_close = $('<i />', {
-      'class': 'icon close-popup glossary-close'
-    }).appendTo(popup);
+//   var create_glossary_popups = function (element) {
+//     var parent = this;
+//     this.popup_text = element.getAttribute('data-html');
+//     this.popup = $('<div />', {
+//       'class': 'glossary-popup',
+//       'html': this.popup_text
+//     }).insertAfter(element);
+//     this.popup_close = $('<i />', {
+//       'class': 'icon close-popup glossary-close'
+//     }).appendTo(popup);
 
-    $('.glossary-close').on('click', function(e){
-      $(this).parent().removeClass('open');
-    });
-  };
+//     $('.glossary-close').on('click', function(e){
+//       $(this).parent().removeClass('open');
+//     });
+//   };
 
-  var open_glossary_popup = function (element) {
-    if (element.target !== this) {
-      return;
-    }
-    //$(element.target).addClass('current');
-    //get the target's popup
-    var this_popup = $(element.target).next('.glossary-popup');
-    //get all open popups except for our target
-    var all_open_popups = $('.glossary-term').not(element.target).next('.glossary-popup.open');
-    //remove all open popups before opening a new one
-    for (var i=0;i<all_open_popups.length;i++) {
-     $(all_open_popups[i]).removeClass('open');
-    }
+//   var open_glossary_popup = function (element) {
+//     if (element.target !== this) {
+//       return;
+//     }
+//     //$(element.target).addClass('current');
+//     //get the target's popup
+//     var this_popup = $(element.target).next('.glossary-popup');
+//     //get all open popups except for our target
+//     var all_open_popups = $('.glossary-term').not(element.target).next('.glossary-popup.open');
+//     //remove all open popups before opening a new one
+//     for (var i=0;i<all_open_popups.length;i++) {
+//      $(all_open_popups[i]).removeClass('open');
+//     }
 
-    $(element.target).parent().width();
-    //position the popup relative to trigger
-    var trigger_position_left = $(element.target).position().left;
-    var parent_width = $(element.target).parent().width();
+//     $(element.target).parent().width();
+//     //position the popup relative to trigger
+//     var trigger_position_left = $(element.target).position().left;
+//     var parent_width = $(element.target).parent().width();
 
-    if ( parseInt(parent_width - trigger_position_left) <  this_popup.width()/1.5 ) {
-      this_popup.css('right', 0);
-    } else {
-      this_popup.css('left', trigger_position_left);
-    }
+//     if ( parseInt(parent_width - trigger_position_left) <  this_popup.width()/1.5 ) {
+//       this_popup.css('right', 0);
+//     } else {
+//       this_popup.css('left', trigger_position_left);
+//     }
       
-    //toggle the open class on click
-    this_popup.addClass('open');
-  };
-  //for each glossary term in the content 
-  // 1. create a popup
-  // 2. add a click event
-  for (var i=0;i<glossary_term.length;i++) {
-    create_glossary_popups(glossary_term[i]); /*1*/
-    glossary_term[i].addEventListener('mouseover', open_glossary_popup, {passive: true}); /*2*/
-  }
-};
+//     //toggle the open class on click
+//     this_popup.addClass('open');
+//   };
+//   //for each glossary term in the content 
+//   // 1. create a popup
+//   // 2. add a click event
+//   for (var i=0;i<glossary_term.length;i++) {
+//     create_glossary_popups(glossary_term[i]); /*1*/
+//     glossary_term[i].addEventListener('mouseover', open_glossary_popup, {passive: true}); /*2*/
+//   }
+// };
 
 MapViewItem.prototype.term_popup = function (term_class, text_attribute) {
   var parent = this;
   var term = document.querySelectorAll(term_class);
 
   var create_term_popup = function (element) {
-      if (element.getAttribute('data-title') === null) { return }
-      var parent = this;
-      this.term_title = element.getAttribute('data-title');
-      this.term_description = element.getAttribute('data-description') || element.getAttribute('data-html'); 
-      this.term_popup = $('<article />', {
-        'class': 'term-popup',
-        'html': '<h2>'+this.term_title+'</h2><p>'+this.term_description+'</p>'
-      }).appendTo(element);
-
-      this.close_popup = $('<i />', {
-        'class': 'icon close-popup term-close'
-      }).appendTo(term_popup);
-
-      $('.term-close').on('click', function(e){
-        $(this).parent().removeClass('open');
-      });
-    };
-
-    var open_term_popup = function (element) {
-      if (element.target !== this) {
-        return;
-      }
-      //$(element.target).addClass('current');
-      //get the target's popup
-      var this_term_popup = $(element.target).find('.term-popup');
-      var this_term_popup_open = $(element.target).find('.term-popup.open');
-      //get all open popups except for our target
-      var all_open_term_popups = $(term_class).not(element.target).find('.term-popup.open');
-      //remove all open popups before opening a new one
-      for (var i=0;i<all_open_term_popups.length;i++) {
-       $(all_open_term_popups[i]).removeClass('open');
-      }
-
-      //position the popup relative to trigger
-      var trigger_position = $(element.target).position();
-      var parent_width = $('.page-content').width();
-      var term_popup_width = 460;
-
-      this_term_popup.css('top', '32px');
-      if( term_popup_width > parseInt(parent_width - trigger_position.left) ) {
-        this_term_popup.css('right', '0px');
-      } else if ( parseInt(trigger_position.left) < term_popup_width/2 ) {
-        this_term_popup.css('left', '0px');
-      } else {
-        this_term_popup.css('left', -term_popup_width/2);
-      }
-        
-      //toggle the open class on click
-      this_term_popup.addClass('open');
-      
-    };
-
-    //for each glossary term in the content 
-    // 1. create a popup
-    // 2. add a click event
-    for (var i=0;i<term.length;i++) {
-      var _term = term[i];
-      create_term_popup(_term); /*1*/
-      _term.addEventListener('mouseover', open_term_popup, {passive: true}); /*2*/
-      _term.addEventListener('touchstart', open_term_popup, {passive: true}); /*2*/
+    if (element.getAttribute('data-title') === null) { return }
+    var parent = this;
+    if (element.getAttribute('data-title')) {
+        this.term_title = element.getAttribute('data-title');
+        this.term_description = element.getAttribute('data-description') || element.getAttribute('data-html'); 
     }
 
+    this.term_popup = $('<article />', {
+      'class': 'term-popup',
+      'html': '<h2>'+this.term_title+'</h2><p>'+this.term_description+'</p>'
+    }).appendTo(element);
+
+    this.close_popup = $('<i />', {
+      'class': 'icon close-popup term-close'
+    }).appendTo(term_popup);
+
+    $('.term-close').on('click', function(e){
+      $(this).parent().removeClass('open');
+    });
+  };
+
+  var open_term_popup = function (element) {
+    if (element.target !== this) {
+      return;
+    }
+    //$(element.target).addClass('current');
+    //get the target's popup
+    var this_term_popup = $(element.target).find('.term-popup');
+    var this_term_popup_open = $(element.target).find('.term-popup.open');
+    //get all open popups except for our target
+    var all_open_term_popups = $(term_class).not(element.target).find('.term-popup.open');
+    //remove all open popups before opening a new one
+    for (var i=0;i<all_open_term_popups.length;i++) {
+     $(all_open_term_popups[i]).removeClass('open');
+    }
+
+    //position the popup relative to trigger
+    var trigger_position = $(element.target).position();
+    var parent_width = $('.page-content').width();
+    var term_popup_width = 460;
+
+    this_term_popup.css('top', '32px');
+    if( term_popup_width > parseInt(parent_width - trigger_position.left) ) {
+      this_term_popup.css('right', '0px');
+    } else if ( parseInt(trigger_position.left) < term_popup_width/2 ) {
+      this_term_popup.css('left', '0px');
+    } else {
+      this_term_popup.css('left', -term_popup_width/2);
+    }
+      
+    //toggle the open class on click
+    this_term_popup.addClass('open');
+    
+  };
+
+  //for each glossary term in the content 
+  // 1. create a popup
+  // 2. add a click event
+  for (var i=0;i<term.length;i++) {
+    var _term = term[i];
+    create_term_popup(_term); /*1*/
+    _term.addEventListener('mouseover', open_term_popup, {passive: true}); /*2*/
+    if (USER_IS_TOUCHING) {
+      _term.addEventListener('touchstart', open_term_popup, {passive: true}); /*2*/
+    }
+  }
+  
+  if (!USER_IS_TOUCHING) {
     //close the modal: click anywhere to close it, or hit any key
-    $(document).on('keyup click touchstart', function(){ //
+    $(document).on('keyup click', function(){ //
       $(".term-popup.open, .glossary-popup.open").removeClass('open');
     });
+  }
+
 
 };
 
@@ -2189,6 +2229,7 @@ $(window).bind('mousewheel', function(event) {
     event.preventDefault();
   }
 });
+
 
 
 
