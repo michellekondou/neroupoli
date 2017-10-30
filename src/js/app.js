@@ -159,7 +159,6 @@ MapView.prototype._init_map_elements = function() {
 
   var title;
   var list_item;
-  var item;
   for (i = 0; i<this.map_items.length; i++) {
     item = this.map_items[i];
     title = item.content.acf.card_title;
@@ -256,11 +255,10 @@ $(window).resize(function() {
   var icon_class = icon.attr('class');
   var re = / *\bsymbol\b/g;
   var reNot = / *\bsymbol-small\b/g;
-  var is;
   //look for the class prefix symbol-small in icon class-names
   var testRe = reNot.exec(icon_class);
   if (document.documentElement.clientHeight <= 768 && testRe === null) {
-    for(is = 0; is<icon.length;is++) {
+    for(var is = 0; is<icon.length;is++) {
       _is = icon[is];
       _is.className = _is.className.replace(/ *\bsymbol\b/g, " symbol-small");
       console.log('run replace ' + ch + " <= 768");
@@ -1149,7 +1147,7 @@ for(var d = 0;d<hotspot_quiz.length;d++){
     onDrag:function(e) {
       for(var i=0; i<hotspot_targets.length;i++){
         _target = hotspot_targets[i];
-        if (this.hitTest(_target, overlapThreshold)) {
+        if (this.hitTest(_target, hotspot_overlapThreshold)) {
           //if draggable in target range highlight it and animate it
           $(_target).addClass("showOver ripple");
          } else {
@@ -1165,7 +1163,7 @@ for(var d = 0;d<hotspot_quiz.length;d++){
       for(var i=0; i<hotspot_targets.length;i++){
         current_hotspot_target = hotspot_targets[i];
         identifier = $(current_hotspot_target).attr('data-identifier');
-        if(this.hitTest(current_hotspot_target, overlapThreshold)){
+        if(this.hitTest(current_hotspot_target, hotspot_overlapThreshold)){
           snapMade = true; 
           //connect source and target via an identifier
           //give the draggable item an attr of data-target with a value of the hit id
