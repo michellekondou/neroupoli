@@ -35,7 +35,7 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
     navigator.serviceWorker.getRegistrations().then(function(registrations) {
       for(var registration in registrations) {
-        registration.unregister()
+        registration.unregister();
       } 
     });
   });
@@ -68,6 +68,7 @@ if (cw < ch) {
 
 var MapObject = function() {
   this._init_map_object();
+  console.log(this);
 };
 
 MapObject.prototype._init_map_object = function() {
@@ -100,32 +101,41 @@ MapView.prototype._init_map_elements = function() {
   this.map_bcr = this.map.getBoundingClientRect();
 
   //svg points
-  var points = this.svgDoc.querySelectorAll('.point');
+  var points = this.svgDoc.querySelectorAll('.point');  
+  var point;
+  var post;
+  var post_data = [];  
+  var post_id;
+  var content;
+  var rect;
+  var tip;
+  var pop;
+  var page;
+  var point_item;
 
-  var post_data = [];
   //save the json data in an array
   for(var i = 0;i<parent.posts.length;i++) { 
-    var post = parent.posts[i];
+    post = parent.posts[i];
     post_data.push(post); 
   }
 
   //create the map points
   for(var j = 0;j<points.length;j++) {
-    var point = points[j];
+    point = points[j];
     for(var item in post_data) {
-      if(post_data[item].title.rendered === point.id) { 
-        var content = post_data[item];
-        var post_id = post_data[item].id;
+      if(post_data[item].slug === point.id) { 
+        content = post_data[item];
+        post_id = post_data[item].id;
       }
     }  
 
-    var rect = points[j].getBoundingClientRect();
-    var tip = new Modal('tooltip', point.id, content.acf.card_title);
-    var pop = new Modal('popup', point.id, content.acf.card_title, content.acf.card_summary);
-    var page = new Modal('page', point.id);
-    var point_item = new MapViewItem(point, rect, map, this.map_bcr, pop, tip, page, content, post_id);
+    rect = points[j].getBoundingClientRect();
+    tip = new Modal('tooltip', point.id, content.acf.card_title);
+    pop = new Modal('popup', point.id, content.acf.card_title, content.acf.card_summary);
+    page = new Modal('page', point.id);
+    point_item = new MapViewItem(point, rect, map, this.map_bcr, pop, tip, page, content, post_id);
     this.map_items.push(point_item); 
-  }
+  } //endfor
   //setup all map events, zoom, pan etc  
   this._render_map();
 
@@ -146,16 +156,20 @@ MapView.prototype._init_map_elements = function() {
     "class": "sidebar-nav-list"
   }).insertAfter(this.sidebar_nav_heading);
  // console.log(this.map_items, this.map_items.length);
-  for (var i = 0; i<this.map_items.length; i++) {
-    var item = this.map_items[i];
-    var title = item.content.acf.card_title;
+
+  var title;
+  var list_item;
+  var item;
+  for (i = 0; i<this.map_items.length; i++) {
+    item = this.map_items[i];
+    title = item.content.acf.card_title;
     //console.log(item.content.id, title, item.content.title);
     //trim long title at ; char
     if ( item.post_id == 23 ) {
       title = title.substring(0, title.indexOf(';')+1);
     }
 
-    var list_item = $('<li />', {
+    list_item = $('<li />', {
         "html": title,
         "id": item.content.id
     }).appendTo(this.sidebar_nav_list);
@@ -170,12 +184,30 @@ MapView.prototype._init_map_elements = function() {
     e.stopPropagation();
   });
 
+  //clicking on an item in the sidebar opens a card via post id
   $('.sidebar-nav li').on('mousedown', function() {
     for (var i = 0; i<_this.map_items.length; i++) {
-      var item = _this.map_items[i];
+      item = _this.map_items[i];
       if ( $(this).attr('id') == item.content.id ) {
         item.page_open();
       }
+    }
+  });
+
+  var currently_open;
+  //custom links in content that open cases/cards
+  $('.custom-link').on('click', function(event) {
+    for (var i = 0; i<_this.map_items.length; i++) {
+      item = _this.map_items[i];
+      if (item.page.open){
+        currently_open = item;
+      }
+      if ( $(this).attr('data-target') == item.content.id ) {
+        item.page_open();
+      } 
+    } //endfor
+    if(currently_open !== undefined){
+      currently_open.page_close();
     }
   });
 
@@ -207,9 +239,8 @@ function switchIconSize(){
   var reNot = / *\bsymbol-small\b/g;
   //look for the class prefix symbol-small in icon class-names
   var testRe = reNot.exec(icon_class);
-  console.log(icon, testRe);
   for(var is = 0; is<icon.length;is++){
-    var _is = icon[is];
+    _is = icon[is];
     if (document.documentElement.clientHeight <= 768 && testRe === null) {
       _is.className = _is.className.replace(/ *\bsymbol\b/g, " symbol-small");
     } else if (document.documentElement.clientHeight > 768 && testRe !== null) {
@@ -225,20 +256,19 @@ $(window).resize(function() {
   var icon_class = icon.attr('class');
   var re = / *\bsymbol\b/g;
   var reNot = / *\bsymbol-small\b/g;
+  var is;
   //look for the class prefix symbol-small in icon class-names
   var testRe = reNot.exec(icon_class);
   if (document.documentElement.clientHeight <= 768 && testRe === null) {
-    console.log(testRe);
-    for(var is = 0; is<icon.length;is++) {
-      var _is = icon[is];
+    for(is = 0; is<icon.length;is++) {
+      _is = icon[is];
       _is.className = _is.className.replace(/ *\bsymbol\b/g, " symbol-small");
       console.log('run replace ' + ch + " <= 768");
     }
   }
   if (document.documentElement.clientHeight > 768) {
-    console.log(testRe);
-    for(var is = 0; is<icon.length;is++) {
-      var _is = icon[is];
+    for(is = 0; is<icon.length;is++) {
+      _is = icon[is];
       _is.className = _is.className.replace(/ *\bsymbol-small\b/g, " symbol");
       console.log('run replace ' + ch + " > 768");
     }
@@ -265,6 +295,7 @@ $(window).resize(function() {
     var tabContentContainers = el.querySelectorAll(options.tabContentContainers);
     var activeIndex = 0;
     var initCalled = false;
+    var link;
 
     /**
      * init
@@ -277,9 +308,8 @@ $(window).resize(function() {
       if (!initCalled) {
         initCalled = true;
         el.classList.remove('no-js');
-
         for (var i = 0; i < tabNavigationLinks.length; i++) {
-          var link = tabNavigationLinks[i];
+          link = tabNavigationLinks[i];
           handleClick(link, i);
         }
       }
@@ -351,14 +381,11 @@ MapView.prototype._render_map = function() {
   var svgDoc = $map.contentDocument;
     //access the svg
   var mapSvg = svgDoc.getElementById("svgmap");
-
   var viewEl =  svgDoc.getElementById("view");
- 
   var svg = d3.select(mapSvg),
     width = +svg.attr("width"),
     height = +svg.attr("height"),
     centered;
-
   var view = d3.select(viewEl)
     .attr("class", "view")
     .attr("x", 0.5)
@@ -367,14 +394,12 @@ MapView.prototype._render_map = function() {
     .attr("height", height - 1)
     .style("pointer-events", "all");
 
-
-
  function zoomed() {
     var duration;
-
+    var map_item;
      //close both the tooltip and the popup if open
     for(var p = 0; p < _this.map_items.length;p++) {
-      var map_item = _this.map_items[p]; 
+      map_item = _this.map_items[p]; 
       map_item.tip.open = false;
       $(map_item.tip.modal).removeClass('open');
       map_item.pop.open = false; 
@@ -426,7 +451,7 @@ MapView.prototype._render_map = function() {
   svg.select('#view')
   .on('mousewheel.zoom', function(event) {
     for(var p = 0; p < _this.map_items.length;p++) {
-      var map_item = _this.map_items[p]; 
+      map_item = _this.map_items[p]; 
       map_item.tip.open = false;
       $(map_item.tip.modal).removeClass('open');
       map_item.pop.open = false; 
@@ -485,7 +510,7 @@ MapView.prototype._render_map = function() {
   svg.on('mousewheel.zoom', function(d) {
  
     for(var p = 0; p < _this.map_items.length;p++) {
-      var map_item = _this.map_items[p]; 
+      map_item = _this.map_items[p]; 
       //close both the tooltip and the popup if open
       map_item.tip.open = false;
       $(map_item.tip.modal).removeClass('open');
@@ -633,8 +658,7 @@ $(".checkbox-prompt").removeClass('visible');
 var current_page = $(this.page.modal);
 var likert_input = current_page.find('.likert input');
 var submit = current_page.find('.submit');
-
-
+console.log('a vhagesldg');
 // $(likert_input).on('change', function(){
 //     $('.loader.quiz').css('display','block');        
 //     var form = $(this).closest("form");
@@ -664,23 +688,28 @@ $(submit).on('click', function() {
     var checkbox = $('#' + form_id + " input:checkbox");
     var reset_btn = $('#' + form_id + "--reset");
     var selectedOption = $('#' + form_id + " input:checked");
+    var this_option;
+    var this_form;
+    var form;
+    var data;
+    var url;
 
    console.log(form_id, selectedOption);
     if (selectedOption.length >= 1) {
     //for all inputs
     for (var j=0;j<option.length;j++) {
-      var this_option = option[j];
+      this_option = option[j];
       //console.log(this_option);
       if ( $(this_option).prop('checked') == true ) {
         $('#' + form_id + '--submit .loader').css('display','block');
         $('#' + form_id + '--form-error').html('');
         console.log($('#' + form_id + ' .checkbox-r')); 
         for(var i=0;i<forms.length;i++){
-          var this_form = forms[i];
+          this_form = forms[i];
           if ( $(this_form).attr("id") === form_id ) {     
-            var form = $(this_form);
-            var data = getFormData(form);
-            var url = form.attr('action');
+            form = $(this_form);
+            data = getFormData(form);
+            url = form.attr('action');
             $.ajax({
               type: "POST",
               url: url,
@@ -732,8 +761,8 @@ $(submit).on('click', function() {
         $('#' + form_id + '--submit').addClass('disabled');
       } else {
         $('#' + form_id + '--submit .loader').css('display','block');
-        var data = getFormData(forms);
-        var url = forms.attr('action');
+        data = getFormData(forms);
+        url = forms.attr('action');
          $.ajax({
               type: "POST",
               url: url,
@@ -769,9 +798,11 @@ $(submit).on('click', function() {
   
     var correct_answers = [];
     var selected_answers = [];
+    var this_checkbox;
+    var this_radio;
     //checkbox inputs
     for(var c=0;c<checkbox.length;c++){
-      var this_checkbox = checkbox[c];
+      this_checkbox = checkbox[c];
       if ( $(this_checkbox).attr('data-type') == "correct"  ) {
         correct_answers.push(this_checkbox);
       } 
@@ -796,7 +827,7 @@ $(submit).on('click', function() {
 
     //multiple choice inputs
     for(var r=0;r<radio.length;r++){
-      var this_radio = radio[r];
+      this_radio = radio[r];
       if ( selectedOption.attr('data-type') == "correct" ) {
         $('#' + form_id + "--thankyou_message").find('.check-answer').addClass('correct').html('Σωστά!');
       } else if ( selectedOption.attr('data-type') == 'wrong') {
@@ -839,6 +870,7 @@ function resetForm(){
 
 resetForm();
 
+//TODO Make this specific - narrow down
 $('input').on('change', function(){
     console.log('input selected', this);
     var submit_id = $(this).attr("id");
@@ -1007,40 +1039,64 @@ sortable_reset.on('click', function(){
 \*------------------------------------*/
 //select elements with .quiz-hotspot class
 var hotspot_quiz = $(this.page.modal).find('.quiz-hotspot');
-
 var draggable_hotspot = [];
+var hotspot_origin_container;
+var hotspot_target_container;
+//set array with snap points for drag end
+var snapX = [],
+    snapY = [];
+var _hotspot_target;
+var hotspot_coordinates;
+//get image coordinates separately to assign as custom attributes (data_x) and (data_y)
+var hotspot_coordinates_x;
+var hotspot_coordinates_y;
+//image coordinates are in percentages, convert them to pixels to 
+//assign as custom attributes to the draggable element
+var newX;
+var newY;
+var pixels_x;
+var pixels_y;
+var hotspot_targets;
+var hotspot_available_targets;
+var hotspot_overlapThreshold;
+var hotspot_reset;
+var hotspot_check;
+var hotspot_clear;
+var hotspot_prompt;
+var _target;
+var _parent;
+var snapMade;
+var current_hotspot_target;
+var identifier;
+var tl;
+var positioned;
 //if the page contains a hotspot quiz
 //for each dnd quiz
 for(var d = 0;d<hotspot_quiz.length;d++){
 
-  var quiz = hotspot_quiz[d];
+  quiz = hotspot_quiz[d];
 
-  var hotspot_origin_container = $(quiz).find('.hotspot-origin-container');
-  var hotspot_target_container = $(quiz).find('.hotspot-target-container');
-
+  hotspot_origin_container = $(quiz).find('.hotspot-origin-container');
+  hotspot_target_container = $(quiz).find('.hotspot-target-container');
   this.hotspot_origin = $(quiz).find('.hotspot-origin.hotspot-label');
   this.hotspot_origin_handle = this.hotspot_origin.find('.drag-handle');
   this.hotspot_target_handle = hotspot_target_container.find('.drag-handle-target');
 
   this.hotspot_target_handle.addClass('available');
 
-  //set array with snap points for drag end
-  var snapX = [],
-      snapY = [];
-
     //add x,y coordinates as separate values to targets
   for(var hd=0;hd<this.hotspot_target_handle.length;hd++) {
-    var _hotspot_target = this.hotspot_target_handle[hd];
-    var hotspot_coordinates = $(_hotspot_target).attr('data-coordinates');
+    _hotspot_target = this.hotspot_target_handle[hd];
+    hotspot_coordinates = $(_hotspot_target).attr('data-coordinates');
     //get image coordinates separately to assign as custom attributes (data_x) and (data_y)
-    var hotspot_coordinates_x = hotspot_coordinates.substring(0, hotspot_coordinates.indexOf(','));
-    var hotspot_coordinates_y = hotspot_coordinates.split(',')[1];
+    hotspot_coordinates_x = hotspot_coordinates.substring(0, hotspot_coordinates.indexOf(','));
+    hotspot_coordinates_y = hotspot_coordinates.split(',')[1];
     //image coordinates are in percentages, convert them to pixels to 
     //assign as custom attributes to the draggable element
-    var newX = Math.round( parseFloat(hotspot_coordinates_x) - 3);
-    var newY = Math.round( parseFloat(hotspot_coordinates_y) - 4);
-    var pixels_x = $(hotspot_target_container).width()*(newX/100);
-    var pixels_y = $(hotspot_target_container).height()*(newY/100);
+    newX = Math.round( parseFloat(hotspot_coordinates_x) - 3);
+    newY = Math.round( parseFloat(hotspot_coordinates_y) - 4);
+    pixels_x = $(hotspot_target_container).width()*(newX/100);
+    pixels_y = $(hotspot_target_container).height()*(newY/100);
 
     $(_hotspot_target).attr( 'data_x', Math.round( parseFloat(pixels_x) ) );
     $(_hotspot_target).attr( 'data_y', Math.round( parseFloat(pixels_y) ) );
@@ -1056,13 +1112,11 @@ for(var d = 0;d<hotspot_quiz.length;d++){
   }
 
   //set some variables
-  var hotspot_targets;
-  var hotspot_available_targets;
-  var overlapThreshold = "50%";
-  var hotspot_reset = $('#'+$(quiz).attr('id')+'--reset');
-  var hotspot_check = $('#'+$(quiz).attr('id')+'--check');
-  var hotspot_clear = $('#'+$(quiz).attr('id')+'--clear');
-  var hotspot_prompt = $('#'+$(quiz).attr('id')+'--check-answer-hotspot');
+  hotspot_overlapThreshold = "50%";
+  hotspot_reset = $('#'+$(quiz).attr('id')+'--reset');
+  hotspot_check = $('#'+$(quiz).attr('id')+'--check');
+  hotspot_clear = $('#'+$(quiz).attr('id')+'--clear');
+  hotspot_prompt = $('#'+$(quiz).attr('id')+'--check-answer-hotspot');
 
   draggable_hotspot[d] = Draggable.create('#'+$(hotspot_quiz[d]).attr('id')+' .drag-handle-'+(d+1), {
     type: "x,y",
@@ -1075,8 +1129,8 @@ for(var d = 0;d<hotspot_quiz.length;d++){
       hotspot_available_targets = hotspot_target_container.find('.available');
 
       for(var lp = 0;lp<hotspot_targets.length;lp++){
-        var _target = hotspot_targets[lp];
-        var _parent = $(_target).parent();
+        _target = hotspot_targets[lp];
+        _parent = $(_target).parent();
         //on drag start check the data-hit attribute - if it has a value it is because a draggable instance has been assigned to it and passed it its data-identifier attribute
         //if it has a value it means draggable was there
         //remove the data-hit attribute value and signify that it is available again
@@ -1094,7 +1148,7 @@ for(var d = 0;d<hotspot_quiz.length;d++){
     },
     onDrag:function(e) {
       for(var i=0; i<hotspot_targets.length;i++){
-        var _target = hotspot_targets[i];
+        _target = hotspot_targets[i];
         if (this.hitTest(_target, overlapThreshold)) {
           //if draggable in target range highlight it and animate it
           $(_target).addClass("showOver ripple");
@@ -1107,11 +1161,10 @@ for(var d = 0;d<hotspot_quiz.length;d++){
       }
     },
     onDragEnd:function(e) {
-      var snapMade = false;
-      var current_hotspot_target;
+      snapMade = false;
       for(var i=0; i<hotspot_targets.length;i++){
         current_hotspot_target = hotspot_targets[i];
-        var identifier = $(current_hotspot_target).attr('data-identifier');
+        identifier = $(current_hotspot_target).attr('data-identifier');
         if(this.hitTest(current_hotspot_target, overlapThreshold)){
           snapMade = true; 
           //connect source and target via an identifier
@@ -1134,7 +1187,7 @@ for(var d = 0;d<hotspot_quiz.length;d++){
             //give the target an attribute of data-hit to mark that there has been a match
             $(current_hotspot_target).attr('data-hit',$(this.target).attr('data-identifier'));
             //move item to position if position available and overlapThreshold condition is met
-            var tl = new TimelineLite();
+            tl = new TimelineLite();
 
             tl
             .to(this.target, 0.1, { 
@@ -1150,13 +1203,13 @@ for(var d = 0;d<hotspot_quiz.length;d++){
             //if the position isn't available (does not have an available class) send it back to its starting position)
             $(this.target).removeClass("correct wrong highlight-correct highlight-wrong positioned");
             //show a message that an item has already been placed there and return item to starting position
-            var tl_return = new TimelineLite({
+            tl_return = new TimelineLite({
               onStart: function(){
-                hotspot_prompt.addClass('wrong').html('Υπάρχει κάτι εκεί, δοκίμασε να το βάλεις σε άλλη θέση!')
+                hotspot_prompt.addClass('wrong').html('Υπάρχει κάτι εκεί, δοκίμασε να το βάλεις σε άλλη θέση!');
               },
               onComplete: function(){
                 setTimeout(function(){
-                  hotspot_prompt.removeClass('wrong').html('')
+                  hotspot_prompt.removeClass('wrong').html('');
                 },1000);
                 
               }
@@ -1174,7 +1227,7 @@ for(var d = 0;d<hotspot_quiz.length;d++){
       if(!snapMade){
         hotspot_check.addClass('visually-hidden');
         $(this.target).removeClass("showOver correct wrong highlight-correct highlight-wrong positioned ripple");
-        var positioned = $(quiz).find('.positioned');
+        positioned = $(quiz).find('.positioned');
         if (positioned.length === 0) {
           //only show the check hotspot button if at least an item has been dragged
           hotspot_check.addClass('visually-hidden');
@@ -1222,6 +1275,7 @@ for(var d = 0;d<hotspot_quiz.length;d++){
     var hotspot_id = hotspot_reset_id.substring(0, hotspot_reset_id.indexOf('--'));
     var right_positions = $('#'+hotspot_id+' .right-positions');
     var draggable_item = $('#'+hotspot_id+' .drag-handle');
+    var ht;
 
     var tl = new TimelineLite();
     tl
@@ -1229,13 +1283,13 @@ for(var d = 0;d<hotspot_quiz.length;d++){
       opacity: 0,
       x: 0,
       y: 0
-    })
+    });
 
     draggable_item.removeClass('positioned correct wrong highlight-wrong highlight-correct');
 
     var hotspot_texts = [];
     for(var t=0;t<right_positions.length;t++){
-      var ht = right_positions[t];
+      ht = right_positions[t];
       $(ht).removeClass('no-opacity');
       hotspot_texts.push(ht);
     }
@@ -1264,7 +1318,7 @@ for(var d = 0;d<hotspot_quiz.length;d++){
       opacity: 0,
       x: 0,
       y: 0
-    })
+    });
     setTimeout(function(){
       hotspot_clear.addClass('visually-hidden');
       hotspot_reset.addClass('visually-hidden');
@@ -1324,16 +1378,37 @@ function reset_hotspot() {
 \*------------------------------------*/
   //select elements with .quiz-dnd class
 var dnd_quiz = $(this.page.modal).find('.quiz-dnd');
-
 var draggables = [];
+var quiz;
+var dnd_origin_container;
+var dnd_target_container;
+var sound_element;
+var sound_src;
+var audio_el;
+var audios;
+var origin_items = [];
+var target_items = [];
+var dnd_targets;
+var dnd_available_targets;
+var dnd_overlapThreshold = "50%";
+var dnd_prompt;
+var dnd_reset;
+var dnd_check;
+var dnd_clear;
+var dnd_target_handle_x;
+var dnd_target_handle_y;
+var dnd_parent_x;
+var dnd_parent_y;
+var distance_top;
+var tl_return;
 //if the page contains a hotspot quiz
 //for each dnd quiz
 for(var d = 0;d<dnd_quiz.length;d++){
 
-  var quiz = dnd_quiz[d];
+  quiz = dnd_quiz[d];
 
-  var dnd_origin_container = $(quiz).find('.dnd-origin-container');
-  var dnd_target_container = $(quiz).find('.dnd-target-container');
+  dnd_origin_container = $(quiz).find('.dnd-origin-container');
+  dnd_target_container = $(quiz).find('.dnd-target-container');
 
   this.dnd_origin = $(quiz).find('.dnd-origin.dnd-label');
   this.dnd_target = $(quiz).find('.dnd-target.dnd-label');
@@ -1343,7 +1418,7 @@ for(var d = 0;d<dnd_quiz.length;d++){
 
   this.dnd_target_handle.addClass('available');
 
-  var sound_element = $('<audio/>', {   
+  sound_element = $('<audio/>', {   
     "preload": "auto",
     "controls": true,
     'class': 'audio-element'
@@ -1351,14 +1426,14 @@ for(var d = 0;d<dnd_quiz.length;d++){
 
   //loop through the sound element and grab the src to append to audio
   for(var se=0;se<parent.dnd_target_sound_el.length;se++) {
-    var sound_src = parent.dnd_target_sound_el[se];
-    var audio_el = $(sound_src).find(sound_element);
+    sound_src = parent.dnd_target_sound_el[se];
+    audio_el = $(sound_src).find(sound_element);
     audio_el.attr('src',$(sound_src).attr('data-audio'));
   }
 
   //play only one audio file at a time
   document.addEventListener('play', function(e){
-    var audios = document.getElementsByTagName('audio');
+    audios = document.getElementsByTagName('audio');
     for(var i = 0, len = audios.length; i < len;i++){
         if(audios[i] != e.target){
           audios[i].pause();
@@ -1367,8 +1442,6 @@ for(var d = 0;d<dnd_quiz.length;d++){
   }, true);
 
   //shuffle the origin and target arrays 
-  var origin_items = [];
-  var target_items = [];
   for(var o=0;o<this.dnd_origin.length;o++) {
     var o_item = this.dnd_origin[o];
     origin_items.push(o_item);
@@ -1384,15 +1457,14 @@ for(var d = 0;d<dnd_quiz.length;d++){
   $(dnd_target_container).html(target_items);
 
   //set some variables
-  var dnd_target_container;
-  var dnd_targets;
-  var dnd_available_targets;
-  var overlapThreshold = "50%";
-  var dnd_prompt = $(quiz).find('.check-answer-dnd');
-  var dnd_reset = $('#'+$(quiz).attr('id')+'--reset');
-  var dnd_check = $('#'+$(quiz).attr('id')+'--check');
-  var dnd_clear = $('#'+$(quiz).attr('id')+'--clear');
-  var dnd_prompt = $('#'+$(quiz).attr('id')+'--check-answer-dnd');
+
+
+  dnd_overlapThreshold = "50%";
+  dnd_prompt = $(quiz).find('.check-answer-dnd');
+  dnd_reset = $('#'+$(quiz).attr('id')+'--reset');
+  dnd_check = $('#'+$(quiz).attr('id')+'--check');
+  dnd_clear = $('#'+$(quiz).attr('id')+'--clear');
+  dnd_prompt = $('#'+$(quiz).attr('id')+'--check-answer-dnd');
 
   draggables[d] = Draggable.create('#'+$(dnd_quiz[d]).attr('id')+' .drag-handle-'+(d+1), {
     type: "x,y",
@@ -1408,17 +1480,17 @@ for(var d = 0;d<dnd_quiz.length;d++){
       dnd_available_targets = dnd_target_container.find('.available');
 
       for(var lp = 0;lp<dnd_targets.length;lp++){
-        var _target = dnd_targets[lp];
-        var _parent = $(_target).parent();
+        _target = dnd_targets[lp];
+        _parent = $(_target).parent();
         //get the target handle position relative to its parent li element
-        var dnd_target_handle_x = $(_target).position().left;
-        var dnd_target_handle_y = $(_target).position().top;
+        dnd_target_handle_x = $(_target).position().left;
+        dnd_target_handle_y = $(_target).position().top;
         //get the parent li element position relative to its ul
-        var dnd_parent_x = $(_parent).position().left;
-        var dnd_parent_y = $(_parent).position().top;
+        dnd_parent_x = $(_parent).position().left;
+        dnd_parent_y = $(_parent).position().top;
         //subtract target handle position from li to find exact handle target position in bounds container
-        var data_x = dnd_parent_x - dnd_target_handle_x;
-        var data_y = dnd_parent_y - dnd_target_handle_y;
+        data_x = dnd_parent_x - dnd_target_handle_x;
+        data_y = dnd_parent_y - dnd_target_handle_y;
         //assign the position as attributes to grab later on dragEnd
         $(_target).attr('data_x', data_x);
         $(_target).attr('data_y', data_y);
@@ -1440,8 +1512,8 @@ for(var d = 0;d<dnd_quiz.length;d++){
     },
     onDrag:function(e) {
       for(var i=0; i<dnd_targets.length;i++){
-        var _target = dnd_targets[i];
-        if (this.hitTest(_target, overlapThreshold)) {
+        _target = dnd_targets[i];
+        if (this.hitTest(_target, dnd_overlapThreshold)) {
           //if draggable in target range highlight it and animate it
           $(_target).addClass("showOver ripple");
          } else {
@@ -1453,12 +1525,11 @@ for(var d = 0;d<dnd_quiz.length;d++){
       }
     },
     onDragEnd:function(e) {
-      var snapMade = false;
-      var current_dnd_target;
+      snapMade = false;
       for(var i=0; i<dnd_targets.length;i++){
         current_dnd_target = dnd_targets[i];
-        var identifier = $(current_dnd_target).attr('data-identifier');
-        if(this.hitTest(current_dnd_target, overlapThreshold)){
+        identifier = $(current_dnd_target).attr('data-identifier');
+        if(this.hitTest(current_dnd_target, dnd_overlapThreshold)){
           snapMade = true; 
           //connect source and target via an identifier
           //give the draggable item an attr of data-target with a value of the hit id
@@ -1480,9 +1551,9 @@ for(var d = 0;d<dnd_quiz.length;d++){
             //give the target an attribute of data-hit to mark that there has been a match
             $(current_dnd_target).attr('data-hit',$(this.target).attr('data-identifier'));
             //move item to position if position available and overlapThreshold condition is met
-            var tl = new TimelineLite();
+            tl = new TimelineLite();
             
-            var distance_top = parseInt( $(current_dnd_target).attr('data_y')) + this.minY + 56;
+            distance_top = parseInt( $(current_dnd_target).attr('data_y')) + this.minY + 56;
             tl
             .set(this.target, { 
               left: parseInt( $(current_dnd_target).attr('data_x') ),
@@ -1496,13 +1567,13 @@ for(var d = 0;d<dnd_quiz.length;d++){
             //if the position isn't available (does not have an available class) send it back to its starting position)
             $(this.target).removeClass("correct wrong highlight-correct highlight-wrong positioned");
             //show a message that an item has already been placed there and return item to starting position
-            var tl_return = new TimelineLite({
+            tl_return = new TimelineLite({
               onStart: function(){
-                dnd_prompt.addClass('wrong').html('Υπάρχει κάτι εκεί, δοκίμασε να το βάλεις σε άλλη θέση!')
+                dnd_prompt.addClass('wrong').html('Υπάρχει κάτι εκεί, δοκίμασε να το βάλεις σε άλλη θέση!');
               },
               onComplete: function(){
                 setTimeout(function(){
-                  dnd_prompt.removeClass('wrong').html('')
+                  dnd_prompt.removeClass('wrong').html('');
                 },1000);
                 
               }
@@ -1520,7 +1591,7 @@ for(var d = 0;d<dnd_quiz.length;d++){
       if(!snapMade){
         dnd_check.addClass('visually-hidden');
         $(this.target).removeClass("showOver correct wrong highlight-correct highlight-wrong positioned ripple");
-        var positioned = $(quiz).find('.positioned');
+        positioned = $(quiz).find('.positioned');
         if (positioned.length === 0) {
           //only show the check hotspot button if at least an item has been dragged
           dnd_check.addClass('visually-hidden');
@@ -1574,7 +1645,7 @@ for(var d = 0;d<dnd_quiz.length;d++){
       opacity: 0,
       x: 0,
       y: 0
-    })
+    });
 
     draggable_item.removeClass('positioned correct wrong highlight-wrong highlight-correct');
 
@@ -1609,7 +1680,7 @@ for(var d = 0;d<dnd_quiz.length;d++){
       opacity: 0,
       x: 0,
       y: 0
-    })
+    });
     setTimeout(function(){
       dnd_clear.addClass('visually-hidden');
       dnd_reset.addClass('visually-hidden');
@@ -1667,7 +1738,7 @@ function reset_dnd() {
   # Glossary function
 \*------------------------------------*/
   //parent.glossary();
-parent.term_popup('.glossary-term', 'data-html')
+parent.term_popup('.glossary-term', 'data-html');
 
 //end open_page function
 };
@@ -1735,7 +1806,7 @@ MapViewItem.prototype.term_popup = function (term_class, text_attribute) {
   var term = document.querySelectorAll(term_class);
 
   var create_term_popup = function (element) {
-    if (element.getAttribute('data-title') === null) { return }
+    if (element.getAttribute('data-title') === null) { return; }
     var parent = this;
     if (element.getAttribute('data-title')) {
         this.term_title = element.getAttribute('data-title');
@@ -1814,26 +1885,33 @@ MapViewItem.prototype.term_popup = function (term_class, text_attribute) {
 
 MapViewItem.prototype.page_close = function () {
   var parent = this;
-  var inner_page = $(this.page.modal).find('.page');
-
   if(!this.page.open) { 
     console.log('page closed already cannot reclose');
     return; 
   }
-  console.log('page_close fired', parent.page.modal);
+  console.log('page_close fired', parent);
 
-  parent.page.open = false;
-  inner_page.removeClass('page-open');
+  var inner_page = $(this.page.modal).find('.page');
+  function hideOverlay() {
+    $(parent.page.modal).removeClass('overlay-open'); 
+     console.log('page_close fired', parent);
+  }
 
-  var closeOverlay = function() {
-    $(parent.page.modal).removeClass('overlay-open');
-  };
+  function hidePage() {
+    inner_page.removeClass('page-open');
+    parent.page.open = false;
+  }
 
-  var tl = new TimelineLite();
+  //TODO - need to find 
+  var tl = new TimelineLite({
+    onStart: function(){
+      console.log('start close page');
+    }
+  });
  
-  tl.addLabel("hide-overlay", 0.8);
-  tl.add(closeOverlay, "hide-overlay");
-
+  tl.add(hidePage);
+  tl.addLabel("hide-overlay", 1);
+  tl.add(hideOverlay, "hide-overlay");
 
   function resetForm(){
     var form = $('form');
@@ -1843,7 +1921,6 @@ MapViewItem.prototype.page_close = function () {
       url: url,
       data: form.serialize(),
       success: function(event) {
-        console.log('success');
         form.removeClass('submitted');
         form.find('input:text, input:password, input:file, select, textarea').val('');
         form.find('input:radio, input:checkbox, textarea').removeAttr('checked').removeAttr('selected').removeAttr('disabled');
@@ -1859,8 +1936,8 @@ MapViewItem.prototype.page_close = function () {
 
   resetForm();
   $('.symbol-container').removeClass('visited');
-  //remove all game clones
-  //$('.clone').remove();
+
+  return tl;
 };
 
 MapViewItem.prototype.pop_open = function () {
@@ -2065,18 +2142,23 @@ MapViewItem.prototype._init_points = function(points){
 ======= EVENT LISTENERS ===================================================
 ======================================================================== */
 MapViewItem.prototype._addListeners = function(){
-  var _this = this; 
+  var parent = this; 
   
   //prevents closing the page when clicking on it - page only closes via close button or clicking outside it
   $('.page').on('mousedown', function(e) {
     e.stopPropagation();
   });
-  //close page by clicking on the overlay
-  $('.overlay').not( $(this).find('.page') ).on( "mousedown", $.proxy(this.page_close, _this) );
+
+ //close page by clicking on the overlay
+  $('.overlay').not( $(this).find('.page') ).on( "mousedown", function(){
+    if(parent.page.open) {
+      parent.page_close();
+    }
+  });
   //close page by clicking on close button
-  $(this.page.modal).find('.close').on("mousedown", $.proxy(this.page_close, _this)); 
+  $(this.page.modal).find('.close').on("mousedown", $.proxy(this.page_close, parent)); 
   //close popup by clicking on close button
-  $(this.pop.modal).find('.close').on("mousedown", $.proxy(this.pop_close, _this));
+  $(this.pop.modal).find('.close').on("mousedown", $.proxy(this.pop_close, parent));
 
 };
 
@@ -2183,14 +2265,14 @@ window.onload = function() {
         //get all the posts excluding the intro post
         var posts = [];
         for(var i = 0;i<data.length;i++) {
-          var post = data[i];
+          post = data[i];
           if(post.id !==321) {
              posts.push(post);
           }
         }  
         var info = [];
         for(var i = 0;i<data.length;i++) {
-          var post = data[i];
+          post = data[i];
           if(post.id ===321) {
              info.push(post);
           }
@@ -2205,7 +2287,7 @@ window.onload = function() {
       this.errorMsg = $('<div/>', {
         'class': 'error-message',
         'html': '<h2>Λυπούμαστε υπήρξε κάποιο σφάλμα!</h2> <p>Δοκιμάστε να επαναφορτώσετε την εφαρμογή ή προσπαθήστε ξανά αργότερα.</p>'
-      }).appendTo('body')
+      }).appendTo('body');
     });
 }; //end window on load
   

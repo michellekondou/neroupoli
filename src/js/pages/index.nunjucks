@@ -6,11 +6,11 @@
 {% include "partials/navigation.nunjucks" %}
 {% for point in post_content %}
 <!--tooltip-->
-<div class="map-popover tooltip top" id="{{ point.title.rendered }}-tooltip">
+<div class="map-popover tooltip top" id="{{ point.slug }}-tooltip">
   <h3 class="map-popover-title">{{ point.acf.card_title }}</h3>
 </div>
 <!--popup-->
-<div class="map-popover popup right popup" id="{{ point.title.rendered }}-popup">
+<div class="map-popover popup right popup" id="{{ point.slug }}-popup">
   <div class="arrow"></div>  
   <button class="close">
     <span class="visually-hidden">Close</span>
@@ -23,8 +23,8 @@
   </p>
 </div>
 <!--page-->
-<div class="overlay overlay" id="{{ point.title.rendered }}-page">
-  <div class="page slide page">
+<div class="overlay" id="{{ point.slug }}-page">
+  <div class="page slide">
     <button class="close">
       <span class="visually-hidden">Close</span>
       <i class="icon close-page-color"></i>
@@ -124,7 +124,7 @@
         {% set dnd_counter  = ( dnd_counter | default(0) ) + 1 %}
         <section class="text quiz">
           <p>{{ card.intro_text }}</p>
-          <div id="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}" class="quiz-dnd">
+          <div id="{{ point.slug }}-quiz-dnd-{{ dnd_counter }}" class="quiz-dnd">
             <ul class="dnd-target-container">
               {% for target in card.items %}
               {% set target_counter  = ( target_counter | default(-1) ) + 1 %}
@@ -134,8 +134,8 @@
                 <button class="sound" data-audio="{{ target.target_sound_file }}"></button>
                 {% endif %}
                 <span class="text{% if target.target_sound_file %} visually-hidden{% endif %}">{{ target.target }}</span>
-                <span class="drag-handle-target" data-identifier="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}-{{ target_counter }}"></span>
-                <span class="right-positions" data-identifier="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}-{{ target_counter }}">{{ origin_counter }}</span>
+                <span class="drag-handle-target" data-identifier="{{ point.slug }}-quiz-dnd-{{ dnd_counter }}-{{ target_counter }}"></span>
+                <span class="right-positions" data-identifier="{{ point.slug }}-quiz-dnd-{{ dnd_counter }}-{{ target_counter }}">{{ origin_counter }}</span>
               </li>
               {% endfor %}
             </ul>
@@ -144,30 +144,30 @@
               {% set clone_counter  = ( clone_counter | default(0) ) + 1 %}
               {% set origin_counter  = ( origin_counter | default(-1) ) + 1 %}
               <li class="dnd-origin dnd-label">
-                <span class="drag-handle drag-handle-{{ dnd_counter }}" data-identifier="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}-{{ origin_counter }}">{{ clone_counter }}</span>
+                <span class="drag-handle drag-handle-{{ dnd_counter }}" data-identifier="{{ point.slug }}-quiz-dnd-{{ dnd_counter }}-{{ origin_counter }}">{{ clone_counter }}</span>
                 <span class="clone visually-hidden">{{ clone_counter }}</span>
                 <span class="text">{{ target.option }}</span>
               </li>
               {% endfor %}
             </ul>
           </div>
-          <button class="check-dnd submit-button visually-hidden" id="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}--check">Ελεγξέ το!</button>
-          <button class="reset-dnd submit-button visually-hidden" id="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}--reset">Δες τις σωστές θέσεις!</button>
-          <button class="clear-dnd submit-button visually-hidden" id="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}--clear">Παίξε ξανά!</button><span class="check-answer-dnd" id="{{ point.title.rendered }}-quiz-dnd-{{ dnd_counter }}--check-answer-dnd"></span>
+          <button class="check-dnd submit-button visually-hidden" id="{{ point.slug }}-quiz-dnd-{{ dnd_counter }}--check">Ελεγξέ το!</button>
+          <button class="reset-dnd submit-button visually-hidden" id="{{ point.slug }}-quiz-dnd-{{ dnd_counter }}--reset">Δες τις σωστές θέσεις!</button>
+          <button class="clear-dnd submit-button visually-hidden" id="{{ point.slug }}-quiz-dnd-{{ dnd_counter }}--clear">Παίξε ξανά!</button><span class="check-answer-dnd" id="{{ point.slug }}-quiz-dnd-{{ dnd_counter }}--check-answer-dnd"></span>
         </section>
         {% endif %}
         {% if card.acf_fc_layout === 'hotspot' %}
         {% set hotspot_counter  = ( hotspot_counter | default(0) ) + 1 %}
         <section class="text">
           <p>{{ card.hotspot_description }}</p>
-          <div id="{{ point.title.rendered }}-quiz-hotspot-{{ quiz_counter }}" class="quiz-hotspot {{ card.hotspot_type }}">
+          <div id="{{ point.slug }}-quiz-hotspot-{{ quiz_counter }}" class="quiz-hotspot {{ card.hotspot_type }}">
             <figure class="hotspot-image hotspot-target-container" style="width:{{ card.hotspot_file.width }}px;height:{{ card.hotspot_file.height }}px;">
               <img src="{{ card.hotspot_file.url }}" width="{{ card.hotspot_file.width }}" height="{{ card.hotspot_file.height }}">
               {% for hotspot in card.hotspots %}
               {% set target_counter  = ( target_counter | default(-1) ) + 1 %}
               {% set origin_counter  = ( origin_counter | default(0) ) + 1 %}
-              <div class="hotspot drag-handle-target" data-identifier="{{ point.title.rendered }}-quiz-hotspot-{{ hotspot_counter }}-{{ target_counter }}" data-coordinates="{{ hotspot.hotspot_coordinates }}" data-title="{{ hotspot.hotspot_title | escape }}" data-description="{{ hotspot.hotspot_description | escape }}">
-                <span class="right-positions" data-identifier="{{ point.title.rendered }}-quiz-hotspot-{{ hotspot_counter }}-{{ target_counter }}">{{ origin_counter }}</span>
+              <div class="hotspot drag-handle-target" data-identifier="{{ point.slug }}-quiz-hotspot-{{ hotspot_counter }}-{{ target_counter }}" data-coordinates="{{ hotspot.hotspot_coordinates }}" data-title="{{ hotspot.hotspot_title | escape }}" data-description="{{ hotspot.hotspot_description | escape }}">
+                <span class="right-positions" data-identifier="{{ point.slug }}-quiz-hotspot-{{ hotspot_counter }}-{{ target_counter }}">{{ origin_counter }}</span>
               </div>
               {% endfor %}
             </figure>
@@ -177,7 +177,7 @@
               {% set clone_counter  = ( clone_counter | default(0) ) + 1 %}
               {% set origin_counter  = ( origin_counter | default(-1) ) + 1 %}
               <li class="hotspot-origin hotspot-label">
-                <span class="drag-handle drag-handle-{{ hotspot_counter }}" data-identifier="{{ point.title.rendered }}-quiz-hotspot-{{ hotspot_counter }}-{{ origin_counter }}">{{ clone_counter }}</span>
+                <span class="drag-handle drag-handle-{{ hotspot_counter }}" data-identifier="{{ point.slug }}-quiz-hotspot-{{ hotspot_counter }}-{{ origin_counter }}">{{ clone_counter }}</span>
                 <span class="clone visually-hidden">{{ clone_counter }}</span>
                 <span class="text">{{ hotspot.hotspot_title }}</span>
               </li>
@@ -185,10 +185,10 @@
             </ul>
             {% endif %}
           </div>
-          <button class="check-hotspot submit-button visually-hidden" id="{{ point.title.rendered }}-quiz-hotspot-{{ quiz_counter }}--check">Ελεγξέ το!</button>
-          <button class="reset-hotspot submit-button visually-hidden" id="{{ point.title.rendered }}-quiz-hotspot-{{ quiz_counter }}--reset">Δες τις σωστές θέσεις!</button>
-          <button class="clear-hotspot submit-button visually-hidden" id="{{ point.title.rendered }}-quiz-hotspot-{{ quiz_counter }}--clear">Παίξε ξανά!</button>
-          <span class="check-answer-hotspot" id="{{ point.title.rendered }}-quiz-hotspot-{{ quiz_counter }}--check-answer-hotspot"></span>
+          <button class="check-hotspot submit-button visually-hidden" id="{{ point.slug }}-quiz-hotspot-{{ quiz_counter }}--check">Ελεγξέ το!</button>
+          <button class="reset-hotspot submit-button visually-hidden" id="{{ point.slug }}-quiz-hotspot-{{ quiz_counter }}--reset">Δες τις σωστές θέσεις!</button>
+          <button class="clear-hotspot submit-button visually-hidden" id="{{ point.slug }}-quiz-hotspot-{{ quiz_counter }}--clear">Παίξε ξανά!</button>
+          <span class="check-answer-hotspot" id="{{ point.slug }}-quiz-hotspot-{{ quiz_counter }}--check-answer-hotspot"></span>
         </section>
       {% elif card.acf_fc_layout === 'sortable' %}
       <section class="text quiz-sortable">
@@ -212,7 +212,7 @@
         {{ card.quiz_description }}
         {% for option in card.quiz %}
         {% set options_counter  = ( options_counter | default(0) ) + 1 %}
-        <form id="gform-{{ point.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}" class="multiple-choice" action="{{  option.quiz_form_url }}" method="POST">
+        <form id="gform-{{ point.slug }}-{{ quiz_counter }}-{{ options_counter }}" class="multiple-choice" action="{{  option.quiz_form_url }}" method="POST">
           <fieldset>
             <legend 
               for="{{  option.quiz_field_name }}" 
@@ -223,13 +223,13 @@
             {% set sub_options_counter  = ( sub_options_counter | default(0) ) + 1 %}
             <p class="radio">
               <input 
-                id="{{  option.quiz_field_name }}-{{ point.title.rendered }}-{{ sub_options_counter }}" 
+                id="{{  option.quiz_field_name }}-{{ point.slug }}-{{ sub_options_counter }}" 
                 name="{{  option.quiz_field_name }}" 
                 type="radio" 
                 value="{{  sub_option.quiz_input_value }}"
                 data-type="{% if sub_option.quiz_input_type === 'Σωστό' %}correct{% else %}wrong{% endif %}" 
               />
-              <label for="{{  option.quiz_field_name }}-{{ point.title.rendered }}-{{ sub_options_counter }}">
+              <label for="{{  option.quiz_field_name }}-{{ point.slug }}-{{ sub_options_counter }}">
                 <span>
                   <i class="icon checkbox-r"></i>
                   <i class="icon checkbox-w-thick"></i>
@@ -240,7 +240,7 @@
             {% endfor %}
           </fieldset>
       </form>
-      <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}--submit" class="button submit submit-button">
+      <button id="gform-{{ point.slug }}-{{ quiz_counter }}-{{ options_counter }}--submit" class="button submit submit-button">
         Δες τη σωστή απάντηση!
         <div class="loader">
         <svg class="circular" viewBox="25 25 50 50">
@@ -248,11 +248,11 @@
         </svg>
       </div>
       </button>
-      <small id="gform-{{ point.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}--form-error" class="form-error"></small>
-      <article id="gform-{{ point.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}--thankyou_message" class="thankyou_message" style="display: none;">
+      <small id="gform-{{ point.slug }}-{{ quiz_counter }}-{{ options_counter }}--form-error" class="form-error"></small>
+      <article id="gform-{{ point.slug }}-{{ quiz_counter }}-{{ options_counter }}--thankyou_message" class="thankyou_message" style="display: none;">
         <p><span class="check-answer"></span><br> {{  option.quiz_thank_you_message }}</p>
         <small>Ευχαριστούμε για την απάντηση σου!</small>
-        <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}-{{ options_counter }}--reset" class="button reset submit-button visually-hidden">
+        <button id="gform-{{ point.slug }}-{{ quiz_counter }}-{{ options_counter }}--reset" class="button reset submit-button visually-hidden">
           Προσπάθησε ξανά!
         <div class="loader">
           <svg class="circular" viewBox="25 25 50 50">
@@ -263,17 +263,17 @@
       </article>
       {% endfor %}
       {% elif card.acf_fc_layout === 'short_text' %}
-      <form id="gform-{{ point.title.rendered }}-short_text-{{ quiz_counter }}" class="short-text feedback" action="{{  card.form_url }}" method="POST">
+      <form id="gform-{{ point.slug }}-short_text-{{ quiz_counter }}" class="short-text feedback" action="{{  card.form_url }}" method="POST">
         <fieldset>
           <legend>{{  card.form_title }}</legend>
           <textarea
-            id="{{  card.form_field_name }}-{{ point.title.rendered }}" 
+            id="{{  card.form_field_name }}-{{ point.slug }}" 
             name="{{  card.form_field_name }}"
             rows="10" cols="50" wrap="physical" placeholder="Γράψε κάτι εδώ!"
           ></textarea>
         </fieldset>
       </form>
-      <button id="gform-{{ point.title.rendered }}-short_text-{{ quiz_counter }}--submit" class="button submit submit-button">
+      <button id="gform-{{ point.slug }}-short_text-{{ quiz_counter }}--submit" class="button submit submit-button">
         Υποβολή!
         <div class="loader">
         <svg class="circular" viewBox="25 25 50 50">
@@ -281,24 +281,24 @@
         </svg>
       </div>
       </button>
-      <small id="gform-{{ point.title.rendered }}-short_text-{{ quiz_counter }}--form-error" class="form-error"></small>
-      <article id="gform-{{ point.title.rendered }}-short_text-{{ quiz_counter }}--thankyou_message" class="thankyou_message" style="display: none;">
+      <small id="gform-{{ point.slug }}-short_text-{{ quiz_counter }}--form-error" class="form-error"></small>
+      <article id="gform-{{ point.slug }}-short_text-{{ quiz_counter }}--thankyou_message" class="thankyou_message" style="display: none;">
         <small>Ευχαριστούμε για την απάντηση σου!</small>
       </article>
       {% elif card.acf_fc_layout === 'feedback' %}
         {% for type in card.type %} 
         {% if type.acf_fc_layout === 'short_text' %}
-        <form id="gform-{{ point.title.rendered }}-short_text-{{ quiz_counter }}" class="short-text feedback" action="{{  type.form_url }}" method="POST">
+        <form id="gform-{{ point.slug }}-short_text-{{ quiz_counter }}" class="short-text feedback" action="{{  type.form_url }}" method="POST">
           <fieldset>
             <legend>{{  type.form_description }}</legend>
             <textarea
-              id="{{  type.form_field_name }}-{{ point.title.rendered }}" 
+              id="{{  type.form_field_name }}-{{ point.slug }}" 
               name="{{  type.form_field_name }}"
               rows="10" cols="50" wrap="physical" placeholder="Γράψε κάτι εδώ!"
             ></textarea>
           </fieldset>
         </form>
-        <button id="gform-{{ point.title.rendered }}-short_text-{{ quiz_counter }}--submit" class="button submit submit-button">
+        <button id="gform-{{ point.slug }}-short_text-{{ quiz_counter }}--submit" class="button submit submit-button">
           Υποβολή!
         <div class="loader">
           <svg class="circular" viewBox="25 25 50 50">
@@ -306,14 +306,14 @@
           </svg>
         </div>
         </button>
-        <small id="gform-{{ point.title.rendered }}-short_text-{{ quiz_counter }}--form-error" class="form-error"></small>
-        <article id="gform-{{ point.title.rendered }}-short_text-{{ quiz_counter }}--thankyou_message" class="thankyou_message" style="display: none;">
+        <small id="gform-{{ point.slug }}-short_text-{{ quiz_counter }}--form-error" class="form-error"></small>
+        <article id="gform-{{ point.slug }}-short_text-{{ quiz_counter }}--thankyou_message" class="thankyou_message" style="display: none;">
           <small>Ευχαριστούμε για την απάντηση σου!</small>
         </article>
         {% endif %}
         {% endfor %}
       {% elif card.acf_fc_layout === 'multiple_choice' or card.acf_fc_layout === 'checkbox' or card.acf_fc_layout === 'likert' %}
-      <form id="gform-{{ point.title.rendered }}-{{ quiz_counter }}" class="{% if card.acf_fc_layout === 'multiple_choice' %}multiple-choice{% elif card.acf_fc_layout === 'checkbox' %}checkbox-quiz{% elif card.acf_fc_layout === 'likert' %}likert{% endif %}" action="{{  card.quiz_form_url }}" method="POST">
+      <form id="gform-{{ point.slug }}-{{ quiz_counter }}" class="{% if card.acf_fc_layout === 'multiple_choice' %}multiple-choice{% elif card.acf_fc_layout === 'checkbox' %}checkbox-quiz{% elif card.acf_fc_layout === 'likert' %}likert{% endif %}" action="{{  card.quiz_form_url }}" method="POST">
         <fieldset>
           <legend for="{{  card.quiz_field_name }}{{ options_counter }}" 
           name="{% if card.acf_fc_layout === 'multiple_choice' or card.acf_fc_layout === 'likert' %}{{ card.quiz_field_name }}{% elif card.acf_fc_layout === 'checkbox' %}{{  card.quiz_field_name }}{{ options_counter }}{% endif %}">{{  card.quiz_title }}{{ card.quiz_extended_text }}</legend>
@@ -322,13 +322,13 @@
           {% set options_counter  = ( options_counter | default(0) ) + 1 %}
           <p class="{% if card.acf_fc_layout === 'multiple_choice' %}radio{% elif card.acf_fc_layout === 'checkbox' %}checkbox{% elif card.acf_fc_layout === 'likert' %}likert{% endif %}">
             <input 
-            id="{{  card.quiz_field_name }}-{{ point.title.rendered }}-{{ options_counter }}" 
+            id="{{  card.quiz_field_name }}-{{ point.slug }}-{{ options_counter }}" 
             name="{% if card.acf_fc_layout === 'multiple_choice' %}{{  card.quiz_field_name }}{% elif card.acf_fc_layout === 'checkbox' %}{{  option.quiz_input_value  }}{% endif %}" 
             type="{% if card.acf_fc_layout === 'multiple_choice' %}radio{% elif card.acf_fc_layout === 'likert' %}radio{% elif card.acf_fc_layout === 'checkbox' %}checkbox{% endif %}" 
             value="{{  option.quiz_input_value }}"
             data-type="{% if option.quiz_input_type === 'Σωστό' %}correct{% else %}wrong{% endif %}" 
             />
-            <label for="{{  card.quiz_field_name }}-{{ point.title.rendered }}-{{ options_counter }}">
+            <label for="{{  card.quiz_field_name }}-{{ point.slug }}-{{ options_counter }}">
             <span>
               <i class="icon checkbox-r"></i>
               <i class="icon checkbox-w-thick"></i>
@@ -351,59 +351,59 @@
           <div class="likert-container">
             <p class="likert">
               <input 
-              id="{{ card.quiz_field_name }}-{{ point.title.rendered }}-1"
+              id="{{ card.quiz_field_name }}-{{ point.slug }}-1"
               type="radio"
               name="{{  card.quiz_field_name }}"
               value="καθόλου"
               >
-              <label for="{{  card.quiz_field_name }}-{{ point.title.rendered }}-1">
+              <label for="{{  card.quiz_field_name }}-{{ point.slug }}-1">
                 <span></span>
                 <mark>καθόλου</mark>
             </p>
             <p class="likert">
               <input 
-                id="{{  card.quiz_field_name }}-{{ point.title.rendered }}-2"
+                id="{{  card.quiz_field_name }}-{{ point.slug }}-2"
                 type="radio"
                 name="{{  card.quiz_field_name }}"
                 value="λίγο"
               />
-              <label for="{{  card.quiz_field_name }}-{{ point.title.rendered }}-2">
+              <label for="{{  card.quiz_field_name }}-{{ point.slug }}-2">
                 <span></span>
                 <mark>λίγο</mark>
               </label>
             </p>
             <p class="likert">
               <input 
-                id="{{  card.quiz_field_name }}-{{ point.title.rendered }}-3"
+                id="{{  card.quiz_field_name }}-{{ point.slug }}-3"
                 type="radio"
                 name="{{  card.quiz_field_name }}"
                 value="μέτρια"
               />
-              <label for="{{  card.quiz_field_name }}-{{ point.title.rendered }}-3">
+              <label for="{{  card.quiz_field_name }}-{{ point.slug }}-3">
                 <span></span>
                 <mark>μέτρια</mark>
               </label>
             </p>
             <p class="likert">
               <input 
-                id="{{  card.quiz_field_name }}-{{ point.title.rendered }}-4"
+                id="{{  card.quiz_field_name }}-{{ point.slug }}-4"
                 type="radio"
                 name="{{  card.quiz_field_name }}"
                 value="αρκετά"
               />
-              <label for="{{  card.quiz_field_name }}-{{ point.title.rendered }}-4">
+              <label for="{{  card.quiz_field_name }}-{{ point.slug }}-4">
                 <span></span>
                 <mark>αρκετά</mark>
               </label>
             </p>
             <p class="likert">
               <input 
-                id="{{  card.quiz_field_name }}-{{ point.title.rendered }}-5"
+                id="{{  card.quiz_field_name }}-{{ point.slug }}-5"
                 type="radio"
                 name="{{  card.quiz_field_name }}"
                 value="πάρα πολύ"
               />
-              <label for="{{  card.quiz_field_name }}-{{ point.title.rendered }}-5">
+              <label for="{{  card.quiz_field_name }}-{{ point.slug }}-5">
                 <span></span>
                 <mark>πάρα πολύ</mark>
               </label>
@@ -414,7 +414,7 @@
 
       {% endif %}
       {% if card.acf_fc_layout === 'likert' %}
-      <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}--submit" class="button submit submit-button">
+      <button id="gform-{{ point.slug }}-{{ quiz_counter }}--submit" class="button submit submit-button">
         Υποβολή
       <div class="loader">
         <svg class="circular" viewBox="25 25 50 50">
@@ -424,7 +424,7 @@
       </button>
       {% endif %}
       {% if card.acf_fc_layout === 'multiple_choice' %}
-      <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}--submit" class="button submit submit-button">
+      <button id="gform-{{ point.slug }}-{{ quiz_counter }}--submit" class="button submit submit-button">
         Δες τη σωστή απάντηση!
       <div class="loader">
         <svg class="circular" viewBox="25 25 50 50">
@@ -434,7 +434,7 @@
       </button>
       {% endif %}
       {% if card.acf_fc_layout === 'checkbox' %}
-      <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}--submit" class="button submit submit-button">
+      <button id="gform-{{ point.slug }}-{{ quiz_counter }}--submit" class="button submit submit-button">
         Δες τις σωστές απαντήσεις!
         <div class="loader">
           <svg class="circular" viewBox="25 25 50 50">
@@ -444,7 +444,7 @@
       </button>
       {% endif %}
       {% if card.acf_fc_layout === 'sortable' %}
-      <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}--resort" class="button resort submit-button">Δες τη σωστή σειρά!
+      <button id="gform-{{ point.slug }}-{{ quiz_counter }}--resort" class="button resort submit-button">Δες τη σωστή σειρά!
       <div class="loader">
         <svg class="circular" viewBox="25 25 50 50">
           <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>
@@ -461,11 +461,11 @@
       </div>
       {% endif %}
       {% if card.acf_fc_layout === 'checkbox' or card.acf_fc_layout === 'multiple_choice' or card.acf_fc_layout === 'likert'  %}
-      <small id="gform-{{ point.title.rendered }}-{{ quiz_counter }}--form-error" class="form-error"></small>
-      <article id="gform-{{ point.title.rendered }}-{{ quiz_counter }}--thankyou_message" class="thankyou_message" style="display: none;">
+      <small id="gform-{{ point.slug }}-{{ quiz_counter }}--form-error" class="form-error"></small>
+      <article id="gform-{{ point.slug }}-{{ quiz_counter }}--thankyou_message" class="thankyou_message" style="display: none;">
         {% if card.acf_fc_layout !== 'likert'  %}<p><span class="check-answer"></span><br> {{  card.quiz_thank_you_msg }}</p>{% endif %}
         <small>Ευχαριστούμε για την απάντηση σου!</small>
-        <button id="gform-{{ point.title.rendered }}-{{ quiz_counter }}--reset" class="button reset submit-button visually-hidden">
+        <button id="gform-{{ point.slug }}-{{ quiz_counter }}--reset" class="button reset submit-button visually-hidden">
           Προσπάθησε ξανά!
         <div class="loader">
           <svg class="circular" viewBox="25 25 50 50">
@@ -475,7 +475,7 @@
         </button>
       </article>
       {% elif card.acf_fc_layout === 'likert' %}
-      <article id="gform-{{ point.title.rendered }}-{{ quiz_counter }}--" class="thankyou_message" style="display: none;">
+      <article id="gform-{{ point.slug }}-{{ quiz_counter }}--" class="thankyou_message" style="display: none;">
       <small>Ευχαριστούμε για την απάντηση σου!</small>
       </article>
       {% endif %} 

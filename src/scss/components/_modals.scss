@@ -278,7 +278,6 @@
 .popup .close {
   top: 10px;
   right: 10px;
-  // background-image: url('../graphics/close-popup.svg');
   width: 15px;
   height: 15px;
 }
@@ -286,7 +285,6 @@
 .page .close {
   top: 20px;
   right: 20px;
-  // background-image: url('../graphics/close-page-color.svg');
   width: 34px;
   height: 34px;
 }
@@ -302,11 +300,6 @@
   display: inline-block;
   top: auto;
   right: auto;
-  // background-image: none;
-  // background-color: $accent;
-  // color: #fff;
-  // padding: 5px;
-  // border-radius: 30px;
 }
 
 /**
@@ -325,9 +318,11 @@
   height: 100%;
   opacity: 0;
   z-index: -1;
+
   &.overlay-open {
     opacity: 1; 
     z-index: 4;
+    // transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
   }
 }
 
@@ -361,11 +356,11 @@
   border-radius: 0;
   box-shadow: 0 0 12px 0 rgba(0,0,0,0.1), 0 10px 30px 0 rgba(0,0,0,0.2);
   overflow: hidden;
-  transform: translate3d(100%, 0, 0);   
-  transition: transform 0.5s cubic-bezier(0.18,0.44,0.28,0.93); 
+  transform: translate3d(100%, 0, 0); 
+  transition: transform 0.5s cubic-bezier(0.18,0.44,0.28,0.93); //when page-open class is removed fire this transition
   z-index: 10;
   &.page-open {
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0); 
     transition: transform 0.6s cubic-bezier(0.4, 0.18, 0.6, 0.14);
   }
 }
@@ -556,7 +551,7 @@
     cursor: pointer;
     animation-duration: 0.8s; 
     animation-fill-mode: both;
-    filter: grayscale(90%); 
+    //filter: grayscale(90%); 
     transition: 0.7s ease-in-out;
     &.activeSlide, 
     &.visited,
@@ -565,13 +560,13 @@
     }
     &.activeSlide,
     &.activeSlide.visited {
-      filter: grayscale(0%);
+     // filter: grayscale(0%);
     }
     &.visited {
-      filter: grayscale(70%);
+      //filter: grayscale(70%);
     }
     &:hover {
-      filter: grayscale(0%);
+      //filter: grayscale(0%);
     }
   }
 }

@@ -99,7 +99,9 @@ gulp.task('scripts', ['bundle'], function() {
     return gulp.src(jsFiles)
         .pipe(concat('app.js'))
         .pipe(gulp.dest(jsDest))
-        .pipe(uglify())
+        .pipe(uglify().on('error', function(e){
+         console.log(e);
+        }))
         .pipe(gulp.dest(jsDest))
 })
 
@@ -262,13 +264,15 @@ gulp.task('minify', function() {
 
 gulp.task('lint', function() {
   return gulp.src('js/app.js')
-    .pipe(jshint())
+    .pipe(jshint({
+      esversion: 6
+    }))
     .pipe(jshint.reporter('default'));
 });
 
 
 gulp.task('watch', ['sass', 'scripts', 'nunjucks', 'revreplace-dev', 'sprites', 'copy-assets'], function(){
-  gulp.watch('scss/**/*.scss', ['sass, autoprefixer']);
+  gulp.watch('scss/**/*.scss', ['sass']);
   gulp.watch('js/**/*.js', ['scripts']); 
   gulp.watch('js/**/*.+(html|nunjucks)', ['nunjucks']); 
   gulp.watch('../dist/dev.html', ['revreplace-dev']);
@@ -279,7 +283,7 @@ gulp.task('build', function(callback) {
   runSequence(
     'sass',
     'autoprefixer',
-    'scripts',
+    //'scripts',
     'revreplaceSW',
     'revreplaceAppjs',
     'copy-assets',
