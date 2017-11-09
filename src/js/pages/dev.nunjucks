@@ -168,6 +168,7 @@
               {% set origin_counter  = ( origin_counter | default(0) ) + 1 %}
               <div class="hotspot drag-handle-target" data-identifier="{{ point.slug }}-quiz-hotspot-{{ hotspot_counter }}-{{ target_counter }}" data-coordinates="{{ hotspot.hotspot_coordinates }}" data-title="{{ hotspot.hotspot_title | escape }}" data-description="{{ hotspot.hotspot_description | escape }}">
                 <span class="right-positions" data-identifier="{{ point.slug }}-quiz-hotspot-{{ hotspot_counter }}-{{ target_counter }}">{{ origin_counter }}</span>
+                <span class="ripple"></span>
               </div>
               {% endfor %}
             </figure>

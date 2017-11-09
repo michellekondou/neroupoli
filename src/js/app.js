@@ -1125,24 +1125,14 @@ for(var d = 0;d<hotspot_quiz.length;d++){
       hotspot_target_container = $(this.target).parent().parent().parent();
       hotspot_targets = hotspot_target_container.find('.drag-handle-target');
       hotspot_available_targets = hotspot_target_container.find('.available');
-
-      for(var lp = 0;lp<hotspot_targets.length;lp++){
-        _target = hotspot_targets[lp];
-        _parent = $(_target).parent();
-        //on drag start check the data-hit attribute - if it has a value it is because a draggable instance has been assigned to it and passed it its data-identifier attribute
-        //if it has a value it means draggable was there
-        //remove the data-hit attribute value and signify that it is available again
-        if ( $(_target).attr('data-hit') === $(this.target).attr('data-identifier') ) {
-          $(_target).attr('data-hit','').addClass('available').removeClass('showOver ripple');
-        }
-      }
-      hotspot_reset.addClass('visually-hidden');
-      hotspot_check.removeClass('visually-hidden');
-      //clear the prompt message box
-      hotspot_prompt.html('');
+      positioned = hotspot_target_container.find('.positioned');
     },
     onDragStart:function(e) {
-      $(hotspot_target_container).find('.clone').removeClass('visually-hidden');
+      hotspot_target_container.find('.clone').removeClass('visually-hidden');
+      hotspot_reset.addClass('visually-hidden');
+      positioned.removeClass('highlight-wrong highlight-correct');
+      //clear the prompt message box
+      hotspot_prompt.html('');
     },
     onDrag:function(e) {
       for(var i=0; i<hotspot_targets.length;i++){
@@ -1153,6 +1143,8 @@ for(var d = 0;d<hotspot_quiz.length;d++){
          } else {
           if ($(_target).attr('data-hit') === '') {
             $(_target).removeClass("showOver ripple");
+          } else if ( $(_target).attr('data-hit') === $(this.target).attr('data-identifier') ) {
+            $(_target).attr('data-hit','').addClass('available').removeClass('showOver ripple');
           }
           
          }
@@ -1179,7 +1171,7 @@ for(var d = 0;d<hotspot_quiz.length;d++){
             $(this.target).removeClass("wrong highlight-wrong correct highlight-correct");
             $(this.target).addClass("wrong");
           }
-
+          console.log($(this.target).attr('data-identifier'));
           if ( $(current_hotspot_target).hasClass("available") ) { 
             //if there isn't one there already
             //give the target an attribute of data-hit to mark that there has been a match
@@ -1223,9 +1215,10 @@ for(var d = 0;d<hotspot_quiz.length;d++){
         } 
       }//end for loop
       if(!snapMade){
-        hotspot_check.addClass('visually-hidden');
+        //hotspot_check.addClass('visually-hidden');
         $(this.target).removeClass("showOver correct wrong highlight-correct highlight-wrong positioned ripple");
-        positioned = $(quiz).find('.positioned');
+        
+        console.log(positioned, positioned.length);
         if (positioned.length === 0) {
           //only show the check hotspot button if at least an item has been dragged
           hotspot_check.addClass('visually-hidden');
@@ -1249,11 +1242,13 @@ for(var d = 0;d<hotspot_quiz.length;d++){
     var hotspot_id = hotspot_check_id.substring(0, hotspot_check_id.indexOf('--'));
     var hotspot_labels = $('#'+hotspot_id+' .right-positions');
     var draggable_item = $('#'+hotspot_id+' .drag-handle');
+    var draggable_target = $('#'+hotspot_id+' .drag-handle-target');
     var correct = $('#'+hotspot_id+' .correct');
     var wrong = $('#'+hotspot_id+' .wrong');
 
     correct.addClass('highlight-correct');
     wrong.addClass('highlight-wrong');
+    draggable_target.removeClass('showOver ripple');
 
     var positioned = $('#'+hotspot_id+' .positioned');
     var correct_positioned = $('#'+hotspot_id+' .positioned.correct');
@@ -1273,26 +1268,38 @@ for(var d = 0;d<hotspot_quiz.length;d++){
     var hotspot_id = hotspot_reset_id.substring(0, hotspot_reset_id.indexOf('--'));
     var right_positions = $('#'+hotspot_id+' .right-positions');
     var draggable_item = $('#'+hotspot_id+' .drag-handle');
+    var draggable_target = $('#'+hotspot_id+' .drag-handle-target');
+    var clones = $('#'+hotspot_id+' .clone');
     var ht;
 
-    var tl = new TimelineLite();
-    tl
-    .set(draggable_item,{
-      opacity: 0,
-      x: 0,
-      y: 0
-    });
-
     draggable_item.removeClass('positioned correct wrong highlight-wrong highlight-correct');
-
+    
     var hotspot_texts = [];
     for(var t=0;t<right_positions.length;t++){
       ht = right_positions[t];
       $(ht).removeClass('no-opacity');
       hotspot_texts.push(ht);
     }
+    clones.addClass('default');
+    var tt = new TimelineLite();
+    tt.set(draggable_item, {
+      display: 'none',
+      x: 0,
+      y: 0
+    })
 
-    tl.staggerFromTo(hotspot_texts, 1, {opacity:0}, {opacity:1}, 1);
+    var tl = new TimelineLite({
+      onComplete: function(){
+      }
+    });
+
+    var tk = new TimelineLite({
+      onComplete: function(){
+      }
+    });
+
+    tl.staggerFromTo(hotspot_texts, 0.6, {opacity:0}, {opacity:1}, 0.3);
+    //tk.staggerFromTo(draggable_target, 1, {scale:0}, {scale:2}, 1);
 
     setTimeout(function(){
       hotspot_reset.addClass('visually-hidden');
@@ -1306,6 +1313,8 @@ for(var d = 0;d<hotspot_quiz.length;d++){
     var hotspot_id = hotspot_clear_id.substring(0, hotspot_clear_id.indexOf('--'));
     var right_positions = $('#'+hotspot_id+' .right-positions');
     var draggable_item = $('#'+hotspot_id+' .drag-handle');
+    var draggable_target = $('#'+hotspot_id+' .drag-handle-target');
+    var clones = $('#'+hotspot_id+' .clone');
     hotspot_prompt.removeClass('correct').html('');
     right_positions.removeAttr('style').addClass('no-opacity');
     draggable_item.removeClass('positioned correct wrong highlight-wrong highlight-correct');
@@ -1326,9 +1335,12 @@ for(var d = 0;d<hotspot_quiz.length;d++){
     //kill everything
     TweenMax.killAll();
 
-    TweenLite.to(draggable_item, 0.5,{
+    TweenLite.to(draggable_item, 0.5, {
+      display: 'flex',
       opacity: 1
     });
+    clones.removeClass('default');
+    draggable_target.removeClass('showOver ripple');
   });
 }//end for hotspot loop
 
@@ -1457,7 +1469,7 @@ for(var d = 0;d<dnd_quiz.length;d++){
   //set some variables
 
 
-  dnd_overlapThreshold = "50%";
+  dnd_overlapThreshold = "70%";
   dnd_prompt = $(quiz).find('.check-answer-dnd');
   dnd_reset = $('#'+$(quiz).attr('id')+'--reset');
   dnd_check = $('#'+$(quiz).attr('id')+'--check');
@@ -1476,7 +1488,8 @@ for(var d = 0;d<dnd_quiz.length;d++){
       dnd_target_container = $(this.target).parent().parent().parent();
       dnd_targets = dnd_target_container.find('.drag-handle-target');
       dnd_available_targets = dnd_target_container.find('.available');
-
+      positioned = dnd_target_container.find('.positioned');
+      console.log(positioned, positioned.length);
       for(var lp = 0;lp<dnd_targets.length;lp++){
         _target = dnd_targets[lp];
         _parent = $(_target).parent();
@@ -1492,43 +1505,47 @@ for(var d = 0;d<dnd_quiz.length;d++){
         //assign the position as attributes to grab later on dragEnd
         $(_target).attr('data_x', data_x);
         $(_target).attr('data_y', data_y);
-
-        //on drag start check the data-hit attribute - if it has a value it is because a draggable instance has been assigned to it and passed it its data-identifier attribute
-        //if it has a value it means draggable was there
-        //remove the data-hit attribute value and signify that it is available again
-        if ( $(_target).attr('data-hit') === $(this.target).attr('data-identifier') ) {
-          $(_target).attr('data-hit','').addClass('available').removeClass('showOver ripple');
-        }
       }
       dnd_reset.addClass('visually-hidden');
-      dnd_check.removeClass('visually-hidden');
       //clear the prompt message box
-      dnd_prompt.html('');
     },
     onDragStart: function() {
-      $(dnd_target_container).find('.clone').removeClass('visually-hidden');
+      dnd_target_container.find('.clone').removeClass('visually-hidden');
+      dnd_reset.addClass('visually-hidden');
+      positioned.removeClass('highlight-wrong highlight-correct');
+      //clear the prompt message box
+      dnd_prompt.html('');
     },
     onDrag:function(e) {
       for(var i=0; i<dnd_targets.length;i++){
         _target = dnd_targets[i];
         if (this.hitTest(_target, dnd_overlapThreshold)) {
+          console.log('still inside hit target');
           //if draggable in target range highlight it and animate it
           $(_target).addClass("showOver ripple");
          } else {
+          console.log('out of hit target');
           if ($(_target).attr('data-hit') === '') {
             $(_target).removeClass("showOver ripple");
+          } else if ( $(_target).attr('data-hit') === $(this.target).attr('data-identifier') ) {
+          //on drag start check the data-hit attribute - if it has a value it is because a draggable instance has been assigned to it and passed it its data-identifier attribute
+          //if it has a value it means draggable was there
+          //remove the data-hit attribute value and signify that it is available again
+            $(_target).attr('data-hit','').addClass('available').removeClass('showOver ripple');
           }
-          
+            
          }
       }
     },
     onDragEnd:function(e) {
+      
       snapMade = false;
       for(var i=0; i<dnd_targets.length;i++){
         current_dnd_target = dnd_targets[i];
         identifier = $(current_dnd_target).attr('data-identifier');
         if(this.hitTest(current_dnd_target, dnd_overlapThreshold)){
           snapMade = true; 
+
           //connect source and target via an identifier
           //give the draggable item an attr of data-target with a value of the hit id
           //also give it a couple of styling classes
@@ -1584,15 +1601,20 @@ for(var d = 0;d<dnd_quiz.length;d++){
           }
           //if there is a current target (i.e. a match has been made, don't allow it to be a target as long as its populated with another draggable item)
           $(current_dnd_target).removeClass('available'); 
-        } 
-      }//end for loop
+        } //end for loop
+
+      }
       if(!snapMade){
-        dnd_check.addClass('visually-hidden');
+        console.log('no snaps', positioned.length);
+
         $(this.target).removeClass("showOver correct wrong highlight-correct highlight-wrong positioned ripple");
-        positioned = $(quiz).find('.positioned');
+        positioned = dnd_target_container.find('.positioned');
+        console.log(positioned.length);
         if (positioned.length === 0) {
           //only show the check hotspot button if at least an item has been dragged
           dnd_check.addClass('visually-hidden');
+        } else if (positioned.length !== 0){
+          dnd_check.removeClass('visually-hidden');
         }
         dnd_clear.addClass('visually-hidden');
         $(this.target).attr("data-target",'');
@@ -1612,11 +1634,13 @@ for(var d = 0;d<dnd_quiz.length;d++){
     var dnd_id = dnd_check_id.substring(0, dnd_check_id.indexOf('--'));
     var dnd_labels = $('#'+dnd_id+' .right-positions');
     var draggable_item = $('#'+dnd_id+' .drag-handle');
+    var draggable_target = $('#'+dnd_id+' .drag-handle-target');
     var correct = $('#'+dnd_id+' .correct');
     var wrong = $('#'+dnd_id+' .wrong');
 
     correct.addClass('highlight-correct');
     wrong.addClass('highlight-wrong');
+    draggable_target.removeClass('showOver ripple');
 
     var positioned = $('#'+dnd_id+' .positioned');
     var correct_positioned = $('#'+dnd_id+' .positioned.correct');
@@ -1636,25 +1660,41 @@ for(var d = 0;d<dnd_quiz.length;d++){
     var dnd_id = dnd_reset_id.substring(0, dnd_reset_id.indexOf('--'));
     var right_positions = $('#'+dnd_id+' .right-positions');
     var draggable_item = $('#'+dnd_id+' .drag-handle');
+    var draggable_target = $('#'+dnd_id+' .drag-handle-target');
+    var clones = $('#'+dnd_id+' .clone');
+    var ht;
 
     var tl = new TimelineLite();
     tl
     .set(draggable_item,{
-      opacity: 0,
+      display: 'none',
       x: 0,
       y: 0
+    }).set(draggable_target, {
+      opacity: 0
     });
-
+    clones.addClass('default');
     draggable_item.removeClass('positioned correct wrong highlight-wrong highlight-correct');
 
     var dnd_texts = [];
     for(var t=0;t<right_positions.length;t++){
-      var ht = right_positions[t];
+      ht = right_positions[t];
       $(ht).removeClass('no-opacity');
       dnd_texts.push(ht);
     }
 
-    tl.staggerFromTo(dnd_texts, 1, {opacity:0}, {opacity:1}, 1);
+    tl.staggerFromTo(dnd_texts, 0.6, 
+      {
+        css: {
+          'opacity':0,
+        } 
+      }, 
+      {
+        css: {
+          'opacity':1
+        } 
+      },
+    0.3);
 
     setTimeout(function(){
       dnd_reset.addClass('visually-hidden');
@@ -1668,6 +1708,9 @@ for(var d = 0;d<dnd_quiz.length;d++){
     var dnd_id = dnd_clear_id.substring(0, dnd_clear_id.indexOf('--'));
     var right_positions = $('#'+dnd_id+' .right-positions');
     var draggable_item = $('#'+dnd_id+' .drag-handle');
+    var draggable_target = $('#'+dnd_id+' .drag-handle-target');
+    var clones = $('#'+dnd_id+' .clone');
+
     dnd_prompt.removeClass('correct').html('');
     right_positions.removeAttr('style').addClass('no-opacity');
     draggable_item.removeClass('positioned correct wrong highlight-wrong highlight-correct');
@@ -1689,8 +1732,14 @@ for(var d = 0;d<dnd_quiz.length;d++){
     TweenMax.killAll();
 
     TweenLite.to(draggable_item, 0.5,{
+      display: 'flex',
       opacity: 1
     });
+    TweenLite.set(draggable_target, {
+      opacity: 1
+    });
+
+    clones.removeClass('default');
   });
 }
 
