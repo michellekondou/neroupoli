@@ -603,6 +603,10 @@ MapViewItem.prototype.page_open = function () {
     fit: true 
   });
 
+  console.log('checking scrolltop: ', $(cards).position().top);
+  //save initial top position
+  var card_top = $(cards).position().top;
+
   function onAfter(curr, next, opts) {
     $(this).addClass('current');
     $('#' + parent.page.modal[0].id + ' .progress-bar div:eq(0), .activeSlide').addClass('visited');
@@ -614,6 +618,8 @@ MapViewItem.prototype.page_open = function () {
     //reset drag n drop game
     reset_hotspot();
     reset_dnd();
+    //reset scroll position on tab change
+    next.parentNode.scrollIntoView();
   }
 
 /*------------------------------------*\
@@ -893,7 +899,6 @@ if (container) {
     height: total*60+20
   });
 }
-
 
 //helper functions
 // Changes an elements's position in array
@@ -1790,64 +1795,6 @@ parent.term_popup('.glossary-term', 'data-html');
 //end open_page function
 };
 
-// MapViewItem.prototype.glossary = function () {
-//   var parent = this;
-
-//   var glossary_term = document.querySelectorAll('.glossary-term');
-
-//   var create_glossary_popups = function (element) {
-//     var parent = this;
-//     this.popup_text = element.getAttribute('data-html');
-//     this.popup = $('<div />', {
-//       'class': 'glossary-popup',
-//       'html': this.popup_text
-//     }).insertAfter(element);
-//     this.popup_close = $('<i />', {
-//       'class': 'icon close-popup glossary-close'
-//     }).appendTo(popup);
-
-//     $('.glossary-close').on('click', function(e){
-//       $(this).parent().removeClass('open');
-//     });
-//   };
-
-//   var open_glossary_popup = function (element) {
-//     if (element.target !== this) {
-//       return;
-//     }
-//     //$(element.target).addClass('current');
-//     //get the target's popup
-//     var this_popup = $(element.target).next('.glossary-popup');
-//     //get all open popups except for our target
-//     var all_open_popups = $('.glossary-term').not(element.target).next('.glossary-popup.open');
-//     //remove all open popups before opening a new one
-//     for (var i=0;i<all_open_popups.length;i++) {
-//      $(all_open_popups[i]).removeClass('open');
-//     }
-
-//     $(element.target).parent().width();
-//     //position the popup relative to trigger
-//     var trigger_position_left = $(element.target).position().left;
-//     var parent_width = $(element.target).parent().width();
-
-//     if ( parseInt(parent_width - trigger_position_left) <  this_popup.width()/1.5 ) {
-//       this_popup.css('right', 0);
-//     } else {
-//       this_popup.css('left', trigger_position_left);
-//     }
-      
-//     //toggle the open class on click
-//     this_popup.addClass('open');
-//   };
-//   //for each glossary term in the content 
-//   // 1. create a popup
-//   // 2. add a click event
-//   for (var i=0;i<glossary_term.length;i++) {
-//     create_glossary_popups(glossary_term[i]); /*1*/
-//     glossary_term[i].addEventListener('mouseover', open_glossary_popup, {passive: true}); /*2*/
-//   }
-// };
-
 MapViewItem.prototype.term_popup = function (term_class, text_attribute) {
   var parent = this;
   var term = document.querySelectorAll(term_class);
@@ -1855,9 +1802,10 @@ MapViewItem.prototype.term_popup = function (term_class, text_attribute) {
   var create_term_popup = function (element) {
     if (element.getAttribute('data-title') === null) { return; }
     var parent = this;
+    //doing this mainly for IE11 
     if (element.getAttribute('data-title')) {
-        this.term_title = element.getAttribute('data-title');
-        this.term_description = element.getAttribute('data-description') || element.getAttribute('data-html'); 
+      this.term_title = element.getAttribute('data-title');
+      this.term_description = element.getAttribute('data-description') || element.getAttribute('data-html'); 
     }
 
     this.term_popup = $('<article />', {
@@ -1869,7 +1817,8 @@ MapViewItem.prototype.term_popup = function (term_class, text_attribute) {
       'class': 'icon close-popup term-close'
     }).appendTo(term_popup);
 
-    $('.term-close').on('click', function(e){
+    $('.term-close').on('click', function(event){
+      event.preventDefault();
       $(this).parent().removeClass('open');
     });
   };
@@ -1892,7 +1841,9 @@ MapViewItem.prototype.term_popup = function (term_class, text_attribute) {
     //position the popup relative to trigger
     var trigger_position = $(element.target).position();
     var parent_width = $('.page-content').width();
+    var parent_height = $('.page-content').height();
     var term_popup_width = 460;
+    var term_popup_height;
 
     this_term_popup.css('top', '32px');
     if( term_popup_width > parseInt(parent_width - trigger_position.left) ) {
@@ -1902,10 +1853,15 @@ MapViewItem.prototype.term_popup = function (term_class, text_attribute) {
     } else {
       this_term_popup.css('left', -term_popup_width/2);
     }
-      
+
     //toggle the open class on click
     this_term_popup.addClass('open');
-    
+
+    //position the popup on top of trigger if popup near the bottom
+    term_popup_height = this_term_popup[0].clientHeight;
+    if( term_popup_height + 40 >= parseInt(parent_height - trigger_position.top) ) {
+      this_term_popup.css('top', -term_popup_height);
+    }
   };
 
   //for each glossary term in the content 
@@ -1926,8 +1882,6 @@ MapViewItem.prototype.term_popup = function (term_class, text_attribute) {
       $(".term-popup.open, .glossary-popup.open").removeClass('open');
     });
   }
-
-
 };
 
 MapViewItem.prototype.page_close = function () {
@@ -2011,14 +1965,6 @@ MapViewItem.prototype._init_points = function(points){
   this.point_y = this.rect.top;
   this.point_width = this.rect.width;
   this.point_height = this.rect.height; 
-
-  // this.pin = $("<div />", {
-  //   "class": "pin"
-  // }).appendTo($(item.point)); 
-
-  //the item pin will be in the map
-
-  //( (item.point_width * zoom_level) / 2.4 ) + 
 
   /* Select the svg using d3 */
   var $map    = document.getElementById("map"),
@@ -2130,17 +2076,25 @@ MapViewItem.prototype._init_points = function(points){
     var //zoom_level = MapView.prototype._render_map.call(parent),
         //tooltip height + pin height + margin between pin and tooltip
         modalWidth = Math.floor( parent.tip.modal[0].clientWidth),
-        modalHeight = Math.floor( parent.tip.modal[0].clientHeight),
+        modalHeight = Math.floor( parent.tip.modal[0].clientHeight  );
         modalTitle = parent.tip.modal[0].children[1]; 
-
+        console.log(parent.tip.modal[0], parent.tip.modal[0].clientWidth);
     //only show the tooltip if popup not open 
     if(parent.pop.open === false) {
+      //tooltip top position
       parent.tip.open = true;
-      var pos_top = 
+      var pos_top = ($(this).find('#'+parent.point.id+'-pin').offset().top + parent.map_bcr.top ) - (modalHeight);
+      if (pos_top < 10) {
+        pos_top = ($(this).find('#'+parent.point.id+'-pin').offset().top + parent.map_bcr.top ) + (modalHeight);
+      } 
+      //tooltip left position
+      var pos_left = Math.round($(this).find('#'+parent.point.id+'-pin').offset().left) + parent.map_bcr.left;
+      console.log(Math.round($(this).find('#'+parent.point.id+'-pin').offset().left), pos_left, modalWidth);
+      
       parent.tip.style({
         //position the tooltip on top and middle of point
-        "left": ( $(this).offset().left + parent.map_bcr.left ) - (parent.point_width) + "px",
-        "top": ( $(this).offset().top + parent.map_bcr.top ) - (modalHeight) + "px"
+        "left": pos_left - modalWidth / 3 + "px",
+        "top": pos_top + "px"
       }); 
       $(parent.tip.modal).addClass('open');
     }
@@ -2182,7 +2136,6 @@ MapViewItem.prototype._init_points = function(points){
   svg.select('#'+parent.point.id).on('dblclick', $.proxy(this.page_open, parent));
 
   $('#'+parent.point.id +'-popup'+' .open_page').on('mousedown', $.proxy(this.page_open, parent));
-
 };
 
 /* ========================================================================
@@ -2206,7 +2159,6 @@ MapViewItem.prototype._addListeners = function(){
   $(this.page.modal).find('.close').on("mousedown", $.proxy(this.page_close, parent)); 
   //close popup by clicking on close button
   $(this.pop.modal).find('.close').on("mousedown", $.proxy(this.pop_close, parent));
-
 };
 
 /* ========================================================================
@@ -2239,6 +2191,7 @@ Modal.prototype.init = function(){
   } else if(this.type == "tooltip"){
     this.open = true;
     this.modal = $('.map-popover.tooltip#' + this.point + '-tooltip');
+
   } else if(this.type == "page") {
     this.open = false;
     this.modal = $('.overlay#' + this.point + '-page');
@@ -2350,7 +2303,7 @@ $(window).bind('keydown', function(event) {
 });
 
 $(window).bind('keyup', function(event) {
-    $('.ctrlZoom').removeClass('overlay-open');
+  $('.ctrlZoom').removeClass('overlay-open');
 });
 
 $(window).bind('mousewheel', function(event) {

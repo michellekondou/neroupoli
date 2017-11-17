@@ -89,7 +89,6 @@
 
 .map-popover {
   position: fixed;
-  max-width: 320px;
   padding: 1px;
   font-family: $regular;
   @include rem-fallback(font-size, 14);
@@ -135,6 +134,7 @@
 
 .popup {
   padding: 20px;
+  max-width: 320px;
 }
 
 .tooltip {

@@ -29881,7 +29881,7 @@ $(function(){
 //-------------------------PROMISE-----------------------------//
 window.onload = function() {
 
-    var url = 'dist/proxy/data-4eb13b0a76.json';
+    var url = 'dist/proxy/data.json';
 
     if (!('fetch' in window)) {
       console.log('Fetch API not found, try including the polyfill');
