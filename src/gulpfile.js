@@ -283,7 +283,7 @@ gulp.task('build', function(callback) {
   runSequence(
     'sass',
     'autoprefixer',
-    //'scripts',
+    'scripts',
     'revreplaceSW',
     'revreplaceAppjs',
     'copy-assets',
