@@ -68,7 +68,6 @@ if (cw < ch) {
 
 var MapObject = function() {
   this._init_map_object();
-  console.log(this);
 };
 
 MapObject.prototype._init_map_object = function() {
@@ -2237,7 +2236,7 @@ window.onload = function() {
       }
       return response.json();
     })
-    .then(function(data) {
+    .then(function(data) {   
       $('#preloader h2').removeClass('visually-hidden');
       var tl = new TimelineLite({
         onStart: function(){
