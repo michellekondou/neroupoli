@@ -499,9 +499,8 @@
         <button class='previous'>
           <span class="visually-hidden">Προηγούμενο</span>
           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 41 52" enable-background="new 0 0 41 52" xml:space="preserve">
-            <g id="previous-Layer_1">
-            </g>
-            <g id="previous-activity_context">
+            <g></g>
+            <g>
             <path d="M0,51.06c1.245,1.253,3.262,1.253,4.506,0l35.561-22.797c1.244-1.251,1.244-3.28,0-4.529L4.507,0.938
             c-1.245-1.252-3.262-1.25-4.507,0V51.06z"></path>
             </g>
@@ -510,9 +509,8 @@
         <button class='next'>
           <span class="visually-hidden">Επόμενο</span>
           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 41 52" enable-background="new 0 0 41 52" xml:space="preserve">
-            <g id="next-Layer_1">
-            </g>
-            <g id="next-activity_context">
+            <g></g>
+            <g>
             <path d="M0,51.06c1.245,1.253,3.262,1.253,4.506,0l35.561-22.797c1.244-1.251,1.244-3.28,0-4.529L4.507,0.938
             c-1.245-1.252-3.262-1.25-4.507,0V51.06z"></path>
             </g>

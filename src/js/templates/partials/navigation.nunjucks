@@ -172,6 +172,7 @@
       <span></span>
       <span></span>
       <span></span>
+      <span class="visually-hidden">Λίστα σημείων στον χάρτη της νερούπολης</span>
     </button>
     <button class="info floating-element floating-element--button bottom left visually-hidden" id="info-icon">
       <i class="icon info"></i>

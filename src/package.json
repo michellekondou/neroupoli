@@ -19,6 +19,8 @@
     "critical": "^0.9.1",
     "d3": "^4.11.0",
     "d3-tip": "^0.7.1",
+    "electron-fetch": "^1.1.0",
+    "electron-json-storage": "^4.0.2",
     "es6-promise": "^4.1.1",
     "fetch-ie8": "^1.5.0",
     "fetch-polyfill": "^0.8.2",

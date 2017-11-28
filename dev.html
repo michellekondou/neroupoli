@@ -1,9 +1,6 @@
 <!DOCTYPE html><html lang="en"><head>
     <meta charset="utf-8">
-    <meta http-equiv="Cache-control" content="no-cache">
-    <meta http-equiv="Expires" content="-1">
     <meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5">
-    <link rel="preload" as="font" type="font/woff2" href="dist/fonts/cfastystd-book-webfont.woff2">
     <link rel="stylesheet" type="text/css" href="src/compiled/css/app.css">
     <link rel="manifest" href="/manifest.json"> 
     <meta name="theme-color" content="#00b9f2">
@@ -1053,7 +1050,7 @@
 </em>Πώς σχετίζεται η φράση αυτή με την λεκάνη απορροής;</p>
 <p>Γράψε μας την άποψή σου σε&nbsp;μια σύντομη παράγραφο (έως 100 λέξεις).</p>
 </legend>
-            <textarea id="polemos-gia-to-nero-short-text-basin" name="polemos-gia-to-nero-short-text" rows="10" cols="50" wrap="physical" placeholder="Γράψε κάτι εδώ!"></textarea>
+            <textarea id="polemos-gia-to-nero-short-text-basin" name="polemos-gia-to-nero-short-text" rows="10" cols="50" wrap="hard" placeholder="Γράψε κάτι εδώ!"></textarea>
           </fieldset>
         </form>
         <button id="gform-basin-short_text-4--submit" class="button submit submit-button">
@@ -2418,7 +2415,7 @@
       <form id="gform-city-short_text-4" class="short-text feedback" action="" method="POST">
         <fieldset>
           <legend>Γράψε μας (Α) κάτι που σου φάνηκε ενδιαφέρον, και (Β) κάτι που σου φάνηκε δύσκολο σε αυτή τη δραστηριότητα.</legend>
-          <textarea id="-city" name="" rows="10" cols="50" wrap="physical" placeholder="Γράψε κάτι εδώ!"></textarea>
+          <textarea id="-city" name="" rows="10" cols="50" wrap="hard" placeholder="Γράψε κάτι εδώ!"></textarea>
         </fieldset>
       </form>
       <button id="gform-city-short_text-4--submit" class="button submit submit-button">
@@ -3909,7 +3906,7 @@
           <fieldset>
             <legend><p>Υπάρχει «γκρίζο» νερό στο σχολείο σου; Από ποια χρήση παράγεται; Έχεις κάποια ιδέα πώς θα μπορούσε να αξιοποιηθεί αυτό το νερό; Θα χαρούμε να διαβάσουμε την ιδέα σου&nbsp;και ακόμη περισσότερο αν τη μεταφέρεις στους δασκάλους σου!</p>
 </legend>
-            <textarea id="-building" name="" rows="10" cols="50" wrap="physical" placeholder="Γράψε κάτι εδώ!"></textarea>
+            <textarea id="-building" name="" rows="10" cols="50" wrap="hard" placeholder="Γράψε κάτι εδώ!"></textarea>
           </fieldset>
         </form>
         <button id="gform-building-short_text-4--submit" class="button submit submit-button">
@@ -11288,13 +11285,11 @@
 
 
 
-       <script src="src/node_modules/babel-polyfill/dist/polyfill.min.js"></script>
-        <script src="src/node_modules/promise-polyfill/promise.min.js"></script>
-        <script src="src/js/lib/polyfills.js"></script>
+<script src="src/node_modules/babel-polyfill/dist/polyfill.min.js"></script>
+<script src="src/node_modules/promise-polyfill/promise.min.js"></script>
+<script src="src/js/lib/polyfills.js"></script>
 <script src="src/js/lazy-load.js"></script> 
 <script src="src/js/jquery.min.js"></script>
-
-<!-- <script src="src/node_modules/jquery-mousewheel/jquery.mousewheel.js"></script> -->
 <script src="src/node_modules/jquery-cycle/index.js"></script> 
 <script src="src/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="src/node_modules/nunjucks/browser/nunjucks.js"></script> 

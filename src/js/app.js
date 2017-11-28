@@ -1,3 +1,4 @@
+
 window.USER_IS_TOUCHING = false;
 
 window.addEventListener('touchstart', function onFirstTouch() {
@@ -91,14 +92,16 @@ var MapView = function(posts, info) {
 MapView.prototype._init_map_elements = function() {
   var _this = this;
   var parent = this;
-  this.map = document.getElementById("map");
-  //get the SVG document inside the Object tag
-  this.svgDoc = this.map.contentDocument;
-  //access the svg
-  this.mapSvg = this.svgDoc.getElementById("svgmap");
-  //get svg properties
-  this.map_bcr = this.map.getBoundingClientRect();
 
+  if (document.getElementById("map")) {
+    this.map = document.getElementById("map");
+    //get the SVG document inside the Object tag
+    this.svgDoc = this.map.contentDocument;
+    //access the svg
+    this.mapSvg = this.svgDoc.getElementById("svgmap");
+    //get svg properties
+    this.map_bcr = this.map.getBoundingClientRect();
+  }
   //svg points
   var points = this.svgDoc.querySelectorAll('.point');  
   var point;
@@ -250,6 +253,7 @@ function switchIconSize(){
 switchIconSize();
 
 $(window).resize(function() {
+  location.reload();
   var icon = $('.symbol-container .icon');
   var icon_class = icon.attr('class');
   var re = / *\bsymbol\b/g;
@@ -260,18 +264,14 @@ $(window).resize(function() {
     for(var is = 0; is<icon.length;is++) {
       _is = icon[is];
       _is.className = _is.className.replace(/ *\bsymbol\b/g, " symbol-small");
-      console.log('run replace ' + ch + " <= 768");
     }
   }
   if (document.documentElement.clientHeight > 768) {
     for(is = 0; is<icon.length;is++) {
       _is = icon[is];
       _is.className = _is.className.replace(/ *\bsymbol-small\b/g, " symbol");
-      console.log('run replace ' + ch + " > 768");
     }
   }
-
-  console.log('window resized', document.documentElement.clientHeight);
 
 });
 
@@ -373,7 +373,10 @@ myTabs.init();
 MapView.prototype._render_map = function() {
   var _this = this; 
   /* Select the svg using d3 */
-  $map = document.getElementById("map");
+  if (document.getElementById("map")) {
+    $map = document.getElementById("map");
+  }
+  
     //get the SVG document inside the Object tag
   var svgDoc = $map.contentDocument;
     //access the svg
@@ -407,7 +410,6 @@ MapView.prototype._render_map = function() {
     if (d3.event.sourceEvent !== null) {
          
       if(d3.event.sourceEvent.ctrlKey) {
-        console.log('Pressed CTRL', d3.event.sourceEvent);
         return;
       }
       //detects zoom-in
@@ -518,7 +520,6 @@ MapView.prototype._render_map = function() {
   });
 
   var zoomLevel = svg.call(zoom); 
-  //console.log(zoomLevel._groups[0][0].__zoom.k); 
   return zoomLevel._groups[0][0].__zoom.k;
   
 };
@@ -556,7 +557,6 @@ MapViewItem.prototype._init_map_elements = function(){
 ======================================================================== */
 MapViewItem.prototype.page_open = function () {
   if(this.page.open) { return; }
-  //console.log(this, this.page.modal, this.page.modal[0].children[0]);
   this.page.open = true;
   $(this.page.modal).addClass('overlay-open');
   $(this.page.modal).find('.page').addClass('page-open');
@@ -589,7 +589,6 @@ MapViewItem.prototype.page_open = function () {
     pager: cards_navigation,
     nowrap: 1,
     end: function() {
-      console.log('end of slideshow');
     },
     pagerAnchorBuilder: function(idx, slide) { 
       var thisPager = '#' + parent.page.modal[0].id + ' .progress-bar div:eq(' + idx + ')';
@@ -602,7 +601,6 @@ MapViewItem.prototype.page_open = function () {
     fit: true 
   });
 
-  console.log('checking scrolltop: ', $(cards).position().top);
   //save initial top position
   var card_top = $(cards).position().top;
 
@@ -628,7 +626,10 @@ MapViewItem.prototype.page_open = function () {
 // get all data in form and return object
 function getFormData(form) {
   var form_id = form.attr('id');
-  var elements = document.getElementById(form_id).elements; // all form elements
+  if (document.getElementById(form_id).elements) {
+    var elements = document.getElementById(form_id).elements; // all form elements
+  }
+  
   var fields = Object.keys(elements).map(function(k) {
     if(elements[k].name !== undefined) {
       return elements[k].name;
@@ -661,7 +662,6 @@ $(".checkbox-prompt").removeClass('visible');
 var current_page = $(this.page.modal);
 var likert_input = current_page.find('.likert input');
 var submit = current_page.find('.submit');
-console.log('a vhagesldg');
 // $(likert_input).on('change', function(){
 //     $('.loader.quiz').css('display','block');        
 //     var form = $(this).closest("form");
@@ -697,16 +697,13 @@ $(submit).on('click', function() {
     var data;
     var url;
 
-   console.log(form_id, selectedOption);
     if (selectedOption.length >= 1) {
     //for all inputs
     for (var j=0;j<option.length;j++) {
       this_option = option[j];
-      //console.log(this_option);
       if ( $(this_option).prop('checked') == true ) {
         $('#' + form_id + '--submit .loader').css('display','block');
         $('#' + form_id + '--form-error').html('');
-        console.log($('#' + form_id + ' .checkbox-r')); 
         for(var i=0;i<forms.length;i++){
           this_form = forms[i];
           if ( $(this_form).attr("id") === form_id ) {     
@@ -732,7 +729,6 @@ $(submit).on('click', function() {
                 $(form).addClass('submitted');
                 //display a thank you message
                 $('#' + form_id + "--thankyou_message").css('display','block');
-                console.log(selectedOption);
                 //display an input message?
                 $('#' + form_id + " .checkbox-prompt").addClass('visible');
                 //add class to checked input
@@ -740,7 +736,7 @@ $(submit).on('click', function() {
                 //radio input: check correct answers to display appropriate msg
               },
               error: function(error){
-                console.log(error);
+                console.error(error);
               }
             });//end ajax  
           }//end if
@@ -750,13 +746,11 @@ $(submit).on('click', function() {
     } else if (selectedOption.length == 0 && !forms.hasClass('short-text') ) {
         $('#' + form_id + '--form-error').html('Παρακαλούμε διάλεξε πρώτα μια απάντηση!');
         $('#' + form_id + '--submit').addClass('disabled');
-        console.log('please choose an option to submit the form');
     }
 
     $('#'+form_id+ '.short-text textarea').bind('input propertychange', function() {
       $('#' + form_id + '--submit').removeClass('disabled');
       $('#' + form_id + '--form-error').html('');
-      console.log('writing');
     });
     if(forms.hasClass('short-text')){
       if ( !$.trim( $('#'+form_id+ '.short-text textarea').val()) ) {
@@ -785,7 +779,6 @@ $(submit).on('click', function() {
                 $(forms).addClass('submitted');
                 //display a thank you message
                 $('#' + form_id + "--thankyou_message").css('display','block');
-                console.log(selectedOption);
                 //display an input message?
                 $('#' + form_id + " .checkbox-prompt").addClass('visible');
                 //add class to checked input
@@ -793,7 +786,7 @@ $(submit).on('click', function() {
                 //radio input: check correct answers to display appropriate msg
               },
               error: function(error){
-                console.log(error);
+                console.error(error);
               }
             });//end ajax 
       }
@@ -854,7 +847,6 @@ function resetForm(){
       url: url,
       data: form.serialize(),
       success: function(event) {
-        console.log('success');
         form.removeClass('submitted');
         form.find('input:text, input:password, input:file, select, textarea').val('');
         form.find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected').removeAttr('disabled');
@@ -865,7 +857,6 @@ function resetForm(){
         $('#'+form_id+'--thankyou_message').css('display','none');
         $('#'+form_id+'--thankyou_message .check-answer').removeClass('correct wrong');
         $('#' + form_id + '--reset .loader').css('display','none'); 
-        console.log('#'+form_id+'--submit');
       }  
     });
 });
@@ -875,12 +866,9 @@ resetForm();
 
 //TODO Make this specific - narrow down
 $('input').on('change', function(){
-    console.log('input selected', this);
     var submit_id = $(this).attr("id");
     $('.form-error').html('');
     $('.submit').removeClass('disabled');
-    // $(this).next('label').find('.checkbox-r').removeClass('visually-hidden');
-    // console.log($(this).next('label'));
 });
 
 /*------------------------------------*\
@@ -1020,9 +1008,7 @@ function reOrder() {
     TweenLite.to(sort_item[m], 0.5, {
       y: (rightOrder[0].textContent * rowSize) - rowSize 
     });
-    console.log( (rightOrder[0].textContent * rowSize) - rowSize );
   }
-  console.log(sort_item);
 }
 
 var sortable_quiz = $(this.page.modal).find('.quiz-sortable').attr('id',this.page.point+'-quiz-sortable');
@@ -1175,7 +1161,6 @@ for(var d = 0;d<hotspot_quiz.length;d++){
             $(this.target).removeClass("wrong highlight-wrong correct highlight-correct");
             $(this.target).addClass("wrong");
           }
-          console.log($(this.target).attr('data-identifier'));
           if ( $(current_hotspot_target).hasClass("available") ) { 
             //if there isn't one there already
             //give the target an attribute of data-hit to mark that there has been a match
@@ -1222,7 +1207,6 @@ for(var d = 0;d<hotspot_quiz.length;d++){
         //hotspot_check.addClass('visually-hidden');
         $(this.target).removeClass("showOver correct wrong highlight-correct highlight-wrong positioned ripple");
         
-        console.log(positioned, positioned.length);
         if (positioned.length === 0) {
           //only show the check hotspot button if at least an item has been dragged
           hotspot_check.addClass('visually-hidden');
@@ -1241,7 +1225,6 @@ for(var d = 0;d<hotspot_quiz.length;d++){
 
   //check right answers
   hotspot_check.on('click', function(){
-    console.log(this);
     var hotspot_check_id = $(this).attr('id');
     var hotspot_id = hotspot_check_id.substring(0, hotspot_check_id.indexOf('--'));
     var hotspot_labels = $('#'+hotspot_id+' .right-positions');
@@ -1493,7 +1476,6 @@ for(var d = 0;d<dnd_quiz.length;d++){
       dnd_targets = dnd_target_container.find('.drag-handle-target');
       dnd_available_targets = dnd_target_container.find('.available');
       positioned = dnd_target_container.find('.positioned');
-      console.log(positioned, positioned.length);
       for(var lp = 0;lp<dnd_targets.length;lp++){
         _target = dnd_targets[lp];
         _parent = $(_target).parent();
@@ -1524,11 +1506,9 @@ for(var d = 0;d<dnd_quiz.length;d++){
       for(var i=0; i<dnd_targets.length;i++){
         _target = dnd_targets[i];
         if (this.hitTest(_target, dnd_overlapThreshold)) {
-          console.log('still inside hit target');
           //if draggable in target range highlight it and animate it
           $(_target).addClass("showOver ripple");
          } else {
-          console.log('out of hit target');
           if ($(_target).attr('data-hit') === '') {
             $(_target).removeClass("showOver ripple");
           } else if ( $(_target).attr('data-hit') === $(this.target).attr('data-identifier') ) {
@@ -1609,11 +1589,9 @@ for(var d = 0;d<dnd_quiz.length;d++){
 
       }
       if(!snapMade){
-        console.log('no snaps', positioned.length);
 
         $(this.target).removeClass("showOver correct wrong highlight-correct highlight-wrong positioned ripple");
         positioned = dnd_target_container.find('.positioned');
-        console.log(positioned.length);
         if (positioned.length === 0) {
           //only show the check hotspot button if at least an item has been dragged
           dnd_check.addClass('visually-hidden');
@@ -1804,7 +1782,10 @@ MapViewItem.prototype.term_popup = function (term_class, text_attribute) {
     //doing this mainly for IE11 
     if (element.getAttribute('data-title')) {
       this.term_title = element.getAttribute('data-title');
-      this.term_description = element.getAttribute('data-description') || element.getAttribute('data-html'); 
+     
+    }
+    if (element.getAttribute('data-description') || element.getAttribute('data-html')) {
+      this.term_description = element.getAttribute('data-description') || element.getAttribute('data-html');
     }
 
     this.term_popup = $('<article />', {
@@ -1886,15 +1867,12 @@ MapViewItem.prototype.term_popup = function (term_class, text_attribute) {
 MapViewItem.prototype.page_close = function () {
   var parent = this;
   if(!this.page.open) { 
-    console.log('page closed already cannot reclose');
     return; 
   }
-  console.log('page_close fired', parent);
 
   var inner_page = $(this.page.modal).find('.page');
   function hideOverlay() {
     $(parent.page.modal).removeClass('overlay-open'); 
-     console.log('page_close fired', parent);
   }
 
   function hidePage() {
@@ -1903,11 +1881,7 @@ MapViewItem.prototype.page_close = function () {
   }
 
   //TODO - need to find 
-  var tl = new TimelineLite({
-    onStart: function(){
-      console.log('start close page');
-    }
-  });
+  var tl = new TimelineLite();
  
   tl.add(hidePage);
   tl.addLabel("hide-overlay", 1);
@@ -1966,7 +1940,8 @@ MapViewItem.prototype._init_points = function(points){
   this.point_height = this.rect.height; 
 
   /* Select the svg using d3 */
-  var $map    = document.getElementById("map"),
+  if(document.getElementById("map")) {
+    var $map    = document.getElementById("map"),
     //get the SVG document inside the Object tag
     svgDoc  = $map.contentDocument,
     //access the svg
@@ -1976,7 +1951,8 @@ MapViewItem.prototype._init_points = function(points){
     width = +svg.attr("width"),
     height = +svg.attr("height"),
     centered;
-
+  }
+  
   var view = d3.select(viewEl)
     .attr("class", "view")
     .attr("x", 0.5)
@@ -1993,7 +1969,6 @@ MapViewItem.prototype._init_points = function(points){
       if (d3.event.sourceEvent !== null) {
            
         if(d3.event.sourceEvent.ctrlKey) {
-          console.log('Pressed CTRL', d3.event.sourceEvent);
           return;
         }
         if (d3.event.sourceEvent.deltaY < 0) {
@@ -2077,7 +2052,6 @@ MapViewItem.prototype._init_points = function(points){
         modalWidth = Math.floor( parent.tip.modal[0].clientWidth),
         modalHeight = Math.floor( parent.tip.modal[0].clientHeight  );
         modalTitle = parent.tip.modal[0].children[1]; 
-        console.log(parent.tip.modal[0], parent.tip.modal[0].clientWidth);
     //only show the tooltip if popup not open 
     if(parent.pop.open === false) {
       //tooltip top position
@@ -2088,7 +2062,6 @@ MapViewItem.prototype._init_points = function(points){
       } 
       //tooltip left position
       var pos_left = Math.round($(this).find('#'+parent.point.id+'-pin').offset().left) + parent.map_bcr.left;
-      console.log(Math.round($(this).find('#'+parent.point.id+'-pin').offset().left), pos_left, modalWidth);
       
       parent.tip.style({
         //position the tooltip on top and middle of point
@@ -2115,10 +2088,6 @@ MapViewItem.prototype._init_points = function(points){
     
     svg.transition().duration(150).call(zoom.transform, t);
     } else if (zoomLevel === 10 ) {
-      //if panning
-       // if (d3.event.sourceEvent.movementX != 0 ||  d3.event.sourceEvent.movementY != 0) {
-       //  console.log('panning');
-       // }
       //show the popup
       parent.pop.open = true;
       $(parent.pop.modal).addClass('popup-open');
@@ -2223,7 +2192,7 @@ window.onload = function() {
     var url = 'dist/proxy/data.json';
 
     if (!('fetch' in window)) {
-      console.log('Fetch API not found, try including the polyfill');
+      console.log('Fetch API not found');
       return;
     }
 
@@ -2246,7 +2215,7 @@ window.onload = function() {
         onComplete: function(){
           $('#preloader').addClass('visually-hidden');
           $('.logo, .floating-element--button, .map-controls, .info-panel').removeClass('visually-hidden');
-          console.log('complete');
+          console.log('content loaded');
         }
       });
 
@@ -2278,11 +2247,10 @@ window.onload = function() {
         }
 
         var mapView = new MapView(posts, info);
-        console.log(mapView);
     })
     .catch(function(error) {
         // run code if the server returns any errors
-      console.log('Looks like there was a problem: \n', error);
+      console.error('Looks like there was a problem: \n', error);
       this.errorMsg = $('<div/>', {
         'class': 'error-message',
         'html': '<h2>Λυπούμαστε υπήρξε κάποιο σφάλμα!</h2> <p>Δοκιμάστε να επαναφορτώσετε την εφαρμογή ή προσπαθήστε ξανά αργότερα.</p>'
