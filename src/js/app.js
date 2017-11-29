@@ -662,25 +662,6 @@ $(".checkbox-prompt").removeClass('visible');
 var current_page = $(this.page.modal);
 var likert_input = current_page.find('.likert input');
 var submit = current_page.find('.submit');
-// $(likert_input).on('change', function(){
-//     $('.loader.quiz').css('display','block');        
-//     var form = $(this).closest("form");
-//     var data = getFormData(form);
-//     console.log(form.attr('id'));
-//     var url = form.attr('action');
-//     $.ajax({
-//       type: "POST",
-//       url: url,
-//       data: data,
-//       success: function(data){
-//         $('.loader').css('display','none'); 
-//         $(form).find('input').attr("disabled", true);  
-//         $(form).addClass('submitted');
-//         $(form).siblings(".thankyou_message").css('display','block');
-//         return; 
-//       }
-//     });            
-// });
 
 $(submit).on('click', function() {
     var submit_id = $(this).attr("id");   
@@ -703,7 +684,7 @@ $(submit).on('click', function() {
       this_option = option[j];
 
       if ( $(this_option).prop('checked') == true ) {
-        console.log('beep', $(this_option).val());
+        console.log('form response: ', $(this_option).val());
         $('#' + form_id + '--submit .loader').css('display','block');
         $('#' + form_id + '--form-error').html('');
         for(var i=0;i<forms.length;i++){
