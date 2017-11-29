@@ -701,7 +701,9 @@ $(submit).on('click', function() {
     //for all inputs
     for (var j=0;j<option.length;j++) {
       this_option = option[j];
+
       if ( $(this_option).prop('checked') == true ) {
+        console.log('beep', $(this_option).val());
         $('#' + form_id + '--submit .loader').css('display','block');
         $('#' + form_id + '--form-error').html('');
         for(var i=0;i<forms.length;i++){
