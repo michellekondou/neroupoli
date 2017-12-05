@@ -31,13 +31,6 @@ window.addEventListener('touchstart', function onFirstTouch() {
 
 // add details to debug result
 // document.getElementById('details').innerHTML = window.navigator.userAgent;
-if ('requestIdleCallback' in window) {
-  // Use requestIdleCallback to schedule work.
-  console.log('requestIdleCallback' in window);
-} else {
-  // Do what you’d do today.
-
-}
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
@@ -563,7 +556,6 @@ MapViewItem.prototype._init_map_elements = function(){
 ======= PUBLIC FUNCTIONS ==================================================
 ======================================================================== */
 MapViewItem.prototype.page_open = function () {
- console.log('called page open');
   if(this.page.open) { return; }
   this.page.open = true;
   $(this.page.modal).addClass('overlay-open');
@@ -572,7 +564,9 @@ MapViewItem.prototype.page_open = function () {
   var parent = this;
   //remove transform style generated after closing the page
   $(parent.page.modal).css("transform","");
-
+  // TweenLite.set(parent.page.modal, {
+  //   x: 0
+  // });
   $(this.page.modal).find('p:empty').remove();
   $(this.page.modal).find('em:empty').remove();
   // this.pop.modal.open = false;
@@ -625,15 +619,9 @@ MapViewItem.prototype.page_open = function () {
     next.parentNode.scrollIntoView();
   }
 
-  /*------------------------------------*\
-   # Glossary function
-   * create term popups
-  \*------------------------------------*/
-  parent.term_popup('.glossary-term', 'data-html');
-
-// /*------------------------------------*\
-//   #FORMS GENERAL
-// \*------------------------------------*/
+/*------------------------------------*\
+  #FORMS GENERAL
+\*------------------------------------*/
 //form handler TODO put this stuff in its own function
 // get all data in form and return object
 function getFormData(form) {
@@ -1755,9 +1743,14 @@ function reset_dnd() {
       });
   }
 }
-// /*------------------------------------*\
-//   # Drag and Drop Quiz - END
-// \*------------------------------------*/
+/*------------------------------------*\
+  # Drag and Drop Quiz - END
+\*------------------------------------*/
+/*------------------------------------*\
+  # Glossary function
+\*------------------------------------*/
+  //parent.glossary();
+parent.term_popup('.glossary-term', 'data-html');
 
 //end open_page function
 };

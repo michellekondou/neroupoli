@@ -5,6 +5,8 @@
 {% block content %}
 {% include "partials/navigation.nunjucks" %}
 {% for point in post_content %}
+
+{% if point.slug === 'basin' %}
 <!--tooltip-->
 <div class="map-popover tooltip top" id="{{ point.slug }}-tooltip">
   <h3 class="map-popover-title">{{ point.acf.card_title }}</h3>
@@ -522,7 +524,7 @@
 
   </div><!--end page slide-->
 </div><!--end overlay-->
-
+{% endif %}
 {% endfor %}
 
 {% for info in info_content %}
@@ -553,6 +555,7 @@
       </div>
   </div>
 </div>
+
 {% endfor %}
 
 {% endblock %}

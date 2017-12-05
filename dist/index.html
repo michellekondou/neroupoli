@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-110660645-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-110660645-1');
+    </script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta charset="utf-8">
     <meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5">
     <link rel="stylesheet" type="text/css" href="dist/assets/app.css">
     <link rel="manifest" href="/manifest.json"> 
     <meta name="theme-color" content="#00b9f2"/>
-
     <title>To νερό στην πόλη</title>
 </head>
 <body>
@@ -12981,16 +12989,6 @@
 
 
 
-<script>
-    if (typeof module === 'object') {window.module = module; module = undefined;}
-</script>
 <script src="dist/assets/app.js"></script>
-<script>
-    if (window.module) module = window.module;
-</script> 
-<script>
-const webFrame = require('electron').webFrame;
-webFrame.registerURLSchemeAsPrivileged('file', { bypassCSP: true });
-</script>
 </body>
 </html>
