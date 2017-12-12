@@ -187,13 +187,13 @@
   z-index: 10;
   box-shadow: 0 0 12px 0 rgba(0,0,0,0.1), 0 10px 30px 0 rgba(0,0,0,0.2);
   overflow: hidden;
-  transform: translate3d(105%, 0, 0);
+  transform: translate3d(105%, 0, 0) rotate(0.001deg); /* using rotate for firefox */
   transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
   z-index: 2;
 }
 
 .sidebar-nav--visible {
-  transform: translate3d(0%, 0, 0); 
+  transform: translate3d(0%, 0, 0) rotate(0.001deg); 
   transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1); 
 }
 
@@ -236,7 +236,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  transform: translate3d(-100%, 0, 0);   
+  transform: translate3d(-100%, 0, 0) rotate(0.001deg);   
   transition: all 0.5s cubic-bezier(.18,.44,.28,.93); 
 }
 
@@ -251,7 +251,7 @@
   z-index: 4;
   width: 100vw;
   height: 100vh;
-  transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0) rotate(0.001deg);
   transition: all 0.6s cubic-bezier(.27,.01,.31,.95);
 }
 

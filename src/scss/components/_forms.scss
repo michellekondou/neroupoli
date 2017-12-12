@@ -90,15 +90,6 @@ textarea {
 }
  
 textarea {
-  // -webkit-appearance: textarea;
-  // background-color: white;
-  // -webkit-rtl-ordering: logical;
-  // user-select: text;
-  // flex-direction: column;
-  // resize: auto;
-  // cursor: auto;
-  // white-space: pre-wrap;
-  // word-wrap: break-word;
   border-width: 1px;
   border-style: solid;
   border-color: $text;
@@ -118,6 +109,12 @@ input + label span {
   i {
     position: absolute;
     top: -2px;
+  }
+  .checkbox-r {
+    left: 5px;
+  }
+  .checkbox-w-thick {
+    left: -2px;
   }
 }
 
@@ -163,15 +160,6 @@ input[type="radio"] + label span {
   background-color: $grey_light;
 }
 
-input[type="radio"] + label span,
-input[type="radio"]:checked + label span {
-  -webkit-transition: background-color 0.4s linear;
-  -o-transition: background-color 0.4s linear;
-  -moz-transition: background-color 0.4s linear;
-  transition: background-color 0.4s linear;
-}
-
-
 /*radio-buttons: likert scale*/
 .likert-container {
   display: flex;
@@ -193,7 +181,7 @@ form .likert input {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-68%, -100%);
+  transform: translate(-68%, -100%) rotate(0.001deg);
   z-index: 10;
 }
 
@@ -235,14 +223,6 @@ input[type="checkbox"] + label span {
   background-color: $grey_light;
 }
 
-input[type="checkbox"] + label span,
-input[type="checkbox"]:checked + label span {
-  -webkit-transition: background-color 0.4s linear;
-  -o-transition: background-color 0.4s linear;
-  -moz-transition: background-color 0.4s linear;
-  transition: background-color 0.4s linear;
-}
-
 .checkbox-prompt {
   display: none;
   background-color: $grey_light;
@@ -261,7 +241,7 @@ input[type="checkbox"]:checked + label span {
 input:checked + label span {
   background-color: $accent;
   background-repeat: no-repeat;
-  background-position: 3px 5px;
+  background-position: 3px 0px;
   .checkbox-r {
     opacity: 1;
   }

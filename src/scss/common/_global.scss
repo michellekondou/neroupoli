@@ -174,7 +174,7 @@ svg {
     position: absolute;
     top: 42%;
     left: 50%;
-    transform: translate(-50%, -42%);
+    transform: translate(-50%, -42%) rotate(0.001deg);
   }
   svg {
     position: absolute;
@@ -227,7 +227,7 @@ $stroke_percentage: $circumference - (($percent / 100) * $circumference);
   min-height: 10vh;
   left: 50%;
   top: 35%;
-  transform: translate(-50%, -35%);
+  transform: translate(-50%, -35%) rotate(0.001deg);
   background-color: #fff;
   text-align: center;
   vertical-align: middle;

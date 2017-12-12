@@ -878,7 +878,8 @@ var total = sortables.length;
 if (container) {
   TweenLite.to(container, 0.5, {  
     autoAlpha: 1,
-    height: total*60+20
+    height: total*60+20,
+    rotation:0.01//firefox efing bug
   });
 }
 
@@ -924,7 +925,8 @@ function Sortable(element, index) {
     boxShadow: "rgba(0,0,0,0.2) 0px 16px 32px 0px",
     force3D: true,
     scale: 1,
-    paused: true
+    paused: true,
+    rotation:0.01//firefox efing bug
   });
 
   var dragger = new Draggable(element, {
@@ -944,7 +946,8 @@ function Sortable(element, index) {
   };
 
   TweenLite.set(element, {
-    y: index * rowSize
+    y: index * rowSize,
+    rotation:0.01//firefox efing bug
   });
 
   function setIndex(index) {
@@ -981,7 +984,8 @@ function Sortable(element, index) {
 
   function layout() {
     TweenLite.to(element, 0.3, {
-      y: sortable.index * rowSize
+      y: sortable.index * rowSize,
+      rotation:0.01//firefox efing bug
     });
   }
  
@@ -1001,7 +1005,8 @@ function reOrder() {
     // TweenLite.set(
     // );
     TweenLite.to(sort_item[m], 0.5, {
-      y: (rightOrder[0].textContent * rowSize) - rowSize 
+      y: (rightOrder[0].textContent * rowSize) - rowSize,
+      rotation:0.01//firefox efing bug 
     });
   }
 }
@@ -1170,7 +1175,8 @@ for(var d = 0;d<hotspot_quiz.length;d++){
             })
             .to(this.target, 0.1, {
               x: this.minX + parseInt($(current_hotspot_target).attr('data_x')),
-              y: parseInt( $(current_hotspot_target).attr('data_y') ) + this.minY
+              y: parseInt( $(current_hotspot_target).attr('data_y') ) + this.minY,
+              rotation:0.01//firefox efing bug
 
             });
           } else {
@@ -1191,7 +1197,8 @@ for(var d = 0;d<hotspot_quiz.length;d++){
             tl_return
             .to(this.target, 0.1, { 
               x: 0, 
-              y: 0
+              y: 0,
+              rotation:0.01//firefox efing bug
             });
           }
           //if there is a current target (i.e. a match has been made, don't allow it to be a target as long as its populated with another draggable item)
@@ -1210,8 +1217,9 @@ for(var d = 0;d<hotspot_quiz.length;d++){
         $(this.target).attr("data-target",'');
         TweenLite.to(this.target, 0.2, {
           css: {
-             x: 0, 
-            y: 0
+            x: 0, 
+            y: 0,
+            rotation:0.01//firefox efing bug
           }
         });
       }
@@ -1267,7 +1275,8 @@ for(var d = 0;d<hotspot_quiz.length;d++){
     tt.set(draggable_item, {
       display: 'none',
       x: 0,
-      y: 0
+      y: 0,
+      rotation:0.01//firefox efing bug
     })
 
     var tl = new TimelineLite({
@@ -1306,7 +1315,8 @@ for(var d = 0;d<hotspot_quiz.length;d++){
     .set(draggable_item,{
       opacity: 0,
       x: 0,
-      y: 0
+      y: 0,
+      rotation:0.01//firefox efing bug
     });
     setTimeout(function(){
       hotspot_clear.addClass('visually-hidden');
@@ -1345,7 +1355,8 @@ function reset_hotspot() {
       tl
       .set(_draggable_item,{
         x: 0,
-        y: 0
+        y: 0,
+        rotation:0.01//firefox efing bug
       });
       setTimeout(function(){
         _hotspot_clear.addClass('visually-hidden');
@@ -1555,7 +1566,8 @@ for(var d = 0;d<dnd_quiz.length;d++){
             })
             .to(this.target, 0.5, {
               x:  -(parseInt( $(current_dnd_target).attr('data_x')) + this.maxX + 46),//
-              y: distance_top // 36 + (- 6) data_y
+              y: distance_top, // 36 + (- 6) data_y
+              rotation:0.01//firefox efing bug
             });
           } else {
             //if the position isn't available (does not have an available class) send it back to its starting position)
@@ -1575,7 +1587,8 @@ for(var d = 0;d<dnd_quiz.length;d++){
             tl_return
             .to(this.target, 0.1, { 
               x: 0, 
-              y: 0
+              y: 0,
+              rotation:0.01//firefox efing bug
             });
           }
           //if there is a current target (i.e. a match has been made, don't allow it to be a target as long as its populated with another draggable item)
@@ -1597,8 +1610,9 @@ for(var d = 0;d<dnd_quiz.length;d++){
         $(this.target).attr("data-target",'');
         TweenLite.to(this.target, 0.2, {
           css: {
-             x: 0, 
-            y: 0
+            x: 0, 
+            y: 0,
+            rotation:0.01//firefox efing bug
           }
         });
       }
@@ -1646,7 +1660,8 @@ for(var d = 0;d<dnd_quiz.length;d++){
     .set(draggable_item,{
       display: 'none',
       x: 0,
-      y: 0
+      y: 0,
+      rotation:0.01//firefox efing bug
     }).set(draggable_target, {
       opacity: 0
     });
@@ -1697,7 +1712,8 @@ for(var d = 0;d<dnd_quiz.length;d++){
     .set(draggable_item,{
       opacity: 0,
       x: 0,
-      y: 0
+      y: 0,
+      rotation:0.01//firefox efing bug
     });
     setTimeout(function(){
       dnd_clear.addClass('visually-hidden');
@@ -1739,7 +1755,8 @@ function reset_dnd() {
       tl
       .set(_draggable_item,{
         x: 0,
-        y: 0
+        y: 0,
+        rotation:0.01//firefox efing bug
       });
       setTimeout(function(){
         _dnd_clear.addClass('visually-hidden');

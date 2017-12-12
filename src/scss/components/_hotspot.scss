@@ -29,7 +29,8 @@
   font-size: 14px;
   line-height: 1.2;
   margin-right: 10px;
-  list-style-type: outside; //otherwise IE11 shows bullets
+  list-style-type: outside; //otherwise IE11 shows bullets WTF
+  list-style-type: none; //otherwise firefox shows numbers WTF
   padding: 12px;
 }
 
