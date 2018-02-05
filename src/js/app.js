@@ -2256,7 +2256,7 @@ window.onload = function() {
         var mapView = new MapView(posts, info);
     })
     .catch(function(error) {
-        // run code if the server returns any errors
+      // run code if the server returns any errors
       console.error('Looks like there was a problem: \n', error);
       this.errorMsg = $('<div/>', {
         'class': 'error-message',

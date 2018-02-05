@@ -90,7 +90,7 @@ gulp.task('scripts', ['bundle'], function() {
         .pipe(concat('app.js'))
         .pipe(gulp.dest(jsDest))
         .pipe(uglify().on('error', function(e){
-         console.log(e);
+          console.log(e);
         }))
         .pipe(gulp.dest(jsDest))
 })
