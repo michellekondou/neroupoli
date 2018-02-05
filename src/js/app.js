@@ -2203,7 +2203,7 @@ window.onload = function() {
       return;
     }
 
-    fetch(url) // Call the fetch function passing the url of the API as a parameter
+    fetch(url) // Call the fetch function passing the url of the API as parameter
     .then(function(response){
       if (!response.ok) {
         throw Error(response.statusText); //if the objects ok property is false it triggers the catch block
